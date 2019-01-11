@@ -1,6 +1,6 @@
 class MetaPalette {
 
-    __construct (create, elementFactory, lassoTool, palette) {
+    constructor (create, elementFactory, lassoTool, palette) {
         this.create = create;
         this.elementFactory = elementFactory;
         this.lassoTool = lassoTool;

@@ -4,7 +4,8 @@ import MetaRules from '../rules/MetaRules';
 
 
 class MetaModule {
-    __construct () {
+
+    constructor () {
         this.__init__ = [
             'metaContextPad',
             'metaPalette',

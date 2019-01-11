@@ -5,11 +5,12 @@ import MetaModule from '../modules/MetaModule';
 
 
 class Drawing {
-    __construct(id) {
+
+    constructor (id) {
         this.container = document.querySelector('#' + id);
         this.diagram = new Diagram({
             canvas: {
-                container: this.container;
+                container: this.container
             },
             modules: [
                 SelectionModule,
