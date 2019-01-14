@@ -5,15 +5,15 @@ import MetaRules from '../rules/MetaRules';
 
 class MetaModule {
 
-    constructor () {
+    constructor (plugin) {
         this.__init__ = [
             'metaContextPad',
             'metaPalette',
             'metaRules'
         ];
 
-        this.metaContextPad = new MetaContextPad();
-        this.metaPalette = new MetaPalette();
-        this.metaRules = new MetaRules();
+        this.metaContextPad = [ 'type', MetaContextPad ];
+        this.metaPalette = [ 'type', MetaPalette ];
+        this.metaRules = [ 'type', MetaRules ];
     }
 }

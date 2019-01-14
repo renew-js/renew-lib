@@ -13,9 +13,14 @@ class Drawing {
                 container: this.container
             },
             modules: [
-                SelectionModule,
-                MetaModule,
+                SelectionModule
             ]
         });
     }
+
+    addFormalism (plugin) {
+        // TODO: Add formalism like this:
+        // this.diagram.addModule(new MetaModule(plugin));
+    }
+
 }
