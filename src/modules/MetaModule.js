@@ -3,17 +3,13 @@ import { MetaPalette } from '../palettes/MetaPalette';
 import { MetaRules } from '../rules/MetaRules';
 
 
-export default class MetaModule {
-
-    constructor (plugin) {
-        this.__init__ = [
-            'metaContextPad',
-            'metaPalette',
-            'metaRules'
-        ];
-
-        this.metaContextPad = [ 'type', MetaContextPad ];
-        this.metaPalette = [ 'type', MetaPalette ];
-        this.metaRules = [ 'type', MetaRules ];
-    }
-}
+export default  {
+    __init__: [
+        'metaContextPad',
+        'metaPalette',
+        'metaRules'
+    ],
+    metaContextPad: [ 'type', MetaContextPad ],
+    metaPalette: [ 'type', MetaPalette ],
+    metaRules: [ 'type', MetaRules ]
+};
