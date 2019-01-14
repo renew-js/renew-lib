@@ -4,6 +4,7 @@
   "description": "Graphical library for modelling web editors",
   "scripts": {
     "prebuild": "eslint src",
+    "lint": "eslint src --fix",
     "dev": "rollup -cw",
     "build": "rollup -c --environment BUILD:production"
   },
@@ -40,6 +41,16 @@
       "parser": "babel-eslint",
       "sourceType": "module"
     }
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "entry"
+        }
+      ]
+    ]
   },
   "browserslist": [
     "> 1%",
