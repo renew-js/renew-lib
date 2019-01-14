@@ -1,5 +1,5 @@
 import { MetaContextPad } from '../context-pads/MetaContextPad';
-import { MetaPalette } from '../palettes/Metapalette';
+import { MetaPalette } from '../palettes/MetaPalette';
 import { MetaRules } from '../rules/MetaRules';
 
 
