@@ -8,7 +8,7 @@ export default {
     input: 'src/main.js',
     output: {
         file: 'dist/bundle.js',
-        format: 'cjs',
+        format: 'umd',
     },
     plugins: [
         resolve({ customResolveOptions: { moduleDirectory: 'node_modules' } }),
