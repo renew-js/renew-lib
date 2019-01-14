@@ -1,4 +1,4 @@
-class MetaContextPad {
+export class MetaContextPad {
 
     constructor (connect, contextPad, modeling) {
         this.connect = connect;

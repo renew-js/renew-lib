@@ -1,9 +1,9 @@
-import MetaContextPad from '../context-pads/MetaContextPad';
-import MetaPalette from '../palettes/Metapalette';
-import MetaRules from '../rules/MetaRules';
+import { MetaContextPad } from '../context-pads/MetaContextPad';
+import { MetaPalette } from '../palettes/Metapalette';
+import { MetaRules } from '../rules/MetaRules';
 
 
-class MetaModule {
+export default class MetaModule {
 
     constructor (plugin) {
         this.__init__ = [

@@ -1,4 +1,4 @@
-class MetaPalette {
+export class MetaPalette {
 
     constructor (create, elementFactory, lassoTool, palette) {
         this.create = create;
