@@ -1,7 +1,7 @@
 import Diagram from 'diagram-js';
 
 import SelectionModule from 'diagram-js/lib/features/selection';
-import MetaModule from '../modules/MetaModule';
+import MetaModule from '../features/meta-formalism/MetaModule';
 
 
 /**
@@ -25,6 +25,9 @@ export default class Drawing {
         this.diagram = new Diagram(this.options);
     }
 
+    /**
+     * @param {object} plugin
+     */
     addFormalism (plugin) {
         this.diagram.get('metaContextPad').addFormalism(plugin);
         this.diagram.get('metaPalette').addFormalism(plugin);
