@@ -1,5 +1,4 @@
 export class MetaContextPad {
-
     constructor (connect, contextPad, modeling) {
         this.connect = connect;
         this.modeling = modeling;
@@ -11,4 +10,7 @@ export class MetaContextPad {
 
     }
 
+    addFormalism (plugin) {
+
+    }
 }

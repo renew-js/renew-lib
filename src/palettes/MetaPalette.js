@@ -5,12 +5,14 @@ export class MetaPalette {
         this.elementFactory = elementFactory;
         this.lassoTool = lassoTool;
         this.palette = palette;
-
-        this.palette.registerProvider(this);
     }
 
     getPaletteEntries () {
 
+    }
+
+    addFormalism (plugin) {
+        this.palette.registerProvider(this);
     }
 
 }

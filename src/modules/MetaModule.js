@@ -1,15 +1,15 @@
-import { MetaContextPad } from '../context-pads/MetaContextPad';
-import { MetaPalette } from '../palettes/MetaPalette';
-import { MetaRules } from '../rules/MetaRules';
+import {MetaContextPad} from '../context-pads/MetaContextPad';
+import {MetaPalette} from '../palettes/MetaPalette';
+import {MetaRules} from '../rules/MetaRules';
 
 
-export default  {
+export default {
     __init__: [
         'metaContextPad',
         'metaPalette',
-        'metaRules'
+        'metaRules',
     ],
-    metaContextPad: [ 'type', MetaContextPad ],
-    metaPalette: [ 'type', MetaPalette ],
-    metaRules: [ 'type', MetaRules ]
+    metaContextPad: ['type', MetaContextPad],
+    metaPalette: ['type', MetaPalette],
+    metaRules: ['type', MetaRules],
 };
