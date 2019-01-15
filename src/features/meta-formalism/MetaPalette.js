@@ -57,6 +57,7 @@ export class MetaPalette {
                         width: classifierStyle.defaultDimension.width,
                         height: classifierStyle.defaultDimension.height,
                     });
+                    this.create.start(event, shape);
                 },
             };
         });
