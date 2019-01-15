@@ -1,1 +1,1 @@
-export { default } from './src/core/Drawing';
+export {default} from './src/core/Drawing';
