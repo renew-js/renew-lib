@@ -1,6 +1,6 @@
-import {MetaContextPad} from './MetaContextPad';
-import {MetaPalette} from './MetaPalette';
-import {MetaRules} from './MetaRules';
+import { MetaContextPad } from './MetaContextPad';
+import { MetaPalette } from './MetaPalette';
+import { MetaRules } from './MetaRules';
 
 
 export default {

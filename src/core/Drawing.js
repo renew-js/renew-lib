@@ -12,7 +12,7 @@ import ContextPadModule from 'diagram-js/lib/features/context-pad';
 import ConnectModule from 'diagram-js/lib/features/connect';
 import RulesModule from 'diagram-js/lib/features/rules';
 
-import MetaModule from '../features/meta-formalism/MetaModule';
+import MetaModule from '../features/meta-formalism';
 
 
 /**
