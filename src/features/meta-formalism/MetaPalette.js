@@ -40,7 +40,7 @@ export class MetaPalette {
     parseMetaModel (metaModel) {
         metaModel.classifiers.forEach((classifier) => {
             this.metaPaletteEntries[classifier.type] = {
-                group: metaModel.model.type,
+                group: metaModel.type,
                 title: 'Create ' + classifier.type,
             };
         });
