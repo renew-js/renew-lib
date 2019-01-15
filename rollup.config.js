@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import { uglify } from 'rollup-plugin-uglify';
+import sass from 'rollup-plugin-sass';
 
 
 export default {
@@ -18,6 +19,9 @@ export default {
         json(),
         commonjs(),
         uglify(),
+        sass({
+            output: 'dist/renew-lib.css',
+        }),
     ],
     external: [],
 };
