@@ -21,7 +21,7 @@ export class BaseShapesPalette {
     getPaletteEntries () {
         return {
             'create-shape': {
-                group: 'base-shapes',
+                group: 'shapes',
                 className: 'palette-icon-create-shape',
                 title: 'Create Shape',
                 action: {
@@ -36,7 +36,7 @@ export class BaseShapesPalette {
                 },
             },
             'base-shapes-separator': {
-                group: 'base-shapes',
+                group: 'shapes',
                 separator: true,
             },
         };

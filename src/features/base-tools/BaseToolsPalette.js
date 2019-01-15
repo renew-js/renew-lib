@@ -5,11 +5,13 @@ export class BaseToolsPalette {
     /**
      * @param  {object} lassoTool
      * @param  {object} handTool
+     * @param  {object} globalConnect
      * @param  {object} palette
      */
-    constructor (lassoTool, handTool, palette) {
+    constructor (lassoTool, handTool, globalConnect, palette) {
         this.lassoTool = lassoTool;
         this.handTool = handTool;
+        this.globalConnect = globalConnect;
         this.palette = palette;
 
         palette.registerProvider(this);
@@ -21,7 +23,7 @@ export class BaseToolsPalette {
     getPaletteEntries () {
         return {
             'hand-tool': {
-                group: 'base-tools',
+                group: 'tools',
                 className: 'palette-icon-hand-tool',
                 title: 'Activate the hand tool',
                 action: {
@@ -31,7 +33,7 @@ export class BaseToolsPalette {
                 },
             },
             'lasso-tool': {
-                group: 'base-tools',
+                group: 'tools',
                 className: 'palette-icon-lasso-tool',
                 title: 'Activate Lasso Tool',
                 action: {
@@ -40,8 +42,18 @@ export class BaseToolsPalette {
                     },
                 },
             },
+            'global-connect-tool': {
+                group: 'tools',
+                className: 'palette-icon-connect-tool',
+                title: 'Activate the global connect tool',
+                action: {
+                    click: (event) => {
+                        this.globalConnect.toggle(event);
+                    },
+                },
+            },
             'base-tools-separator': {
-                group: 'base-tools',
+                group: 'tools',
                 separator: true,
             },
         };
