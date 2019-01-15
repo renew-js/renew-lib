@@ -8,9 +8,7 @@ export class MetaContextPad {
      * @param {Object} modeling
      */
     constructor (connect, contextPad, modeling) {
-        this.connect = connect;
         this.contextPad = contextPad;
-        this.modeling = modeling;
     }
 
     /**
