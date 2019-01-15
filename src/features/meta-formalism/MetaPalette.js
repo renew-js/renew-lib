@@ -52,7 +52,7 @@ export class MetaPalette {
     parseStylesheet (stylesheet) {
         stylesheet.classifierStyles.forEach((classifierStyle) => {
             this.metaPaletteEntries[classifierStyle.targetType].action = {
-                click: () => {
+                click: (event) => {
                     const shape = this.elementFactory.createShape({
                         width: classifierStyle.defaultDimension.width,
                         height: classifierStyle.defaultDimension.height,
