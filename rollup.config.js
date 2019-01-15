@@ -6,18 +6,18 @@ import { uglify } from 'rollup-plugin-uglify';
 
 
 export default {
-    input: 'src/index.js',
+    input: 'index.js',
     output: {
         file: 'dist/renew-lib.js',
-        name: 'renew-lib',
-        format: 'umd',
+        name: 'Drawing',
+        format: 'cjs',
     },
     plugins: [
         resolve({ customResolveOptions: { moduleDirectory: 'node_modules' } }),
         babel({ exclude: 'node_modules/**' }),
         json(),
         commonjs(),
-        uglify()
+        uglify(),
     ],
     external: [],
 };

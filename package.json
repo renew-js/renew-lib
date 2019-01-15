@@ -3,9 +3,11 @@
   "version": "0.1.1",
   "description": "Graphical library for modelling web editors",
   "scripts": {
-    "prebuild": "eslint src",
-    "lint": "eslint src --fix",
     "dev": "rollup -cw",
+    "karma-chrome": "karma start karma.conf.js --log-level debug --browsers Chrome",
+    "karma-firefox": "karma start karma.conf.js --log-level debug --browsers Firefox",
+    "lint": "eslint src --fix",
+    "prebuild": "eslint src",
     "build": "rollup -c --environment BUILD:production"
   },
   "license": "MIT",
@@ -16,6 +18,10 @@
     "eslint": "^5.12.0",
     "eslint-config-google": "^0.11.0",
     "eslint-config-renew": "git+https://github.com/uni-hamburg/eslint-config-renew.git",
+    "karma": "^3.1.4",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^2.0.1",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.2.0",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -24,7 +30,7 @@
     "rollup-plugin-uglify": "^6.0.0"
   },
   "dependencies": {
-    "diagram-js": "^3.0.1",
+    "diagram-js": "^3.1.0",
     "renew-formalism": "git+https://github.com/uni-hamburg/renew-formalism.git"
   },
   "eslintConfig": {
