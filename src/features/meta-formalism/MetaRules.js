@@ -1,6 +1,5 @@
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 
-
 /**
  *
  */
