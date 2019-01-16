@@ -4,7 +4,7 @@
 export class MetaPalette {
     /**
      * @param {Object} create
-     * @param {Object} elementFactory
+     * @param {ElementFactory} elementFactory
      * @param {Object} palette
      */
     constructor (create, elementFactory, palette) {

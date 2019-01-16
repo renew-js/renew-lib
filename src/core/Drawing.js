@@ -3,6 +3,7 @@ import Diagram from 'diagram-js';
 import BaseShapesModule from '../features/base-shapes';
 import BaseToolsModule from '../features/base-tools';
 import MetaFormalismModule from '../features/meta-formalism';
+import SvgRendererModule from '../renderer/svg';
 
 
 /**
@@ -22,6 +23,7 @@ export default class Drawing {
                 BaseToolsModule, // basic editor tools
                 BaseShapesModule, // basic shapes
                 MetaFormalismModule, // meta plugins
+                SvgRendererModule,
             ],
         };
         this.diagram = new Diagram(this.options);
