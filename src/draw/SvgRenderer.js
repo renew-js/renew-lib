@@ -20,7 +20,11 @@ export default class SvgRenderer extends BaseRenderer {
     drawShape (graphics, element) {
         // console.log('g', graphics);
         // console.log('e', element);
-        const rawSvg = atob(element.body);
+        try {
+            const rawSvg = atob(element.body);
+        } catch (e) {
+            // ignore
+        }
         // console.log('i', innerSVG(rawSvg));
         const circle = create('circle');
         attr(circle, {
