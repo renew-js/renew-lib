@@ -14,7 +14,7 @@ export default class SvgRenderer extends BaseRenderer {
     }
 
     canRender (element) {
-        return true;
+        return element.body;
     }
 
     drawShape (graphics, element) {

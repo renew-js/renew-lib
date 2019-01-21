@@ -38,10 +38,10 @@ export class MetaPalette {
      * @param {MetaModel} metaModel
      */
     parseMetaModel (metaModel) {
-        metaModel.classifiers.forEach((classifier) => {
-            this.metaPaletteEntries[classifier.type] = {
+        const elements = metaModel.classifiers.concat(metaModel.relations);
+        elements.forEach((element) => {
+            this.metaPaletteEntries[element.type] = {
                 group: metaModel.type,
-                title: 'Create ' + classifier.type,
             };
         });
     }
@@ -68,6 +68,9 @@ export class MetaPalette {
      * @param {ToolConfiguration} toolConfiguration
      */
     parseToolConfiguration (toolConfiguration) {
-
+        toolConfiguration.toolMappings.forEach((mapping) => {
+            this.metaPaletteEntries[mapping.targetType].imageUrl = mapping.icon;
+            this.metaPaletteEntries[mapping.targetType].title = mapping.title;
+        });
     }
 }
