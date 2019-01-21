@@ -32,7 +32,9 @@
   },
   "dependencies": {
     "diagram-js": "^3.1.0",
-    "renew-formalism": "git+https://github.com/uni-hamburg/renew-formalism.git"
+    "didi": "^4.0.0",
+    "renew-formalism": "git+https://github.com/uni-hamburg/renew-formalism.git",
+    "tiny-svg": "^2.2.0"
   },
   "eslintConfig": {
     "root": true,

@@ -56,6 +56,7 @@ export class MetaPalette {
                     const shape = this.elementFactory.createShape({
                         width: classifierStyle.defaultDimension.width,
                         height: classifierStyle.defaultDimension.height,
+                        body: classifierStyle.representation,
                     });
                     this.create.start(event, shape);
                 },
