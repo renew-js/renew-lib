@@ -1,4 +1,5 @@
 import ContextPadModule from 'diagram-js/lib/features/context-pad';
+import GlobalConnect from 'diagram-js/lib/features/global-connect';
 import PaletteModule from 'diagram-js/lib/features/palette';
 import ConnectModule from 'diagram-js/lib/features/create';
 import CreateModule from 'diagram-js/lib/features/connect';
@@ -13,6 +14,7 @@ export default {
     __depends__: [
         PaletteModule,
         ContextPadModule,
+        GlobalConnect,
         ConnectModule,
         CreateModule,
         ModelingModule,

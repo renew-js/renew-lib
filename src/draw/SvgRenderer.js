@@ -26,6 +26,6 @@ export default class SvgRenderer extends BaseRenderer {
 
 
     getShapePath (shape) {
-        console.log('get shape path');
+        // console.log('shape', shape);
     }
 }

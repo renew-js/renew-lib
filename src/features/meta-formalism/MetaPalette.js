@@ -8,11 +8,13 @@ export class MetaPalette {
      * @param {Object} create
      * @param {ElementFactory} elementFactory
      * @param {Object} palette
+     * @param {GlobalConnect} globalConnect
      */
-    constructor (create, elementFactory, palette) {
+    constructor (create, elementFactory, palette, globalConnect) {
         this.create = create;
         this.elementFactory = elementFactory;
         this.palette = palette;
+        this.connect = globalConnect;
 
         this.metaPaletteEntries = {};
     }
@@ -52,6 +54,7 @@ export class MetaPalette {
      * @param {Stylesheet} stylesheet
      */
     parseStylesheet (stylesheet) {
+        console.log(stylesheet);
         stylesheet.classifierStyles.forEach((classifierStyle) => {
             this.metaPaletteEntries[classifierStyle.targetType].action = {
                 click: (event) => {
@@ -61,6 +64,13 @@ export class MetaPalette {
                         body: stringify(classifierStyle.representation),
                     });
                     this.create.start(event, shape);
+                },
+            };
+        });
+        stylesheet.relationStyles.forEach((relationStyle) => {
+            this.metaPaletteEntries[relationStyle.targetType].action = {
+                click: (event) => {
+                    this.connect.toggle(event);
                 },
             };
         });
