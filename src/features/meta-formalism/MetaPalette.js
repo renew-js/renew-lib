@@ -1,5 +1,3 @@
-import { stringify } from 'svgson';
-
 /**
  *
  */
@@ -61,7 +59,7 @@ export class MetaPalette {
                     const shape = this.elementFactory.createShape({
                         width: classifierStyle.defaultDimension.width,
                         height: classifierStyle.defaultDimension.height,
-                        body: stringify(classifierStyle.representation),
+                        body: JSON.parse(JSON.stringify(classifierStyle.representation)),
                     });
                     this.create.start(event, shape);
                 },

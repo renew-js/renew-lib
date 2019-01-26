@@ -9,6 +9,7 @@ import RulesModule from 'diagram-js/lib/features/rules';
 import { MetaContextPad } from './MetaContextPad';
 import { MetaPalette } from './MetaPalette';
 import { MetaRules } from './MetaRules';
+import {MetaResize} from "./MetaResize";
 
 export default {
     __depends__: [
@@ -24,8 +25,10 @@ export default {
         'metaContextPad',
         'metaPalette',
         'metaRules',
+        'metaResize',
     ],
     metaContextPad: ['type', MetaContextPad],
     metaPalette: ['type', MetaPalette],
     metaRules: ['type', MetaRules],
+    metaResize: ['type', MetaResize],
 };
