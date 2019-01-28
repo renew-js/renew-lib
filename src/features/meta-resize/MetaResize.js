@@ -2,7 +2,7 @@
  * Resize any shape and path relative to initial state
  */
 export class MetaResize {
-    constructor(eventBus) {
+    constructor (eventBus) {
         this.eventBus = eventBus;
 
         this.init();
@@ -26,7 +26,7 @@ export class MetaResize {
      * @param {Object} element svgson object
      */
     resizeElement (element) {
-        children.forEach(child => {
+        element.children.forEach((child) => {
             this.resizeElement(child);
         });
     }
@@ -34,4 +34,3 @@ export class MetaResize {
     onResizeEnd (event) {
     }
 }
- 

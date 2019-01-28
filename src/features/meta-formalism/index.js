@@ -5,11 +5,11 @@ import ConnectModule from 'diagram-js/lib/features/create';
 import CreateModule from 'diagram-js/lib/features/connect';
 import ModelingModule from 'diagram-js/lib/features/modeling';
 import RulesModule from 'diagram-js/lib/features/rules';
+import MetaResizeModule from '../meta-resize';
 
 import { MetaContextPad } from './MetaContextPad';
 import { MetaPalette } from './MetaPalette';
 import { MetaRules } from './MetaRules';
-import {MetaResize} from "./MetaResize";
 
 export default {
     __depends__: [
@@ -20,6 +20,7 @@ export default {
         CreateModule,
         ModelingModule,
         RulesModule,
+        MetaResizeModule,
     ],
     __init__: [
         'metaContextPad',
@@ -30,5 +31,4 @@ export default {
     metaContextPad: ['type', MetaContextPad],
     metaPalette: ['type', MetaPalette],
     metaRules: ['type', MetaRules],
-    metaResize: ['type', MetaResize],
 };
