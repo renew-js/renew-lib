@@ -9,9 +9,9 @@ export class MetaResize {
     }
 
     init () {
-        this.eventBus.on('resize.start', this.onResizeStart);
-        this.eventBus.on('resize.move', this.onResizeMove);
-        this.eventBus.on('resize.end', this.onResizeEnd);
+        this.eventBus.on('resize.start', this.onResizeStart.bind(this));
+        this.eventBus.on('resize.move', this.onResizeMove.bind(this));
+        this.eventBus.on('resize.end', this.onResizeEnd.bind(this));
     }
 
     onResizeStart (event) {
