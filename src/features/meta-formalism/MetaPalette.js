@@ -52,14 +52,14 @@ export class MetaPalette {
      * @param {Stylesheet} stylesheet
      */
     parseStylesheet (stylesheet) {
-        console.log(stylesheet);
         stylesheet.classifierStyles.forEach((classifierStyle) => {
+            const clone = (object) => JSON.parse(JSON.stringify(object));
             this.metaPaletteEntries[classifierStyle.targetType].action = {
                 click: (event) => {
                     const shape = this.elementFactory.createShape({
                         width: classifierStyle.defaultDimension.width,
                         height: classifierStyle.defaultDimension.height,
-                        body: JSON.parse(JSON.stringify(classifierStyle.representation)),
+                        body: clone(classifierStyle.representation),
                     });
                     this.create.start(event, shape);
                 },
