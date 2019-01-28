@@ -15,7 +15,6 @@ export default class MetaRenderer extends BaseRenderer {
     }
 
     canRender (element) {
-        console.log('can render? ', element);
         return element.body;
     }
 

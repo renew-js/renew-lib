@@ -1,13 +1,13 @@
-import SvgRenderer from '../../src/draw/SvgRenderer';
+import MetaRenderer from '../../src/draw/MetaRenderer';
 
-describe('renderer/SvgRenderer', function () {
+describe('renderer/MetaRenderer', function () {
 
     describe('canRender', function () {
 
 
         it('should return true', function () {
             let element = {};
-            let svgRenderer = new SvgRenderer();
+            let svgRenderer = new MetaRenderer();
         });
 
         it('should return false', function () {

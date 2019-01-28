@@ -4,13 +4,13 @@
 export class MetaPalette {
     /**
      * @param {Object} create
-     * @param {ElementFactory} elementFactory
+     * @param {MetaFactory} metaFactory
      * @param {Object} palette
      * @param {GlobalConnect} globalConnect
      */
-    constructor (create, elementFactory, palette, globalConnect) {
+    constructor (create, metaFactory, palette, globalConnect) {
         this.create = create;
-        this.elementFactory = elementFactory;
+        this.elementFactory = metaFactory;
         this.palette = palette;
         this.connect = globalConnect;
 
@@ -46,6 +46,7 @@ export class MetaPalette {
                 group: metaModel.type,
             };
         });
+        this.elementFactory.type = metaModel.type;
     }
 
     /**
@@ -56,11 +57,13 @@ export class MetaPalette {
             const clone = (object) => JSON.parse(JSON.stringify(object));
             this.metaPaletteEntries[classifierStyle.targetType].action = {
                 click: (event) => {
-                    const shape = this.elementFactory.createShape({
-                        width: classifierStyle.defaultDimension.width,
-                        height: classifierStyle.defaultDimension.height,
-                        body: clone(classifierStyle.representation),
-                    });
+                    const shape = this.elementFactory.createElement(
+                        classifierStyle.targetType, {
+                            width: classifierStyle.defaultDimension.width,
+                            height: classifierStyle.defaultDimension.height,
+                            body: clone(classifierStyle.representation),
+                        }
+                    );
                     this.create.start(event, shape);
                 },
             };
