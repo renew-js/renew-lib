@@ -1,6 +1,6 @@
-import SvgRenderer from './SvgRenderer';
+import MetaRenderer from './MetaRenderer';
 
 export default {
     __init__: [ 'svgRenderer' ],
-    svgRenderer: [ 'type', SvgRenderer ],
+    svgRenderer: [ 'type', MetaRenderer ],
 };

@@ -1,12 +1,12 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { create, attr, append, innerSVG } from 'tiny-svg';
-import { stringify } from "svgson";
+import { stringify } from 'svgson';
 
 
 /**
  *
  */
-export default class SvgRenderer extends BaseRenderer {
+export default class MetaRenderer extends BaseRenderer {
     /**
      * @param {Object} eventBus
      */
@@ -15,6 +15,7 @@ export default class SvgRenderer extends BaseRenderer {
     }
 
     canRender (element) {
+        console.log('can render? ', element);
         return element.body;
     }
 
@@ -25,6 +26,9 @@ export default class SvgRenderer extends BaseRenderer {
         return circle;
     }
 
+    drawConnection (graphics, connection) {
+        console.log(connection);
+    }
 
     getShapePath (shape) {
         // console.log('shape', shape);
