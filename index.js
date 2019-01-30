@@ -1,3 +1,8 @@
 import './src/styles/renew-lib.scss';
+import Drawing from './src/core/Drawing';
+import Simulation from './src/core/Simulation';
 
-export {default} from './src/core/Drawing';
+export {
+    Drawing,
+    Simulation,
+};
