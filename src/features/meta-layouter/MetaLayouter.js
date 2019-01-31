@@ -22,9 +22,7 @@ export class MetaLayouter extends Layouter {
             case 'ellipse':
                 return this.intersectEllipse(line, shape) || line[1];
             case 'rect':
-                let p = this.intersectRectangle(line, shape);
-                // console.log('p', p);
-                return p;
+                return this.intersectRectangle(line, shape) || line[1];
         }
         return line[1];
     }
@@ -102,8 +100,6 @@ export class MetaLayouter extends Layouter {
         let c = this.corners(r);
         let p = null;
 
-        // TODO: this is not returning false, when there is no intersection
-
         if (p1.x < c.NW.x) {
             p = this.intersectLine(p1, p2, c.NW, c.SW);
             if (p1.y > c.SW.y && (p.y < c.NW.y || p.y > c.SW.y)) {
@@ -125,6 +121,9 @@ export class MetaLayouter extends Layouter {
             p = this.intersectLine(p1, p2, c.SE, c.SW);
         }
 
-        return p;
+        if (p.x >= c.NW.x && p.x <= c.NE.x && p.y >= c.NW.y && p.y <= c.SW.y) {
+            return p;
+        }
+        return false;
     }
 }
