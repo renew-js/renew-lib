@@ -34,8 +34,20 @@ export class MetaLayouter extends Layouter {
                     width: parseInt(shape.body.attributes.width),
                     height: parseInt(shape.body.attributes.height),
                 }) || line[1];
+            case 'polygon':
+                let p = shape.body.attributes.points.split(' ');
+                let points = [];
+                for (let i=0; i<p.length; i+=2) {
+                    points.push({
+                        x: shape.x + parseInt(p[i]),
+                        y: shape.y + parseInt(p[i+1])
+                    });
+                }
+                points.push(points[0]);
+                return Geometry.intersectPolygon(line[0], line[1], {
+                    points: points
+                }) || line[1];
             case 'path':
-                return
         }
         return line[1];
     }

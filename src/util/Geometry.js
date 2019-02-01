@@ -1,4 +1,8 @@
 export class Geometry {
+    static distance (p0, p1) {
+        return Math.sqrt(Math.pow(p1.x - p0.x, 2) + Math.pow(p1.y - p0.y, 2));
+    }
+
     static intersect (p0, p1, p2, p3) {
         return this.intersectAt(p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
     }
@@ -19,6 +23,33 @@ export class Geometry {
             x: (Bx * CA - Ax * CB) * invertedDelta,
             y: (Ay * CB - By * CA) * invertedDelta
         };
+    }
+
+    static intersectPolygon (p0, p1, polygon) {
+        let intersects = [];
+        for (let i=0; i<polygon.points.length-1; i++) {
+            let s = polygon.points[i];
+            let t = polygon.points[i+1];
+
+            let p = this.intersect(p0, p1, s, t);
+
+            if (!p) continue;
+
+            let min = { x: Math.min(s.x, t.x), y: Math.min(s.y, t.y) };
+            let max = { x: Math.max(s.x, t.x), y: Math.max(s.y, t.y) };
+
+            if (min.x <= p.x && min.y <= p.y && max.x >= p.x && max.y >= p.y) {
+                intersects.push(p);
+            }
+        }
+
+        if (intersects.length === 0) return false;
+        else if (intersects.length === 1) return intersects[0];
+
+        return intersects.reduce((result, p) => {
+            let d = Geometry.distance(p0, p);
+            return d < result.d ? { p: p, d: d } : result;
+        }, { p: null, d: Infinity }).p;
     }
 
     static corners (r) {
