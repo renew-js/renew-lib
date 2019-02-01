@@ -25,7 +25,7 @@ export class Geometry {
         };
     }
 
-    static intersectPolygon (p0, p1, polygon) {
+    static intersectPolyline (p0, p1, polygon) {
         let intersects = [];
         for (let i=0; i<polygon.points.length-1; i++) {
             let s = polygon.points[i];

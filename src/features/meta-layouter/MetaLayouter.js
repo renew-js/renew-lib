@@ -34,6 +34,17 @@ export class MetaLayouter extends Layouter {
                     width: parseInt(shape.body.attributes.width),
                     height: parseInt(shape.body.attributes.height),
                 }) || line[1];
+            case 'polyline':
+                let pairs = shape.body.attributes.points.split(' ');
+                return Geometry.intersectPolyline(line[0], line[1], {
+                    points: pairs.map((pair) => {
+                        let p = pair.split(',');
+                        return {
+                            x: shape.x + parseInt(p[0]),
+                            y: shape.y + parseInt(p[1])
+                        };
+                    })
+                });
             case 'polygon':
                 let p = shape.body.attributes.points.split(' ');
                 let points = [];
@@ -44,7 +55,7 @@ export class MetaLayouter extends Layouter {
                     });
                 }
                 points.push(points[0]);
-                return Geometry.intersectPolygon(line[0], line[1], {
+                return Geometry.intersectPolyline(line[0], line[1], {
                     points: points
                 }) || line[1];
             case 'path':
