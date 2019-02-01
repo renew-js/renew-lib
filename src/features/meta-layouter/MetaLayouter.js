@@ -19,31 +19,35 @@ export class MetaLayouter extends Layouter {
     }
 
     intersect (line, shape) {
+        let intersection = null;
         switch (shape.body.name) {
             case 'circle':
-                return Geometry.intersectEllipse(line[0], line[1], {
+                intersection = Geometry.intersectEllipse(line[0], line[1], {
                     cx: shape.x + parseInt(shape.body.attributes.cx),
                     cy: shape.y + parseInt(shape.body.attributes.cy),
                     rx: shape.body.attributes.r,
                     ry: shape.body.attributes.r,
-                }) || line[1];
+                });
+                break;
             case 'ellipse':
-                return Geometry.intersectEllipse(line[0], line[1], {
+                intersection = Geometry.intersectEllipse(line[0], line[1], {
                     cx: shape.x + parseInt(shape.body.attributes.cx),
                     cy: shape.y + parseInt(shape.body.attributes.cy),
                     rx: shape.body.attributes.rx,
                     ry: shape.body.attributes.ry,
-                }) || line[1];
+                });
+                break;
             case 'rect':
-                return Geometry.intersectRectangle(line[0], line[1], {
+                intersection = Geometry.intersectRectangle(line[0], line[1], {
                     x: shape.x + parseInt(shape.body.attributes.x),
                     y: shape.y + parseInt(shape.body.attributes.y),
                     width: parseInt(shape.body.attributes.width),
                     height: parseInt(shape.body.attributes.height),
-                }) || line[1];
+                });
+                break;
             case 'polyline':
                 let pairs = shape.body.attributes.points.split(' ');
-                return Geometry.intersectPolyline(line[0], line[1], {
+                intersection = Geometry.intersectPolyline(line[0], line[1], {
                     points: pairs.map((pair) => {
                         let p = pair.split(',');
                         return {
@@ -52,6 +56,7 @@ export class MetaLayouter extends Layouter {
                         };
                     })
                 });
+                break;
             case 'line':
                 let p1 = {
                     x: shape.x + parseInt(shape.body.attributes.x1),
@@ -61,7 +66,8 @@ export class MetaLayouter extends Layouter {
                     x: shape.x + parseInt(shape.body.attributes.x2),
                     y: shape.y + parseInt(shape.body.attributes.y2)
                 };
-                return Geometry.intersect(line[0], line[1], p1, p2) || line[1];
+                intersection = Geometry.intersect(line[0], line[1], p1, p2);
+                break;
             case 'polygon':
                 let p = shape.body.attributes.points.split(' ');
                 let points = [];
@@ -72,12 +78,13 @@ export class MetaLayouter extends Layouter {
                     });
                 }
                 points.push(points[0]);
-                return Geometry.intersectPolyline(line[0], line[1], {
+                intersection = Geometry.intersectPolyline(line[0], line[1], {
                     points: points
-                }) || line[1];
+                });
+                break;
             case 'path':
         }
-        return line[1];
+        return intersection || line[1];
     }
 
 }
