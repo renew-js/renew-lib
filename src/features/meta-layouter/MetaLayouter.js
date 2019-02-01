@@ -20,6 +20,13 @@ export class MetaLayouter extends Layouter {
 
     intersect (line, shape) {
         switch (shape.body.name) {
+            case 'circle':
+                return Geometry.intersectEllipse(line[0], line[1], {
+                    cx: shape.x + parseInt(shape.body.attributes.cx),
+                    cy: shape.y + parseInt(shape.body.attributes.cy),
+                    rx: shape.body.attributes.r,
+                    ry: shape.body.attributes.r,
+                }) || line[1];
             case 'ellipse':
                 return Geometry.intersectEllipse(line[0], line[1], {
                     cx: shape.x + parseInt(shape.body.attributes.cx),
