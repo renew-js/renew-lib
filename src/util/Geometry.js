@@ -13,34 +13,31 @@ export class Geometry {
 
         let delta = Ay * Bx - By * Ax;
 
-        if (delta === 0) return null;
+        if (delta === 0) return false;
 
         let CA = Ax * y0 + Ay * x0;
         let CB = Bx * y2 + By * x2;
 
         let invertedDelta = 1 / delta;
-        return {
+        let p = {
             x: (Bx * CA - Ax * CB) * invertedDelta,
             y: (Ay * CB - By * CA) * invertedDelta
         };
+
+        let min = { x: Math.min(x2, x3), y: Math.min(y2, y3) };
+        let max = { x: Math.max(x2, x3), y: Math.max(y2, y3) };
+
+        if (min.x <= p.x && min.y <= p.y && max.x >= p.x && max.y >= p.y) {
+            return p;
+        }
+        return false;
     }
 
-    static intersectPolyline (p0, p1, polygon) {
+    static intersectPolyline (p0, p1, poly) {
         let intersects = [];
-        for (let i=0; i<polygon.points.length-1; i++) {
-            let s = polygon.points[i];
-            let t = polygon.points[i+1];
-
-            let p = this.intersect(p0, p1, s, t);
-
-            if (!p) continue;
-
-            let min = { x: Math.min(s.x, t.x), y: Math.min(s.y, t.y) };
-            let max = { x: Math.max(s.x, t.x), y: Math.max(s.y, t.y) };
-
-            if (min.x <= p.x && min.y <= p.y && max.x >= p.x && max.y >= p.y) {
-                intersects.push(p);
-            }
+        for (let i=0; i<poly.points.length-1; i++) {
+            let p = this.intersect(p0, p1, poly.points[i], poly.points[i+1]);
+            if (p) intersects.push(p);
         }
 
         if (intersects.length === 0) return false;
@@ -63,32 +60,21 @@ export class Geometry {
 
     static intersectRectangle (p0, p1, r) {
         let c = this.corners(r);
-        let p = null;
 
         if (p0.x < c.NW.x) {
-            p = this.intersect(p0, p1, c.NW, c.SW);
-            if (p0.y > c.SW.y && (p.y < c.NW.y || p.y > c.SW.y)) {
-                p = this.intersect(p0, p1, c.SE, c.SW);
-            }
-            if (p0.y < c.NW.y && (p.y < c.NW.y || p.y > c.SW.y)) {
-                p = this.intersect(p0, p1, c.NE, c.NW);
-            }
+            return this.intersect(p0, p1, c.NW, c.SW) || (p0.y < c.SW.y
+                ? this.intersect(p0, p1, c.NE, c.NW)
+                : this.intersect(p0, p1, c.SE, c.SW));
         } else if (p0.x > c.NE.x) {
-            p = this.intersect(p0, p1, c.NE, c.SE);
-            if (p0.y < c.NE.y && (p.y < c.NE.y || p.y > c.SE.y)) {
-                p = this.intersect(p0, p1, c.NE, c.NW);
-            } else if (p0.y > c.SE.y && (p.y < c.NE.y || p.y > c.SE.y)) {
-                p = this.intersect(p0, p1, c.SE, c.SW);
-            }
+            return this.intersect(p0, p1, c.NE, c.SE) || (p0.y < c.NE.y
+                ? this.intersect(p0, p1, c.NE, c.NW)
+                : this.intersect(p0, p1, c.SE, c.SW));
         } else if (p0.y < c.NW.y) {
-            p = this.intersect(p0, p1, c.NE, c.NW);
+            return this.intersect(p0, p1, c.NE, c.NW);
         } else if (p0.y > c.SE.y) {
-            p = this.intersect(p0, p1, c.SE, c.SW);
+            return this.intersect(p0, p1, c.SE, c.SW);
         }
 
-        if (p.x >= c.NW.x && p.x <= c.NE.x && p.y >= c.NW.y && p.y <= c.SW.y) {
-            return p;
-        }
         return false;
     }
 

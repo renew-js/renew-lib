@@ -45,6 +45,16 @@ export class MetaLayouter extends Layouter {
                         };
                     })
                 });
+            case 'line':
+                let p1 = {
+                    x: shape.x + parseInt(shape.body.attributes.x1),
+                    y: shape.y + parseInt(shape.body.attributes.y1)
+                };
+                let p2 = {
+                    x: shape.x + parseInt(shape.body.attributes.x2),
+                    y: shape.y + parseInt(shape.body.attributes.y2)
+                };
+                return Geometry.intersect(line[0], line[1], p1, p2) || line[1];
             case 'polygon':
                 let p = shape.body.attributes.points.split(' ');
                 let points = [];
