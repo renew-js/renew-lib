@@ -7,6 +7,8 @@ export class PathParser {
 
         this.commands = PathParser.parse(path);
         this.pos = 0;
+
+        this.controlPoint = { x: 0, y: 0 };
     }
 
     nextSegment () {
@@ -42,18 +44,55 @@ export class PathParser {
                 }
                 return this.lineTo(this.start.x, this.start.y);
             case 'C':
+                return this.cubicCurveTo(
+                    command.values[0], command.values[1],
+                    command.values[2], command.values[3],
+                    command.values[4], command.values[5]
+                );
             case 'c':
-                let x1 = command.values[0];
-                let y1 = command.values[1];
-                let x2 = command.values[2];
-                let y2 = command.values[3];
-
+                return this.cubicCurve(
+                    command.values[0], command.values[1],
+                    command.values[2], command.values[3],
+                    command.values[4], command.values[5]
+                );
             case 'S':
+                return this.cubicCurveTo(
+                    this.x + (this.x - this.controlPoint.x),
+                    this.y + (this.y - this.controlPoint.y),
+                    command.values[0], command.values[1],
+                    command.values[2], command.values[3]
+                );
             case 's':
+                return this.cubicCurve(
+                    this.x + (this.x - this.controlPoint.x),
+                    this.y + (this.y - this.controlPoint.y),
+                    command.values[0], command.values[1],
+                    command.values[2], command.values[3]
+                );
             case 'Q':
+                return this.quadraticCurveTo(
+                    command.values[0], command.values[1],
+                    command.values[2], command.values[3],
+                );
             case 'q':
+                return this.quadraticCurve(
+                    command.values[0], command.values[1],
+                    command.values[2], command.values[3],
+                );
             case 'T':
+                return this.quadraticCurveTo(
+                    this.x + (this.x - this.controlPoint.x),
+                    this.y + (this.y - this.controlPoint.y),
+                    command.values[0], command.values[1],
+                );
             case 't':
+                return this.quadraticCurve(
+                    this.x + (this.x - this.controlPoint.x),
+                    this.y + (this.y - this.controlPoint.y),
+                    command.values[0], command.values[1],
+                );
+            case 'A':
+            case 'a':
                 // TODO
         }
 
@@ -85,6 +124,38 @@ export class PathParser {
         };
         this.moveTo(x, y);
         return line;
+    }
+
+    cubicCurve (dx1, dy1, dx2, dy2, dx, dy) {
+        return this.cubicCurveTo(
+            this.x + dx1, this.y + dy1,
+            this.x + dx2, this.y + dy2,
+            this.x + dx, this.y + dy,
+        );
+    }
+
+    cubicCurveTo (x1, y1, x2, y2, x, y) {
+        let curve = this.lineTo(x, y);
+        curve.type = 'cubic';
+        curve.bezier1 = { x: x1, y: y1 };
+        curve.bezier2 = { x: x2, y: y2 };
+        this.controlPoint = curve.bezier2;
+        return curve;
+    }
+
+    quadraticCurve (dx1, dy1, dx, dy) {
+        return this.quadraticCurveTo(
+            this.x + dx1, this.y + dy1,
+            this.x + dx, this.y + dy,
+        );
+    }
+
+    quadraticCurveTo (x1, y1, x, y) {
+        let curve = this.lineTo(x, y);
+        curve.type = 'quadratic';
+        curve.bezier = { x: x1, y: y1 };
+        this.controlPoint = curve.bezier;
+        return curve;
     }
 
     /**

@@ -4,6 +4,8 @@ import { getMid } from 'diagram-js/lib/layout/LayoutUtil';
 import { Geometry } from '../../util/Geometry';
 import { PathParser } from '../../util/PathParser';
 
+import Bezier from 'bezier-js';
+
 
 export class MetaLayouter extends Layouter {
     constructor () {
@@ -101,6 +103,37 @@ export class MetaLayouter extends Layouter {
                                 intersects.push(intersection);
                             }
                             break;
+                        case 'cubic':
+                            segment.src = Geometry.localToGlobal(shape, segment.src);
+                            segment.dest = Geometry.localToGlobal(shape, segment.dest);
+                            segment.bezier1 = Geometry.localToGlobal(shape, segment.bezier1);
+                            segment.bezier2 = Geometry.localToGlobal(shape, segment.bezier2);
+
+                            let bezier = new Bezier(
+                                segment.src.x, segment.src.y,
+                                segment.bezier1.x, segment.bezier1.y,
+                                segment.bezier2.x, segment.bezier2.y,
+                                segment.dest.x, segment.dest.y,
+                            );
+
+                            bezier.intersects({ p1: line[0], p2: line[1] }).forEach(t => {
+                                intersects.push(bezier.get(t));
+                            });
+                            break;
+                        case 'quadratic':
+                            segment.src = Geometry.localToGlobal(shape, segment.src);
+                            segment.dest = Geometry.localToGlobal(shape, segment.dest);
+                            segment.bezier = Geometry.localToGlobal(shape, segment.bezier);
+
+                            let bezie = new Bezier(
+                                segment.src.x, segment.src.y,
+                                segment.bezier.x, segment.bezier.y,
+                                segment.dest.x, segment.dest.y,
+                            );
+
+                            bezie.intersects({ p1: line[0], p2: line[1] }).forEach(t => {
+                                intersects.push(bezie.get(t));
+                            });
                     }
                 }
                 console.log(segments, intersects);

@@ -1,6 +1,6 @@
 export class Geometry {
     static localToGlobal (shape, point) {
-        return { x: shape.x + point.x, y: shape.y + point.y }
+        return { x: shape.x + point.x, y: shape.y + point.y };
     }
 
     static distance (p0, p1) {
@@ -12,24 +12,24 @@ export class Geometry {
     }
 
     static intersectAt (x0, y0, x1, y1, x2, y2, x3, y3) {
-        let Ax = x0 - x1, Ay = y1 - y0;
-        let Bx = x2 - x3, By = y3 - y2;
+        const Ax = x0 - x1; const Ay = y1 - y0;
+        const Bx = x2 - x3; const By = y3 - y2;
 
-        let delta = Ay * Bx - By * Ax;
+        const delta = Ay * Bx - By * Ax;
 
         if (delta === 0) return false;
 
-        let CA = Ax * y0 + Ay * x0;
-        let CB = Bx * y2 + By * x2;
+        const CA = Ax * y0 + Ay * x0;
+        const CB = Bx * y2 + By * x2;
 
-        let invertedDelta = 1 / delta;
-        let p = {
+        const invertedDelta = 1 / delta;
+        const p = {
             x: (Bx * CA - Ax * CB) * invertedDelta,
-            y: (Ay * CB - By * CA) * invertedDelta
+            y: (Ay * CB - By * CA) * invertedDelta,
         };
 
-        let min = { x: Math.min(x2, x3), y: Math.min(y2, y3) };
-        let max = { x: Math.max(x2, x3), y: Math.max(y2, y3) };
+        const min = { x: Math.min(x2, x3), y: Math.min(y2, y3) };
+        const max = { x: Math.max(x2, x3), y: Math.max(y2, y3) };
 
         if (min.x <= p.x && min.y <= p.y && max.x >= p.x && max.y >= p.y) {
             return p;
@@ -38,9 +38,9 @@ export class Geometry {
     }
 
     static intersectPolyline (p0, p1, poly) {
-        let intersects = [];
+        const intersects = [];
         for (let i=0; i<poly.points.length-1; i++) {
-            let p = this.intersect(p0, p1, poly.points[i], poly.points[i+1]);
+            const p = this.intersect(p0, p1, poly.points[i], poly.points[i+1]);
             if (p) intersects.push(p);
         }
 
@@ -52,7 +52,7 @@ export class Geometry {
 
     static closest (points, point) {
         return points.reduce((result, p) => {
-            let d = Geometry.distance(point, p);
+            const d = Geometry.distance(point, p);
             return d < result.d ? { p: p, d: d } : result;
         }, { p: null, d: Infinity }).p;
     }
@@ -67,7 +67,7 @@ export class Geometry {
     }
 
     static intersectRectangle (p0, p1, r) {
-        let c = this.corners(r);
+        const c = this.corners(r);
 
         if (p0.x < c.NW.x) {
             return this.intersect(p0, p1, c.NW, c.SW) || (p0.y < c.SW.y
