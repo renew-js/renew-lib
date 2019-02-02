@@ -1,4 +1,8 @@
 export class Geometry {
+    static localToGlobal (shape, point) {
+        return { x: shape.x + point.x, y: shape.y + point.y }
+    }
+
     static distance (p0, p1) {
         return Math.sqrt(Math.pow(p1.x - p0.x, 2) + Math.pow(p1.y - p0.y, 2));
     }
@@ -43,8 +47,12 @@ export class Geometry {
         if (intersects.length === 0) return false;
         else if (intersects.length === 1) return intersects[0];
 
-        return intersects.reduce((result, p) => {
-            let d = Geometry.distance(p0, p);
+        return this.closest(intersects, p0);
+    }
+
+    static closest (points, point) {
+        return points.reduce((result, p) => {
+            let d = Geometry.distance(point, p);
             return d < result.d ? { p: p, d: d } : result;
         }, { p: null, d: Infinity }).p;
     }

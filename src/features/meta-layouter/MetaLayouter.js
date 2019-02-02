@@ -2,6 +2,7 @@ import Layouter from 'diagram-js/lib/layout/BaseLayouter';
 
 import { getMid } from 'diagram-js/lib/layout/LayoutUtil';
 import { Geometry } from '../../util/Geometry';
+import { PathParser } from '../../util/PathParser';
 
 
 export class MetaLayouter extends Layouter {
@@ -50,32 +51,32 @@ export class MetaLayouter extends Layouter {
                 intersection = Geometry.intersectPolyline(line[0], line[1], {
                     points: pairs.map((pair) => {
                         let p = pair.split(',');
-                        return {
-                            x: shape.x + parseInt(p[0]),
-                            y: shape.y + parseInt(p[1])
-                        };
+                        return Geometry.localToGlobal(shape, {
+                            x: parseInt(p[0]),
+                            y: parseInt(p[1])
+                        });
                     })
                 });
                 break;
             case 'line':
-                let p1 = {
-                    x: shape.x + parseInt(shape.body.attributes.x1),
-                    y: shape.y + parseInt(shape.body.attributes.y1)
-                };
-                let p2 = {
-                    x: shape.x + parseInt(shape.body.attributes.x2),
-                    y: shape.y + parseInt(shape.body.attributes.y2)
-                };
+                let p1 = Geometry.localToGlobal(shape, {
+                    x: parseInt(shape.body.attributes.x1),
+                    y: parseInt(shape.body.attributes.y1)
+                });
+                let p2 = Geometry.localToGlobal(shape, {
+                    x: parseInt(shape.body.attributes.x2),
+                    y: parseInt(shape.body.attributes.y2)
+                });
                 intersection = Geometry.intersect(line[0], line[1], p1, p2);
                 break;
             case 'polygon':
                 let p = shape.body.attributes.points.split(' ');
                 let points = [];
                 for (let i=0; i<p.length; i+=2) {
-                    points.push({
-                        x: shape.x + parseInt(p[i]),
-                        y: shape.y + parseInt(p[i+1])
-                    });
+                    points.push(Geometry.localToGlobal(shape, {
+                        x: parseInt(p[i]),
+                        y: parseInt(p[i+1])
+                    }));
                 }
                 points.push(points[0]);
                 intersection = Geometry.intersectPolyline(line[0], line[1], {
@@ -83,6 +84,27 @@ export class MetaLayouter extends Layouter {
                 });
                 break;
             case 'path':
+                let path = new PathParser(shape.body.attributes.d);
+                let segment;
+                let segments = [];
+                let intersects = [];
+                while ((segment = path.nextSegment())) {
+                    segments.push(segment);
+                    switch (segment.type) {
+                        case 'line':
+                            intersection = Geometry.intersect(
+                                line[0], line[1],
+                                Geometry.localToGlobal(shape, segment.src),
+                                Geometry.localToGlobal(shape, segment.dest),
+                            );
+                            if (intersection) {
+                                intersects.push(intersection);
+                            }
+                            break;
+                    }
+                }
+                console.log(segments, intersects);
+                intersection = Geometry.closest(intersects, line[0]);
         }
         return intersection || line[1];
     }
