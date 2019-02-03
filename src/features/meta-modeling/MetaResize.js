@@ -23,6 +23,9 @@ export class MetaResize {
     onResizeEnd (event) {
         let bounds = event.context.newBounds;
         let proportions = event.shape.body.proportions;
+
+        if (!proportions) return;
+
         switch (event.shape.body.name) {
             case 'ellipse':
                 event.shape.body.attributes.cx = proportions.cx * bounds.width;
@@ -40,6 +43,15 @@ export class MetaResize {
                 event.shape.body.attributes.y = proportions.y * bounds.height;
                 event.shape.body.attributes.width = proportions.width * bounds.width;
                 event.shape.body.attributes.height = proportions.height * bounds.height;
+                break;
+            case 'polygon':
+                let points = [];
+                let proportionPoints = proportions.points.split(' ').map(parseFloat);
+                for (let i=0; i<proportionPoints.length; i+=2) {
+                    points.push(proportionPoints[i] * bounds.width);
+                    points.push(proportionPoints[i+1] * bounds.height);
+                }
+                event.shape.body.attributes.points = points.join(' ');
         }
     }
 }
