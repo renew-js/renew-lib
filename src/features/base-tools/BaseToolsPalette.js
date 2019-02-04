@@ -42,16 +42,6 @@ export class BaseToolsPalette {
                     },
                 },
             },
-            'global-connect-tool': {
-                group: 'tools',
-                className: 'palette-icon-connect-tool',
-                title: 'Activate the global connect tool',
-                action: {
-                    click: (event) => {
-                        this.globalConnect.toggle(event);
-                    },
-                },
-            },
             'base-tools-separator': {
                 group: 'tools',
                 separator: true,

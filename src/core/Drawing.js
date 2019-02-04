@@ -19,7 +19,7 @@ export default class Drawing extends Diagram {
             modules: [
                 DrawModule,
                 BaseToolsModule, // basic editor tools
-                BaseShapesModule, // basic shapes
+//                BaseShapesModule, // basic shapes
                 MetaFormalismModule, // meta plugins
             ],
         });
