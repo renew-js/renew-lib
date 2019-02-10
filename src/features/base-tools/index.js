@@ -5,6 +5,7 @@ import SelectionModule from 'diagram-js/lib/features/selection';
 import GlobalConnectModule from 'diagram-js/lib/features/global-connect';
 import ZoomScrollModule from 'diagram-js/lib/navigation/zoomscroll';
 import MoveCanvasModule from 'diagram-js/lib/navigation/movecanvas';
+import AutoScrollModule from 'diagram-js/lib/features/auto-scroll';
 
 import { BaseToolsPalette } from './BaseToolsPalette';
 
@@ -17,6 +18,7 @@ export default {
         GlobalConnectModule,
         ZoomScrollModule,
         MoveCanvasModule,
+        AutoScrollModule,
     ],
     __init__: [
         'baseToolsPalette',
