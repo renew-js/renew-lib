@@ -1,5 +1,4 @@
-import Diagram from 'diagram-js';
-
+import Viewer from './Viewer';
 import BaseShapesModule from '../features/base-shapes';
 import BaseToolsModule from '../features/base-tools';
 import MetaFormalismModule from '../features/meta-formalism';
@@ -9,17 +8,16 @@ import DrawModule from '../draw';
 /**
  *
  */
-export default class Drawing extends Diagram {
+export default class Drawing extends Viewer {
     /**
      * @param {string} id
      */
     constructor (id) {
         super({
-            canvas: { container: document.querySelector('#' + id) },
             modules: [
                 DrawModule,
                 BaseToolsModule, // basic editor tools
-//                BaseShapesModule, // basic shapes
+                // BaseShapesModule, // basic shapes
                 MetaFormalismModule, // meta plugins
             ],
         });
