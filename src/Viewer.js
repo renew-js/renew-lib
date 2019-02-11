@@ -34,7 +34,7 @@ export default class Viewer extends Diagram {
         this.get('canvas').resized();
     }
 
-    detach() {
+    detach () {
         const parentNode = this.container.parentNode;
 
         if (!parentNode) {

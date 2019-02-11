@@ -1,14 +1,14 @@
 import Viewer from './Viewer';
-import BaseShapesModule from '../features/base-shapes';
-import BaseToolsModule from '../features/base-tools';
-import MetaFormalismModule from '../features/meta-formalism';
-import DrawModule from '../draw';
+import BaseShapesModule from './features/base-shapes';
+import BaseToolsModule from './features/base-tools';
+import MetaFormalismModule from './features/meta-formalism';
+import DrawModule from './draw';
 
 
 /**
  *
  */
-export default class Drawing extends Viewer {
+export default class Modeler extends Viewer {
     /**
      * @param {string} id
      */

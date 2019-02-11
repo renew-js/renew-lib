@@ -1,8 +1,8 @@
 import './src/styles/renew-lib.scss';
-import Drawing from './src/core/Drawing';
-import Simulation from './src/core/Simulation';
+import Modeler from './src/Modeler';
+import Simulator from './src/Simulator';
 
 export {
-    Drawing,
-    Simulation,
+    Modeler,
+    Simulator,
 };
