@@ -4,13 +4,12 @@ import Diagram from 'diagram-js';
  *
  */
 export default class Viewer extends Diagram {
-    constructor (options) {
+    constructor (options = {}) {
         // Create new container
         const container = document.createElement('div');
         container.className = 'rnw-container';
 
         // Pass container through options
-        options = options || {};
         options.canvas = options.canvas || {};
         options.canvas.container = container;
 

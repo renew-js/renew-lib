@@ -9,18 +9,15 @@ import DrawModule from './draw';
  *
  */
 export default class Modeler extends Viewer {
-    /**
-     * @param {string} id
-     */
-    constructor (id) {
-        super({
+    constructor (options = {}) {
+        super(Object.assign({
             modules: [
                 DrawModule,
                 BaseToolsModule, // basic editor tools
                 // BaseShapesModule, // basic shapes
                 MetaFormalismModule, // meta plugins
             ],
-        });
+        }, options));
     }
 
     /**

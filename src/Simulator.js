@@ -9,18 +9,15 @@ import DrawModule from './draw';
  *
  */
 export default class Simulator extends Viewer {
-    /**
-     * @param {string} id
-     */
-    constructor (id) {
-        super({
+    constructor (options = {}) {
+        super(Object.assign({
             modules: [
                 // DrawModule,
                 // BaseToolsModule, // basic editor tools
                 // SimulationModule,
                 // MetaSimulationModule,
             ],
-        });
+        }, options));
     }
 
     resetSimulation () {
