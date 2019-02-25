@@ -41,33 +41,4 @@ export class MetaPalette {
         };
     }
 
-    /*
-    addMetaConnection (connection) {
-        connection.type = this.getConnectionType(
-            connection.source, connection.target);
-        if (connection.type) {
-            connection.arrowStart = null;
-        }
-    }
-
-    getConnectionType (source, target) {
-        const srcModelType = source.type.split(':')[0];
-        const srcType = source.type.split(':')[1];
-        const targetType = target.type.split(':')[1];
-
-        let result = null;
-
-        const relations = this.metaPlugin.metamodels[srcModelType].relations;
-        relations.forEach((relation) => {
-            relation.bind[srcType].forEach((bindable) => {
-                console.log(bindable, targetType);
-                if (bindable === '*' || bindable === targetType) {
-                    result = relation.type;
-                }
-            });
-        });
-
-        return result;
-    }
-    */
 }
