@@ -3,3 +3,9 @@
 @import 'layout';
 @import 'icons';
 @import 'palette';
+
+.rnw-container {
+  .djs-resizer-visual, .djs-outline {
+    shape-rendering: initial !important;
+  }
+}
