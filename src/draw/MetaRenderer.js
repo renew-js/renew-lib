@@ -53,7 +53,7 @@ export default class MetaRenderer extends BaseRenderer {
     }
 
     drawShape (graphics, element) {
-        const shape = create('svg');
+        const shape = create('g');
         innerSVG(shape, stringify(element.body));
         append(graphics, shape);
         return shape;
