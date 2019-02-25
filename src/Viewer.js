@@ -17,14 +17,6 @@ export default class Viewer extends Diagram {
         this.container = container;
     }
 
-    importPNML () {
-
-    }
-
-    exportPNML () {
-
-    }
-
     attachTo (parentNode) {
         this.detach();
 
@@ -41,5 +33,18 @@ export default class Viewer extends Diagram {
         }
 
         parentNode.removeChild(this.container);
+    }
+
+    getElements () {
+        return this.get('elementRegistry').get('__implicitroot');
+    }
+
+    exportJSON () {
+        return JSON.stringify(this.getElements(), null, 2);
+    }
+
+    importJSON (string) {
+        const elements = JSON.parse(string);
+        console.log(elements);
     }
 }
