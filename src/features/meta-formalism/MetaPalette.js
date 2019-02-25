@@ -1,89 +1,73 @@
-/**
- *
- */
 export class MetaPalette {
-    /**
-     * @param {Object} create
-     * @param {MetaFactory} metaFactory
-     * @param {Object} palette
-     * @param {GlobalConnect} globalConnect
-     */
-    constructor (create, metaFactory, palette, globalConnect) {
-        this.create = create;
-        this.elementFactory = metaFactory;
-        this.palette = palette;
-        this.connect = globalConnect;
-
+    constructor (eventBus, palette) {
         this.metaPaletteEntries = {};
+
+        this.eventBus = eventBus;
+        this.palette = palette;
+
+        this.eventBus.on('plugin.registered', (event) => {
+            this.registerPlugin(event.plugin);
+            this.palette.registerProvider(this);
+        });
     }
 
-    /**
-     * @return {{}}
-     */
     getPaletteEntries () {
         return this.metaPaletteEntries;
     }
 
-
-    /**
-     * @param {Plugin} plugin
-     */
-    addFormalism (plugin) {
-        this.parseMetaModel(plugin.getMetaModel());
-        this.parseStylesheet(plugin.getStylesheet());
-        this.parseToolConfiguration(plugin.getToolConfiguration());
-
-        this.palette.registerProvider(this);
-    }
-
-    /**
-     * @param {MetaModel} metaModel
-     */
-    parseMetaModel (metaModel) {
-        const elements = metaModel.classifiers.concat(metaModel.relations);
-        elements.forEach((element) => {
-            this.metaPaletteEntries[element.type] = {
-                group: metaModel.type,
-            };
-        });
-        this.elementFactory.type = metaModel.type;
-    }
-
-    /**
-     * @param {Stylesheet} stylesheet
-     */
-    parseStylesheet (stylesheet) {
-        stylesheet.classifierStyles.forEach((classifierStyle) => {
-            const clone = (object) => JSON.parse(JSON.stringify(object));
-            this.metaPaletteEntries[classifierStyle.targetType].action = {
-                click: (event) => {
-                    const shape = this.elementFactory.createElement(
-                        classifierStyle.targetType, {
-                            width: classifierStyle.defaultDimension.width,
-                            height: classifierStyle.defaultDimension.height,
-                            body: clone(classifierStyle.representation),
-                        }
-                    );
-                    this.create.start(event, shape);
-                },
-            };
-        });
-        stylesheet.relationStyles.forEach((relationStyle) => {
-            this.metaPaletteEntries[relationStyle.targetType].action = {
-                click: (event) => {
-                    this.connect.toggle(event);
-                },
-            };
+    registerPlugin (plugin) {
+        plugin.getMetaModel().getElements().forEach((element) => {
+            const entry = this.createEntry(element, plugin);
+            this.metaPaletteEntries[entry.type] = entry;
         });
     }
 
-    /**
-     * @param {ToolConfiguration} toolConfiguration
-     */
-    parseToolConfiguration (toolConfiguration) {
-        toolConfiguration.toolMappings.forEach((mapping) => {
-            this.metaPaletteEntries[mapping.targetType].imageUrl = mapping.icon;
-            this.metaPaletteEntries[mapping.targetType].title = mapping.title;
-        });
+    createEntry (entry, plugin) {
+        const metaModel = plugin.getMetaModel();
+        const toolConfiguration = plugin.getToolConfiguration();
+
+        return {
+            type: metaModel.type + ':' + entry.type,
+            group: metaModel.type,
+            action: {
+                click: (event) => this.eventBus.fire('metaPalette.create', {
+                    click: event,
+                    plugin: plugin,
+                    element: entry
+                }),
+            },
+            imageUrl: toolConfiguration.toolMappings[entry.type].icon,
+            title: toolConfiguration.toolMappings[entry.type].title,
+        };
     }
+
+    /*
+    addMetaConnection (connection) {
+        connection.type = this.getConnectionType(
+            connection.source, connection.target);
+        if (connection.type) {
+            connection.arrowStart = null;
+        }
+    }
+
+    getConnectionType (source, target) {
+        const srcModelType = source.type.split(':')[0];
+        const srcType = source.type.split(':')[1];
+        const targetType = target.type.split(':')[1];
+
+        let result = null;
+
+        const relations = this.metaPlugin.metamodels[srcModelType].relations;
+        relations.forEach((relation) => {
+            relation.bind[srcType].forEach((bindable) => {
+                console.log(bindable, targetType);
+                if (bindable === '*' || bindable === targetType) {
+                    result = relation.type;
+                }
+            });
+        });
+
+        return result;
+    }
+    */
 }

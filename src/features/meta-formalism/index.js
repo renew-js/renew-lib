@@ -9,9 +9,10 @@ import ModelingModule from 'diagram-js/lib/features/modeling';
 import ResizeModule from 'diagram-js/lib/features/resize';
 import RulesModule from 'diagram-js/lib/features/rules';
 import MetaModelingModule from '../meta-modeling';
-
 import { MetaContextPad } from './MetaContextPad';
 import { MetaPalette } from './MetaPalette';
+
+import { MetaPluginManager } from './MetaPluginManager';
 import { MetaRules } from './MetaRules';
 
 export default {
@@ -29,12 +30,13 @@ export default {
         MetaModelingModule,
     ],
     __init__: [
-        'metaContextPad',
+        'metaPluginManager',
         'metaPalette',
+        'metaContextPad',
         'metaRules',
-        'metaResize',
     ],
-    metaContextPad: ['type', MetaContextPad],
+    metaPluginManager: ['type', MetaPluginManager],
     metaPalette: ['type', MetaPalette],
+    metaContextPad: ['type', MetaContextPad],
     metaRules: ['type', MetaRules],
 };

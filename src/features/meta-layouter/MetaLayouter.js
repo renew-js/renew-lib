@@ -141,5 +141,4 @@ export class MetaLayouter extends Layouter {
         }
         return intersection || line[1];
     }
-
 }

@@ -1,31 +1,19 @@
-/**
- *
- */
 export class MetaContextPad {
-    /**
-     * @param {Object} connect
-     * @param {Object} contextPad
-     * @param {Object} modeling
-     */
-    constructor (connect, contextPad, modeling) {
+    constructor (contextPad, eventBus) {
         this.contextPad = contextPad;
+        this.eventBus = eventBus;
+
+        this.eventBus.on('plugin.registered', (event) => {
+            this.registerPlugin(event.plugin);
+            this.contextPad.registerProvider(this);
+        });
     }
 
-    /**
-     * @param {Object} element
-     */
+    registerPlugin (plugin) {
+
+    }
+
     getContextPadEntries (element) {
-
-    }
-
-    /**
-     * @param {Plugin} plugin
-     */
-    addFormalism (plugin) {
-        this.metamodel = plugin.getMetaModel();
-        this.stylesheet = plugin.getStylesheet();
-        this.toolConfiguration = plugin.getToolConfiguration();
-
-        this.contextPad.registerProvider(this);
+        return ;
     }
 }

@@ -1,5 +1,4 @@
 import Viewer from './Viewer';
-import BaseShapesModule from './features/base-shapes';
 import BaseToolsModule from './features/base-tools';
 import MetaFormalismModule from './features/meta-formalism';
 import DrawModule from './draw';
@@ -21,11 +20,11 @@ export default class Modeler extends Viewer {
     }
 
     /**
-     * @param {object} plugin
+     * @param {Formalism.Plugin} plugin
      */
     addFormalism (plugin) {
-        this.get('metaContextPad').addFormalism(plugin);
-        this.get('metaPalette').addFormalism(plugin);
-        this.get('metaRules').addFormalism(plugin);
+        /** @type {MetaPluginManager} metaPlugin */
+        const metaPluginManager = this.get('metaPluginManager');
+        metaPluginManager.register(plugin);
     }
 }
