@@ -18,13 +18,19 @@ export class MetaPalette {
     registerPlugin (plugin) {
         plugin.getMetaModel().getElements().forEach((element) => {
             const entry = this.createEntry(element, plugin);
-            this.metaPaletteEntries[entry.type] = entry;
+            if (entry) {
+                this.metaPaletteEntries[entry.type] = entry;
+            }
         });
     }
 
     createEntry (entry, plugin) {
         const metaModel = plugin.getMetaModel();
         const toolConfiguration = plugin.getToolConfiguration();
+
+        if (!toolConfiguration.toolMappings[entry.type]) {
+            return null;
+        }
 
         return {
             type: metaModel.type + ':' + entry.type,
