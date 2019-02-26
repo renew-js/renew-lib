@@ -7,18 +7,13 @@ export class BaseShapesContextPad {
     }
 
     getContextPadEntries (element) {
-        const removeElement = () => {
-            this.modeling.removeElements([element]);
-        };
-
         return {
             'delete': {
                 group: 'edit',
                 className: 'context-pad-icon-remove',
                 title: 'Remove',
                 action: {
-                    click: removeElement,
-                    dragstart: removeElement,
+                    click: () => this.modeling.removeElements([element]),
                 },
             },
         };

@@ -1,7 +1,10 @@
 export class MetaContextPad {
-    constructor (contextPad, eventBus) {
+    constructor (contextPad, eventBus, modeling) {
+        this.metaContextPadEntries = {};
+        
         this.contextPad = contextPad;
         this.eventBus = eventBus;
+        this.modeling = modeling;
 
         this.eventBus.on('plugin.registered', (event) => {
             this.registerPlugin(event.plugin);
@@ -9,11 +12,22 @@ export class MetaContextPad {
         });
     }
 
-    registerPlugin (plugin) {
-
+    getContextPadEntries (element) {
+        return {
+            'delete': {
+                group: 'edit',
+                className: 'context-pad-icon-remove',
+                title: 'Remove',
+                action: {
+                    click: () => this.modeling.removeElements([element])
+                },
+            },
+        };
     }
 
-    getContextPadEntries (element) {
-        return ;
+    registerPlugin (plugin) {
+        const toolConfiguration = plugin.getToolConfiguration();
+
+
     }
 }
