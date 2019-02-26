@@ -36,15 +36,12 @@ export default class Viewer extends Diagram {
     }
 
     getElements () {
-        return this.get('elementRegistry').get('__implicitroot');
+        return this.get('elementRegistry').filter((el) => {
+            return el.id != '__implicitroot';
+        });
     }
 
-    exportJSON () {
-        return JSON.stringify(this.getElements(), null, 2);
-    }
-
-    importJSON (string) {
-        const elements = JSON.parse(string);
+    setElements (elements) {
         console.log(elements);
     }
 }
