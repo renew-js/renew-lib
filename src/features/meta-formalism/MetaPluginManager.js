@@ -9,19 +9,35 @@ export class MetaPluginManager {
         this.eventBus.fire('plugin.registered', { plugin: plugin });
     }
 
-    getPlugin (type) {
-        return this.plugins[type];
+    getPlugin (model) {
+        return this.plugins[model];
     }
 
-    getMetaModel (type) {
-        return this.getPlugin(type).getMetaModel();
+    getMetaModel (model) {
+        return this.getPlugin(model).getMetaModel();
     }
 
-    getStyleSheet (type) {
-        return this.getPlugin(type).getStyleSheet();
+    getMetaModelElement (model, type) {
+        return this.getMetaModel(model).getElement(type);
     }
 
-    getToolConfiguration (type) {
-        return this.getPlugin(type).getToolConfiguration();
+    getStyleSheet (model) {
+        return this.getPlugin(model).getStyleSheet();
+    }
+
+    getStyleSheetStyle (model, type) {
+        return this.getStyleSheet(model).getStyle(type);
+    }
+
+    getToolConfiguration (model) {
+        return this.getPlugin(model).getToolConfiguration();
+    }
+
+    getToolConfigurationMapping (model, type) {
+        return this.getToolConfiguration(model).toolMappings[type];
+    }
+
+    getToolConfigurationContextMapping (model, type) {
+        return this.getToolConfiguration(model).toolMappings[type];
     }
 }
