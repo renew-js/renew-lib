@@ -32,6 +32,8 @@ export class MetaFactory extends ElementFactory {
 
         this.dragging.start(event.click, this.createShape({
             type: metaModel.type + ':' + event.element.type,
+            model: metaModel.type,
+            metaType: event.element.type,
             width: style.defaultDimension.width,
             height: style.defaultDimension.height,
             body: clone(style.representation),
@@ -43,8 +45,13 @@ export class MetaFactory extends ElementFactory {
     }
 
     onConnectRelation (event) {
-        const [ model, type ] = this.getConnectionType(event).split(':');
+        const relationType = this.getConnectionType(event);
 
+        if (!relationType) {
+            return;
+        }
+
+        const [ model, type ] = relationType.split(':');
         const metaModel = this.pluginManager.getPlugin(model).getMetaModel();
 
         event.element.type = model + ':' + type;
@@ -53,20 +60,16 @@ export class MetaFactory extends ElementFactory {
     }
 
     getConnectionType (event) {
-        const [ srcModel, srcType ] = event.element.source.type.split(':');
-        const [ destModel, destType ] = event.element.target.type.split(':');
-
-        const srcPlugin = this.pluginManager.getPlugin(srcModel);
-        const destPlugin = this.pluginManager.getPlugin(destModel);
+        const source = event.element.source;
+        const target = event.element.target;
 
         let result = null;
 
-        const relations = srcPlugin.getMetaModel().relations;
+        const relations = this.pluginManager.getPlugin(source.model).relations;
         relations.forEach((relation) => {
-            relation.bind[ srcType ].forEach((bindable) => {
-                console.log('bindable?', bindable, destType);
-                if (bindable === '*' || bindable === destType) {
-                    result = srcPlugin.getMetaModel().type + ':' + relation.type;
+            relation.bind[source.metaType].forEach((bindable) => {
+                if (bindable === '*' || bindable === target.metaType) {
+                    result = source.model + ':' + relation.type;
                 }
             });
         });
