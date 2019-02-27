@@ -12,9 +12,11 @@ export class MetaContextPad {
             'delete': {
                 group: 'edit',
                 className: 'context-pad-icon-remove',
-                title: 'Remove',
+                title: 'Remove ' + element.metaType,
                 action: {
-                    click: () => this.modeling.removeElements([ element ]),
+                    click: (event, element) => {
+                        this.modeling.removeElements([ element ])
+                    },
                 },
             },
         };
@@ -51,6 +53,11 @@ export class MetaContextPad {
             group: element.model,
             imageUrl: mapping.icon,
             title: mapping.title,
+            action: {
+                click: (event, element) => {
+                    console.log('TODO: Create relation', event, element);
+                }
+            }
         }
     }
 
@@ -68,6 +75,12 @@ export class MetaContextPad {
             group: element.model,
             imageUrl: mapping.icon,
             title: mapping.title,
+            action: {
+                click: (event, element) => {
+                    console.log(event, element);
+
+                }
+            }
         }
     }
 }

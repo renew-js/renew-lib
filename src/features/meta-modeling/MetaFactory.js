@@ -1,6 +1,4 @@
 import ElementFactory from 'diagram-js/lib/core/ElementFactory';
-import { Classifier } from 'renew-formalism/src/ontology/metamodel/Classifier';
-import { Relation } from 'renew-formalism/src/ontology/metamodel/Relation';
 
 
 export class MetaFactory extends ElementFactory {
@@ -16,10 +14,16 @@ export class MetaFactory extends ElementFactory {
     }
 
     onCreateElement (event) {
-        if (event.element instanceof Classifier) {
-            this.onCreateClassifier(event);
-        } else if (event.element instanceof  Relation) {
-            this.onCreateRelation(event);
+        switch (event.element.constructor.name) {
+            case 'Classifier':
+                this.onCreateClassifier(event);
+                break;
+            case 'Relation':
+                this.onCreateRelation(event);
+                break;
+            case 'Text':
+                this.onCreateText(event);
+                break;
         }
     }
 
@@ -54,26 +58,33 @@ export class MetaFactory extends ElementFactory {
         const [ model, type ] = relationType.split(':');
         const metaModel = this.pluginManager.getPlugin(model).getMetaModel();
 
-        event.element.type = model + ':' + type;
+        event.element.type = relationType;
+        event.element.model = model;
+        event.element.metaType = type;
         event.element.arrowStart = metaModel.getRelation(type).arrowStart;
         event.element.arrowEnd = metaModel.getRelation(type).arrowEnd;
     }
 
     getConnectionType (event) {
         const source = event.element.source;
-        const target = event.element.target;
+        const metaModel = this.pluginManager.getMetaModel(source.model);
 
-        let result = null;
-
-        this.pluginManager.getMetaModel(source.model)
-            .relations.forEach((relation) => {
-            relation.bind[source.metaType].forEach((bindable) => {
-                if (bindable === '*' || bindable === target.metaType) {
-                    result = source.model + ':' + relation.type;
+        for (const relation of metaModel.relations) {
+            for (const type of relation.bind[source.metaType]) {
+                if (this.isBindable(type, event.element.target)) {
+                    return source.model + ':' + relation.type;
                 }
-            });
-        });
+            }
+        }
 
-        return result;
+        return null;
+    }
+
+    isBindable (type, target) {
+        return type === '*' || type === target.type || type === target.metaType;
+    }
+
+    onCreateText (event) {
+        console.log('TODO: create Text', event);
     }
 }
