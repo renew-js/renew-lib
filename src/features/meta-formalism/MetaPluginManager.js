@@ -12,4 +12,16 @@ export class MetaPluginManager {
     getPlugin (type) {
         return this.plugins[type];
     }
+
+    getMetaModel (type) {
+        return this.getPlugin(type).getMetaModel();
+    }
+
+    getStyleSheet (type) {
+        return this.getPlugin(type).getStyleSheet();
+    }
+
+    getToolConfiguration (type) {
+        return this.getPlugin(type).getToolConfiguration();
+    }
 }

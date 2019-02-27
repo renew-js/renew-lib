@@ -65,8 +65,8 @@ export class MetaFactory extends ElementFactory {
 
         let result = null;
 
-        const relations = this.pluginManager.getPlugin(source.model).relations;
-        relations.forEach((relation) => {
+        this.pluginManager.getMetaModel(source.model)
+            .relations.forEach((relation) => {
             relation.bind[source.metaType].forEach((bindable) => {
                 if (bindable === '*' || bindable === target.metaType) {
                     result = source.model + ':' + relation.type;
