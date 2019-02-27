@@ -38,6 +38,7 @@ export class MetaFactory extends ElementFactory {
             type: metaModel.type + ':' + event.element.type,
             model: metaModel.type,
             metaType: event.element.type,
+            metaLabels: event.element.labels,
             width: style.defaultDimension.width,
             height: style.defaultDimension.height,
             body: clone(style.representation),
@@ -56,13 +57,14 @@ export class MetaFactory extends ElementFactory {
         }
 
         const [ model, type ] = relationType.split(':');
-        const metaModel = this.pluginManager.getPlugin(model).getMetaModel();
+        const relation = this.pluginManager.getMetaModelElement(model, type);
 
         event.element.type = relationType;
         event.element.model = model;
         event.element.metaType = type;
-        event.element.arrowStart = metaModel.getRelation(type).arrowStart;
-        event.element.arrowEnd = metaModel.getRelation(type).arrowEnd;
+        event.element.metaLabels = relation.labels;
+        event.element.arrowStart = relation.arrowStart;
+        event.element.arrowEnd = relation.arrowEnd;
     }
 
     getConnectionType (event) {
