@@ -33,6 +33,7 @@
   "dependencies": {
     "bezier-js": "^2.3.1",
     "diagram-js": "^3.1.0",
+    "diagram-js-direct-editing": "^1.4.0",
     "didi": "^4.0.0",
     "renew-formalism": "git+https://github.com/uni-hamburg/renew-formalism.git",
     "svgson": "^3.0.0",

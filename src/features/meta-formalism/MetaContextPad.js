@@ -1,8 +1,10 @@
 export class MetaContextPad {
-    constructor (contextPad, metaPluginManager, modeling) {
+    constructor (eventBus, contextPad, metaPluginManager, metaLabelEditing, modeling) {
+        this.eventBus = eventBus;
         this.contextPad = contextPad;
         this.pluginManager = metaPluginManager;
         this.modeling = modeling;
+        this.labelEditing = metaLabelEditing;
 
         this.contextPad.registerProvider(this);
     }
@@ -61,10 +63,10 @@ export class MetaContextPad {
         }
     }
 
-    getTextEntry (element, label) {
+    getTextEntry (element, type) {
         const plugin = this.pluginManager.getPlugin(element.model);
         const toolConfiguration = plugin.getToolConfiguration();
-        const mapping = toolConfiguration.contextToolMappings[label];
+        const mapping = toolConfiguration.contextToolMappings[type];
 
 
         if (!mapping) {
@@ -77,8 +79,10 @@ export class MetaContextPad {
             title: mapping.title,
             action: {
                 click: (event, element) => {
-                    console.log(event, element);
-
+                    this.eventBus.fire('contextPad.text.click', {
+                        element: element,
+                        textType: type
+                    });
                 }
             }
         }
