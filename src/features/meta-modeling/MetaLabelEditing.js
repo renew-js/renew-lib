@@ -1,7 +1,8 @@
 export class MetaLabelEditing {
-    constructor (eventBus, directEditing, metaPluginManager) {
+    constructor (eventBus, directEditing, metaPluginManager, orientation) {
         this.pluginManager = metaPluginManager;
         this.directEditing = directEditing;
+        this.orientation = orientation;
 
         this.directEditing.registerProvider(this);
 
@@ -29,27 +30,39 @@ export class MetaLabelEditing {
     }
 
     activate (context) {
+        const style = this.pluginManager.getStyleSheetStyle(
+            context.element.model,
+            context.type
+        );
+
+        const position = this.orientation.position(
+            context.element,
+            style.orientation
+        );
         return {
             text: context.element[context.type] || '',
             bounds: {
-                x: context.element.x,
-                y: context.element.y,
-                width: context.element.width,
-                height: context.element.height,
+                x: position.x - style.boundingBox.width/2
+                    + style.orientation.margin.left
+                    - style.orientation.margin.right,
+                y: position.y - style.boundingBox.height/2
+                    + style.orientation.margin.top
+                    - style.orientation.margin.bottom,
+                width: style.boundingBox.width,
+                height: style.boundingBox.height,
             },
             style: {
                 border: '1px dashed',
             },
             options: {
                 resizable: true,
-                centerHorizontally: true,
                 centerVertically: true
             }
         };
     }
 
     update (context, text, old, box) {
-        context.element[context.type] = text;
+        context.element[context.type] = text.trim().replace(/\n$/gi, '');
     }
 
     isEmpty (text) {

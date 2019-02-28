@@ -1,6 +1,7 @@
 import MetaSnappingModule from '../meta-snapping';
 import MetaLayouterModule from '../meta-layouter';
 import DirectEditingModule from 'diagram-js-direct-editing';
+import OrientationModule from "../orientation";
 
 import { MetaFactory } from './MetaFactory';
 import { MetaModeling } from './MetaModeling';
@@ -13,6 +14,7 @@ export default {
         MetaSnappingModule,
         MetaLayouterModule,
         DirectEditingModule,
+        OrientationModule
     ],
     __init__: [
         'metaFactory',
