@@ -21,12 +21,12 @@ export class MetaPluginManager {
         return this.getMetaModel(model).getElement(type);
     }
 
-    getStyleSheet (model) {
-        return this.getPlugin(model).getStyleSheet();
+    getStylesheet (model) {
+        return this.getPlugin(model).getStylesheet();
     }
 
     getStyleSheetStyle (model, type) {
-        return this.getStyleSheet(model).getStyle(type);
+        return this.getStylesheet(model).getStyle(type);
     }
 
     getToolConfiguration (model) {
