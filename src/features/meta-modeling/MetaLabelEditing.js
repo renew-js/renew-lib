@@ -62,6 +62,18 @@ export class MetaLabelEditing {
     }
 
     update (context, text, old, box) {
+        context.element.labels.push({
+            id: context.element.id + '_label_' + context.type,
+            x: box.x,
+            y: box.y,
+            width: box.width,
+            height: box.height,
+            text: text,
+            type: context.element.model + ':' + context.type,
+            model: context.element.model,
+            metaType: context.type
+        });
+        console.log('update', context, text, old, box);
         context.element[context.type] = text.trim().replace(/\n$/gi, '');
     }
 
