@@ -18,12 +18,22 @@ export class MetaPluginManager {
         return this.plugins[model];
     }
 
+    getElement (type) {
+        const [model, metaType] = type.split(':');
+        return this.getMetaModelElement(model, metaType);
+    }
+
     getMetaModel (model) {
         return this.getPlugin(model).getMetaModel();
     }
 
     getMetaModelElement (model, type) {
         return this.getMetaModel(model).getElement(type);
+    }
+
+    getStyle (type) {
+        const [model, metaType] = type.split(':');
+        return this.getStyleSheetStyle(model, metaType);
     }
 
     getStylesheet (model) {
@@ -34,12 +44,22 @@ export class MetaPluginManager {
         return this.getStylesheet(model).getStyle(type);
     }
 
+    getMapping (type) {
+        const [model, metaType] = type.split(':');
+        return this.getToolConfigurationMapping(model, metaType);
+    }
+
     getToolConfiguration (model) {
         return this.getPlugin(model).getToolConfiguration();
     }
 
     getToolConfigurationMapping (model, type) {
         return this.getToolConfiguration(model).toolMappings[type];
+    }
+
+    getContextMapping (type) {
+        const [model, metaType] = type.split(':');
+        return this.getToolConfigurationContextMapping(model, metaType);
     }
 
     getToolConfigurationContextMapping (model, type) {
