@@ -75,6 +75,7 @@ export class MetaLabelEditing {
         });
         console.log('update', context, text, old, box);
         context.element[context.type] = text.trim().replace(/\n$/gi, '');
+
     }
 
     isEmpty (text) {

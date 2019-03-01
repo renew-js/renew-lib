@@ -1,6 +1,5 @@
 export class BaseShapesContextPad {
-    constructor (modeling, contextPad) {
-        this.modeling = modeling;
+    constructor (contextPad) {
         this.contextPad = contextPad;
 
         contextPad.registerProvider(this);
@@ -13,7 +12,7 @@ export class BaseShapesContextPad {
                 className: 'context-pad-icon-remove',
                 title: 'Remove',
                 action: {
-                    click: () => this.modeling.removeElements([element]),
+                    // click: () => this.modeling.removeElements([element]),
                 },
             },
         };

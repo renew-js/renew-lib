@@ -5,7 +5,7 @@ export class MetaPalette {
         this.eventBus = eventBus;
         this.palette = palette;
 
-        this.eventBus.on('plugin.registered', (event) => {
+        this.eventBus.on('plugin.register.end', (event) => {
             this.registerPlugin(event.plugin);
             this.palette.registerProvider(this);
         });

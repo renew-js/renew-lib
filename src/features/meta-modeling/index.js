@@ -1,29 +1,39 @@
-import MetaSnappingModule from '../meta-snapping';
-import MetaLayouterModule from '../meta-layouter';
-import DirectEditingModule from 'diagram-js-direct-editing';
-import OrientationModule from "../orientation";
+import CreateModule from 'diagram-js/lib/features/create';
+import CommandModule from 'diagram-js/lib/command';
+import MoveModule from 'diagram-js/lib/features/move';
+import MetaFormalismModule from '../meta-formalism';
+import MetaLabelEditingModule from '../meta-label-editing';
+import GlobalConnectModule from 'diagram-js/lib/features/global-connect';
+import ModelingModule from 'diagram-js/lib/features/modeling';
+import SnappingModule from '../snapping';
+import ResizeModule from '../resize';
 
 import { MetaFactory } from './MetaFactory';
 import { MetaModeling } from './MetaModeling';
-import { MetaResize } from './MetaResize';
-import { MetaLabelEditing } from './MetaLabelEditing';
+import { MetaLayouter } from './MetaLayouter';
 
 
 export default {
     __depends__: [
-        MetaSnappingModule,
-        MetaLayouterModule,
-        DirectEditingModule,
-        OrientationModule
+        MetaFormalismModule,
+
+        CommandModule,
+        ModelingModule,
+
+        CreateModule,
+        MoveModule,
+        GlobalConnectModule,
+        MetaLabelEditingModule,
+
+        SnappingModule,
+        ResizeModule,
     ],
     __init__: [
         'metaFactory',
-        'metaModeling',
-        'metaResize',
-        'metaLabelEditing'
+        'modeling',
+        'layouter',
     ],
     metaFactory: [ 'type', MetaFactory ],
-    metaModeling: [ 'type', MetaModeling ],
-    metaResize: [ 'type', MetaResize ],
-    metaLabelEditing: [ 'type', MetaLabelEditing ],
+    modeling: [ 'type', MetaModeling ],
+    layouter: [ 'type', MetaLayouter ],
 };

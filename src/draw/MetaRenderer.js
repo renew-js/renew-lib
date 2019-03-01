@@ -16,7 +16,7 @@ export default class MetaRenderer extends BaseRenderer {
         this.canvas = canvas;
         this.styles = styles;
 
-        eventBus.on('plugin.registered', this.registerMarker.bind(this));
+        eventBus.on('plugin.register.end', this.registerMarker.bind(this));
     }
 
     registerMarker (event) {
@@ -32,7 +32,6 @@ export default class MetaRenderer extends BaseRenderer {
         metaModel.arrowHeads.forEach((arrowHead) => {
             const style = stylesheet.styles[arrowHead.type];
 
-            console.log(style);
             const marker = create('marker');
             innerSVG(marker, stringify(style.representation));
             attr(marker, {

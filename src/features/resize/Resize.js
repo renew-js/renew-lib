@@ -1,8 +1,12 @@
+import BaseResize from 'diagram-js/lib/features/resize/Resize';
+
 /**
  * Resize any shape and path relative to initial state
+ * TODO: depending on modeling, dragging, rules
  */
-export class MetaResize {
-    constructor (eventBus) {
+export class Resize extends BaseResize {
+    constructor (eventBus, rules, modeling, dragging) {
+        super(eventBus, rules, modeling, dragging);
         this.eventBus = eventBus;
 
         this.init();

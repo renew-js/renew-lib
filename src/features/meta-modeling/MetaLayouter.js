@@ -1,4 +1,4 @@
-import Layouter from 'diagram-js/lib/layout/BaseLayouter';
+import BaseLayouter from 'diagram-js/lib/layout/BaseLayouter';
 
 import { getMid } from 'diagram-js/lib/layout/LayoutUtil';
 import { Geometry } from '../../util/Geometry';
@@ -7,7 +7,7 @@ import { PathParser } from '../../util/PathParser';
 import Bezier from 'bezier-js';
 
 
-export class MetaLayouter extends Layouter {
+export class MetaLayouter extends BaseLayouter {
     constructor () {
         super();
     }
@@ -136,7 +136,6 @@ export class MetaLayouter extends Layouter {
                             });
                     }
                 }
-                console.log(segments, intersects);
                 intersection = Geometry.closest(intersects, line[0]);
         }
         return intersection || line[1];

@@ -1,10 +1,10 @@
 import Diagram from 'diagram-js';
 
-/**
- *
- */
+import DrawModule from './draw';
+
+
 export default class Viewer extends Diagram {
-    constructor (options = {}) {
+    constructor (options = { modules: [ ] }) {
         // Create new container
         const container = document.createElement('div');
         container.className = 'rnw-container';
@@ -12,6 +12,10 @@ export default class Viewer extends Diagram {
         // Pass container through options
         options.canvas = options.canvas || {};
         options.canvas.container = container;
+
+        options.modules.push(
+            DrawModule
+        );
 
         super(options);
         this.container = container;

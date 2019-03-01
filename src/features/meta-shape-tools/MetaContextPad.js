@@ -1,10 +1,8 @@
 export class MetaContextPad {
-    constructor (eventBus, contextPad, metaPluginManager, metaLabelEditing, modeling) {
+    constructor (eventBus, contextPad, metaPluginManager) {
         this.eventBus = eventBus;
         this.contextPad = contextPad;
         this.pluginManager = metaPluginManager;
-        this.modeling = modeling;
-        this.labelEditing = metaLabelEditing;
 
         this.contextPad.registerProvider(this);
     }
@@ -17,7 +15,7 @@ export class MetaContextPad {
                 title: 'Remove ' + element.metaType,
                 action: {
                     click: (event, element) => {
-                        this.modeling.removeElements([ element ])
+//                        this.modeling.removeElements([ element ])
                     },
                 },
             },

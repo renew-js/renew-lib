@@ -1,10 +1,6 @@
 import PaletteModule from 'diagram-js/lib/features/palette';
 import ContextPadModule from 'diagram-js/lib/features/context-pad';
-import CreateModule from 'diagram-js/lib/features/connect';
-import ModelingModule from 'diagram-js/lib/features/modeling';
-import MoveModule from 'diagram-js/lib/features/move';
-import OutlineModule from 'diagram-js/lib/features/outline';
-import ResizeModule from 'diagram-js/lib/features/resize';
+import RulesModule from 'diagram-js/lib/features/rules';
 
 import { BaseShapesPalette } from './BaseShapesPalette';
 import { BaseShapesContextPad } from './BaseShapesContextPad';
@@ -14,11 +10,7 @@ export default {
     __depends__: [
         PaletteModule,
         ContextPadModule,
-        CreateModule,
-        ModelingModule,
-        ResizeModule,
-        MoveModule,
-        OutlineModule,
+        RulesModule,
     ],
     __init__: [
         'baseShapesPalette',

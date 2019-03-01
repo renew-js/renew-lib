@@ -1,10 +1,10 @@
-import Snapping from 'diagram-js/lib/features/snapping/Snapping';
+import BaseSnapping from 'diagram-js/lib/features/snapping/Snapping';
 import { mid, setSnapped } from 'diagram-js/lib/features/snapping/SnapUtil';
 
 const HIGH_PRIORITY = 1500;
 
 
-export class MetaSnapping extends Snapping {
+export class Snapping extends BaseSnapping {
     constructor (eventBus, canvas) {
         super(eventBus, canvas);
         this.init(eventBus);

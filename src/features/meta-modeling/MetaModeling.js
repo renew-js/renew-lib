@@ -1,11 +1,11 @@
-import Modeling from 'diagram-js/lib/features/modeling/Modeling';
+import BaseModeling from 'diagram-js/lib/features/modeling/Modeling';
 
-export class MetaModeling extends Modeling {
+export class MetaModeling extends BaseModeling {
     constructor (eventBus, elementFactory, commandStack) {
         super(eventBus, elementFactory, commandStack);
     }
 
     getHandlers () {
-        return [];
+        return super.getHandlers();
     }
 }
