@@ -11,6 +11,7 @@
   cursor: pointer;
   display: flex;
   align-content: center;
+  user-select: none;
 }
 
 .djs-palette .entry:hover {
