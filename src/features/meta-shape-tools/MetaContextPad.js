@@ -15,7 +15,9 @@ export class MetaContextPad {
                 title: 'Remove ' + element.metaType,
                 action: {
                     click: (event, element) => {
-//                        this.modeling.removeElements([ element ])
+                        this.eventBus.fire('elements.remove.start', {
+                            elements: [ element ],
+                        });
                     },
                 },
             },
