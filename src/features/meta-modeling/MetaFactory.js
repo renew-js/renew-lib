@@ -42,6 +42,7 @@ export class MetaFactory extends ElementFactory {
             width: style.defaultDimension.width,
             height: style.defaultDimension.height,
             body: clone(style.representation),
+            resizable: true,
         }));
     }
 
@@ -65,6 +66,7 @@ export class MetaFactory extends ElementFactory {
         event.element.metaLabels = relation.labels;
         event.element.arrowStart = relation.arrowStart;
         event.element.arrowEnd = relation.arrowEnd;
+        event.element.resizable = false;
     }
 
     getConnectionType (event) {

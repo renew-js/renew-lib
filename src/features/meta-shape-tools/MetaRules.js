@@ -4,8 +4,23 @@ import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 export class MetaRules extends RuleProvider {
     constructor (eventBus) {
         super(eventBus);
+
+        eventBus.on('plugin.register.end', (event) => {
+            this.registerPlugin(event.plugin);
+        });
     }
 
+    /**
+     * Register Plugin related rules
+     * @param {Plugin} plugin
+     */
+    registerPlugin (plugin) {
+
+    }
+
+    /**
+     * Initialize ubiquitous rules
+     */
     init () {
         this.addRule('connection.start', function (context) {
             // console.log('start', context);
@@ -21,6 +36,10 @@ export class MetaRules extends RuleProvider {
         });
         this.addRule('connection.create', function (context) {
             return true;
+        });
+
+        this.addRule('shape.resize', (context) => {
+            return context.shape.resizable;
         });
     }
 }
