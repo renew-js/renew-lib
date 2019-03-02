@@ -6,7 +6,6 @@ import MetaFormalismModule from '../meta-formalism';
 import MetaLabelEditingModule from '../meta-label-editing';
 import GlobalConnectModule from 'diagram-js/lib/features/global-connect';
 import ModelingModule from 'diagram-js/lib/features/modeling';
-import OrderingModule from '../ordering';
 import SnappingModule from '../snapping';
 import ResizeModule from '../resize';
 
