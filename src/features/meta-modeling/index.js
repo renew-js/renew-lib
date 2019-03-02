@@ -29,7 +29,6 @@ export default {
         BendpointsModule,
         MetaLabelEditingModule,
 
-        OrderingModule,
         SnappingModule,
     ],
     __init__: [
