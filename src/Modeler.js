@@ -1,7 +1,7 @@
 import Viewer from './Viewer';
 
-import BaseToolsModule from './features/base-tools';
-import MetaShapeToolsModule from './features/meta-shape-tools';
+import BaseToolsModule from './modules/base-tools';
+import MetaShapeToolsModule from './modules/meta-shape-tools';
 
 
 export default class Modeler extends Viewer {
