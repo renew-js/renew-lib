@@ -22,6 +22,7 @@ export class MetaPalette {
                 this.metaPaletteEntries[entry.type] = entry;
             }
         });
+        this.addSeparator(plugin);
     }
 
     createEntry (entry, plugin) {
@@ -39,7 +40,7 @@ export class MetaPalette {
                 click: (event) => this.eventBus.fire('metaPalette.create', {
                     click: event,
                     plugin: plugin,
-                    element: entry
+                    element: entry,
                 }),
             },
             imageUrl: toolConfiguration.toolMappings[entry.type].icon,
@@ -47,4 +48,12 @@ export class MetaPalette {
         };
     }
 
+    addSeparator (plugin) {
+        const metaModel = plugin.getMetaModel();
+        const name = 'plugin-' + metaModel.type + '-separator';
+        this.metaPaletteEntries[name] = {
+            group: metaModel.type,
+            separator: true,
+        };
+    }
 }

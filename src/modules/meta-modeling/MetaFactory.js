@@ -32,9 +32,9 @@ export class MetaFactory extends ElementFactory {
         const stylesheet = event.plugin.getStylesheet();
         const style = stylesheet.styles[event.element.type];
 
-        let clone = (object) => JSON.parse(JSON.stringify(object));
+        const clone = (object) => JSON.parse(JSON.stringify(object));
 
-        this.dragging.start(event.click, this.createShape({
+        const shape = this.createShape({
             type: metaModel.type + ':' + event.element.type,
             model: metaModel.type,
             metaType: event.element.type,
@@ -43,7 +43,9 @@ export class MetaFactory extends ElementFactory {
             height: style.defaultDimension.height,
             body: clone(style.representation),
             resizable: true,
-        }));
+        });
+
+        this.dragging.start(event.click, shape);
     }
 
     onCreateRelation (event) {
