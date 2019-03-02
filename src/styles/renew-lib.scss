@@ -5,7 +5,7 @@
 @import 'palette';
 
 .rnw-container {
-  .djs-resizer-visual, .djs-outline {
+  .djs-resizer-visual, .djs-outline, .djs-lasso-overlay {
     shape-rendering: initial !important;
   }
 }

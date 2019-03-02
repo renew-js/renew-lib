@@ -42,16 +42,6 @@ export class BaseToolsPalette {
                     },
                 },
             },
-            'text-tool': {
-                group: 'tools',
-                className: 'palette-icon-text-tool',
-                title: 'Activate Text Tool',
-                action: {
-                    click: (event) => {
-
-                    },
-                },
-            },
             'base-tools-separator': {
                 group: 'tools',
                 separator: true,
