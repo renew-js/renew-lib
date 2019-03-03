@@ -1,4 +1,4 @@
-import MetaRenderer from '../../src/draw/MetaRenderer';
+import Renderer from '../../src/draw/Renderer';
 
 describe('renderer/MetaRenderer', function () {
 
@@ -7,7 +7,7 @@ describe('renderer/MetaRenderer', function () {
 
         it('should return true', function () {
             let element = {};
-            let svgRenderer = new MetaRenderer();
+            let svgRenderer = new Renderer();
         });
 
         it('should return false', function () {

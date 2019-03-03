@@ -1,6 +1,5 @@
 import BendpointsModule from 'diagram-js/lib/features/bendpoints';
 import CreateModule from 'diagram-js/lib/features/create';
-import CommandModule from 'diagram-js/lib/command';
 import MoveModule from 'diagram-js/lib/features/move';
 import MetaFormalismModule from '../meta-formalism';
 import MetaLabelEditingModule from '../meta-label-editing';
@@ -17,8 +16,6 @@ import { MetaLayouter } from './MetaLayouter';
 export default {
     __depends__: [
         MetaFormalismModule,
-
-        CommandModule,
         ModelingModule,
 
         CreateModule,

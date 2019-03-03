@@ -3,15 +3,10 @@ export class MetaPluginManager {
         this.eventBus = eventBus;
 
         this.plugins = { };
-
-        this.eventBus.on('plugin.register.start', (event) => {
-            this.register(event.plugin);
-        });
     }
 
     register (plugin) {
         this.plugins[plugin.type] = plugin;
-        this.eventBus.fire('plugin.register.end', { plugin: plugin });
     }
 
     getPlugin (model) {

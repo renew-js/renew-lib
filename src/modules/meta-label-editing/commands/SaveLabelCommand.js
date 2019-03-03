@@ -1,15 +1,17 @@
-export class SaveLabelCommand {
+import CommandHandler from 'diagram-js/lib/command/CommandHandler';
+
+
+export class SaveLabelCommand extends CommandHandler {
     constructor (eventBus, commandStack) {
+        super();
         this.eventBus = eventBus;
         this.commandStack = commandStack;
     }
 
     preExecute (context) {
-        if (!context.element.metaObject[context.type]) {
             const shape = {
                 id: context.element.id + '_label_' + context.type,
                 text: context.text,
-                metaObject: context.element.metaObject,
                 type: context.element.model + ':' + context.type,
                 model: context.element.model,
                 metaType: context.type,
@@ -28,21 +30,16 @@ export class SaveLabelCommand {
                     y: context.box.y,
                 }
             });
-        } else {
-            //context.element.metaObject[context.type];
-        }
     }
 
     execute (context) {
-        context.element.metaObject[context.type] = context.text;
     }
 
     revert (context) {
-        context.element.metaObject[context.type] = context.old;
     }
 
     postExecute (context) {
-        console.log(context.box);
+        console.log('log', context.box);
     }
 
     isEmpty (text) {

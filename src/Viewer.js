@@ -1,6 +1,9 @@
 import Diagram from 'diagram-js';
 
+import CoreModule from './core';
 import DrawModule from './draw';
+
+import { Injector } from './util/Injector';
 
 
 export default class Viewer extends Diagram {
@@ -13,11 +16,12 @@ export default class Viewer extends Diagram {
         options.canvas = options.canvas || {};
         options.canvas.container = container;
 
-        options.modules.push(
-            DrawModule
-        );
+        super(options, new Injector([
+            { 'config': [ 'value', options ] },
+            CoreModule,
+            DrawModule,
+        ].concat(options.modules)));
 
-        super(options);
         this.container = container;
     }
 
@@ -41,11 +45,11 @@ export default class Viewer extends Diagram {
 
     getElements () {
         return this.get('elementRegistry').filter((el) => {
-            return el.id != '__implicitroot';
+            return el.id !== '__implicitroot';
         });
     }
 
     setElements (elements) {
-        console.log(elements);
+
     }
 }

@@ -1,30 +1,19 @@
-import BaseResize from 'diagram-js/lib/features/resize/Resize';
+import { Behavior } from '../../../util/Behavior';
 
 /**
  * Resize any shape and path relative to initial state
- * TODO: depending on modeling, dragging, rules
  */
-export class Resize extends BaseResize {
-    constructor (eventBus, rules, modeling, dragging) {
-        super(eventBus, rules, modeling, dragging);
+export class ResizeBehavior extends Behavior {
+    constructor (eventBus) {
+        super();
         this.eventBus = eventBus;
-
-        this.init();
     }
 
-    init () {
-        this.eventBus.on('resize.start', this.onResizeStart.bind(this));
-        this.eventBus.on('resize.move', this.onResizeMove.bind(this));
-        this.eventBus.on('resize.end', 1501, this.onResizeEnd.bind(this));
-    }
+    start (event) { }
 
-    onResizeStart (event) {
-    }
+    move (event) { }
 
-    onResizeMove (event) {
-    }
-
-    onResizeEnd (event) {
+    end (event) {
         const bounds = event.context.newBounds;
         const proportions = event.shape.body.proportions;
 

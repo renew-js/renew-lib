@@ -1,16 +1,10 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { create, attr, append, innerSVG } from 'tiny-svg';
 import { stringify } from 'svgson';
-import { query } from 'min-dom';
+import { query } from 'min-dom'; // TODO: install min dom
 
-/**
- *
- */
-export default class MetaRenderer extends BaseRenderer {
-    /**
-     * @param {Object} eventBus
-     * @param {Styles} styles
-     */
+
+export default class Renderer extends BaseRenderer {
     constructor (eventBus, canvas, styles) {
         super(eventBus, 10);
         this.canvas = canvas;
@@ -94,6 +88,6 @@ export default class MetaRenderer extends BaseRenderer {
     }
 
     getShapePath (shape) {
-        // console.log('shape', shape);
+
     }
 }

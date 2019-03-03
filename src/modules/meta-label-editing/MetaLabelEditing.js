@@ -1,5 +1,8 @@
 export class MetaLabelEditing {
-    constructor (eventBus, directEditing, metaPluginManager, orientation) {
+    constructor (eventBus, commandStack, directEditing, metaPluginManager, orientation) {
+        this.eventBus = eventBus;
+        this.commandStack = commandStack;
+
         this.pluginManager = metaPluginManager;
         this.directEditing = directEditing;
         this.orientation = orientation;
@@ -73,9 +76,9 @@ export class MetaLabelEditing {
             model: context.element.model,
             metaType: context.type
         });
-        console.log('update', context, text, old, box);
         context.element[context.type] = text.trim().replace(/\n$/gi, '');
 
+        this.commandStack.execute('label.save', context);
     }
 
     isEmpty (text) {

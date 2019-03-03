@@ -1,3 +1,4 @@
+import { RegisterPluginBehavior } from './behaviors/RegisterPluginBehavior';
 import { MetaPluginManager } from './MetaPluginManager';
 
 export default {
@@ -5,6 +6,9 @@ export default {
     ],
     __init__: [
         'metaPluginManager',
+    ],
+    __behaviors__: [
+        [ 'plugin.register', 1500, RegisterPluginBehavior ],
     ],
     metaPluginManager: ['type', MetaPluginManager],
 };
