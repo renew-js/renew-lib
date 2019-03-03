@@ -27,9 +27,9 @@ export default class BaseImporter {
     }
 
     resetCanvas () {
-        this.eventBus.fire('diagram.clear');
+        this.canvas._clear();
         const currentViewbox = this.canvas.viewbox();
-        this. canvas.viewbox({
+        this.canvas.viewbox({
             x: 0,
             y: 0,
             width: currentViewbox.outer.width,
