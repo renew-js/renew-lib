@@ -1,5 +1,12 @@
 export class MetaLabelEditing {
-    constructor (eventBus, commandStack, directEditing, metaPluginManager, orientation) {
+
+    constructor (
+        eventBus,
+        commandStack,
+        directEditing,
+        metaPluginManager,
+        orientation
+    ) {
         this.eventBus = eventBus;
         this.commandStack = commandStack;
 
@@ -59,8 +66,8 @@ export class MetaLabelEditing {
             },
             options: {
                 resizable: true,
-                centerVertically: true
-            }
+                centerVertically: true,
+            },
         };
     }
 
@@ -74,7 +81,7 @@ export class MetaLabelEditing {
             text: text,
             type: context.element.model + ':' + context.type,
             model: context.element.model,
-            metaType: context.type
+            metaType: context.type,
         });
         context.element[context.type] = text.trim().replace(/\n$/gi, '');
 
@@ -84,4 +91,5 @@ export class MetaLabelEditing {
     isEmpty (text) {
         return !text.trim();
     }
+
 }

@@ -2,6 +2,7 @@ import CommandHandler from 'diagram-js/lib/command/CommandHandler';
 
 
 export class SaveLabelCommand extends CommandHandler {
+
     constructor (eventBus, commandStack) {
         super();
         this.eventBus = eventBus;
@@ -9,27 +10,27 @@ export class SaveLabelCommand extends CommandHandler {
     }
 
     preExecute (context) {
-            const shape = {
-                id: context.element.id + '_label_' + context.type,
-                text: context.text,
-                type: context.element.model + ':' + context.type,
-                model: context.element.model,
-                metaType: context.type,
-                width: context.box.width,
-                height: context.box.height,
-            };
+        const shape = {
+            id: context.element.id + '_label_' + context.type,
+            text: context.text,
+            type: context.element.model + ':' + context.type,
+            model: context.element.model,
+            metaType: context.type,
+            width: context.box.width,
+            height: context.box.height,
+        };
 
-            context.element.labels.push(shape);
+        context.element.labels.push(shape);
 
-            this.commandStack.execute('label.create', {
-                shape: shape,
-                labelTarget: context.element,
-                parent: context.element.parent,
-                position: {
-                    x: context.box.x,
-                    y: context.box.y,
-                }
-            });
+        this.commandStack.execute('label.create', {
+            shape: shape,
+            labelTarget: context.element,
+            parent: context.element.parent,
+            position: {
+                x: context.box.x,
+                y: context.box.y,
+            },
+        });
     }
 
     execute (context) {
@@ -45,4 +46,5 @@ export class SaveLabelCommand extends CommandHandler {
     isEmpty (text) {
         return !text.trim();
     }
+
 }

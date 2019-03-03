@@ -1,14 +1,15 @@
-import { AbsoluteOrientation } from "./AbsoluteOrientation";
-import { CenterOrientation } from "./CenterOrientation";
-import { RelativeOrientation } from "./RelativeOrientation";
-import { RadialOrientation } from "./RadialOrientation";
-import { CardinalOrientation } from "./CardinalOrientation";
-import { FigureOrientation } from "./FigureOrientation";
+import { AbsoluteOrientation } from './AbsoluteOrientation';
+import { CenterOrientation } from './CenterOrientation';
+import { RelativeOrientation } from './RelativeOrientation';
+import { RadialOrientation } from './RadialOrientation';
+import { CardinalOrientation } from './CardinalOrientation';
+import { FigureOrientation } from './FigureOrientation';
 
 
 export class OrientationFactory {
+
     position (owner, orientation) {
-        let Orientation = this.orientation(orientation.position);
+        const Orientation = this.orientation(orientation.position);
 
         if (!Orientation) {
             throw new Error(`Orientation ${orientation.position} not defined`);
@@ -36,4 +37,5 @@ export class OrientationFactory {
                 return null;
         }
     }
+
 }

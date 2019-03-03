@@ -1,4 +1,5 @@
 export class Geometry {
+
     static localToGlobal (shape, point) {
         return { x: shape.x + point.x, y: shape.y + point.y };
     }
@@ -110,4 +111,5 @@ export class Geometry {
 
         return { x: x0 + dx * t + e.cx, y: y0 + dy * t + e.cy };
     }
+
 }

@@ -1,4 +1,5 @@
 export class MetaContextPad {
+
     constructor (eventBus, contextPad, metaPluginManager) {
         this.eventBus = eventBus;
         this.contextPad = contextPad;
@@ -29,14 +30,14 @@ export class MetaContextPad {
         metaModel.relations.forEach((relation) => {
             const relationEntry = this.getRelationEntry(element, relation);
             if (relationEntry) {
-                entries[ relation.type ] = relationEntry;
+                entries[relation.type] = relationEntry;
             }
         });
 
         metaModel.getElement(element.metaType).labels.forEach((label) => {
             const textEntry = this.getTextEntry(element, label);
             if (textEntry) {
-                entries[ label ] = textEntry;
+                entries[label] = textEntry;
             }
         });
 
@@ -58,9 +59,9 @@ export class MetaContextPad {
             action: {
                 click: (event, element) => {
                     console.log('TODO: Create relation', event, element);
-                }
-            }
-        }
+                },
+            },
+        };
     }
 
     getTextEntry (element, type) {
@@ -81,10 +82,11 @@ export class MetaContextPad {
                 click: (event, element) => {
                     this.eventBus.fire('contextPad.text.click', {
                         element: element,
-                        textType: type
+                        textType: type,
                     });
-                }
-            }
-        }
+                },
+            },
+        };
     }
+
 }

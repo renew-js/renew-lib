@@ -23,5 +23,5 @@ export default {
     __init__: [
         'baseToolsPalette',
     ],
-    baseToolsPalette: ['type', BaseToolsPalette],
+    baseToolsPalette: [ 'type', BaseToolsPalette ],
 };

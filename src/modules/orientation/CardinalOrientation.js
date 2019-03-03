@@ -6,13 +6,13 @@ export class CardinalOrientation extends Orientation {
     constructor (owner, orientation) {
         super(owner);
         this.direction = orientation.direction;
-        if (typeof orientation.direction === "string") {
+        if (typeof orientation.direction === 'string') {
             this.direction = CardinalOrientation.parse(orientation.direction);
         }
     }
 
     position () {
-        let dx = 0.5, dy = 0.5;
+        let dx = 0.5; let dy = 0.5;
 
         if ((this.direction & CardinalOrientation.NORTH) > 0) {
             dy = 0;
@@ -28,7 +28,7 @@ export class CardinalOrientation extends Orientation {
 
         return {
             x: this.owner.x + dx * this.owner.width,
-            y: this.owner.y + dy * this.owner.height
+            y: this.owner.y + dy * this.owner.height,
         };
     }
 

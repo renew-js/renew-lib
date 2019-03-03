@@ -23,7 +23,7 @@ export default {
         'metaContextPad',
         'metaRules',
     ],
-    metaPalette: ['type', MetaPalette],
-    metaContextPad: ['type', MetaContextPad],
-    metaRules: ['type', MetaRules],
+    metaPalette: [ 'type', MetaPalette ],
+    metaContextPad: [ 'type', MetaContextPad ],
+    metaRules: [ 'type', MetaRules ],
 };

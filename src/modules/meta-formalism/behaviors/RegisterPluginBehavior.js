@@ -2,6 +2,7 @@ import { Behavior } from '../../../util/Behavior';
 
 
 export class RegisterPluginBehavior extends Behavior {
+
     constructor (metaPluginManager) {
         super();
         this.pluginManager = metaPluginManager;
@@ -10,4 +11,5 @@ export class RegisterPluginBehavior extends Behavior {
     start (event) {
         this.pluginManager.register(event.plugin);
     }
+
 }

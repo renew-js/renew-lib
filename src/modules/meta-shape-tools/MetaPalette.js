@@ -1,4 +1,5 @@
 export class MetaPalette {
+
     constructor (eventBus, palette) {
         this.metaPaletteEntries = {};
 
@@ -56,4 +57,5 @@ export class MetaPalette {
             separator: true,
         };
     }
+
 }

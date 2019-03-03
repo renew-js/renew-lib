@@ -1,4 +1,5 @@
 export class MetaPluginManager {
+
     constructor (eventBus) {
         this.eventBus = eventBus;
 
@@ -14,7 +15,7 @@ export class MetaPluginManager {
     }
 
     getElement (type) {
-        const [model, metaType] = type.split(':');
+        const [ model, metaType ] = type.split(':');
         return this.getMetaModelElement(model, metaType);
     }
 
@@ -27,7 +28,7 @@ export class MetaPluginManager {
     }
 
     getStyle (type) {
-        const [model, metaType] = type.split(':');
+        const [ model, metaType ] = type.split(':');
         return this.getStyleSheetStyle(model, metaType);
     }
 
@@ -40,7 +41,7 @@ export class MetaPluginManager {
     }
 
     getMapping (type) {
-        const [model, metaType] = type.split(':');
+        const [ model, metaType ] = type.split(':');
         return this.getToolConfigurationMapping(model, metaType);
     }
 
@@ -53,11 +54,12 @@ export class MetaPluginManager {
     }
 
     getContextMapping (type) {
-        const [model, metaType] = type.split(':');
+        const [ model, metaType ] = type.split(':');
         return this.getToolConfigurationContextMapping(model, metaType);
     }
 
     getToolConfigurationContextMapping (model, type) {
         return this.getToolConfiguration(model).toolMappings[type];
     }
+
 }

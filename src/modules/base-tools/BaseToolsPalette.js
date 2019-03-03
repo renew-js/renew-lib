@@ -2,6 +2,7 @@
  * Provide palette items for basic editor tools
  */
 export class BaseToolsPalette {
+
     /**
      * @param  {object} lassoTool
      * @param  {object} handTool
@@ -48,4 +49,5 @@ export class BaseToolsPalette {
             },
         };
     }
+
 }

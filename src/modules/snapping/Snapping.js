@@ -5,6 +5,7 @@ const HIGH_PRIORITY = 1500;
 
 
 export class Snapping extends BaseSnapping {
+
     constructor (eventBus, canvas) {
         super(eventBus, canvas);
         this.init(eventBus);
@@ -36,4 +37,5 @@ export class Snapping extends BaseSnapping {
             }
         });
     }
+
 }

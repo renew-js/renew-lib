@@ -1,4 +1,4 @@
-import { Orientation } from "./Orientation";
+import { Orientation } from './Orientation';
 
 
 export class RelativeOrientation extends Orientation {
@@ -12,7 +12,7 @@ export class RelativeOrientation extends Orientation {
     position () {
         return {
             x: this.owner.x + this.dx * this.owner.width,
-            y: this.owner.y + this.dy * this.owner.height
+            y: this.owner.y + this.dy * this.owner.height,
         };
     }
 

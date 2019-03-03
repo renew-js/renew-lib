@@ -1,6 +1,3 @@
-import BaseImporter from './BaseImporter';
-
-
 export default class JsonImporter {
 
     constructor (baseImporter) {
