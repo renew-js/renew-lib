@@ -5,6 +5,7 @@ import { query } from 'min-dom'; // TODO: install min dom
 
 
 export default class Renderer extends BaseRenderer {
+
     constructor (eventBus, canvas, styles) {
         super(eventBus, 10);
         this.canvas = canvas;
@@ -35,7 +36,7 @@ export default class Renderer extends BaseRenderer {
                 viewBox: '0 0 20 20',
                 markerWidth: 10,
                 markerHeight: 10,
-                orient: 'auto'
+                orient: 'auto',
             });
             append(defs, marker);
         });
@@ -63,7 +64,7 @@ export default class Renderer extends BaseRenderer {
         attr(line, this.styles.style([ 'no-fill' ], {
             stroke: 'black',
             strokeWidth: 2,
-            fill: 'none'
+            fill: 'none',
         }));
 
         if (connection.arrowStart) {
@@ -90,4 +91,5 @@ export default class Renderer extends BaseRenderer {
     getShapePath (shape) {
 
     }
+
 }

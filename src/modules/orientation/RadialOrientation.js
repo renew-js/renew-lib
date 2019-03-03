@@ -15,11 +15,11 @@ export class RadialOrientation extends Orientation {
     position () {
         const center = {
             x: this.owner.x + 0.5 * this.owner.width,
-            y: this.owner.y + 0.5 * this.owner.height
+            y: this.owner.y + 0.5 * this.owner.height,
         };
         return {
             x: center.x + this.owner.width / 2 * Math.cos(this.radians),
-            y: center.y + this.owner.height / 2 * Math.sin(this.radians)
+            y: center.y + this.owner.height / 2 * Math.sin(this.radians),
         };
     }
 

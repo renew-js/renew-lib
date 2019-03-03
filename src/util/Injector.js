@@ -2,6 +2,7 @@ import { Injector as DiDiInjector } from 'didi';
 
 
 export class Injector extends DiDiInjector {
+
     constructor (modules) {
         let components = [];
         let commands = [];
@@ -58,16 +59,33 @@ export class Injector extends DiDiInjector {
     }
 
     initBehavior (behavior) {
-        let instance = this.instantiate(behavior[2]);
+        const instance = this.instantiate(behavior[2]);
 
-        this.get('eventBus').on(behavior[0] + '.start', behavior[1], instance.start.bind(instance));
-        this.get('eventBus').on(behavior[0] + '.move', behavior[1], instance.move.bind(instance));
-        this.get('eventBus').on(behavior[0] + '.end', behavior[1], instance.end.bind(instance));
-        this.get('eventBus').on(behavior[0] + '.ended', behavior[1], instance.ended.bind(instance));
+        this.get('eventBus').on(
+            behavior[0] + '.start',
+            behavior[1],
+            instance.start.bind(instance)
+        );
+        this.get('eventBus').on(
+            behavior[0] + '.move',
+            behavior[1],
+            instance.move.bind(instance)
+        );
+        this.get('eventBus').on(
+            behavior[0] + '.end',
+            behavior[1],
+            instance.end.bind(instance)
+        );
+        this.get('eventBus').on(
+            behavior[0] + '.ended',
+            behavior[1],
+            instance.ended.bind(instance)
+        );
     }
 
     initRule (rule) {
         // TODO: use custom rules
         // this.get('');
     }
+
 }

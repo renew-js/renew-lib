@@ -12,7 +12,7 @@ export class PathParser {
     }
 
     nextSegment () {
-        let command = this.commands[this.pos++];
+        const command = this.commands[this.pos++];
 
         if (!command) return false;
 
@@ -72,24 +72,24 @@ export class PathParser {
             case 'Q':
                 return this.quadraticCurveTo(
                     command.values[0], command.values[1],
-                    command.values[2], command.values[3],
+                    command.values[2], command.values[3]
                 );
             case 'q':
                 return this.quadraticCurve(
                     command.values[0], command.values[1],
-                    command.values[2], command.values[3],
+                    command.values[2], command.values[3]
                 );
             case 'T':
                 return this.quadraticCurveTo(
                     this.x + (this.x - this.controlPoint.x),
                     this.y + (this.y - this.controlPoint.y),
-                    command.values[0], command.values[1],
+                    command.values[0], command.values[1]
                 );
             case 't':
                 return this.quadraticCurve(
                     this.x + (this.x - this.controlPoint.x),
                     this.y + (this.y - this.controlPoint.y),
-                    command.values[0], command.values[1],
+                    command.values[0], command.values[1]
                 );
             case 'A':
             case 'a':
@@ -117,10 +117,10 @@ export class PathParser {
     }
 
     lineTo (x, y) {
-        let line = {
+        const line = {
             type: 'line',
             src: { x: this.x, y: this.y },
-            dest: { x: Number(x.toFixed(8)), y: Number(y.toFixed(8)) }
+            dest: { x: Number(x.toFixed(8)), y: Number(y.toFixed(8)) },
         };
         this.moveTo(x, y);
         return line;
@@ -130,12 +130,12 @@ export class PathParser {
         return this.cubicCurveTo(
             this.x + dx1, this.y + dy1,
             this.x + dx2, this.y + dy2,
-            this.x + dx, this.y + dy,
+            this.x + dx, this.y + dy
         );
     }
 
     cubicCurveTo (x1, y1, x2, y2, x, y) {
-        let curve = this.lineTo(x, y);
+        const curve = this.lineTo(x, y);
         curve.type = 'cubic';
         curve.bezier1 = { x: x1, y: y1 };
         curve.bezier2 = { x: x2, y: y2 };
@@ -146,12 +146,12 @@ export class PathParser {
     quadraticCurve (dx1, dy1, dx, dy) {
         return this.quadraticCurveTo(
             this.x + dx1, this.y + dy1,
-            this.x + dx, this.y + dy,
+            this.x + dx, this.y + dy
         );
     }
 
     quadraticCurveTo (x1, y1, x, y) {
-        let curve = this.lineTo(x, y);
+        const curve = this.lineTo(x, y);
         curve.type = 'quadratic';
         curve.bezier = { x: x1, y: y1 };
         this.controlPoint = curve.bezier;
@@ -162,13 +162,13 @@ export class PathParser {
      * src: https://gist.github.com/shamansir/0ba30dc262d54d04cd7f79e03b281505
      *
      * @param {String} path
-     * @returns {{marker: (String), values: (Number[])}[]}
+     * @return {{marker: (String), values: (Number[])}[]}
      */
     static parse (path) {
         const commands = /[MmLlHhVvZzCcSsQqTtAa]/g;
         const digits = /-?\d*\.?\d+/g;
 
-        let results = [];
+        const results = [];
 
         let match;
         while ((match = commands.exec(path))) {
@@ -178,10 +178,10 @@ export class PathParser {
         return results.map((match) => {
             return {
                 marker: path[match.index],
-                index: match.index
+                index: match.index,
             };
         }).reduceRight((all, match) => {
-            let end = all.length ? all[all.length - 1].index : path.length;
+            const end = all.length ? all[all.length - 1].index : path.length;
             let chunk = path.substring(match.index, end);
             if (chunk.length > 0) {
                 chunk = chunk.substr(1, chunk.length - 1);
@@ -190,15 +190,16 @@ export class PathParser {
                 {
                     marker: match.marker,
                     index: match.index,
-                    chunk: chunk
-                }
+                    chunk: chunk,
+                },
             ]);
         }, []).reverse().map((command) => {
-            let values = command.chunk.match(digits);
+            const values = command.chunk.match(digits);
             return {
                 marker: command.marker,
-                values: values ? values.map(parseFloat) : []
+                values: values ? values.map(parseFloat) : [],
             };
         });
     }
+
 }

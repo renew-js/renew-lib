@@ -12,7 +12,7 @@ export class FigureOrientation extends Orientation {
             x: this.owner.x,
             y: this.owner.y,
             width: this.owner.width,
-            height: this.owner.height
+            height: this.owner.height,
         };
     }
 
