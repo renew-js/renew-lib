@@ -2,6 +2,7 @@ import ElementFactory from 'diagram-js/lib/core/ElementFactory';
 
 
 export class MetaFactory extends ElementFactory {
+
     constructor (eventBus, metaPluginManager, create, globalConnect) {
         super();
         this.eventBus = eventBus;
@@ -35,6 +36,7 @@ export class MetaFactory extends ElementFactory {
         const clone = (object) => JSON.parse(JSON.stringify(object));
 
         const shape = this.createShape({
+            class: event.element.constructor.name,
             type: metaModel.type + ':' + event.element.type,
             model: metaModel.type,
             metaType: event.element.type,
@@ -62,6 +64,7 @@ export class MetaFactory extends ElementFactory {
         const [ model, type ] = relationType.split(':');
         const relation = this.pluginManager.getMetaModelElement(model, type);
 
+        event.element.class = event.element.constructor.name;
         event.element.type = relationType;
         event.element.model = model;
         event.element.metaType = type;
@@ -93,4 +96,13 @@ export class MetaFactory extends ElementFactory {
     onCreateText (event) {
         console.log('TODO: create Text', event);
     }
+
+    getIncrement () {
+        return this._uid;
+    }
+
+    setIncrement (uid) {
+        this._uid = uid;
+    }
+
 }

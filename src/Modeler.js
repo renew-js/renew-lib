@@ -5,6 +5,7 @@ import MetaShapeToolsModule from './modules/meta-shape-tools';
 
 
 export default class Modeler extends Viewer {
+
     constructor (options = {}) {
         super(Object.assign({
             modules: [
@@ -18,4 +19,5 @@ export default class Modeler extends Viewer {
         this.get('eventBus').fire('plugin.register.start', { plugin: plugin });
         this.get('eventBus').fire('plugin.register.end', { plugin: plugin });
     }
+
 }
