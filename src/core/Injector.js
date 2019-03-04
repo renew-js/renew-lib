@@ -60,6 +60,7 @@ export class Injector extends DiDiInjector {
     }
 
     initBehavior (behavior) {
+        behavior[2].$inject = undefined;
         this.get('eventBus').registerBehavior(
             behavior[0],
             behavior[1],

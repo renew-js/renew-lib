@@ -6,6 +6,7 @@ import RulesModule from 'diagram-js/lib/features/rules';
 import { MetaContextPad } from '../meta-shape-tools/MetaContextPad';
 import { MetaPalette } from '../meta-shape-tools/MetaPalette';
 import { MetaRules } from '../meta-shape-tools/MetaRules';
+import { PluginRegisterBehavior } from './behaviors/PluginRegisterBehavior';
 
 export default {
     __depends__: [
@@ -21,6 +22,9 @@ export default {
         'metaPalette',
         'metaContextPad',
         'metaRules',
+    ],
+    __behaviors__: [
+        [ 'plugin.register', 1500, PluginRegisterBehavior ]
     ],
     __rules__: [
         // TODO

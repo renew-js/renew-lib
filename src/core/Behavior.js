@@ -4,7 +4,6 @@
 export class Behavior {
 
     /**
-     * @abstract
      * @param {Object} context
      */
     before (context) { }
@@ -16,7 +15,6 @@ export class Behavior {
     during (context) { }
 
     /**
-     * @abstract
      * @param {Object} context
      */
     after (context) { }

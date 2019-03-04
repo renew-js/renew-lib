@@ -10,9 +10,7 @@ export class DisableBehavior extends Behavior {
 
     before (context) { }
 
-    during (context) {
-        this.create.shape = context.shape;
-    }
+    during (context) { }
 
     after (context) { }
 

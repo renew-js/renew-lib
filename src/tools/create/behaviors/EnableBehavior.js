@@ -2,16 +2,21 @@ import { Behavior } from '../../../core/Behavior';
 
 
 export class EnableBehavior extends Behavior {
-    constructor () {
+    constructor (create) {
         super();
+        this.create = create;
     }
 
-    before (context) { }
+    before (context) {
+
+    }
 
     during (context) {
-
+        this.create.shape = context.shape;
     }
 
-    after (context) { }
+    after (context) {
+
+    }
 
 }

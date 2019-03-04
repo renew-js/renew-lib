@@ -6,7 +6,7 @@ describe('core/toolbox - Toolbox', () => {
     let diagram;
 
     class TestProvider {
-        constructor () { this.payload = { }; }
+        constructor () { }
     }
     class TestEnableBehavior extends Behavior {
         constructor (state) { super(); this.state = state }

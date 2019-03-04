@@ -1,15 +1,10 @@
 export class MetaPalette {
 
-    constructor (eventBus, palette) {
+    constructor (eventBus, toolbox) {
         this.metaPaletteEntries = {};
 
         this.eventBus = eventBus;
-        this.palette = palette;
-
-        this.eventBus.on('plugin.register.end', (event) => {
-            this.registerPlugin(event.plugin);
-            this.palette.registerProvider(this);
-        });
+        this.toolbox = toolbox;
     }
 
     getPaletteEntries () {
@@ -38,11 +33,12 @@ export class MetaPalette {
             type: metaModel.type + ':' + entry.type,
             group: metaModel.type,
             action: {
-                click: (event) => this.eventBus.fire('metaPalette.create', {
-                    click: event,
-                    plugin: plugin,
-                    element: entry,
-                }),
+                click: (event) => {
+                    this.toolbox.activate('create', entry);
+//                        click: event,
+//                        plugin: plugin,
+//                        element: entry,
+                },
             },
             imageUrl: toolConfiguration.toolMappings[entry.type].icon,
             title: toolConfiguration.toolMappings[entry.type].title,
