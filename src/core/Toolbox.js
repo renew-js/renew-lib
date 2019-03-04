@@ -2,18 +2,29 @@ export class Toolbox {
 
     constructor (eventBus) {
         this.eventBus = eventBus;
-        this.tools = { };
         this.activeTool = null;
     }
 
-    registerTool (name, instance) {
-        this.tools[name] = instance;
+    activate (name) {
+        this.eventBus.fire('tool.' + name + '.disable', context);
+        this.activeTool = name;
+        this.eventBus.fire('tool.' + name + '.enable', context);
     }
 
-    activate (name, context) {
-        this.eventBus.fire(name + '.disable', context);
-        this.activeTool = this.tools[name];
-        this.eventBus.fire(name + '.activate', context);
+    onMouseDown (event) {
+        this.eventBus.fire('tool.' + name + '.onMouseDown', context);
+    }
+
+    onMouseUp (event) {
+        this.eventBus.fire('tool.' + name + '.onMouseUp', context);
+    }
+
+    onMouseMove (event) {
+        this.eventBus.fire('tool.' + name + '.onMouseMove', context);
+    }
+
+    onClick (event) {
+        this.eventBus.fire('tool.' + name + '.onClick', context);
     }
 
 }

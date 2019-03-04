@@ -2,12 +2,10 @@ module.exports = function (config) {
     config.set({
         basePath: '',
         frameworks: [
-            'mocha',
-            'sinon-chai'
+            'jasmine'
         ],
         files: [
-            'test/**/*.spec.js',
-            { pattern: 'src/**/*.js', included: false }
+            { pattern: 'test/**/*.spec.js', watched: false }
         ],
         exclude: [ 'karma.conf.js' ],
         preprocessors: {
@@ -20,7 +18,6 @@ module.exports = function (config) {
                 require('rollup-plugin-commonjs')({ ignoreGlobal: true, sourceMap: true }),
                 require('rollup-plugin-json')(),
                 require('rollup-plugin-babel')(),
-                require('rollup-plugin-sass'),
             ],
             output: {
                 format: 'iife',
@@ -35,8 +32,15 @@ module.exports = function (config) {
         autoWatch: true,
         browsers: [
             'Firefox',
+            'FirefoxHeadless',
             'Chrome',
         ],
+        customLaunchers: {
+            FirefoxHeadless: {
+                base: 'Firefox',
+                flags: [ '-headless' ],
+            },
+        },
         singleRun: false,
         concurrency: Infinity,
     });

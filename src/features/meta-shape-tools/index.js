@@ -2,7 +2,6 @@ import MetaFormalismModule from '../meta-formalism';
 import ContextPadModule from 'diagram-js/lib/features/context-pad';
 import PaletteModule from 'diagram-js/lib/features/palette';
 import RulesModule from 'diagram-js/lib/features/rules';
-import ModelingModule from '../meta-modeling';
 
 import { MetaContextPad } from '../meta-shape-tools/MetaContextPad';
 import { MetaPalette } from '../meta-shape-tools/MetaPalette';
@@ -16,12 +15,15 @@ export default {
         ContextPadModule,
         RulesModule,
 
-        ModelingModule,
+//        ModelingModule,
     ],
     __init__: [
         'metaPalette',
         'metaContextPad',
         'metaRules',
+    ],
+    __rules__: [
+        // TODO
     ],
     metaPalette: [ 'type', MetaPalette ],
     metaContextPad: [ 'type', MetaContextPad ],
