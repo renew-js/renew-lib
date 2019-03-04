@@ -14,15 +14,15 @@ export default class Modeler extends Viewer {
     constructor (options = {}) {
         super(Object.assign({
             modules: [
-                BaseToolsModule,
+//                BaseToolsModule,
                 MetaShapeToolsModule,
 
-                MoveModule,
-                ResizeModule,
-                BendpointsModule,
-                MetaLabelEditingModule,
+//                MoveModule,
+//                ResizeModule,
+//                BendpointsModule,
+//                MetaLabelEditingModule,
 
-                SnappingModule,
+//                SnappingModule,
             ],
         }, options));
     }
