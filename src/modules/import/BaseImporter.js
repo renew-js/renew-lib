@@ -11,8 +11,10 @@ export default class BaseImporter {
     import (data) {
         console.log(data);
         this.verify(data);
-        this.resetCanvas();
+        this.canvas._clear();
+        this.canvas.getRootElement();
         this.parseElements(data.elements);
+        this.canvas.zoom('fit-viewport', 'auto');
         this.metaFactory.setIncrement(data.increment);
     }
 
@@ -24,18 +26,6 @@ export default class BaseImporter {
             throw new Error('Import must contain increment index.');
         }
         // TODO error handling
-    }
-
-    resetCanvas () {
-        this.eventBus.fire('diagram.clear');
-        const currentViewbox = this.canvas.viewbox();
-        this. canvas.viewbox({
-            x: 0,
-            y: 0,
-            width: currentViewbox.outer.width,
-            height: currentViewbox.outer.height,
-        });
-        this.canvas.getRootElement();
     }
 
     parseElements (elements) {
