@@ -11,7 +11,7 @@ export default {
     __depends__: [
         EventBusModule,
         CommandModule,
-        ToolboxModule
+        ToolboxModule,
     ],
     __init__: [
         'canvas',

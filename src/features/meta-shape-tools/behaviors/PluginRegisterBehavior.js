@@ -9,13 +9,9 @@ export class PluginRegisterBehavior extends Behavior {
         this.metaPalette = metaPalette;
     }
 
-    during (context) {
+    after (context) {
         this.metaPalette.registerPlugin(context.plugin);
         this.palette.registerProvider(this.metaPalette);
-    }
-
-    after (context) {
-
     }
 
 }

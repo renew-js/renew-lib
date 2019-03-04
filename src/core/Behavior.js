@@ -9,7 +9,6 @@ export class Behavior {
     before (context) { }
 
     /**
-     * @abstract
      * @param {Object} context
      */
     during (context) { }

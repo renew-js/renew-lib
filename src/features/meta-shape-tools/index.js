@@ -15,8 +15,6 @@ export default {
         PaletteModule,
         ContextPadModule,
         RulesModule,
-
-//        ModelingModule,
     ],
     __init__: [
         'metaPalette',
@@ -24,7 +22,7 @@ export default {
         'metaRules',
     ],
     __behaviors__: [
-        [ 'plugin.register', 1500, PluginRegisterBehavior ]
+        [ 'plugin.register', 1500, PluginRegisterBehavior ],
     ],
     __rules__: [
         // TODO

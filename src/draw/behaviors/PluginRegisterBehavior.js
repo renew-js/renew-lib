@@ -7,14 +7,8 @@ export class PluginRegisterBehavior extends Behavior {
         this.renderer = renderer;
     }
 
-    before (context) {
-    }
-
-    during (context) {
-        this.renderer.registerMarker(context);
-    }
-
     after (context) {
+        this.renderer.registerMarker(context);
     }
 
 }

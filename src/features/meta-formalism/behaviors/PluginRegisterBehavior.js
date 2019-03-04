@@ -8,16 +8,8 @@ export class PluginRegisterBehavior extends Behavior {
         this.pluginManager = metaPluginManager;
     }
 
-    before (context) {
-
-    }
-
     during (context) {
-        this.pluginManager.register(event.plugin);
-    }
-
-    after (context) {
-
+        this.pluginManager.register(context.plugin);
     }
 
 }
