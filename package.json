@@ -10,22 +10,28 @@
     "prebuild": "eslint src --fix",
     "build": "rollup -c --environment BUILD:production"
   },
+  "huskey": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "license": "MIT",
   "repository": "https://github.com/renew-js/renew-lib",
   "devDependencies": {
-    "css.escape": "git+https://github.com/tim-kilian/css.escape",
-    "process-es6": "git+https://github.com/tim-kilian/node-process-es6",
-    "jasmine-core": "^3.3.0",
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
+    "css.escape": "git+https://github.com/tim-kilian/css.escape",
     "eslint": "^5.12.1",
     "eslint-config-google": "^0.11.0",
     "eslint-config-renew": "git+https://github.com/renew-js/eslint-config-renew.git",
+    "husky": "^1.3.1",
+    "jasmine-core": "^3.3.0",
     "karma": "^3.1.4",
     "karma-chrome-launcher": "^2.2.0",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-rollup-preprocessor": "^7.0.0",
+    "process-es6": "git+https://github.com/tim-kilian/node-process-es6",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.1",
