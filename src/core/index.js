@@ -2,7 +2,7 @@ import Canvas from 'diagram-js/lib/core/Canvas';
 import CommandModule from 'diagram-js/lib/command';
 import ElementFactory from 'diagram-js/lib/core/ElementFactory';
 import ElementRegistry from 'diagram-js/lib/core/ElementRegistry';
-import EventBus from 'diagram-js/lib/core/EventBus';
+import EventBus from './EventBus';
 import GraphicsFactory from 'diagram-js/lib/core/GraphicsFactory';
 
 

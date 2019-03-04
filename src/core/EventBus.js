@@ -1,7 +1,7 @@
 import DiagramJsEventBus from 'diagram-js/lib/core/EventBus';
 
 
-export class EventBus extends DiagramJsEventBus {
+export default class EventBus extends DiagramJsEventBus {
 
     constructor () {
         super();

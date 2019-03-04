@@ -8,7 +8,7 @@ export class Toolbox {
     activate (name) {
         this.eventBus.fire('tool.' + name + '.disable', context);
         this.activeTool = name;
-        this.eventBus.fire('tool.' + name + '.activate', context);
+        this.eventBus.fire('tool.' + name + '.enable', context);
     }
 
     onMouseDown (event) {

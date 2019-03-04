@@ -8,6 +8,7 @@ export class Injector extends DiDiInjector {
         let commands = [];
         let behaviors = [];
         let rules = [];
+        let tools = [];
 
         const bootstrap = (modules) => {
             const result = [];
@@ -59,28 +60,16 @@ export class Injector extends DiDiInjector {
     }
 
     initBehavior (behavior) {
-        const instance = this.instantiate(behavior[2]);
-
-        this.get('eventBus').on(
-            behavior[0] + '.start',
+        this.get('eventBus').registerBehavior(
+            behavior[0],
             behavior[1],
-            instance.before.bind(instance)
-        );
-        this.get('eventBus').on(
-            behavior[0] + '.move',
-            behavior[1],
-            instance.during.bind(instance)
-        );
-        this.get('eventBus').on(
-            behavior[0] + '.end',
-            behavior[1],
-            instance.after.bind(instance)
+            this.instantiate(behavior[2])
         );
     }
 
     initRule (rule) {
         // TODO: use custom rules
-        // this.get('');
+        // this.get('policy').registerRule(rule[0], rule[1], rule[2]);
     }
 
 }
