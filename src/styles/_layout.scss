@@ -4,3 +4,16 @@
 .djs-container {
   background-color: #fff;
 }
+
+.djs-context-pad .entry {
+  opacity: 0.8;
+  cursor: pointer;
+  box-shadow: none;
+  margin: 0 2px 2px 0;
+  border-radius: 2px;
+  font-size: initial;
+}
+
+.djs-context-pad .entry:hover {
+  background-color: #eee;
+}
