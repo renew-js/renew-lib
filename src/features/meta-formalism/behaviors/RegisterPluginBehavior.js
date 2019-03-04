@@ -1,4 +1,4 @@
-import { Behavior } from '../../../util/Behavior';
+import { Behavior } from '../../../core/Behavior';
 
 
 export class RegisterPluginBehavior extends Behavior {

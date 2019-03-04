@@ -2,10 +2,10 @@ import Diagram from 'diagram-js';
 
 import CoreModule from './core';
 import DrawModule from './draw';
-import ExportModule from './modules/export';
-import ImportModule from './modules/import';
+import ExportModule from './features/export';
+import ImportModule from './features/import';
 
-import { Injector } from './util/Injector';
+import { Injector } from './core/Injector';
 
 
 export default class Viewer extends Diagram {

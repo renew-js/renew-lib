@@ -64,22 +64,17 @@ export class Injector extends DiDiInjector {
         this.get('eventBus').on(
             behavior[0] + '.start',
             behavior[1],
-            instance.start.bind(instance)
+            instance.before.bind(instance)
         );
         this.get('eventBus').on(
             behavior[0] + '.move',
             behavior[1],
-            instance.move.bind(instance)
+            instance.during.bind(instance)
         );
         this.get('eventBus').on(
             behavior[0] + '.end',
             behavior[1],
-            instance.end.bind(instance)
-        );
-        this.get('eventBus').on(
-            behavior[0] + '.ended',
-            behavior[1],
-            instance.ended.bind(instance)
+            instance.after.bind(instance)
         );
     }
 

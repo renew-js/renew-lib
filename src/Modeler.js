@@ -2,11 +2,11 @@ import BendpointsModule from 'diagram-js/lib/features/bendpoints';
 import MoveModule from 'diagram-js/lib/features/move';
 
 import Viewer from './Viewer';
-import MetaLabelEditingModule from './modules/meta-label-editing';
-import SnappingModule from './modules/snapping';
-import ResizeModule from './modules/resize';
-import BaseToolsModule from './modules/base-tools';
-import MetaShapeToolsModule from './modules/meta-shape-tools';
+import MetaLabelEditingModule from './features/meta-label-editing';
+import SnappingModule from './features/snapping';
+import ResizeModule from './features/resize';
+import BaseToolsModule from './features/base-tools';
+import MetaShapeToolsModule from './features/meta-shape-tools';
 
 
 export default class Modeler extends Viewer {

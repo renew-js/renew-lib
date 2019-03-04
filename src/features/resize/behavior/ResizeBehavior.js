@@ -1,4 +1,4 @@
-import { Behavior } from '../../../util/Behavior';
+import { Behavior } from '../../../core/Behavior';
 
 /**
  * Resize any shape and path relative to initial state
