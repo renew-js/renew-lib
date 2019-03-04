@@ -1,15 +1,23 @@
 import { Behavior } from '../../../core/Behavior';
 
 
-export class RegisterPluginBehavior extends Behavior {
+export class PluginRegisterBehavior extends Behavior {
 
     constructor (metaPluginManager) {
         super();
         this.pluginManager = metaPluginManager;
     }
 
-    start (event) {
+    before (context) {
+
+    }
+
+    during (context) {
         this.pluginManager.register(event.plugin);
+    }
+
+    after (context) {
+
     }
 
 }

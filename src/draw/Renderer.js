@@ -4,14 +4,12 @@ import { stringify } from 'svgson';
 import { query } from 'min-dom'; // TODO: install min dom
 
 
-export default class Renderer extends BaseRenderer {
+export class Renderer extends BaseRenderer {
 
     constructor (eventBus, canvas, styles) {
         super(eventBus, 10);
         this.canvas = canvas;
         this.styles = styles;
-
-        eventBus.on('plugin.register.end', this.registerMarker.bind(this));
     }
 
     registerMarker (event) {
