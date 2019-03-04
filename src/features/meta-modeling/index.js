@@ -1,12 +1,7 @@
-import BendpointsModule from 'diagram-js/lib/features/bendpoints';
-import CreateModule from 'diagram-js/lib/features/create';
-import MoveModule from 'diagram-js/lib/features/move';
 import MetaFormalismModule from '../meta-formalism';
-import MetaLabelEditingModule from '../meta-label-editing';
-import GlobalConnectModule from 'diagram-js/lib/features/global-connect';
 import ModelingModule from 'diagram-js/lib/features/modeling';
-import SnappingModule from '../snapping';
-import ResizeModule from '../resize';
+import CreateModule from 'diagram-js/lib/features/create';
+import GlobalConnectModule from 'diagram-js/lib/features/global-connect';
 
 import { MetaFactory } from './MetaFactory';
 import { MetaModeling } from './MetaModeling';
@@ -19,13 +14,7 @@ export default {
         ModelingModule,
 
         CreateModule,
-        MoveModule,
-        ResizeModule,
         GlobalConnectModule,
-        BendpointsModule,
-        MetaLabelEditingModule,
-
-        SnappingModule,
     ],
     __init__: [
         'metaFactory',

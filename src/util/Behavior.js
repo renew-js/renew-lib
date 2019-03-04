@@ -1,4 +1,5 @@
 export class Behavior {
+
     start () {
         //
     }
@@ -14,5 +15,6 @@ export class Behavior {
     ended () {
         //
     }
+
 }
 

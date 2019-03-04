@@ -10,5 +10,5 @@ export default {
     __behaviors__: [
         [ 'plugin.register', 1500, RegisterPluginBehavior ],
     ],
-    metaPluginManager: ['type', MetaPluginManager],
+    metaPluginManager: [ 'type', MetaPluginManager ],
 };

@@ -8,7 +8,7 @@ import GraphicsFactory from 'diagram-js/lib/core/GraphicsFactory';
 
 export default {
     __depends__: [
-        CommandModule
+        CommandModule,
     ],
     __init__: [
         'canvas',

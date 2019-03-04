@@ -2,6 +2,7 @@ import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 
 
 export class MetaRules extends RuleProvider {
+
     constructor (eventBus) {
         super(eventBus);
 
@@ -42,4 +43,5 @@ export class MetaRules extends RuleProvider {
             return context.shape.resizable;
         });
     }
+
 }
