@@ -1,12 +1,6 @@
-import BendpointsModule from 'diagram-js/lib/features/bendpoints';
-import MoveModule from 'diagram-js/lib/features/move';
-
 import Viewer from './Viewer';
-import MetaLabelEditingModule from './features/meta-label-editing';
-import SnappingModule from './features/snapping';
-import ResizeModule from './features/resize';
-import BaseToolsModule from './features/base-tools';
 import MetaShapeToolsModule from './features/meta-shape-tools';
+import CreateModule from './tools/create';
 
 
 export default class Modeler extends Viewer {
@@ -16,6 +10,8 @@ export default class Modeler extends Viewer {
             modules: [
 //                BaseToolsModule,
                 MetaShapeToolsModule,
+
+                CreateModule,
 
 //                MoveModule,
 //                ResizeModule,

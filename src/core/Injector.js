@@ -56,6 +56,7 @@ export class Injector extends DiDiInjector {
     }
 
     initCommands (command) {
+        command[1].$inject = undefined;
         this.get('commandStack').registerHandler(command[0], command[1]);
     }
 

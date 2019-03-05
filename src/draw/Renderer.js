@@ -41,12 +41,12 @@ export class Renderer extends BaseRenderer {
     }
 
     canRender (element) {
-        return element.body || element.waypoints;
+        return element.businessObject.representation || element.waypoints;
     }
 
     drawShape (graphics, element) {
         const shape = create('g');
-        innerSVG(shape, stringify(element.body));
+        innerSVG(shape, stringify(element.businessObject.representation));
         append(graphics, shape);
         return shape;
     }

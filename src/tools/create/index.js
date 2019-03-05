@@ -1,5 +1,6 @@
 import { DisableBehavior } from './behaviors/DisableBehavior';
 import { EnableBehavior } from './behaviors/EnableBehavior';
+import { CreateShapeCommand } from './commands/CreateShapeCommand';
 import { Create } from './providers/Create';
 import { MouseDownBehavior } from './behaviors/MouseDownBehavior';
 import { MouseUpBehavior } from './behaviors/MouseUpBehavior';
@@ -14,7 +15,7 @@ export default {
         'create',
     ],
     __commands__: [
-//        [ '', CreateElementCommand ],
+        [ 'shape.create', CreateShapeCommand ],
     ],
     __behaviors__: [
         [ 'tool.create.enable', 1500, EnableBehavior ],

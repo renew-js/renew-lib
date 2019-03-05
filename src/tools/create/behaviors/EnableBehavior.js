@@ -12,7 +12,8 @@ export class EnableBehavior extends Behavior {
     }
 
     during (context) {
-        this.create.shape = context.shape;
+        this.create.factory = context.factory;
+        this.create.config = context.config;
     }
 
     after (context) {

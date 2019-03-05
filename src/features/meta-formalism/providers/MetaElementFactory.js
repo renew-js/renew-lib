@@ -1,33 +1,60 @@
 import ElementFactory from 'diagram-js/lib/core/ElementFactory';
+import { UID } from '../util/UID';
 
 
-export class MetaFactory extends ElementFactory {
+export class MetaElementFactory extends ElementFactory {
 
-    constructor (eventBus, metaPluginManager, create, globalConnect) {
+    constructor (metaPluginManager) {
         super();
-        this.eventBus = eventBus;
         this.pluginManager = metaPluginManager;
-        this.dragging = create;
-        this.connect = globalConnect;
-
-        this.eventBus.on('metaPalette.create', this.onCreateElement.bind(this));
-        this.eventBus.on('connection.add', this.onConnectRelation.bind(this));
     }
 
-    onCreateElement (event) {
-        switch (event.element.constructor.name) {
+    createElement (type) {
+        const element = this.pluginManager.getElement(type);
+
+        const attributes = Object.assign({},
+            element,
+            this.pluginManager.getStyle(type),
+            { type: type }
+        );
+
+        switch (element.constructor.name) {
             case 'Classifier':
-                this.onCreateClassifier(event);
-                break;
+                return this.createShape(attributes);
             case 'Relation':
-                this.onCreateRelation(event);
-                break;
+                return this.createConnection(attributes);
             case 'Text':
-                this.onCreateText(event);
-                break;
+                return this.createLabel(attributes);
         }
     }
 
+    createShape (attributes) {
+        return super.createShape({
+            id: UID('shape'),
+            businessObject: attributes,
+            metaObject: attributes,
+            width: attributes.defaultDimension.width,
+            height: attributes.defaultDimension.height
+        });
+    }
+
+    createConnection (attributes) {
+        return super.createConnection({
+            id: UID('connection'),
+            businessObject: attributes,
+            metaObject: attributes
+        });
+    }
+
+    createLabel (attributes) {
+        return super.createLabel({
+            id: UID('label'),
+            businessObject: attributes,
+            metaObject: attributes
+        });
+    }
+
+    /*
     onCreateClassifier (event) {
         const metaModel = event.plugin.getMetaModel();
         const stylesheet = event.plugin.getStylesheet();
@@ -104,5 +131,5 @@ export class MetaFactory extends ElementFactory {
     setIncrement (uid) {
         this._uid = uid;
     }
-
+*/
 }

@@ -7,5 +7,6 @@ export class MouseUpBehavior extends Behavior {
     }
 
     during (context) {
+
     }
 }

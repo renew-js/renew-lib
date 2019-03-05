@@ -1,5 +1,6 @@
 import { Tester } from '../../Tester';
 import { Behavior } from '../../../src/core/Behavior';
+import { mousedown } from '../../util/MockEvent';
 
 
 describe('core/toolbox - Toolbox', () => {
@@ -10,18 +11,26 @@ describe('core/toolbox - Toolbox', () => {
     }
     class TestEnableBehavior extends Behavior {
         constructor (state) { super(); this.state = state }
-        before (context) { }
         during (context) { this.state.enabled = true; }
-        after (context) { }
     }
     class TestDisableBehavior extends Behavior {
         constructor (state) { super(); this.state = state }
-        before (context) { }
         during (context) { this.state.enabled = false; }
-        after (context) { }
+    }
+    class TestMouseDownBehavior extends Behavior {
+        constructor (state) { super(); this.state = state }
+        during (context) { console.log('event', context);this.state.mousedown = true; }
+    }
+    class TestMouseMoveBehavior extends Behavior {
+        constructor (state) { super(); this.state = state }
+        during (context) { }// this.state.mousedown = true; }
+    }
+    class TestMouseUpBehavior extends Behavior {
+        constructor (state) { super(); this.state = state }
+        during (context) { this.state.mousedown = false; }
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
         diagram = new Tester({
             modules: [
                 {
@@ -29,6 +38,9 @@ describe('core/toolbox - Toolbox', () => {
                     __behaviors__: [
                         [ 'tool.test.enable', 1500, TestEnableBehavior],
                         [ 'tool.test.disable', 1500, TestDisableBehavior],
+                        [ 'tool.test.mousedown', 1500, TestMouseDownBehavior],
+                        [ 'tool.test.mousemove', 1500, TestMouseMoveBehavior],
+                        [ 'tool.test.mouseup', 1500, TestMouseUpBehavior],
                     ],
                     state: [ 'type', TestProvider ]
                 }
@@ -59,6 +71,18 @@ describe('core/toolbox - Toolbox', () => {
             toolbox.activate('test');
             toolbox.activate('other');
             expect(state.enabled).toBe(false);
+        });
+    });
+
+    it('should listen on mouse events', function () {
+        diagram.invoke((toolbox, state) => {
+            toolbox.activate('test');
+
+            expect(state.mousedown).toBeUndefined();
+
+            mousedown(diagram, { x: 60, y: 60 });
+
+            expect(state.mousedown).toBe(true);
         });
     });
 });

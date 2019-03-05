@@ -1,10 +1,11 @@
 export class MetaPalette {
 
-    constructor (eventBus, toolbox) {
+    constructor (eventBus, toolbox, metaFactory) {
         this.metaPaletteEntries = {};
 
         this.eventBus = eventBus;
         this.toolbox = toolbox;
+        this.factory = metaFactory;
     }
 
     getPaletteEntries () {
@@ -12,44 +13,38 @@ export class MetaPalette {
     }
 
     registerPlugin (plugin) {
-        plugin.getMetaModel().getElements().forEach((element) => {
-            const entry = this.createEntry(element, plugin);
-            if (entry) {
-                this.metaPaletteEntries[entry.type] = entry;
-            }
+        const config = plugin.getToolConfiguration();
+
+        config.getToolMappings().forEach(tool => {
+            const type = config.targetModel + ':' + tool.targetType;
+            const mapping = Object.assign({}, config, tool, { type: type });
+            const entry = type.replace(':', '-');
+            this.metaPaletteEntries[ entry ] = this.createEntry(mapping);
         });
-        this.addSeparator(plugin);
+
+        this.addSeparator(config.targetModel);
     }
 
-    createEntry (entry, plugin) {
-        const metaModel = plugin.getMetaModel();
-        const toolConfiguration = plugin.getToolConfiguration();
-
-        if (!toolConfiguration.toolMappings[entry.type]) {
-            return null;
-        }
-
+    createEntry (config) {
         return {
-            type: metaModel.type + ':' + entry.type,
-            group: metaModel.type,
+            type: config.type,
+            group: config.targetModel,
             action: {
-                click: (event) => {
-                    this.toolbox.activate('create', entry);
-//                        click: event,
-//                        plugin: plugin,
-//                        element: entry,
+                click: () => {
+                    this.toolbox.activate('create', {
+                        factory: () => this.factory.createElement(config.type),
+                        config: config,
+                    });
                 },
             },
-            imageUrl: toolConfiguration.toolMappings[entry.type].icon,
-            title: toolConfiguration.toolMappings[entry.type].title,
+            imageUrl: config.icon,
+            title: config.title,
         };
     }
 
-    addSeparator (plugin) {
-        const metaModel = plugin.getMetaModel();
-        const name = 'plugin-' + metaModel.type + '-separator';
-        this.metaPaletteEntries[name] = {
-            group: metaModel.type,
+    addSeparator (type) {
+        this.metaPaletteEntries[ 'plugin-' + type + '-separator' ] = {
+            group: type,
             separator: true,
         };
     }

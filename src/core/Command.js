@@ -4,7 +4,7 @@ import CommandHandler from 'diagram-js/lib/command/CommandHandler';
 /**
  * @abstract
  */
-export class Command extends CommandHandler() {
+export class Command extends CommandHandler {
 
     constructor () {
         super();
