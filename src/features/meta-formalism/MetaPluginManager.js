@@ -29,14 +29,14 @@ export class MetaPluginManager {
 
     getStyle (type) {
         const [ model, metaType ] = type.split(':');
-        return this.getStyleSheetStyle(model, metaType);
+        return this.getStylesheetStyle(model, metaType);
     }
 
     getStylesheet (model) {
         return this.getPlugin(model).getStylesheet();
     }
 
-    getStyleSheetStyle (model, type) {
+    getStylesheetStyle (model, type) {
         return this.getStylesheet(model).getStyle(type);
     }
 

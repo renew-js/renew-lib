@@ -1,4 +1,5 @@
 import ElementFactory from 'diagram-js/lib/core/ElementFactory';
+import cloneDeep from 'lodash/cloneDeep';
 
 
 export class MetaFactory extends ElementFactory {
@@ -33,8 +34,6 @@ export class MetaFactory extends ElementFactory {
         const stylesheet = event.plugin.getStylesheet();
         const style = stylesheet.styles[event.element.type];
 
-        const clone = (object) => JSON.parse(JSON.stringify(object));
-
         const shape = this.createShape({
             class: event.element.constructor.name,
             type: metaModel.type + ':' + event.element.type,
@@ -43,7 +42,7 @@ export class MetaFactory extends ElementFactory {
             metaLabels: event.element.labels,
             width: style.defaultDimension.width,
             height: style.defaultDimension.height,
-            body: clone(style.representation),
+            body: cloneDeep(style.representation),
             resizable: true,
         });
 
