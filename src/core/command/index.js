@@ -1,10 +1,10 @@
-import CommandStack from 'diagram-js/lib/command/CommandStack';
+import { CommandStack } from './providers/CommandStack';
 
 
 export default {
-    __depends__: [ ],
+    __depends__: [],
     __init__: [
-        'commandStack'
+        'commandStack',
     ],
 
     commandStack: [ 'type', CommandStack ],
