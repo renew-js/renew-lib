@@ -1,3 +1,6 @@
+import cloneDeep from 'lodash/cloneDeep';
+
+
 export default class BaseExporter {
 
     constructor (elementRegistry, metaFactory, canvas) {
@@ -24,7 +27,7 @@ export default class BaseExporter {
 
         const increment = this.metaFactory.getIncrement();
 
-        return { elements, increment };
+        return { elements: cloneDeep(elements), increment };
     }
 
 }

@@ -40,7 +40,7 @@ export class MetaLabelEditing {
     }
 
     activate (context) {
-        const style = this.pluginManager.getStyleSheetStyle(
+        const style = this.pluginManager.getStylesheetStyle(
             context.element.model,
             context.type
         );
