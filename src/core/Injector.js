@@ -70,8 +70,8 @@ export class Injector extends DiDiInjector {
     }
 
     initRule (rule) {
-        // TODO: use custom rules
-        // this.get('policy').registerRule(rule[0], rule[1], rule[2]);
+        rule[2].$inject = undefined;
+        this.get('policy').registerRule(rule[0], rule[1], rule[2]);
     }
 
 }
