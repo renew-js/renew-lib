@@ -11,6 +11,12 @@ export class Command extends CommandHandler {
     }
 
     /**
+     * @param {Object} context
+     * @returns {Boolean}
+     */
+    canExecute (context) { return true; }
+
+    /**
      * @abstract
      * @param {Object} context
      */

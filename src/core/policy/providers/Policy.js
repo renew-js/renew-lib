@@ -3,7 +3,7 @@ export class Policy {
         this.rules = { }
     }
 
-    registerRule (name, rule) {
+    registerRule (name, priority, rule) {
         if (!this.rules[name]) {
             this.rules[name] = [];
         }
@@ -13,6 +13,8 @@ export class Policy {
         }
 
         this.rules[name].push(rule);
+
+        // TODO sort by priority
     }
 
     /**

@@ -1,5 +1,7 @@
 import { Injector as DiDiInjector } from 'didi';
 
+const PRIORITY_DEFAULT = 1000;
+
 
 export class Injector extends DiDiInjector {
 
@@ -61,6 +63,11 @@ export class Injector extends DiDiInjector {
     }
 
     initBehavior (behavior) {
+        if (behavior.length < 3) {
+            behavior[2] = behavior[1];
+            behavior[1] = PRIORITY_DEFAULT;
+        }
+
         behavior[2].$inject = undefined;
         this.get('eventBus').registerBehavior(
             behavior[0],
@@ -70,6 +77,11 @@ export class Injector extends DiDiInjector {
     }
 
     initRule (rule) {
+        if (rule.length < 3) {
+            rule[2] = rule[1];
+            rule[1] = PRIORITY_DEFAULT;
+        }
+
         rule[2].$inject = undefined;
         this.get('policy').registerRule(
             rule[0],
