@@ -21,7 +21,6 @@ export class MetaLabelEditing {
             // TODO: unselect selection
         });
         eventBus.on('contextPad.text.click', (event) => {
-            console.log(event);
             this.onActivateDirectEditing(event, event.textType);
         });
         eventBus.on('element.mousedown', () => {

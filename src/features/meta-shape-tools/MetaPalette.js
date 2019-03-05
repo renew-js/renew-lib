@@ -26,16 +26,18 @@ export class MetaPalette {
     }
 
     createEntry (config) {
+        const activateCreateTool = () => {
+            this.toolbox.activate('create', {
+                factory: () => this.factory.createElement(config.type),
+                config: config,
+            });
+        };
         return {
             type: config.type,
             group: config.targetModel,
             action: {
-                click: () => {
-                    this.toolbox.activate('create', {
-                        factory: () => this.factory.createElement(config.type),
-                        config: config,
-                    });
-                },
+                click: activateCreateTool,
+                dragstart: activateCreateTool,
             },
             imageUrl: config.icon,
             title: config.title,

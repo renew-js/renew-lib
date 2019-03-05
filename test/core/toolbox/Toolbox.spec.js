@@ -1,5 +1,5 @@
 import { Tester } from '../../Tester';
-import { Behavior } from '../../../src/core/Behavior';
+import { Behavior } from '../../../src/core/eventBus/Behavior';
 import { mousedown } from '../../util/MockEvent';
 
 

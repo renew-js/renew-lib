@@ -1,4 +1,4 @@
-import { Behavior } from '../../../core/Behavior';
+import { Behavior } from '../../../core/eventBus/Behavior';
 
 
 export class EnableBehavior extends Behavior {
@@ -14,6 +14,7 @@ export class EnableBehavior extends Behavior {
     during (context) {
         this.create.factory = context.factory;
         this.create.config = context.config;
+        const shape = context.factory();
     }
 
     after (context) {

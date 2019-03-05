@@ -1,10 +1,15 @@
-import { Command } from '../../../core/Command';
+import { Command } from '../../../core/command/Command';
 
 
 export class CreateShapeCommand extends Command {
-    constructor (canvas) {
+    constructor (canvas, policy) {
         super();
         this.canvas = canvas;
+        this.policy = policy;
+    }
+
+    canExecute (context) {
+        return this.policy.allowed('shape.create', context);
     }
 
     preExecute (context) {
@@ -17,13 +22,11 @@ export class CreateShapeCommand extends Command {
 
     execute (context) {
         // (2) add to canvas
-        const shape = this.canvas.addShape(context.shape, context.parent, context.index);
-        console.log(shape);
-
-        return context.shape;
+        return this.canvas.addShape(context.shape);
     }
 
     revert (context) {
+        // (3) remove from canvas
         this.canvas.removeShape(context.shape);
     }
 

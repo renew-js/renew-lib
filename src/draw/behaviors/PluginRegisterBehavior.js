@@ -1,4 +1,4 @@
-import { Behavior } from '../../core/Behavior';
+import { Behavior } from '../../core/eventBus/Behavior';
 
 
 export class PluginRegisterBehavior extends Behavior {
