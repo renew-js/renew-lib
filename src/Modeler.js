@@ -23,8 +23,4 @@ export default class Modeler extends Viewer {
         }, options));
     }
 
-    addFormalism (plugin) {
-        this.get('eventBus').fire('plugin.register', { plugin: plugin });
-    }
-
 }

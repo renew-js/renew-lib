@@ -1,3 +1,5 @@
+import { HoverBehavior } from './behaviors/HoverBehavior';
+import { OutBehavior } from './behaviors/OutBehavior';
 import { Toolbox } from './providers/Toolbox';
 import InteractionEventModule from 'diagram-js/lib/features/interaction-events';
 
@@ -8,10 +10,10 @@ export default {
     ],
     __init__: [
         'toolbox',
-        'hoverFix'
     ],
     __behaviors__: [
-        //[ '' ]
+        [ 'element.hover', HoverBehavior ],
+        [ 'element.out', OutBehavior ],
     ],
     toolbox: [ 'type', Toolbox ],
 };

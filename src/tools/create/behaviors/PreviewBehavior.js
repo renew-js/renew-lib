@@ -1,11 +1,12 @@
 import { Behavior } from '../../../core/eventBus/Behavior';
 import { translate } from 'diagram-js/lib/util/SvgTransformUtil';
-import { append, attr, classes, create } from 'tiny-svg';
+import { append, attr, classes, create, remove } from 'tiny-svg';
 
 
 export class PreviewBehavior extends Behavior {
-    constructor (create, canvas, styles, graphicsFactory) {
+    constructor (create, canvas, styles, graphicsFactory, policy) {
         super();
+        this.policy = policy;
         this.create = create;
         this.canvas = canvas;
         this.styles = styles;
@@ -13,7 +14,7 @@ export class PreviewBehavior extends Behavior {
     }
 
     before (context) {
-        if (!this.create.preview) {
+        if (!this.create.preview && this.canRender(context)) {
             this.create.preview = this.createPreview(this.create.factory());
         }
     }
@@ -39,12 +40,28 @@ export class PreviewBehavior extends Behavior {
         return group;
     }
 
-    during (context) {
-
-        translate(
-            this.create.preview,
-            context.event.layerX,
-            context.event.layerY
-        );
+    canRender (context) {
+        return this.policy.allowed('shape.create', context);
     }
+
+    clearPreview () {
+        if (this.create.preview) {
+            remove(this.create.preview);
+            this.create.preview = null;
+        }
+    }
+
+    during (context) {
+        if (this.canRender(context)) {
+            translate(
+                this.create.preview,
+                context.x,
+                context.y
+            );
+        } else {
+            this.clearPreview();
+        }
+    }
+
+
 }

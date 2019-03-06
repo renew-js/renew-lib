@@ -8,7 +8,6 @@ export default class EventBus extends DiagramJsEventBus {
     }
 
     fire (name, payload) {
-        console.log(name);
         super.fire(name + '.start', payload);
         super.fire(name, payload);
         super.fire(name + '.end', payload);

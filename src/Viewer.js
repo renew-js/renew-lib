@@ -48,4 +48,8 @@ export default class Viewer extends Diagram {
         parentNode.removeChild(this.container);
     }
 
+    addFormalism (plugin) {
+        this.get('eventBus').fire('plugin.register', { plugin: plugin });
+    }
+
 }
