@@ -46,8 +46,7 @@ export class PreviewBehavior extends Behavior {
 
     clearPreview () {
         if (this.create.preview) {
-            remove(this.create.preview);
-            this.create.preview = null;
+            this.create.clearPreview();
         }
     }
 

@@ -13,7 +13,7 @@ export class CleanUpBehavior extends Behavior {
     during (context) {
         this.create.factory = null;
         this.create.config = null;
-        this.create.preview = null;
+        this.create.clearPreview();
     }
 
     after (context) { }
