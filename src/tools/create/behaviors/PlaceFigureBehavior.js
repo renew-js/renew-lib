@@ -2,11 +2,13 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 
 export class PlaceFigureBehavior extends Behavior {
-    constructor (eventBus, commandStack, create) {
+    constructor (eventBus, toolbox, commandStack, create) {
         super();
         this.eventBus = eventBus;
+        this.toolbox = toolbox;
         this.commandStack = commandStack;
         this.create = create;
+
         this.context = null;
         this.shape = null;
     }
@@ -28,6 +30,9 @@ export class PlaceFigureBehavior extends Behavior {
     }
 
     after (context) {
-        this.eventBus.fire('shape.placed', { shape: this.shape });
+        this.create.clearPreview();
+        if (!context.originalEvent.shiftKey) {
+            this.toolbox.activatePrevious();
+        }
     }
 }

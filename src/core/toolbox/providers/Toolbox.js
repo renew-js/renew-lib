@@ -1,4 +1,3 @@
-import { toPoint } from 'diagram-js/lib/util/Event';
 import { event } from 'min-dom';
 
 
@@ -7,6 +6,7 @@ export class Toolbox {
     constructor (eventBus) {
         this.eventBus = eventBus;
         this.activeTool = null;
+        this.previousTool = null;
         this.hover = null;
         this.hoverGfx = null;
 
@@ -17,9 +17,14 @@ export class Toolbox {
 
     activate (name, context) {
         this.eventBus.fire('tool.' + this.activeTool + '.disable', context);
+        this.previousTool = this.activeTool;
         this.activeTool = name;
         if (!this.activeTool) return;
         this.eventBus.fire('tool.' + this.activeTool + '.enable', context);
+    }
+
+    activatePrevious (context) {
+        this.activate(this.previousTool, context);
     }
 
     onMouseDown (event) {
