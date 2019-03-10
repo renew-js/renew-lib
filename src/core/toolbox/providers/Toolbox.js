@@ -9,6 +9,7 @@ export class Toolbox {
 
         this.tools = { };
         this.activeTool = null;
+        this.defaultTool = null;
         this.previousTool = null;
 
         this.hover = null;
@@ -20,8 +21,13 @@ export class Toolbox {
         event.bind(document, 'mouseup', this.onMouseUp.bind(this), true);
     }
 
+    setDefaultTool (name) {
+        this.defaultTool = name;
+    }
+
     registerTool (name, tool) {
         this.tools[name] = tool;
+        this.tools[name].type = name;
     }
 
     activate (tool, context = {}) {
@@ -43,7 +49,11 @@ export class Toolbox {
     }
 
     activatePrevious (context) {
-        this.activate(this.previousTool, context);
+        if (this.previousTool) {
+            this.activate(this.previousTool.type, context);
+        } else {
+            this.activate(this.defaultTool);
+        }
     }
 
     onMouseDown (event) {

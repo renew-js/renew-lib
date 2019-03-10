@@ -12,6 +12,9 @@ export default class Modeler extends Viewer {
                 MetaShapeToolsModule,
             ],
         }, options));
+        const toolbox = this.get('toolbox');
+        toolbox.setDefaultTool('pointer');
+        toolbox.activate('pointer');
     }
 
 }

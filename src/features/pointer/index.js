@@ -1,8 +1,10 @@
 import { PointerTool } from './tools/PointerTool';
+import LassoModule from 'diagram-js/lib/features/lasso-tool';
 
 
 export default {
     __depends__: [
+        LassoModule,
     ],
     __init__: [
     ],
