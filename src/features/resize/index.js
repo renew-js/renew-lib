@@ -10,6 +10,6 @@ export default {
 
     ],
     __behaviors__: [
-        [ 'resize', 1500, ResizeBehavior ],
+        [ 'resize.end', 1500, ResizeBehavior ],
     ],
 };

@@ -10,40 +10,40 @@ export class ResizeBehavior extends Behavior {
         this.eventBus = eventBus;
     }
 
-    start (event) { }
+    during (event) {
+        console.log(event);
 
-    move (event) { }
+        const shape = event.shape.businessObject;
 
-    end (event) {
         const bounds = event.context.newBounds;
-        const proportions = event.shape.body.proportions;
+        const proportions = shape.representation.proportions;
 
         if (!proportions) return;
 
         let points;
         let proportionPoints;
 
-        switch (event.shape.body.name) {
+        switch (shape.representation.name) {
             case 'ellipse':
-                event.shape.body.attributes.cx = proportions.cx * bounds.width;
-                event.shape.body.attributes.cy = proportions.cy * bounds.height;
-                event.shape.body.attributes.rx = proportions.rx * bounds.width;
-                event.shape.body.attributes.ry = proportions.ry * bounds.height;
+                shape.representation.attributes.cx = proportions.cx * bounds.width;
+                shape.representation.attributes.cy = proportions.cy * bounds.height;
+                shape.representation.attributes.rx = proportions.rx * bounds.width;
+                shape.representation.attributes.ry = proportions.ry * bounds.height;
                 break;
             case 'circle':
-                event.shape.body.attributes.cx = proportions.cx * bounds.width;
-                event.shape.body.attributes.cy = proportions.cy * bounds.height;
-                event.shape.body.attributes.r = proportions.r * Math.min(
+                shape.representation.attributes.cx = proportions.cx * bounds.width;
+                shape.representation.attributes.cy = proportions.cy * bounds.height;
+                shape.representation.attributes.r = proportions.r * Math.min(
                     bounds.width,
                     bounds.height
                 );
                 break;
             case 'rect':
-                event.shape.body.attributes.x = proportions.x * bounds.width;
-                event.shape.body.attributes.y = proportions.y * bounds.height;
-                event.shape.body.attributes.width
+                shape.representation.attributes.x = proportions.x * bounds.width;
+                shape.representation.attributes.y = proportions.y * bounds.height;
+                shape.representation.attributes.width
                     = proportions.width * bounds.width;
-                event.shape.body.attributes.height
+                shape.representation.attributes.height
                     = proportions.height * bounds.height;
                 break;
             case 'polygon':
@@ -54,7 +54,7 @@ export class ResizeBehavior extends Behavior {
                     points.push(proportionPoints[i] * bounds.width);
                     points.push(proportionPoints[i+1] * bounds.height);
                 }
-                event.shape.body.attributes.points = points.join(' ');
+                shape.representation.attributes.points = points.join(' ');
         }
     }
 
