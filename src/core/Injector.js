@@ -1,4 +1,5 @@
 import { Injector as DiDiInjector } from 'didi';
+import deprecated from './deprecated';
 
 const PRIORITY_DEFAULT = 1000;
 
@@ -50,6 +51,11 @@ export class Injector extends DiDiInjector {
     initProvider (component) {
         try {
             if (typeof component === 'string') {
+                if (deprecated.providers.indexOf(component) >= 0) {
+                    const warning = 'You are using a deprecated provider: ';
+                    console.warn(warning, component);
+                }
+
                 this.get(component);
             } else {
                 this.invoke(component);

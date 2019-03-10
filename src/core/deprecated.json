@@ -1,0 +1,6 @@
+{
+  "providers": [
+    "modeling",
+    "globalConnect"
+  ]
+}
