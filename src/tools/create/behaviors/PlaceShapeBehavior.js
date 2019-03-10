@@ -1,7 +1,7 @@
 import { Behavior } from '../../../core/eventBus/Behavior';
 
 
-export class PlaceFigureBehavior extends Behavior {
+export class PlaceShapeBehavior extends Behavior {
     constructor (eventBus, toolbox, commandStack, create) {
         super();
         this.eventBus = eventBus;
@@ -14,7 +14,6 @@ export class PlaceFigureBehavior extends Behavior {
     }
 
     before (context) {
-        console.log(context);
         this.context = {
             shape: this.create.factory.createElement(this.create.config.type),
             start: {

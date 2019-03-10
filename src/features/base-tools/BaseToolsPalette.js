@@ -6,13 +6,11 @@ export class BaseToolsPalette {
     /**
      * @param  {object} lassoTool
      * @param  {object} handTool
-     * @param  {object} globalConnect
      * @param  {object} palette
      */
-    constructor (lassoTool, handTool, globalConnect, palette) {
+    constructor (lassoTool, handTool, palette) {
         this.lassoTool = lassoTool;
         this.handTool = handTool;
-        this.globalConnect = globalConnect;
         this.palette = palette;
 
         palette.registerProvider(this);

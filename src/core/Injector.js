@@ -93,7 +93,6 @@ export class Injector extends DiDiInjector {
     }
 
     initTool (tool) {
-        console.log(tool);
         tool[1].$inject = undefined;
         this.get('toolbox').registerTool(tool[0], this.instantiate(tool[1]));
     }

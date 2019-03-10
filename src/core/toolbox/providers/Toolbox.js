@@ -5,8 +5,11 @@ export class Toolbox {
 
     constructor (eventBus) {
         this.eventBus = eventBus;
+
+        this.tools = { };
         this.activeTool = null;
         this.previousTool = null;
+
         this.hover = null;
         this.hoverGfx = null;
         this.start = null;
@@ -16,17 +19,26 @@ export class Toolbox {
         event.bind(document, 'mouseup', this.onMouseUp.bind(this), true);
     }
 
+    registerTool (name, tool) {
+        this.tools[name] = tool;
+    }
+
     activate (tool, context = {}) {
-        this.activeTool.onDisable(context);
+        if (this.activeTool) {
+            this.activeTool.onDisable(context);
+        }
 
         this.previousTool = this.activeTool;
-        this.activeTool = tool;
-        Object.assign(context, { tool: tool, previousTool: this.previousTool });
-
+        this.activeTool = this.tools[tool];
+        Object.assign(context, {
+            tool: this.activeTool,
+            previousTool: this.previousTool
+        });
         this.eventBus.fire('toolbox.update', context);
 
-        if (!this.activeTool) return;
-        this.activeTool.onEnable(context);
+        if (this.activeTool) {
+            this.activeTool.onEnable(context);
+        }
     }
 
     activatePrevious (context) {

@@ -3,7 +3,7 @@ import { remove } from 'tiny-svg';
 
 export class CreateProvider {
 
-    constructor (canvas, styles, graphicsFactory) {
+    constructor () {
         this.factory = null;
         this.preview = null;
         this.config = null;
