@@ -1,8 +1,8 @@
 import MetaFormalismModule from '../meta-formalism';
 import ContextPadModule from 'diagram-js/lib/features/context-pad';
 import PaletteModule from 'diagram-js/lib/features/palette';
-import CreateModule from '../../tools/create';
-import ConnectModule from '../../tools/connect';
+import CreateModule from '../create';
+import ConnectModule from '../connect';
 
 import { MetaContextPad } from './MetaContextPad';
 import { MetaPalette } from './MetaPalette';

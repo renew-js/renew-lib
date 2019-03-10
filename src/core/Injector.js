@@ -48,7 +48,6 @@ export class Injector extends DiDiInjector {
     }
 
     initProvider (component) {
-        console.log(component);
         try {
             if (typeof component === 'string') {
                 this.get(component);

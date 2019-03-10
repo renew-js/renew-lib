@@ -1,5 +1,5 @@
 import { Tester } from '../../Tester';
-import CreateModule from '../../../src/tools/create';
+import CreateModule from '../../../src/features/create';
 
 describe('modules/create - Create', () => {
     let diagram;

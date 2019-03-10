@@ -3,6 +3,7 @@ import SelectionModule from 'diagram-js/lib/features/selection';
 import ZoomScrollModule from 'diagram-js/lib/navigation/zoomscroll';
 import MoveCanvasModule from 'diagram-js/lib/navigation/movecanvas';
 import AutoScrollModule from 'diagram-js/lib/features/auto-scroll';
+import PointerModule from '../pointer';
 
 import { BaseToolsPalette } from './BaseToolsPalette';
 
@@ -10,9 +11,11 @@ export default {
     __depends__: [
         PaletteModule,
 
+        PointerModule,
+
         SelectionModule,
         ZoomScrollModule,
-        MoveCanvasModule,
+//        MoveCanvasModule,
         AutoScrollModule,
     ],
     __init__: [
