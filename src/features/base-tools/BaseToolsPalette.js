@@ -4,11 +4,10 @@
 export class BaseToolsPalette {
 
     /**
-     * @param  {object} lassoTool
      * @param  {object} palette
      * @param  {Toolbox} toolbox
      */
-    constructor (lassoTool, palette, toolbox) {
+    constructor (palette, toolbox) {
         this.palette = palette;
         this.toolbox = toolbox;
 
