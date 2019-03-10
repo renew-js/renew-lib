@@ -10,10 +10,10 @@ export class MetaElementFactory extends ElementFactory {
     }
 
     createElement (metaType) {
-        const attributes = Object.assign({},
+        const attributes = JSON.parse(JSON.stringify(Object.assign({},
             this.pluginManager.getElement(metaType),
             this.pluginManager.getStyle(metaType)
-        );
+        )));
 
         switch (this.getType(metaType)) {
             case 'Shape':
