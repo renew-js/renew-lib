@@ -1,3 +1,11 @@
+import BendpointsModule from 'diagram-js/lib/features/bendpoints';
+import MoveModule from 'diagram-js/lib/features/move';
+
+import MinimapModule from 'diagram-js-minimap';
+import OriginModule from 'diagram-js-origin';
+import ResizeModule from './features/resize';
+import SnappingModule from './features/snapping';
+
 import Viewer from './Viewer';
 import BaseToolsModule from './features/base-tools';
 import MetaShapeToolsModule from './features/meta-tools';
@@ -10,6 +18,15 @@ export default class Modeler extends Viewer {
             modules: [
                 BaseToolsModule,
                 MetaShapeToolsModule,
+
+                MoveModule,
+                ResizeModule,
+                BendpointsModule,
+                MetaLabelEditingModule,
+
+                MinimapModule,
+                OriginModule,
+                SnappingModule,
             ],
         }, options));
         const toolbox = this.get('toolbox');

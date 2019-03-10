@@ -1,0 +1,30 @@
+@import '~diagram-js-minimap/assets/diagram-js-minimap.css';
+
+.djs-minimap .toggle {
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 2px;
+
+  &:hover {
+    background-color: rgba(#000, .067);
+  }
+}
+
+.djs-minimap.open .toggle {
+  font-weight: 700;
+  padding: 6px 12px;
+  &::before {
+    content: '\00D7';
+  }
+}
+
+.djs-minimap:not(.open) .toggle {
+  width: auto;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 6px;
+
+  &::before {
+    content: 'Minimap';
+  }
+}

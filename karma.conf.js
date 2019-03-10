@@ -2,7 +2,7 @@ module.exports = function (config) {
     config.set({
         basePath: '',
         frameworks: [
-            'jasmine'
+            'jasmine',
         ],
         files: [
             { pattern: 'test/**/*.spec.js', watched: false }
