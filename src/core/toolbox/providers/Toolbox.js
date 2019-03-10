@@ -3,8 +3,9 @@ import { event } from 'min-dom';
 
 export class Toolbox {
 
-    constructor (eventBus) {
+    constructor (eventBus, canvas) {
         this.eventBus = eventBus;
+        this.canvas = canvas;
 
         this.tools = { };
         this.activeTool = null;
@@ -47,7 +48,8 @@ export class Toolbox {
 
     onMouseDown (event) {
         if (!this.activeTool) return;
-        this.start = { x: event.layerX, y: event.layerY, hover: this.hover };
+        this.start = this.toLocal({ x: event.clientX, y: event.clientY });
+        this.start.hover = this.hover;
         this.activeTool.onMouseDown(this.createMouseEvent(event));
     }
 
@@ -63,25 +65,30 @@ export class Toolbox {
     }
 
     createMouseEvent (event) {
-        let payload = {
-            originalEvent: event,
-            x: event.layerX,
-            y: event.layerY,
-            hover: this.hover,
-            hoverGfx: this.hoverGfx
-        };
+        const payload = this.toLocal({ x: event.clientX, y: event.clientY });
+        payload.originalEvent = event;
+        payload.hover = this.hover;
+        payload.hoverGfx = this.hoverGfx;
 
         if (this.start) {
-            Object.assign(payload, {
-                sx: this.start.x,
-                sy: this.start.y,
-                dx: event.layerX - this.start.x,
-                dy: event.layerY - this.start.y,
-                hoverStart: this.start.hover,
-            });
+            payload.sx = this.start.x;
+            payload.sy = this.start.y;
+            payload.dx = payload.x - this.start.x;
+            payload.dy = payload.y - this.start.y;
+            payload.hoverStart = this.start.hover;
         }
 
         return this.eventBus.createEvent(payload);
+    }
+
+    toLocal (position) {
+        const viewbox = this.canvas.viewbox();
+        const clientRect = this.canvas._container.getBoundingClientRect();
+
+        return {
+            x: viewbox.x + (position.x - clientRect.left) / viewbox.scale,
+            y: viewbox.y + (position.y - clientRect.top) / viewbox.scale
+        };
     }
 
 }
