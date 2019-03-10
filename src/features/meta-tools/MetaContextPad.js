@@ -24,6 +24,8 @@ export class MetaContextPad {
             },
         };
 
+        return entries;
+
         const plugin = this.pluginManager.getPlugin(element.model);
         const metaModel = plugin.getMetaModel();
 

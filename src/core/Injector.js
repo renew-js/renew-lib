@@ -6,7 +6,7 @@ const PRIORITY_DEFAULT = 1000;
 export class Injector extends DiDiInjector {
 
     constructor (modules) {
-        let components = [];
+        let providers = [];
         let commands = [];
         let behaviors = [];
         let rules = [];
@@ -26,7 +26,7 @@ export class Injector extends DiDiInjector {
 
                 result.push(module);
 
-                components = components.concat(module.__init__ || []);
+                providers = providers.concat(module.__init__ || []);
                 commands = commands.concat(module.__commands__ || []);
                 behaviors = behaviors.concat(module.__behaviors__ || []);
                 rules = rules.concat(module.__rules__ || []);
@@ -40,14 +40,15 @@ export class Injector extends DiDiInjector {
 
         super(bootstrap(modules));
 
-        components.forEach(this.initComponent.bind(this));
-        commands.forEach(this.initCommands.bind(this));
+        providers.forEach(this.initProvider.bind(this));
+        commands.forEach(this.initCommand.bind(this));
         behaviors.forEach(this.initBehavior.bind(this));
         rules.forEach(this.initRule.bind(this));
         tools.forEach(this.initTool.bind(this));
     }
 
-    initComponent (component) {
+    initProvider (component) {
+        console.log(component);
         try {
             if (typeof component === 'string') {
                 this.get(component);
@@ -59,7 +60,7 @@ export class Injector extends DiDiInjector {
         }
     }
 
-    initCommands (command) {
+    initCommand (command) {
         command[1].$inject = undefined;
         this.get('commandStack').registerHandler(command[0], command[1]);
     }

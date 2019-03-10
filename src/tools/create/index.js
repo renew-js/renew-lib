@@ -18,7 +18,7 @@ export default {
         [ 'create.place', PlaceShapeBehavior ],
     ],
     __commands__: [
-        [ 'shape.create', CreateShapeCommand ],
+        [ 'tool.shape.create', CreateShapeCommand ],
     ],
     __rules__: [
         [ 'shape.preview', ShapePreviewRule ],

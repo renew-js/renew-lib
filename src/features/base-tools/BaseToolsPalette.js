@@ -5,13 +5,12 @@ export class BaseToolsPalette {
 
     /**
      * @param  {object} lassoTool
-     * @param  {object} handTool
      * @param  {object} palette
+     * @param  {Toolbox} toolbox
      */
-    constructor (lassoTool, handTool, palette) {
-        this.lassoTool = lassoTool;
-        this.handTool = handTool;
+    constructor (lassoTool, palette, toolbox) {
         this.palette = palette;
+        this.toolbox = toolbox;
 
         palette.registerProvider(this);
     }
@@ -27,7 +26,7 @@ export class BaseToolsPalette {
                 title: 'Activate the hand tool',
                 action: {
                     click: (event) => {
-                        this.handTool.activateHand(event);
+                        this.toolbox.activate('pointer', event);
                     },
                 },
             },
@@ -37,7 +36,7 @@ export class BaseToolsPalette {
                 title: 'Activate Lasso Tool',
                 action: {
                     click: (event) => {
-                        this.lassoTool.activateSelection(event);
+                        this.toolbox.activate('hand', event);
                     },
                 },
             },

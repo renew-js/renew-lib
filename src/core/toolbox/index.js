@@ -2,6 +2,8 @@ import { HoverBehavior } from './behaviors/HoverBehavior';
 import { OutBehavior } from './behaviors/OutBehavior';
 import { Toolbox } from './providers/Toolbox';
 import InteractionEventModule from 'diagram-js/lib/features/interaction-events';
+import { ToolManagerUpdateBehavior } from './behaviors/ToolManagerUpdateBehavior';
+import { InitDraggingBehavior } from './behaviors/InitDraggingBehavior';
 
 
 export default {
@@ -14,6 +16,8 @@ export default {
     __behaviors__: [
         [ 'element.hover', HoverBehavior ],
         [ 'element.out', OutBehavior ],
+        [ 'tool-manager.update', ToolManagerUpdateBehavior ],
+        [ 'drag.init', InitDraggingBehavior ],
     ],
     toolbox: [ 'type', Toolbox ],
 };

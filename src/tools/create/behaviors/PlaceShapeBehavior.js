@@ -30,7 +30,7 @@ export class PlaceShapeBehavior extends Behavior {
     }
 
     during (context) {
-        this.shape = this.commandStack.execute('shape.create', this.context);
+        this.shape = this.commandStack.execute('tool.shape.create', this.context);
     }
 
     after (context) {

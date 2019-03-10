@@ -9,8 +9,9 @@ export default class EventBus extends DiagramJsEventBus {
 
     fire (name, payload) {
         super.fire(name + '.start', payload);
-        super.fire(name, payload);
+        const result = super.fire(name, payload);
         super.fire(name + '.end', payload);
+        return result;
     }
 
     registerBehavior (name, priority, behavior) {
