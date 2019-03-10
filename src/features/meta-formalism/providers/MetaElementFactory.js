@@ -9,28 +9,39 @@ export class MetaElementFactory extends ElementFactory {
         this.pluginManager = metaPluginManager;
     }
 
-    createElement (type) {
-        const element = this.pluginManager.getElement(type);
-
+    createElement (metaType) {
         const attributes = Object.assign({},
-            element,
-            this.pluginManager.getStyle(type),
-            { type: type }
+            this.pluginManager.getElement(metaType),
+            this.pluginManager.getStyle(metaType)
         );
+
+        switch (this.getType(metaType)) {
+            case 'Shape':
+                return this.createShape(attributes);
+            case 'Connection':
+                return this.createConnection(attributes);
+            case 'Label':
+                return this.createLabel(attributes);
+        }
+    }
+
+    getType (metaType) {
+        const element = this.pluginManager.getElement(metaType);
 
         switch (element.constructor.name) {
             case 'Classifier':
-                return this.createShape(attributes);
+                return 'Shape';
             case 'Relation':
-                return this.createConnection(attributes);
+                return 'Connection';
             case 'Text':
-                return this.createLabel(attributes);
+                return 'Label';
         }
     }
 
     createShape (attributes) {
         return super.createShape({
             id: UID('shape'),
+            type: 'Shape',
             businessObject: attributes,
             metaObject: attributes,
             width: attributes.defaultDimension.width,
@@ -41,6 +52,7 @@ export class MetaElementFactory extends ElementFactory {
     createConnection (attributes) {
         return super.createConnection({
             id: UID('connection'),
+            type: 'Connection',
             businessObject: attributes,
             metaObject: attributes
         });
@@ -49,8 +61,11 @@ export class MetaElementFactory extends ElementFactory {
     createLabel (attributes) {
         return super.createLabel({
             id: UID('label'),
+            type: 'Label',
             businessObject: attributes,
-            metaObject: attributes
+            metaObject: attributes,
+            width: attributes.defaultDimension.width,
+            height: attributes.defaultDimension.height
         });
     }
 

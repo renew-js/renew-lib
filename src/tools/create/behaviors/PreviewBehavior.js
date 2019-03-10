@@ -14,12 +14,14 @@ export class PreviewBehavior extends Behavior {
     }
 
     before (context) {
-        if (!this.create.preview && this.canRender(context)) {
-            this.create.preview = this.createPreview(this.create.factory());
+        if (!this.create.preview && this.canPreview(context)) {
+            this.create.preview = this.createPreview(this.create.factory);
         }
     }
 
-    createPreview (shape) {
+    createPreview (factory) {
+        const shape = factory.createElement(this.create.config.type);
+
         const group = create('g');
         attr(group, this.styles.cls('djs-drag-group', [ 'no-events' ]));
         append(this.canvas.getDefaultLayer(), group);
@@ -40,8 +42,8 @@ export class PreviewBehavior extends Behavior {
         return group;
     }
 
-    canRender (context) {
-        return this.policy.allowed('shape.create', context);
+    canPreview (context) {
+        return this.policy.allowed('shape.preview', context);
     }
 
     clearPreview () {
@@ -51,11 +53,11 @@ export class PreviewBehavior extends Behavior {
     }
 
     during (context) {
-        if (this.canRender(context)) {
+        if (this.canPreview(context)) {
             translate(
                 this.create.preview,
-                context.x,
-                context.y
+                context.sx || context.x,
+                context.sy || context.y
             );
         } else {
             this.clearPreview();

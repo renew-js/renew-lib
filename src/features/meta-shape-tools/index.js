@@ -7,6 +7,8 @@ import { MetaContextPad } from '../meta-shape-tools/MetaContextPad';
 import { MetaPalette } from '../meta-shape-tools/MetaPalette';
 import { MetaRules } from '../meta-shape-tools/MetaRules';
 import { PluginRegisterBehavior } from './behaviors/PluginRegisterBehavior';
+import { ConnectionCreateRule } from './rules/ConnectionCreateRule';
+import { ConnectionStartRule } from './rules/ConnectionStartRule';
 
 export default {
     __depends__: [
@@ -25,7 +27,8 @@ export default {
         [ 'plugin.register', 1500, PluginRegisterBehavior ],
     ],
     __rules__: [
-        // TODO
+        [ 'connection.create', ConnectionCreateRule ],
+        [ 'connection.start', ConnectionStartRule ],
     ],
     metaPalette: [ 'type', MetaPalette ],
     metaContextPad: [ 'type', MetaContextPad ],

@@ -5,7 +5,7 @@ import { CreateProvider } from './providers/CreateProvider';
 import { MouseDownBehavior } from './behaviors/MouseDownBehavior';
 import { PlaceFigureBehavior } from './behaviors/PlaceFigureBehavior';
 import { PreviewBehavior } from './behaviors/PreviewBehavior';
-import { CreateShapeRule } from './rules/CreateShapeRule';
+import { ShapePreviewRule } from './rules/ShapePreviewRule';
 
 
 export default {
@@ -19,14 +19,14 @@ export default {
         [ 'shape.create', CreateShapeCommand ],
     ],
     __rules__: [
-        [ 'shape.create', 1500, CreateShapeRule ],
+        [ 'shape.preview', ShapePreviewRule ],
     ],
     __behaviors__: [
-        [ 'tool.create.enable', 1500, EnableBehavior ],
-        [ 'tool.create.disable', 1500, CleanUpBehavior ],
-        [ 'tool.create.onMouseDown', 1500, MouseDownBehavior ],
-        [ 'tool.create.onMouseMove', 1500, PreviewBehavior ],
-        [ 'tool.create.onMouseUp', 500, PlaceFigureBehavior ],
+        [ 'tool.create.enable', EnableBehavior ],
+        [ 'tool.create.disable', CleanUpBehavior ],
+        [ 'tool.create.onMouseDown', MouseDownBehavior ],
+        [ 'tool.create.onMouseMove', PreviewBehavior ],
+        [ 'tool.create.onMouseUp', PlaceFigureBehavior ],
 //        [ 'tool.create', 1500, CreateBehavior ],
 //        [ 'create.preview', 1500, PreviewBehavior ],
     ],

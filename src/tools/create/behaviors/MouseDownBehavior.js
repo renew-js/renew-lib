@@ -2,12 +2,9 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 
 export class MouseDownBehavior extends Behavior {
-    constructor () {
+    constructor (create) {
         super();
-    }
-
-    before (context) {
-
+        this.create = create;
     }
 
     during (context) {

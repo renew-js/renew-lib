@@ -30,6 +30,7 @@ export class Injector extends DiDiInjector {
                 commands = commands.concat(module.__commands__ || []);
                 behaviors = behaviors.concat(module.__behaviors__ || []);
                 rules = rules.concat(module.__rules__ || []);
+                tools = tools.concat(module.__tools__ || []);
             };
 
             modules.forEach(visit);
@@ -43,6 +44,7 @@ export class Injector extends DiDiInjector {
         commands.forEach(this.initCommands.bind(this));
         behaviors.forEach(this.initBehavior.bind(this));
         rules.forEach(this.initRule.bind(this));
+        tools.forEach(this.initTool.bind(this));
     }
 
     initComponent (component) {
@@ -88,6 +90,12 @@ export class Injector extends DiDiInjector {
             rule[1],
             this.instantiate(rule[2])
         );
+    }
+
+    initTool (tool) {
+        console.log(tool);
+        tool[1].$inject = undefined;
+        this.get('toolbox').registerTool(tool[0], this.instantiate(tool[1]));
     }
 
 }

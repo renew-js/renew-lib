@@ -14,11 +14,16 @@ export class PlaceFigureBehavior extends Behavior {
     }
 
     before (context) {
+        console.log(context);
         this.context = {
-            shape: this.create.factory(),
+            shape: this.create.factory.createElement(this.create.config.type),
+            start: {
+                x: context.sx,
+                y: context.sy,
+            },
             position: {
-                x: context.x,
-                y: context.y,
+                x: context.sx || context.x,
+                y: context.sy || context.y,
             },
             parent: context.hover,
             event: context.originalEvent,

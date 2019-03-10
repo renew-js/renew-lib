@@ -26,22 +26,35 @@ export class MetaPalette {
     }
 
     createEntry (config) {
-        const activateCreateTool = () => {
-            this.toolbox.activate('create', {
-                factory: () => this.factory.createElement(config.type),
-                config: config,
-            });
-        };
         return {
             type: config.type,
             group: config.targetModel,
             action: {
-                click: activateCreateTool,
-                dragstart: activateCreateTool,
+                click: () => this.activateTool(config),
+                dragstart: () => this.activateTool(config),
             },
             imageUrl: config.icon,
             title: config.title,
         };
+    }
+
+    activateTool (config) {
+        this.toolbox.activate(this.getTool(config), {
+            factory: this.factory,
+            config: config,
+        });
+    }
+
+    getTool (config) {
+        switch (this.factory.getType(config.type)) {
+            case 'Shape':
+                return 'create';
+            case 'Connection':
+                return 'connect';
+            case 'Label':
+                return 'labeling';
+        }
+        return null;
     }
 
     addSeparator (type) {

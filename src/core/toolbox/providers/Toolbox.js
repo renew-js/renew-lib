@@ -9,18 +9,24 @@ export class Toolbox {
         this.previousTool = null;
         this.hover = null;
         this.hoverGfx = null;
+        this.start = null;
 
         event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
         event.bind(document, 'mousemove', this.onMouseMove.bind(this), true);
         event.bind(document, 'mouseup', this.onMouseUp.bind(this), true);
     }
 
-    activate (name, context) {
-        this.eventBus.fire('tool.' + this.activeTool + '.disable', context);
+    activate (tool, context = {}) {
+        this.activeTool.onDisable(context);
+
         this.previousTool = this.activeTool;
-        this.activeTool = name;
+        this.activeTool = tool;
+        Object.assign(context, { tool: tool, previousTool: this.previousTool });
+
+        this.eventBus.fire('toolbox.update', context);
+
         if (!this.activeTool) return;
-        this.eventBus.fire('tool.' + this.activeTool + '.enable', context);
+        this.activeTool.onEnable(context);
     }
 
     activatePrevious (context) {
@@ -29,36 +35,41 @@ export class Toolbox {
 
     onMouseDown (event) {
         if (!this.activeTool) return;
-        this.eventBus.fire(
-            'tool.' + this.activeTool + '.onMouseDown',
-            this.createMouseEvent(event)
-        );
+        this.start = { x: event.layerX, y: event.layerY, hover: this.hover };
+        this.activeTool.onMouseDown(this.createMouseEvent(event));
     }
 
     onMouseUp (event) {
         if (!this.activeTool) return;
-        this.eventBus.fire(
-            'tool.' + this.activeTool + '.onMouseUp',
-            this.createMouseEvent(event)
-        );
+        this.activeTool.onMouseUp(this.createMouseEvent(event));
+        this.start = null;
     }
 
     onMouseMove (event) {
         if (!this.activeTool) return;
-        this.eventBus.fire(
-            'tool.' + this.activeTool + '.onMouseMove',
-            this.createMouseEvent(event)
-        );
+        this.activeTool.onMouseMove(this.createMouseEvent(event));
     }
 
     createMouseEvent (event) {
-        return this.eventBus.createEvent({
+        let payload = {
             originalEvent: event,
             x: event.layerX,
             y: event.layerY,
             hover: this.hover,
             hoverGfx: this.hoverGfx
-        });
+        };
+
+        if (this.start) {
+            Object.assign(payload, {
+                sx: this.start.x,
+                sy: this.start.y,
+                dx: event.layerX - this.start.x,
+                dy: event.layerY - this.start.y,
+                hoverStart: this.start.hover,
+            });
+        }
+
+        return this.eventBus.createEvent(payload);
     }
 
 }
