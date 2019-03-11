@@ -90,8 +90,7 @@ export default class PnmlImporter {
     }
 
     createPlace (node) {
-        const placeStyle = this.metaPluginManager
-            .getStylesheetStyle('pt', 'place');
+        const style = this.metaPluginManager.getStyle('pt:place');
         return {
             id: 'import_' + node.attributes.id.value,
             class: 'Classifier',
@@ -99,15 +98,14 @@ export default class PnmlImporter {
             model: 'pt',
             metaType: 'place',
             // metaLabels: , TODO
-            body: cloneDeep(placeStyle.representation),
+            body: cloneDeep(style.representation),
             resizable: true,
             parentId: '__implicitroot', // TODO
         };
     }
 
     createTransition (node) {
-        const transitionStyle = this.metaPluginManager
-            .getStylesheetStyle('pt', 'transition');
+        const style = this.metaPluginManager.getStyle('pt:transition');
         return {
             id: 'import_' + node.attributes.id.value,
             class: 'Classifier',
@@ -115,7 +113,7 @@ export default class PnmlImporter {
             model: 'pt',
             metaType: 'transition',
             // metaLabels: , TODO
-            body: cloneDeep(transitionStyle.representation),
+            body: cloneDeep(style.representation),
             resizable: true,
             parentId: '__implicitroot', // TODO
         };
