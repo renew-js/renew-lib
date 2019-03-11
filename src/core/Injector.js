@@ -41,8 +41,6 @@ export class Injector extends DiDiInjector {
 
         super(bootstrap(modules));
 
-        this.behaviorInstances = {};
-
         providers.forEach(this.initProvider.bind(this));
         commands.forEach(this.initCommand.bind(this));
         behaviors.forEach(this.initBehavior.bind(this));
@@ -78,16 +76,12 @@ export class Injector extends DiDiInjector {
             behavior[1] = PRIORITY_DEFAULT;
         }
 
-        const type = behavior[0].split('.').splice(0, 2).join('.');
-        if (!this.behaviorInstances[type]) {
-            behavior[2].$inject = undefined;
-            this.behaviorInstances[type] = this.instantiate(behavior[2]);
-        }
+        behavior[2].$inject = undefined;
 
         this.get('eventBus').registerBehavior(
             behavior[0],
             behavior[1],
-            this.behaviorInstances[type]
+            this.instantiate(behavior[2])
         );
     }
 
