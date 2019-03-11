@@ -34,33 +34,37 @@ export class MetaLayouter extends BaseLayouter {
 
         let path; let segment; let segments; let intersects;
 
-        switch (shape.body.name) {
+        if (!shape.metaObject) {
+            return line[1];
+        }
+
+        switch (shape.metaObject.representation.name) {
             case 'circle':
                 intersection = Geometry.intersectEllipse(line[0], line[1], {
-                    cx: shape.x + parseInt(shape.body.attributes.cx),
-                    cy: shape.y + parseInt(shape.body.attributes.cy),
-                    rx: shape.body.attributes.r,
-                    ry: shape.body.attributes.r,
+                    cx: shape.x + parseInt(shape.metaObject.representation.attributes.cx),
+                    cy: shape.y + parseInt(shape.metaObject.representation.attributes.cy),
+                    rx: shape.metaObject.representation.attributes.r,
+                    ry: shape.metaObject.representation.attributes.r,
                 });
                 break;
             case 'ellipse':
                 intersection = Geometry.intersectEllipse(line[0], line[1], {
-                    cx: shape.x + parseInt(shape.body.attributes.cx),
-                    cy: shape.y + parseInt(shape.body.attributes.cy),
-                    rx: shape.body.attributes.rx,
-                    ry: shape.body.attributes.ry,
+                    cx: shape.x + parseInt(shape.metaObject.representation.attributes.cx),
+                    cy: shape.y + parseInt(shape.metaObject.representation.attributes.cy),
+                    rx: shape.metaObject.representation.attributes.rx,
+                    ry: shape.metaObject.representation.attributes.ry,
                 });
                 break;
             case 'rect':
                 intersection = Geometry.intersectRectangle(line[0], line[1], {
-                    x: shape.x + parseInt(shape.body.attributes.x),
-                    y: shape.y + parseInt(shape.body.attributes.y),
-                    width: parseInt(shape.body.attributes.width),
-                    height: parseInt(shape.body.attributes.height),
+                    x: shape.x + parseInt(shape.metaObject.representation.attributes.x),
+                    y: shape.y + parseInt(shape.metaObject.representation.attributes.y),
+                    width: parseInt(shape.metaObject.representation.attributes.width),
+                    height: parseInt(shape.metaObject.representation.attributes.height),
                 });
                 break;
             case 'polyline':
-                pairs = shape.body.attributes.points.split(' ');
+                pairs = shape.metaObject.representation.attributes.points.split(' ');
                 intersection = Geometry.intersectPolyline(line[0], line[1], {
                     points: pairs.map((pair) => {
                         const p = pair.split(',');
@@ -73,17 +77,17 @@ export class MetaLayouter extends BaseLayouter {
                 break;
             case 'line':
                 p1 = Geometry.localToGlobal(shape, {
-                    x: parseInt(shape.body.attributes.x1),
-                    y: parseInt(shape.body.attributes.y1),
+                    x: parseInt(shape.metaObject.representation.attributes.x1),
+                    y: parseInt(shape.metaObject.representation.attributes.y1),
                 });
                 p2 = Geometry.localToGlobal(shape, {
-                    x: parseInt(shape.body.attributes.x2),
-                    y: parseInt(shape.body.attributes.y2),
+                    x: parseInt(shape.metaObject.representation.attributes.x2),
+                    y: parseInt(shape.metaObject.representation.attributes.y2),
                 });
                 intersection = Geometry.intersect(line[0], line[1], p1, p2);
                 break;
             case 'polygon':
-                p = shape.body.attributes.points.split(' ');
+                p = shape.metaObject.representation.attributes.points.split(' ');
                 points = [];
                 for (let i=0; i<p.length; i+=2) {
                     points.push(Geometry.localToGlobal(shape, {
@@ -97,7 +101,7 @@ export class MetaLayouter extends BaseLayouter {
                 });
                 break;
             case 'path':
-                path = new PathParser(shape.body.attributes.d);
+                path = new PathParser(shape.metaObject.representation.attributes.d);
                 segment;
                 segments = [];
                 intersects = [];

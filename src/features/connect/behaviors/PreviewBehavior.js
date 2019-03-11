@@ -11,33 +11,31 @@ export class PreviewBehavior extends Behavior {
         this.preview = null;
     }
 
-    before (context) {
+    before (event) {
         if (!this.preview) {
-            this.preview = this._createPreview(context);
+            this.preview = this._createPreview(event);
         }
     }
 
-    during (context) {
-        console.log(context.type);
+    during (event) {
         attr(this.preview, {
             'points': [
-                context.sx,
-                context.sy,
-                context.x,
-                context.y,
+                event.sx,
+                event.sy,
+                event.x,
+                event.y,
             ],
         });
     }
 
-    clear (context) {
-        console.log(context, this.preview);
+    clear (event) {
         if (this.preview) {
             remove(this.preview);
             this.preview = null;
         }
     }
 
-    _createPreview (context) {
+    _createPreview (event) {
         const visual = create('polyline');
 
         attr(visual, {

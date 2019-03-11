@@ -4,6 +4,7 @@ import { PreviewBehavior } from './behaviors/PreviewBehavior';
 import { ConnectBehavior } from './behaviors/ConnectBehavior';
 import { ConnectStartRule } from './rules/ConnectStartRule';
 import { ConnectEndRule } from './rules/ConnectEndRule';
+import { ConnectCommand } from './commands/ConnectCommand';
 
 
 export default {
@@ -18,6 +19,7 @@ export default {
         [ 'connect.shapes', ConnectBehavior ],
     ],
     __commands__: [
+        [ 'tool.connect.shapes', ConnectCommand ],
     ],
     __rules__: [
         [ 'connect.start', ConnectStartRule ],

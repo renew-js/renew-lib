@@ -61,8 +61,8 @@ export class Toolbox {
     onMouseDown (event) {
         if (!this.activeTool) return;
 
-        this.start.hover = this.hover;
         this.start = this.toLocal({ x: event.clientX, y: event.clientY });
+        this.start.hover = this.hover;
         const mouseEvent = this.createMouseEvent(event);
 
         if (this.isOnCanvas(mouseEvent)) {
@@ -83,6 +83,8 @@ export class Toolbox {
     }
 
     onMouseMove (event) {
+        if (!this.activeTool) return;
+
         const mouseEvent = this.createMouseEvent(event);
 
         if (this.isOnCanvas(mouseEvent)) {
