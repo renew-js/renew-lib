@@ -9,21 +9,10 @@ module.exports = function (config) {
         ],
         exclude: [ 'karma.conf.js' ],
         preprocessors: {
-            "test/**/*.spec.js": [ "rollup" ],
+            "test/**/*.spec.js": [ "webpack" ],
         },
-        rollupPreprocessor: {
-            plugins: [
-                require('rollup-plugin-node-resolve')({ customResolveOptions: { moduleDirectory: 'node_modules' } }),
-                require('rollup-plugin-node-builtins')(),
-                require('rollup-plugin-commonjs')({ ignoreGlobal: true, sourceMap: true }),
-                require('rollup-plugin-json')(),
-                require('rollup-plugin-babel')(),
-            ],
-            output: {
-                format: 'iife',
-                name: 'Drawing',
-                sourcemap: 'inline'
-            }
+        webpack: {
+            mode: 'development',
         },
         reporters: [ 'progress' ],
         port: 9876,

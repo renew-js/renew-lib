@@ -33,25 +33,27 @@ describe('core/toolbox - Toolbox', () => {
     });
 
     it('should be defined', function () {
-        diagram.invoke((toolbox) => expect(toolbox).toBeDefined());
+        diagram.invoke(function (toolbox) {
+            expect(toolbox).toBeDefined()
+        });
     });
 
     it('should activate a tool', function () {
-        diagram.invoke((toolbox) => {
+        diagram.invoke(function (toolbox) {
             toolbox.activate('test');
             expect(toolbox.activeTool.type).toEqual('test');
         });
     });
 
     it('should have enable behavior', function () {
-        diagram.invoke((toolbox, state) => {
+        diagram.invoke(function (toolbox, state) {
             toolbox.activate('test');
             expect(state.enabled).toBe(true);
         });
     });
 
     it('should disable behavior on enable other behavior', function () {
-        diagram.invoke((toolbox, state) => {
+        diagram.invoke(function (toolbox, state) {
             toolbox.activate('test');
             toolbox.activate('other');
             expect(state.enabled).toBe(false);

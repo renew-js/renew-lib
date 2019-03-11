@@ -13,8 +13,8 @@ export class PlaceShapeBehavior extends Behavior {
         this.shape = null;
     }
 
-    before (context) {
-        this.context = {
+    during (context) {
+        this.shape = this.commandStack.execute('tool.shape.create', {
             shape: this.create.factory.createElement(this.create.config.type),
             start: {
                 x: context.sx,
@@ -26,11 +26,7 @@ export class PlaceShapeBehavior extends Behavior {
             },
             parent: context.hover,
             event: context.originalEvent,
-        };
-    }
-
-    during (context) {
-        this.shape = this.commandStack.execute('tool.shape.create', this.context);
+        });
     }
 
     after (context) {
