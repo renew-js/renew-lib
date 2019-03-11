@@ -60,20 +60,34 @@ export class Toolbox {
 
     onMouseDown (event) {
         if (!this.activeTool) return;
-        this.start = this.toLocal({ x: event.clientX, y: event.clientY });
+
         this.start.hover = this.hover;
-        this.activeTool.onMouseDown(this.createMouseEvent(event));
+        this.start = this.toLocal({ x: event.clientX, y: event.clientY });
+        const mouseEvent = this.createMouseEvent(event);
+
+        if (this.isOnCanvas(mouseEvent)) {
+            this.activeTool.onMouseDown(mouseEvent);
+        }
     }
 
     onMouseUp (event) {
         if (!this.activeTool) return;
-        this.activeTool.onMouseUp(this.createMouseEvent(event));
+
+        const mouseEvent = this.createMouseEvent(event);
+
+        if (this.isOnCanvas(mouseEvent)) {
+            this.activeTool.onMouseUp(mouseEvent);
+        }
+
         this.start = null;
     }
 
     onMouseMove (event) {
-        if (!this.activeTool) return;
-        this.activeTool.onMouseMove(this.createMouseEvent(event));
+        const mouseEvent = this.createMouseEvent(event);
+
+        if (this.isOnCanvas(mouseEvent)) {
+            this.activeTool.onMouseMove(mouseEvent);
+        }
     }
 
     createMouseEvent (event) {
@@ -102,6 +116,10 @@ export class Toolbox {
             x: viewbox.x + (position.x - clientRect.left) / viewbox.scale,
             y: viewbox.y + (position.y - clientRect.top) / viewbox.scale
         };
+    }
+
+    isOnCanvas (event) {
+        return !!event.hover;
     }
 
 }
