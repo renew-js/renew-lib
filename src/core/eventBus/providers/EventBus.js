@@ -17,15 +17,29 @@ export default class EventBus extends DiagramJsEventBus {
     registerBehavior (name, priority, behavior) {
         const breadcrumbs = name.split('.');
 
-        if (breadcrumbs.length > 2) {
-            if (typeof behavior[breadcrumbs[2]] === 'function') {
-                this.on(name, behavior[breadcrumbs[2]].bind(behavior));
+        const prototype = Object.getPrototypeOf(behavior);
+        const methods = Object.getOwnPropertyNames(prototype).filter((p) => {
+            return p !== 'constructor' && p[0] !== '_' && typeof behavior[p] === 'function';
+        });
+
+        const type = breadcrumbs.splice(0, 2).join('.');
+        methods.forEach((method) => {
+            const callback = behavior[method].bind(behavior);
+
+            switch (method) {
+                case 'before':
+                    this.on(type + '.start', callback);
+                    break;
+                case 'during':
+                    this.on(type, callback);
+                    break;
+                case 'after':
+                    this.on(type + '.end', callback);
+                    break;
+                default:
+                    this.on(type + '.' + method, callback);
             }
-        } else {
-            this.on(name + '.start', priority, behavior.before.bind(behavior));
-            this.on(name, priority, behavior.during.bind(behavior));
-            this.on(name + '.end', priority, behavior.after.bind(behavior));
-        }
+        });
     }
 
 }
