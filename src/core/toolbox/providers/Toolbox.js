@@ -11,6 +11,7 @@ export class Toolbox {
         this.activeTool = null;
         this.defaultTool = null;
         this.previousTool = null;
+        this.activeContext = null;
 
         this.hover = null;
         this.hoverGfx = null;
@@ -37,6 +38,7 @@ export class Toolbox {
 
         this.previousTool = this.activeTool;
         this.activeTool = this.tools[tool];
+        this.activeContext = context;
         Object.assign(context, {
             tool: this.activeTool,
             previousTool: this.previousTool
@@ -79,6 +81,7 @@ export class Toolbox {
         payload.originalEvent = event;
         payload.hover = this.hover;
         payload.hoverGfx = this.hoverGfx;
+        payload.context = this.activeContext;
 
         if (this.start) {
             payload.sx = this.start.x;
