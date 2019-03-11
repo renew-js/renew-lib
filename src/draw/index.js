@@ -5,7 +5,10 @@ import { Renderer } from './Renderer';
 
 
 export default {
-    __init__: [ 'renderer' ],
+    __init__: [
+        'renderer',
+        'styles'
+    ],
     __behaviors__: [
         [ 'plugin.register', 1500, PluginRegisterBehavior ],
         [ 'canvas.init', 1500, SetRootElementBehavior ]

@@ -4,7 +4,7 @@ import { append, attr, classes, create, remove } from 'tiny-svg';
 
 
 export class PreviewBehavior extends Behavior {
-    constructor (create, canvas, styles, graphicsFactory, policy) {
+    constructor (canvas, styles, graphicsFactory, policy, create) {
         super();
         this.policy = policy;
         this.create = create;

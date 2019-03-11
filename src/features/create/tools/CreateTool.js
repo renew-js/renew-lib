@@ -12,13 +12,13 @@ export class CreateTool extends Tool {
         this.create.factory = undefined;
         this.create.config = undefined;
         this.create.clearPreview();
-        //unset();
+        unset();
     }
 
     onEnable (event) {
         this.create.factory = event.factory;
         this.create.config = event.config;
-        //set('grab');
+        set('grab');
     }
 
     onMouseDown (event) {

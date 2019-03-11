@@ -43,12 +43,15 @@ export class Injector extends DiDiInjector {
 
         providers.forEach(this.initProvider.bind(this));
         commands.forEach(this.initCommand.bind(this));
+        console.log('behavior');
         behaviors.forEach(this.initBehavior.bind(this));
+        console.log('done');
         rules.forEach(this.initRule.bind(this));
         tools.forEach(this.initTool.bind(this));
     }
 
     initProvider (component) {
+        console.log(component);
         try {
             if (typeof component === 'string') {
                 if (deprecated.providers.indexOf(component) >= 0) {
@@ -71,6 +74,7 @@ export class Injector extends DiDiInjector {
     }
 
     initBehavior (behavior) {
+        console.log(behavior);
         if (behavior.length < 3) {
             behavior[2] = behavior[1];
             behavior[1] = PRIORITY_DEFAULT;

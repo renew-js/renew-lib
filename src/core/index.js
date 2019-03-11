@@ -17,6 +17,9 @@ export default {
     ],
     __init__: [
         'canvas',
+        'elementRegistry',
+        'elementFactory',
+        'graphicsFactory',
     ],
 
     canvas: [ 'type', Canvas ],

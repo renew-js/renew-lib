@@ -15,24 +15,15 @@ describe('modules/create - Create', () => {
     it('should be defined', function () {
         diagram.invoke((create) => {
             expect(create).toBeDefined();
-        })
+        });
     });
 
     it('should create a shape', function () {
         diagram.invoke((create) => {
-            expect(create).toBeDefined();
+
+
+
         })
     });
 
-    it('should create a connection', () => {
-
-    });
-
-    it('should create a text', () => {
-
-    });
-
-    describe('Behavior', () => {
-
-    })
 });
