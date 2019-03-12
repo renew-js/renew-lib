@@ -4,6 +4,7 @@ import { append, attr, classes, create, remove } from 'tiny-svg';
 
 
 export class PreviewBehavior extends Behavior {
+
     constructor (canvas, styles, graphicsFactory, policy, create) {
         super();
         this.policy = policy;

@@ -45,7 +45,7 @@ export class MetaElementFactory extends ElementFactory {
             businessObject: attributes,
             metaObject: attributes,
             width: attributes.defaultDimension.width,
-            height: attributes.defaultDimension.height
+            height: attributes.defaultDimension.height,
         });
     }
 
@@ -54,7 +54,7 @@ export class MetaElementFactory extends ElementFactory {
             id: UID('connection'),
             type: 'Connection',
             businessObject: attributes,
-            metaObject: attributes
+            metaObject: attributes,
         });
     }
 
@@ -65,7 +65,7 @@ export class MetaElementFactory extends ElementFactory {
             businessObject: attributes,
             metaObject: attributes,
             width: attributes.defaultDimension.width,
-            height: attributes.defaultDimension.height
+            height: attributes.defaultDimension.height,
         });
     }
 
@@ -147,4 +147,5 @@ export class MetaElementFactory extends ElementFactory {
         this._uid = uid;
     }
 */
+
 }

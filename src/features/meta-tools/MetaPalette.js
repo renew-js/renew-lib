@@ -15,11 +15,11 @@ export class MetaPalette {
     registerPlugin (plugin) {
         const config = plugin.getToolConfiguration();
 
-        config.getToolMappings().forEach(tool => {
+        config.getToolMappings().forEach((tool) => {
             const type = config.targetModel + ':' + tool.targetType;
             const mapping = Object.assign({}, config, tool, { type: type });
             const entry = type.replace(':', '-');
-            this.metaPaletteEntries[ entry ] = this.createEntry(mapping);
+            this.metaPaletteEntries[entry] = this.createEntry(mapping);
         });
 
         this.addSeparator(config.targetModel);
@@ -58,7 +58,7 @@ export class MetaPalette {
     }
 
     addSeparator (type) {
-        this.metaPaletteEntries[ 'plugin-' + type + '-separator' ] = {
+        this.metaPaletteEntries['plugin-' + type + '-separator'] = {
             group: type,
             separator: true,
         };

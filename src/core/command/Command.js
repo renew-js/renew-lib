@@ -12,12 +12,13 @@ export class Command extends CommandHandler {
 
     /**
      * @param {Object} context
-     * @returns {Boolean}
+     * @return {Boolean}
      */
-    canExecute (context) { return true; }
+    canExecute (context) {
+        return true;
+    }
 
     /**
-     * @abstract
      * @param {Object} context
      */
     preExecute (context) { }
@@ -35,7 +36,6 @@ export class Command extends CommandHandler {
     revert (context) { }
 
     /**
-     * @abstract
      * @param {Object} context
      */
     postExecute (context) { }

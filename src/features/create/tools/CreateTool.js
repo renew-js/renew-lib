@@ -2,6 +2,7 @@ import { Tool } from '../../../core/toolbox/Tool';
 import { set, unset } from 'diagram-js/lib/util/Cursor';
 
 export class CreateTool extends Tool {
+
     constructor (eventBus, create) {
         super();
         this.eventBus = eventBus;
@@ -18,7 +19,7 @@ export class CreateTool extends Tool {
     onEnable (event) {
         this.create.factory = event.factory;
         this.create.config = event.config;
-        set('grab');
+        set('grabbing');
     }
 
     onMouseDown (event) {
@@ -32,4 +33,5 @@ export class CreateTool extends Tool {
     onMouseUp (event) {
         this.eventBus.fire('create.place', event);
     }
+
 }

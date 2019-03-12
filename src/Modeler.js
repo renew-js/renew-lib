@@ -21,10 +21,10 @@ export default class Modeler extends Viewer {
                 MetaShapeToolsModule,
 
                 MetaModelingModule,
-                MoveModule,
+                //                MoveModule,
                 ResizeModule,
                 BendpointsModule,
-//                MetaLabelEditingModule,
+                //                MetaLabelEditingModule,
 
                 MinimapModule,
                 OriginModule,

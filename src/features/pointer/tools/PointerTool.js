@@ -2,10 +2,10 @@ import { Tool } from '../../../core/toolbox/Tool';
 
 
 export class PointerTool extends Tool {
-    constructor (lassoTool, canvas) {
+
+    constructor (eventBus) {
         super();
-        this.canvas = canvas;
-        this.lassoTool = lassoTool;
+        this.eventBus = eventBus;
     }
 
     onDisable (event) {
@@ -15,18 +15,17 @@ export class PointerTool extends Tool {
     }
 
     onMouseDown (event) {
-        if (this.isRootElement(event.hover)) {
-            this.lassoTool.activateLasso(event.originalEvent);
-        }
-    }
-
-    isRootElement (element) {
-        return element && element.id === this.canvas._rootElement.id;
+        this.eventBus.fire('pointer.select', event);
+        this.eventBus.fire('pointer.lasso', event);
     }
 
     onMouseMove (event) {
+        if (event.mouseDown) {
+            this.eventBus.fire('selection.move', event);
+        }
     }
 
     onMouseUp (event) {
     }
+
 }

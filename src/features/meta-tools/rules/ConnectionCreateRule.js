@@ -2,6 +2,7 @@ import { Rule } from '../../../core/policy/Rule';
 
 
 export class ConnectionCreateRule extends Rule {
+
     constructor () {
         super();
     }
@@ -9,4 +10,5 @@ export class ConnectionCreateRule extends Rule {
     validate (context) {
         return true;
     }
+
 }

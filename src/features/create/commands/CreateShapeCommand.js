@@ -2,6 +2,7 @@ import { Command } from '../../../core/command/Command';
 
 
 export class CreateShapeCommand extends Command {
+
     constructor (canvas, policy) {
         super();
         this.canvas = canvas;
@@ -16,7 +17,7 @@ export class CreateShapeCommand extends Command {
         // (1) add at event center position _or_ at given bounds
         Object.assign(context.shape, {
             x: context.position.x - Math.round(context.shape.width / 2),
-            y: context.position.y - Math.round(context.shape.height / 2)
+            y: context.position.y - Math.round(context.shape.height / 2),
         });
     }
 

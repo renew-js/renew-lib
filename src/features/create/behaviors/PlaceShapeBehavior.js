@@ -2,6 +2,7 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 
 export class PlaceShapeBehavior extends Behavior {
+
     constructor (eventBus, toolbox, commandStack, create) {
         super();
         this.eventBus = eventBus;
@@ -35,4 +36,5 @@ export class PlaceShapeBehavior extends Behavior {
             this.toolbox.activatePrevious();
         }
     }
+
 }

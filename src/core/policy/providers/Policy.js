@@ -1,6 +1,7 @@
 export class Policy {
+
     constructor () {
-        this.rules = { }
+        this.rules = { };
     }
 
     registerRule (name, priority, rule) {
@@ -21,13 +22,14 @@ export class Policy {
      *
      * @param {String} command
      * @param {Object} context
-     * @returns {Boolean}
+     * @return {Boolean}
      */
     allowed (command, context) {
         if (!this.rules[command]) {
             return true;
         }
 
-        return this.rules[command].every(rule => rule.validate(context));
+        return this.rules[command].every((rule) => rule.validate(context));
     }
+
 }

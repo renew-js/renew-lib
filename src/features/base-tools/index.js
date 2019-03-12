@@ -15,7 +15,7 @@ export default {
 
         SelectionModule,
         ZoomScrollModule,
-//        MoveCanvasModule,
+        //        MoveCanvasModule,
         AutoScrollModule,
     ],
     __init__: [

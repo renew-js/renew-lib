@@ -23,8 +23,8 @@ export default class Viewer extends Diagram {
             { 'config': [ 'value', options ] },
             CoreModule,
             DrawModule,
-//            ExportModule,
-//            ImportModule,
+            //            ExportModule,
+            //            ImportModule,
         ].concat(options.modules)));
 
         this.container = container;

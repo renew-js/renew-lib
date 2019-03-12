@@ -16,6 +16,7 @@ export class Toolbox {
         this.hover = null;
         this.hoverGfx = null;
         this.start = null;
+        this.mouseDown = false;
 
         event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
         event.bind(document, 'mousemove', this.onMouseMove.bind(this), true);
@@ -41,7 +42,7 @@ export class Toolbox {
         this.activeContext = context;
         Object.assign(context, {
             tool: this.activeTool,
-            previousTool: this.previousTool
+            previousTool: this.previousTool,
         });
         this.eventBus.fire('toolbox.update', context);
 
@@ -63,6 +64,7 @@ export class Toolbox {
 
         this.start = this.toLocal({ x: event.clientX, y: event.clientY });
         this.start.hover = this.hover;
+        this.mouseDown = true;
         const mouseEvent = this.createMouseEvent(event);
 
         if (this.isOnCanvas(mouseEvent)) {
@@ -73,6 +75,7 @@ export class Toolbox {
     onMouseUp (event) {
         if (!this.activeTool) return;
 
+        this.mouseDown = false;
         const mouseEvent = this.createMouseEvent(event);
 
         if (this.isOnCanvas(mouseEvent)) {
@@ -98,6 +101,8 @@ export class Toolbox {
         payload.hover = this.hover;
         payload.hoverGfx = this.hoverGfx;
         payload.context = this.activeContext;
+        payload.mouseDown = this.mouseDown;
+        payload.root = this.isRootElement(this.hover);
 
         if (this.start) {
             payload.sx = this.start.x;
@@ -116,12 +121,16 @@ export class Toolbox {
 
         return {
             x: viewbox.x + (position.x - clientRect.left) / viewbox.scale,
-            y: viewbox.y + (position.y - clientRect.top) / viewbox.scale
+            y: viewbox.y + (position.y - clientRect.top) / viewbox.scale,
         };
     }
 
     isOnCanvas (event) {
         return !!event.hover;
+    }
+
+    isRootElement (element) {
+        return element && element.id === this.canvas._rootElement.id;
     }
 
 }

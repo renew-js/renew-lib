@@ -24,7 +24,7 @@ export default {
         [ 'shape.preview', ShapePreviewRule ],
     ],
     __tools__: [
-        [ 'create', CreateTool ]
+        [ 'create', CreateTool ],
     ],
     create: [ 'type', CreateProvider ],
 };

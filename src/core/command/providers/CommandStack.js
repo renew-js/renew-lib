@@ -2,6 +2,7 @@ import DiagramJsCommandStack from 'diagram-js/lib/command/CommandStack';
 
 
 export class CommandStack extends DiagramJsCommandStack {
+
     constructor (eventBus, injector) {
         super(eventBus, injector);
     }
@@ -11,4 +12,5 @@ export class CommandStack extends DiagramJsCommandStack {
             super.execute(command, context);
         }
     }
+
 }

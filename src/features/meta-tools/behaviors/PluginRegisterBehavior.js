@@ -2,6 +2,7 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 
 export class PluginRegisterBehavior extends Behavior {
+
     constructor (eventBus, palette, metaPalette) {
         super();
         this.eventBus = eventBus;
