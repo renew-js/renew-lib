@@ -21,7 +21,6 @@ export class ConnectTool extends Tool {
     }
 
     onMouseDown (event) {
-        console.log('mousedown', event);
         this.mouseDown = true;
     }
 

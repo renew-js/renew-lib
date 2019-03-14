@@ -1,7 +1,6 @@
-import LassoModule from 'diagram-js/lib/features/lasso-tool';
+import SelectionModule from '../selection';
+import RubberBandModule from '../rubber-band';
 
-import { LassoBehavior } from './behaviors/LassoBehavior';
-import { MoveSelectionBehavior } from './behaviors/MoveSelectionBehavior';
 import { SelectBehavior } from './behaviors/SelectBehavior';
 import { MoveSelectionCommand } from './commands/MoveSelectionCommand';
 import { PointerTool } from './tools/PointerTool';
@@ -9,13 +8,12 @@ import { PointerTool } from './tools/PointerTool';
 
 export default {
     __depends__: [
-        LassoModule,
+        SelectionModule,
+        RubberBandModule,
     ],
     __init__: [],
     __behaviors__: [
-        [ 'pointer.lasso', LassoBehavior ],
         [ 'pointer.select', SelectBehavior ],
-        [ 'selection.move', MoveSelectionBehavior ],
     ],
     __commands__: [
         [ 'selection.move', MoveSelectionCommand ],

@@ -14,7 +14,7 @@ export class SelectBehavior extends Behavior {
                 this.selection.select(context.hover);
             }
         } else {
-            this.selection.unselect();
+            this.selection.clear();
         }
     }
 

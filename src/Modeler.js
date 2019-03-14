@@ -1,6 +1,3 @@
-import BendpointsModule from 'diagram-js/lib/features/bendpoints';
-import MoveModule from 'diagram-js/lib/features/move';
-
 import MinimapModule from 'diagram-js-minimap';
 import OriginModule from 'diagram-js-origin';
 import ResizeModule from './features/resize';
@@ -21,9 +18,7 @@ export default class Modeler extends Viewer {
                 MetaShapeToolsModule,
 
                 MetaModelingModule,
-                //                MoveModule,
                 ResizeModule,
-                BendpointsModule,
                 //                MetaLabelEditingModule,
 
                 MinimapModule,

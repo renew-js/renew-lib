@@ -2,6 +2,7 @@ import Diagram from 'diagram-js';
 
 import CoreModule from './core';
 import DrawModule from './draw';
+import SelectionModule from './features/selection';
 import ExportModule from './features/export';
 import ImportModule from './features/import';
 
@@ -23,6 +24,7 @@ export default class Viewer extends Diagram {
             { 'config': [ 'value', options ] },
             CoreModule,
             DrawModule,
+            SelectionModule,
             //            ExportModule,
             //            ImportModule,
         ].concat(options.modules)));
