@@ -4,19 +4,19 @@
 export class Behavior {
 
     /**
-     * @param {Object} context
+     * @param {Object} event
      */
-    before (context) { }
+    before (event) { }
 
     /**
-     * @param {Object} context
+     * @param {Object} event
      */
-    during (context) { }
+    during (event) { }
 
     /**
-     * @param {Object} context
+     * @param {Object} event
      */
-    after (context) { }
+    after (event) { }
 
 }
 
