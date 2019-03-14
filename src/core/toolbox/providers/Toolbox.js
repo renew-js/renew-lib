@@ -17,6 +17,7 @@ export class Toolbox {
         this.hoverGfx = null;
         this.start = null;
         this.mouseDown = false;
+        this.pos = { x: 0, y: 0 };
 
         event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
         event.bind(document, 'mousemove', this.onMouseMove.bind(this), true);
@@ -103,6 +104,9 @@ export class Toolbox {
         payload.context = this.activeContext;
         payload.mouseDown = this.mouseDown;
         payload.root = this.isRootElement(this.hover);
+        payload.tx = event.clientX - this.pos.x;
+        payload.ty = event.clientY - this.pos.y;
+        this.pos = { x: event.clientX, y: event.clientY };
 
         if (this.start) {
             payload.sx = this.start.x;
@@ -110,6 +114,7 @@ export class Toolbox {
             payload.dx = payload.x - this.start.x;
             payload.dy = payload.y - this.start.y;
             payload.hoverStart = this.start.hover;
+            payload.rootStart = this.isRootElement(this.start.hover);
         }
 
         return this.eventBus.createEvent(payload);
