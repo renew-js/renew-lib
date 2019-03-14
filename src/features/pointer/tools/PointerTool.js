@@ -31,7 +31,7 @@ export class PointerTool extends Tool {
     }
 
     onMouseUp (event) {
-        this.eventBus.fire('selection.move', event);
+        this.eventBus.fire('move.selection', event);
 
         if (event.rootStart) {
             this.eventBus.fire('rubberBand.preview.clear', event);

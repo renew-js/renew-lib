@@ -7,6 +7,10 @@ export class MovePreviewBehavior extends Behavior {
         super();
     }
 
+    before (event) {
+        // createPreview();
+    }
+
     during (event) {
         // TODO: handle move preview
     }

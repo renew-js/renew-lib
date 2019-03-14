@@ -30,11 +30,4 @@ export class PlaceShapeBehavior extends Behavior {
         });
     }
 
-    after (context) {
-        this.create.clearPreview();
-        if (!context.originalEvent.shiftKey) {
-            this.toolbox.activatePrevious();
-        }
-    }
-
 }

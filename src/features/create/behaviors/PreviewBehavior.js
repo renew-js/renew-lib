@@ -16,11 +16,11 @@ export class PreviewBehavior extends Behavior {
 
     before (context) {
         if (!this.create.preview && this.canPreview(context)) {
-            this.create.preview = this.createPreview(this.create.factory);
+            this.create.preview = this._createPreview(this.create.factory);
         }
     }
 
-    createPreview (factory) {
+    _createPreview (factory) {
         const shape = factory.createElement(this.create.config.type);
 
         const group = create('g');
@@ -47,7 +47,7 @@ export class PreviewBehavior extends Behavior {
         return this.policy.allowed('shape.preview', context);
     }
 
-    clearPreview () {
+    clear () {
         if (this.create.preview) {
             this.create.clearPreview();
         }
@@ -61,7 +61,7 @@ export class PreviewBehavior extends Behavior {
                 context.sy || context.y
             );
         } else {
-            this.clearPreview();
+            this.clear();
         }
     }
 

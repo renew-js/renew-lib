@@ -1,5 +1,6 @@
 import SelectionModule from '../selection';
 import RubberBandModule from '../rubber-band';
+import MoveModule from '../move';
 
 import { SelectBehavior } from './behaviors/SelectBehavior';
 import { MoveSelectionCommand } from './commands/MoveSelectionCommand';
@@ -10,6 +11,7 @@ export default {
     __depends__: [
         SelectionModule,
         RubberBandModule,
+        MoveModule,
     ],
     __init__: [],
     __behaviors__: [

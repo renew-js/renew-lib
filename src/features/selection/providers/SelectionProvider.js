@@ -11,4 +11,8 @@ export class SelectionProvider extends Selection {
         this.select(null);
     }
 
+    empty () {
+        return !this._selectedElements.length;
+    }
+
 }

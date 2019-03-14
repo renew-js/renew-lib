@@ -3,9 +3,10 @@ import { set, unset } from 'diagram-js/lib/util/Cursor';
 
 export class CreateTool extends Tool {
 
-    constructor (eventBus, create) {
+    constructor (eventBus, toolbox, create) {
         super();
         this.eventBus = eventBus;
+        this.toolbox = toolbox;
         this.create = create;
     }
 
@@ -32,6 +33,10 @@ export class CreateTool extends Tool {
 
     onMouseUp (event) {
         this.eventBus.fire('create.place', event);
+        this.eventBus.fire('create.preview.clear', event);
+        if (!event.originalEvent.shiftKey) {
+            this.toolbox.activatePrevious();
+        }
     }
 
 }
