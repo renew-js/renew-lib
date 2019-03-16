@@ -1,6 +1,5 @@
 import { CreateShapeCommand } from './commands/CreateShapeCommand';
 import { CreateProvider } from './providers/CreateProvider';
-import { ShapePreviewRule } from './rules/ShapePreviewRule';
 import { CreateTool } from './tools/CreateTool';
 import { PreviewBehavior } from './behaviors/PreviewBehavior';
 import { PlaceShapeBehavior } from './behaviors/PlaceShapeBehavior';
@@ -21,7 +20,6 @@ export default {
         [ 'tool.shape.create', CreateShapeCommand ],
     ],
     __rules__: [
-        [ 'shape.preview', ShapePreviewRule ],
     ],
     __tools__: [
         [ 'create', CreateTool ],

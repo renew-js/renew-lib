@@ -15,7 +15,7 @@ export class PreviewBehavior extends Behavior {
     }
 
     before (context) {
-        if (!this.create.preview && this.canPreview(context)) {
+        if (!this.create.preview) {
             this.create.preview = this._createPreview(this.create.factory);
         }
     }
@@ -43,10 +43,6 @@ export class PreviewBehavior extends Behavior {
         return group;
     }
 
-    canPreview (context) {
-        return this.policy.allowed('shape.preview', context);
-    }
-
     clear () {
         if (this.create.preview) {
             this.create.clearPreview();
@@ -54,15 +50,11 @@ export class PreviewBehavior extends Behavior {
     }
 
     during (context) {
-        if (this.canPreview(context)) {
-            translate(
-                this.create.preview,
-                context.sx || context.x,
-                context.sy || context.y
-            );
-        } else {
-            this.clear();
-        }
+        translate(
+            this.create.preview,
+            context.sx || context.x,
+            context.sy || context.y
+        );
     }
 
 

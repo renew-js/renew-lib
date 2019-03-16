@@ -27,7 +27,9 @@ export class RubberBandPreviewBehavior extends Behavior {
     }
 
     after (event) {
-        attr(this.preview, this.rubberBand.rect);
+        if (this.preview) {
+            attr(this.preview, this.rubberBand.rect);
+        }
     }
 
     clear () {
