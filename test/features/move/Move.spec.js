@@ -107,6 +107,17 @@ describe('modules/move - Move', () => {
             expect(shape_2.y).toEqual(215);
         });
 
+        it('should not move elements', () => {
+            eventBus.fire('move.elements', {
+                elements: [ shape_1, shape_2 ], dx: 0, dy: 0, x: 10, y: 20
+            });
+
+            expect(shape_1.x).toEqual(100);
+            expect(shape_1.y).toEqual(200);
+            expect(shape_2.x).toEqual(500);
+            expect(shape_2.y).toEqual(200);
+        });
+
     });
 
     describe('Preview', () => {

@@ -12,7 +12,7 @@ export class MoveBehavior extends Behavior {
         if (event.elements) {
             if (event.dx && event.dy) {
                 this.move.elements(event.elements).by(event.dx, event.dy);
-            } else if (event.x && event.y) {
+            } else if (event.dx !== 0 && event.dy !== 0) {
                 this.move.elements(event.elements).to(event.x, event.y);
             }
         }
