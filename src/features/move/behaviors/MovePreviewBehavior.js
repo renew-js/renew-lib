@@ -36,7 +36,7 @@ export class MovePreviewBehavior extends Behavior {
     }
 
     during (event) {
-        if (this.preview) {
+        if (this.preview && event.dx && event.dy) {
             translate(this.preview, event.dx, event.dy);
         }
     }
