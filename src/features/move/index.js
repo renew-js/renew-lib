@@ -1,3 +1,5 @@
+import SelectionModule from '../selection';
+
 import { MoveSelectionBehavior } from './behaviors/MoveSelectionBehavior';
 import { MoveElementsCommand } from './commands/MoveElementsCommand';
 import { MoveProvider } from './providers/MoveProvider';
@@ -5,7 +7,7 @@ import { MoveProvider } from './providers/MoveProvider';
 
 export default {
     __depends__: [
-        'selection'
+        SelectionModule
     ],
     __init__: [
         'move'

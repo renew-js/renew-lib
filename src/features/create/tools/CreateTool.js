@@ -32,7 +32,6 @@ export class CreateTool extends Tool {
     }
 
     onMouseUp (event) {
-        console.log(event);
         this.eventBus.fire('create.place', event);
         this.eventBus.fire('create.preview.clear', event);
         if (!event.originalEvent.shiftKey) {
