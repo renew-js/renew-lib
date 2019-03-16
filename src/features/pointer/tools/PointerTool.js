@@ -21,21 +21,22 @@ export class PointerTool extends Tool {
     }
 
     onMouseMove (event) {
+        event.elements = this.selection.get();
+
         if (event.mouseDown) {
             if (event.rootStart) {
                 this.eventBus.fire('rubberBand.preview', event);
-            } else if (!event.root) {
-                this.eventBus.fire('move.preview', event);
             }
+
+            this.eventBus.fire('move.preview', event);
         }
     }
 
     onMouseUp (event) {
-        this.eventBus.fire('move.elements', {
-            elements: this.selection.get(),
-            dx: event.dx,
-            dy: event.dy,
-        });
+        event.elements = this.selection.get();
+
+        this.eventBus.fire('move.elements', event);
+        this.eventBus.fire('move.preview.clear', event);
 
         if (event.rootStart) {
             this.eventBus.fire('rubberBand.preview.clear', event);
