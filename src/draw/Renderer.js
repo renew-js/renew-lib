@@ -66,15 +66,15 @@ export class Renderer extends BaseRenderer {
             fill: 'none',
         }));
 
-        if (connection.arrowStart) {
+        if (connection.metaObject.arrowStart) {
             attr(line, {
-                markerEnd: 'url(#' + connection.arrowStart + ')',
+                markerEnd: 'url(#' + connection.metaObject.arrowStart + ')',
             });
         }
 
-        if (connection.arrowEnd) {
+        if (connection.metaObject.arrowEnd) {
             attr(line, {
-                markerEnd: 'url(#' + connection.arrowEnd + ')',
+                markerEnd: 'url(#' + connection.metaObject.arrowEnd + ')',
             });
         }
 
