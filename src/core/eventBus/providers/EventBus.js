@@ -36,6 +36,12 @@ export default class EventBus extends DiagramJsEventBus {
                 case 'after':
                     this.on(type + '.end', callback);
                     break;
+                case 'out':
+                    this.on('element.out', callback);
+                    break;
+                case 'hover':
+                    this.on('element.hover', callback);
+                    break;
                 default:
                     this.on(type + '.' + method, callback);
             }

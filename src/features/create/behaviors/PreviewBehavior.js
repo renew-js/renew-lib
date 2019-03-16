@@ -15,14 +15,14 @@ export class PreviewBehavior extends Behavior {
     }
 
     before (context) {
-        if (!this.create.preview) {
-            this.create.preview = this._createPreview(this.create.factory);
+        if (!this.create.preview && this.create.factory) {
+            this.create.preview = this._createPreview(
+                this.create.factory.createElement(this.create.config.type)
+            );
         }
     }
 
-    _createPreview (factory) {
-        const shape = factory.createElement(this.create.config.type);
-
+    _createPreview (shape) {
         const group = create('g');
         attr(group, this.styles.cls('djs-drag-group', [ 'no-events' ]));
         append(this.canvas.getDefaultLayer(), group);
@@ -43,9 +43,14 @@ export class PreviewBehavior extends Behavior {
         return group;
     }
 
-    clear () {
+    out (event) {
+        this._setMarker(event.element);
+    }
+
+    clear (event) {
         if (this.create.preview) {
             this.create.clearPreview();
+            this._setMarker(event.hover);
         }
     }
 
@@ -57,5 +62,23 @@ export class PreviewBehavior extends Behavior {
         );
     }
 
+    after (event) {
+        if (this.policy.allowed('create.element', { })) {
+            this._setMarker(event.hover, 'new-parent');
+        } else {
+            this._setMarker(event.hover, 'drop-not-ok');
+        }
+    }
+
+    _setMarker (element, name) {
+        const markers = [ 'new-parent', 'drop-not-ok' ];
+        markers.forEach((marker) => {
+            if (name === marker) {
+                this.canvas.addMarker(element, marker);
+            } else {
+                this.canvas.removeMarker(element, marker);
+            }
+        });
+    }
 
 }
