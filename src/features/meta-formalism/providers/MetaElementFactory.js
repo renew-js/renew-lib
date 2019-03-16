@@ -16,11 +16,11 @@ export class MetaElementFactory extends ElementFactory {
         )));
 
         switch (this.getType(metaType)) {
-            case 'Shape':
+            case 'shape':
                 return this.createShape(attributes);
-            case 'Connection':
+            case 'connection':
                 return this.createConnection(attributes);
-            case 'Label':
+            case 'label':
                 return this.createLabel(attributes);
         }
     }
@@ -30,18 +30,18 @@ export class MetaElementFactory extends ElementFactory {
 
         switch (element.constructor.name) {
             case 'Classifier':
-                return 'Shape';
+                return 'shape';
             case 'Relation':
-                return 'Connection';
+                return 'connection';
             case 'Text':
-                return 'Label';
+                return 'label';
         }
     }
 
     createShape (attributes) {
         return super.createShape({
             id: UID('shape'),
-            type: 'Shape',
+            type: 'shape',
             businessObject: attributes,
             metaObject: attributes,
             width: attributes.defaultDimension.width,
@@ -52,7 +52,7 @@ export class MetaElementFactory extends ElementFactory {
     createConnection (attributes) {
         return super.createConnection({
             id: UID('connection'),
-            type: 'Connection',
+            type: 'connection',
             businessObject: attributes,
             metaObject: attributes,
         });
@@ -61,7 +61,7 @@ export class MetaElementFactory extends ElementFactory {
     createLabel (attributes) {
         return super.createLabel({
             id: UID('label'),
-            type: 'Label',
+            type: 'label',
             businessObject: attributes,
             metaObject: attributes,
             width: attributes.defaultDimension.width,

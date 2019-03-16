@@ -47,11 +47,11 @@ export class MetaPalette {
 
     getTool (config) {
         switch (this.factory.getType(config.type)) {
-            case 'Shape':
+            case 'shape':
                 return 'create';
-            case 'Connection':
+            case 'connection':
                 return 'connect';
-            case 'Label':
+            case 'label':
                 return 'labeling';
         }
         return null;
