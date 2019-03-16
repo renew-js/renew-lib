@@ -44,13 +44,13 @@ export class PreviewBehavior extends Behavior {
     }
 
     out (event) {
-        this._setMarker(event.element);
+        this._setMarker(event.hover);
     }
 
     clear (event) {
         if (this.create.preview) {
             this.create.clearPreview();
-            this._setMarker(event.hover);
+            this.out(event);
         }
     }
 

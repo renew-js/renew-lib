@@ -39,4 +39,8 @@ export class CreateTool extends Tool {
         }
     }
 
+    onOut (event) {
+        this.eventBus.fire('create.preview.out', event);
+    }
+
 }

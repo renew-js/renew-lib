@@ -13,4 +13,8 @@ export class HoverBehavior extends Behavior {
         this.toolbox.hoverGfx = event.gfx;
     }
 
+    after (event) {
+        this.toolbox.onHover(event);
+    }
+
 }

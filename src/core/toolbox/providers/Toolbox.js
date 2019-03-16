@@ -101,6 +101,16 @@ export class Toolbox {
         }
     }
 
+    onHover (event) {
+        const mouseEvent = this.createMouseEvent(event);
+        this.activeTool.onHover(mouseEvent);
+    }
+
+    onOut (event) {
+        const mouseEvent = this.createMouseEvent(event);
+        this.activeTool.onOut(mouseEvent);
+    }
+
     createMouseEvent (event) {
         const payload = this.toLocal({ x: event.clientX, y: event.clientY });
         payload.originalEvent = event;

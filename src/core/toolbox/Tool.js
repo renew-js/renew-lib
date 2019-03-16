@@ -37,4 +37,14 @@ export class Tool {
      */
     onDisable (event) { }
 
+    /**
+     * @param {Object} event
+     */
+    onHover (event) { }
+
+    /**
+     * @param {Object} event
+     */
+    onOut (event) { }
+
 }
