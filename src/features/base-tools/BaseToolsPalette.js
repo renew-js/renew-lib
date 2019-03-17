@@ -21,8 +21,8 @@ export class BaseToolsPalette {
         return {
             'hand-tool': {
                 group: 'tools',
-                className: 'palette-icon-hand-tool',
-                title: 'Activate the hand tool',
+                className: 'palette-icon-pointer-tool',
+                title: 'Activate pointer tool',
                 action: {
                     click: (event) => {
                         this.toolbox.activate('pointer', event);
@@ -31,8 +31,8 @@ export class BaseToolsPalette {
             },
             'lasso-tool': {
                 group: 'tools',
-                className: 'palette-icon-lasso-tool',
-                title: 'Activate Lasso Tool',
+                className: 'palette-icon-hand-tool',
+                title: 'Activate hand tool',
                 action: {
                     click: (event) => {
                         this.toolbox.activate('hand', event);
