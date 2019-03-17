@@ -102,11 +102,15 @@ export class Toolbox {
     }
 
     onHover (event) {
+        if (!this.activeTool) return;
+
         const mouseEvent = this.createMouseEvent(event);
         this.activeTool.onHover(mouseEvent);
     }
 
     onOut (event) {
+        if (!this.activeTool) return;
+
         const mouseEvent = this.createMouseEvent(event);
         mouseEvent.hover = event.element;
         this.activeTool.onOut(mouseEvent);

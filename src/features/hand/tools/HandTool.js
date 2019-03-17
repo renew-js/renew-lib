@@ -3,8 +3,9 @@ import { Tool } from '../../../core/toolbox/Tool';
 
 export class HandTool extends Tool {
 
-    constructor () {
+    constructor (eventBus) {
         super();
+        this.eventBus = eventBus;
     }
 
     onDisable (event) {
@@ -17,6 +18,9 @@ export class HandTool extends Tool {
     }
 
     onMouseMove (event) {
+        if (event.mouseDown) {
+            this.eventBus.fire('hand.move', event);
+        }
     }
 
     onMouseUp (event) {

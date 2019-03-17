@@ -6,11 +6,11 @@ export class HandProvider {
 
     moveTo (x, y) {
         let bbox = this.canvas.viewbox();
-        this.moveBy(x - bbox.x, y - bbox.y);
+        this.moveBy(x - (-bbox.x), y - (-bbox.y));
     }
 
     moveBy (dx, dy) {
-        this.canvas.scroll({ dx: -dx, dy: -dy });
+        this.canvas.scroll({ dx: dx, dy: dy });
     }
 
 }
