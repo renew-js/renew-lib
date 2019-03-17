@@ -13,7 +13,7 @@ export default {
         PointerModule,
         HandModule,
 
-//        ZoomScrollModule,
+        ZoomScrollModule,
 //        AutoScrollModule,
     ],
     __init__: [
