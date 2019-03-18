@@ -2,10 +2,11 @@ import Diagram from 'diagram-js';
 
 import CoreModule from './core';
 import DrawModule from './draw';
-import ExportModule from './modules/export';
-import ImportModule from './modules/import';
+import SelectionModule from './features/selection';
+import ExportModule from './features/export';
+import ImportModule from './features/import';
 
-import { Injector } from './util/Injector';
+import { Injector } from './core/Injector';
 
 
 export default class Viewer extends Diagram {
@@ -23,8 +24,9 @@ export default class Viewer extends Diagram {
             { 'config': [ 'value', options ] },
             CoreModule,
             DrawModule,
-            ExportModule,
-            ImportModule,
+            SelectionModule,
+            //            ExportModule,
+            //            ImportModule,
         ].concat(options.modules)));
 
         this.container = container;
@@ -49,8 +51,7 @@ export default class Viewer extends Diagram {
     }
 
     addFormalism (plugin) {
-        this.get('eventBus').fire('plugin.register.start', { plugin: plugin });
-        this.get('eventBus').fire('plugin.register.end', { plugin: plugin });
+        this.get('eventBus').fire('plugin.register', { plugin: plugin });
     }
 
 }

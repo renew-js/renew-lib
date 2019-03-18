@@ -1,15 +1,12 @@
-import BendpointsModule from 'diagram-js/lib/features/bendpoints';
-import MoveModule from 'diagram-js/lib/features/move';
-
 import MinimapModule from 'diagram-js-minimap';
 import OriginModule from 'diagram-js-origin';
+import ResizeModule from './features/resize';
+import SnappingModule from './features/snapping';
 
 import Viewer from './Viewer';
-import MetaLabelEditingModule from './modules/meta-label-editing';
-import SnappingModule from './modules/snapping';
-import ResizeModule from './modules/resize';
-import BaseToolsModule from './modules/base-tools';
-import MetaShapeToolsModule from './modules/meta-shape-tools';
+import BaseToolsModule from './features/base-tools';
+import MetaShapeToolsModule from './features/meta-tools';
+import MetaModelingModule from './features/meta-modeling';
 
 
 export default class Modeler extends Viewer {
@@ -20,16 +17,18 @@ export default class Modeler extends Viewer {
                 BaseToolsModule,
                 MetaShapeToolsModule,
 
-                MoveModule,
+                MetaModelingModule,
                 ResizeModule,
-                BendpointsModule,
-                MetaLabelEditingModule,
+                //                MetaLabelEditingModule,
 
                 MinimapModule,
                 OriginModule,
                 SnappingModule,
             ],
         }, options));
+        const toolbox = this.get('toolbox');
+        toolbox.setDefaultTool('pointer');
+        toolbox.activate('pointer');
     }
 
 }

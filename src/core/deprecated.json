@@ -1,0 +1,8 @@
+{
+  "providers": [
+    "modeling",
+    "dragging",
+    "hoverFix",
+    "selectionBehavior"
+  ]
+}

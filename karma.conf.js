@@ -5,27 +5,14 @@ module.exports = function (config) {
             'jasmine',
         ],
         files: [
-            'test/**/*.spec.js',
-            { pattern: 'src/**/*.js', included: false }
+            { pattern: 'test/**/*.spec.js', watched: false }
         ],
         exclude: [ 'karma.conf.js' ],
         preprocessors: {
-            "test/**/*.spec.js": [ "rollup" ],
+            "test/**/*.spec.js": [ "webpack" ],
         },
-        rollupPreprocessor: {
-            plugins: [
-                require('rollup-plugin-node-resolve')({ customResolveOptions: { moduleDirectory: 'node_modules' } }),
-                require('rollup-plugin-node-builtins')(),
-                require('rollup-plugin-commonjs')({ ignoreGlobal: true, sourceMap: true }),
-                require('rollup-plugin-json')(),
-                require('rollup-plugin-babel')(),
-                require('rollup-plugin-sass'),
-            ],
-            output: {
-                format: 'iife',
-                name: 'Drawing',
-                sourcemap: 'inline'
-            }
+        webpack: {
+            mode: 'development',
         },
         reporters: [ 'progress' ],
         port: 9876,
@@ -33,9 +20,14 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: [
-            'Firefox',
-            'Chrome',
+            'FirefoxHeadless',
         ],
+        customLaunchers: {
+            FirefoxHeadless: {
+                base: 'Firefox',
+                flags: [ '-headless' ],
+            },
+        },
         singleRun: false,
         concurrency: Infinity,
     });

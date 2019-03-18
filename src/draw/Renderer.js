@@ -4,14 +4,12 @@ import { stringify } from 'svgson';
 import { query } from 'min-dom'; // TODO: install min dom
 
 
-export default class Renderer extends BaseRenderer {
+export class Renderer extends BaseRenderer {
 
     constructor (eventBus, canvas, styles) {
         super(eventBus, 10);
         this.canvas = canvas;
         this.styles = styles;
-
-        eventBus.on('plugin.register.end', this.registerMarker.bind(this));
     }
 
     registerMarker (event) {
@@ -43,12 +41,13 @@ export default class Renderer extends BaseRenderer {
     }
 
     canRender (element) {
-        return element.body || element.waypoints;
+        return (element.metaObject && element.metaObject.representation)
+            || element.waypoints;
     }
 
     drawShape (graphics, element) {
         const shape = create('g');
-        innerSVG(shape, stringify(element.body));
+        innerSVG(shape, stringify(element.metaObject.representation));
         append(graphics, shape);
         return shape;
     }
@@ -67,15 +66,15 @@ export default class Renderer extends BaseRenderer {
             fill: 'none',
         }));
 
-        if (connection.arrowStart) {
+        if (connection.metaObject.arrowStart) {
             attr(line, {
-                markerEnd: 'url(#' + connection.arrowStart + ')',
+                markerEnd: 'url(#' + connection.metaObject.arrowStart + ')',
             });
         }
 
-        if (connection.arrowEnd) {
+        if (connection.metaObject.arrowEnd) {
             attr(line, {
-                markerEnd: 'url(#' + connection.arrowEnd + ')',
+                markerEnd: 'url(#' + connection.metaObject.arrowEnd + ')',
             });
         }
 
