@@ -26,17 +26,17 @@ export class PointerTool extends Tool {
         if (event.mouseDown) {
             if (event.rootStart) {
                 this.eventBus.fire('rubberBand.preview', event);
+            } else {
+                this.eventBus.fire('move.preview', event);
             }
-
-            this.eventBus.fire('move.preview', event);
         }
     }
 
     onMouseUp (event) {
         event.elements = this.selection.get();
 
-        this.eventBus.fire('move.elements', event);
         this.eventBus.fire('move.preview.clear', event);
+        this.eventBus.fire('move.elements', event);
 
         if (event.rootStart) {
             this.eventBus.fire('rubberBand.preview.clear', event);

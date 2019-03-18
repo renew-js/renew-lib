@@ -5,20 +5,27 @@ import { append, attr, classes, create, remove } from 'tiny-svg';
 
 export class PreviewBehavior extends Behavior {
 
-    constructor (canvas, styles, graphicsFactory, policy, create) {
+    constructor (eventBus, canvas, styles, graphicsFactory, policy, create) {
         super();
+        this.eventBus = eventBus;
         this.policy = policy;
         this.create = create;
         this.canvas = canvas;
         this.styles = styles;
         this.graphicsFactory = graphicsFactory;
+        this.snapContext = null;
     }
 
-    before (context) {
+    before (event) {
         if (!this.create.preview && this.create.factory) {
             this.create.preview = this._createPreview(
                 this.create.factory.createElement(this.create.config.type)
             );
+            event.context = {
+                shape: this.create.preview,
+            };
+            this.eventBus.fire('create.start', event);
+            this.snapContext = event.context.snapContext;
         }
     }
 
@@ -51,16 +58,23 @@ export class PreviewBehavior extends Behavior {
 
     clear (event) {
         if (this.create.preview) {
+            this.eventBus.fire('create.cleanup', event);
             this.create.clearPreview();
             this.out(event);
         }
     }
 
-    during (context) {
+    during (event) {
+        event.context = {
+            shape: this.create.preview,
+            target: event.hover,
+            snapContext: this.snapContext,
+        };
+        this.eventBus.fire('create.move', event);
         translate(
             this.create.preview,
-            context.sx || context.x,
-            context.sy || context.y
+            event.sx || event.x,
+            event.sy || event.y
         );
     }
 

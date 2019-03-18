@@ -5,17 +5,24 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class MovePreviewBehavior extends Behavior {
 
-    constructor (canvas, styles, elementRegistry) {
+    constructor (eventBus, canvas, styles, elementRegistry) {
         super();
+        this.eventBus = eventBus;
         this.preview = null;
         this.canvas = canvas;
         this.styles = styles;
         this.elementRegistry = elementRegistry;
+        this.snapContext = null;
     }
 
     before (event) {
         if (!this.preview) {
             this.preview = this._createVisuals(event);
+            event.context = {
+                shape: this.preview,
+            };
+            this.eventBus.fire('shape.move.start', event);
+            this.snapContext = event.context.snapContext;
         }
     }
 
@@ -37,12 +44,25 @@ export class MovePreviewBehavior extends Behavior {
 
     during (event) {
         if (this.preview && event.dx && event.dy) {
-            translate(this.preview, event.dx, event.dy);
+            event.context = {
+                shape: this.preview,
+                target: event.hover,
+                snapContext: this.snapContext,
+            };
+            this.eventBus.fire('shape.move.move', event);
+            translate(
+                this.preview,
+                event.x - (event.hoverStart.x + event.hoverStart.width / 2),
+                event.y - (event.hoverStart.y + event.hoverStart.height / 2)
+            );
         }
     }
 
     clear (event) {
+        event.dx = event.x - (event.hoverStart.x + event.hoverStart.width / 2);
+        event.dy = event.y - (event.hoverStart.y + event.hoverStart.height / 2);
         if (this.preview) {
+            this.eventBus.fire('shape.move.cleanup', event);
             remove(this.preview);
             this.preview = null;
         }

@@ -8,6 +8,7 @@ export class CreateTool extends Tool {
         this.eventBus = eventBus;
         this.toolbox = toolbox;
         this.create = create;
+        this.snapContext = null;
     }
 
     onDisable (event) {
