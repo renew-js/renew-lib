@@ -45,6 +45,7 @@
     "diagram-js-minimap": "^1.3.0",
     "diagram-js-origin": "^1.2.0",
     "didi": "^4.0.0",
+    "lodash": "^4.17.11",
     "renew-formalism": "git+https://github.com/renew-js/renew-formalism.git",
     "svgson": "^3.0.0",
     "tiny-svg": "^2.2.1"
@@ -53,7 +54,8 @@
     "root": true,
     "env": {
       "node": true,
-      "browser": true
+      "browser": true,
+      "es6": true
     },
     "extends": [
       "eslint:recommended",
