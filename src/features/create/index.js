@@ -1,5 +1,3 @@
-import PreviewModule from '../preview';
-
 import { CreateShapeCommand } from './commands/CreateShapeCommand';
 import { CreateProvider } from './providers/CreateProvider';
 import { CreateTool } from './tools/CreateTool';
@@ -8,9 +6,7 @@ import { PlaceShapeBehavior } from './behaviors/PlaceShapeBehavior';
 
 
 export default {
-    __depends__: [
-        PreviewModule,
-    ],
+    __depends__: [],
     __init__: [
         'create',
     ],
@@ -21,8 +17,7 @@ export default {
     __commands__: [
         [ 'tool.shape.create', CreateShapeCommand ],
     ],
-    __rules__: [
-    ],
+    __rules__: [],
     __tools__: [
         [ 'create', CreateTool ],
     ],

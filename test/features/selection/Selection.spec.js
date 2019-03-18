@@ -1,16 +1,16 @@
-import SnappingModule from '../../../src/features/snapping';
+import SelectionModule from '../../../src/features/selection';
 import { Tester } from '../../Tester';
 
 
-describe('modules/snapping - Snapping', () => {
+describe('modules/selection - Selection', () => {
     let diagram;
     let shape_1, shape_2;
-    let snapping;
+    let selection;
     let canvas;
 
-    beforeEach(() => diagram = new Tester({ modules: [ SnappingModule ] }));
+    beforeEach(() => diagram = new Tester({ modules: [ SelectionModule ] }));
 
-    beforeEach(() => snapping = diagram.get('snapping'));
+    beforeEach(() => selection = diagram.get('selection'));
 
     beforeEach(() => canvas = diagram.get('canvas'));
 
@@ -27,7 +27,7 @@ describe('modules/snapping - Snapping', () => {
     }));
 
     it('should be defined', () => {
-        expect(snapping).toBeDefined();
+        expect(selection).toBeDefined();
     });
 
     describe('Provider', () => {

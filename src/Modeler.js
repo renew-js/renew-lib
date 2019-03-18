@@ -1,6 +1,7 @@
 import MinimapModule from 'diagram-js-minimap';
 import OriginModule from 'diagram-js-origin';
 import ResizeModule from './features/resize';
+import PreviewModule from './features/preview';
 import SnappingModule from './features/snapping';
 
 import Viewer from './Viewer';
@@ -24,6 +25,7 @@ export default class Modeler extends Viewer {
                 MinimapModule,
                 OriginModule,
                 SnappingModule,
+                PreviewModule,
             ],
         }, options));
         const toolbox = this.get('toolbox');

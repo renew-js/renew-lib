@@ -3,12 +3,12 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class CreatePreviewBehavior extends Behavior {
 
-    constructor (create, preview, canvas, policy) {
+    constructor (eventBus, create, canvas, policy) {
         super();
+        this.eventBus = eventBus;
         this.policy = policy;
 
         this.create = create;
-        this.preview = preview;
 
         this.canvas = canvas;
 
@@ -18,15 +18,15 @@ export class CreatePreviewBehavior extends Behavior {
     before (event) {
         if (!this.element) {
             this.element = this.create.createElement();
-            this.preview.createVisuals(this.element);
+            this.eventBus.fire('preview.init', { elements: this.element });
         }
     }
 
     during (event) {
-        this.preview.moveTo(
-            (event.sx || event.x) - this.element.width / 2,
-            (event.sy || event.y) - this.element.height / 2
-        );
+        this.eventBus.fire('preview.move.to', {
+            x: (event.sx || event.x) - this.element.width / 2,
+            y: (event.sy || event.y) - this.element.height / 2
+        });
     }
 
     after (event) {
@@ -38,7 +38,7 @@ export class CreatePreviewBehavior extends Behavior {
     }
 
     clear (event) {
-        this.preview.clearVisuals();
+        this.eventBus.fire('preview.clear');
         this.element = null;
         this.out(event);
     }

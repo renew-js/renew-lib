@@ -3,26 +3,21 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class MovePreviewBehavior extends Behavior {
 
-    constructor (preview) {
+    constructor (eventBus) {
         super();
-        this.preview = preview;
+        this.eventBus = eventBus;
     }
 
     before (event) {
-        if (!this.preview.visuals) {
-            this.preview.createVisuals(event.elements);
-        }
+        this.eventBus.fire('preview.init', { elements: event.elements });
     }
 
     during (event) {
-        this.preview.moveTo(
-            event.hoverStart.x + event.dx,
-            event.hoverStart.y + event.dy
-        );
+        this.eventBus.fire('preview.move.by', { dx: event.dx, dy: event.dy });
     }
 
-    clear (event) {
-        this.preview.clearVisuals();
+    clear () {
+        this.eventBus.fire('preview.clear');
     }
 
 }

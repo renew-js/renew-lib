@@ -90,4 +90,34 @@ describe('modules/preview - Preview', () => {
 
     });
 
+    describe('Behavior', () => {
+        let eventBus;
+
+        beforeEach(() => eventBus = diagram.get('eventBus'));
+
+        it('should init visuals', () => {
+            eventBus.fire('preview.init', { elements: shape_1 });
+            const bbox = preview.visuals.getBBox();
+
+            expect(bbox.x).toBe(shape_1.x);
+            expect(bbox.y).toBe(shape_1.y);
+            expect(bbox.width).toBe(shape_1.width);
+            expect(bbox.height).toBe(shape_1.height);
+            expect(canvas.getDefaultLayer().childNodes.length).toBe(4);
+        });
+
+        it('should clear the visuals', () => {
+            eventBus.fire('preview.init', { elements: shape_1 });
+
+            expect(preview.visuals).toBeTruthy();
+            expect(canvas.getDefaultLayer().childNodes.length).toBe(4);
+
+            eventBus.fire('preview.clear');
+
+            expect(preview.visuals).toBeFalsy();
+            expect(canvas.getDefaultLayer().childNodes.length).toBe(3);
+        });
+
+    });
+
 });
