@@ -14,7 +14,6 @@ export class CreateTool extends Tool {
     onDisable (event) {
         this.create.factory = undefined;
         this.create.config = undefined;
-        this.create.clearPreview();
         unset();
     }
 

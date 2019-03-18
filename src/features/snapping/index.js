@@ -1,4 +1,4 @@
-import { Snapping } from './Snapping';
+import { SnappingProvider } from './providers/SnappingProvider';
 
 
 export default {
@@ -7,5 +7,5 @@ export default {
     __init__: [
         'snapping',
     ],
-    snapping: [ 'type', Snapping ],
+    snapping: [ 'type', SnappingProvider ],
 };
