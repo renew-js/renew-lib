@@ -3,8 +3,9 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class PreviewInitBehavior extends Behavior {
 
-    constructor (preview) {
+    constructor (eventBus, preview) {
         super();
+        this.eventBus = eventBus;
         this.preview = preview;
     }
 
@@ -12,6 +13,14 @@ export class PreviewInitBehavior extends Behavior {
         if (!this.preview.visuals) {
             this.preview.createVisuals(event.elements);
         }
+    }
+
+    after (event) {
+        if (event.context) {
+            event.context.shape = Array.isArray(event.elements) ?
+                event.elements[0] : event.elements;
+        }
+        this.eventBus.fire('snapping.snap.init', event);
     }
 
 }

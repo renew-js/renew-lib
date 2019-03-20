@@ -9,11 +9,11 @@ export class MovePreviewBehavior extends Behavior {
     }
 
     before (event) {
-        this.eventBus.fire('preview.init', { elements: event.elements });
+        this.eventBus.fire('preview.init', event);
     }
 
     during (event) {
-        this.eventBus.fire('preview.move.by', { dx: event.dx, dy: event.dy });
+        this.eventBus.fire('preview.move', event);
     }
 
     clear () {

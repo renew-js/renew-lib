@@ -1,8 +1,10 @@
+import { CreateCursorBehavior } from './behaviors/CreateCursorBehavior';
+import { CreateMarkerBehavior } from './behaviors/CreateMarkerBehavior';
+import { CreatePreviewBehavior } from './behaviors/CreatePreviewBehavior';
 import { CreateShapeCommand } from './commands/CreateShapeCommand';
 import { CreateProvider } from './providers/CreateProvider';
 import { CreateTool } from './tools/CreateTool';
-import { CreatePreviewBehavior } from './behaviors/CreatePreviewBehavior';
-import { PlaceShapeBehavior } from './behaviors/PlaceShapeBehavior';
+import { CreateElementBehavior } from './behaviors/CreateElementBehavior';
 
 
 export default {
@@ -11,8 +13,10 @@ export default {
         'create',
     ],
     __behaviors__: [
+        [ 'create.element', CreateElementBehavior ],
         [ 'create.preview', CreatePreviewBehavior ],
-        [ 'create.place', PlaceShapeBehavior ],
+        [ 'create.marker', CreateMarkerBehavior ],
+        [ 'create.cursor', CreateCursorBehavior ],
     ],
     __commands__: [
         [ 'tool.shape.create', CreateShapeCommand ],
