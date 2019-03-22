@@ -1,4 +1,4 @@
-import MetaModelingModule from '../meta-modeling';
+import MetaModelingModule from '../meta-formalism';
 
 import BaseImporter from './BaseImporter';
 import JsonImporter from './JsonImporter';
