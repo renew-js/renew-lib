@@ -12,14 +12,15 @@ export class PreviewInitBehavior extends Behavior {
     during (event) {
         if (!this.preview.visuals) {
             this.preview.createVisuals(event.elements);
+            this.preview.move(event.dx, event.dy);
         }
     }
 
     after (event) {
         if (event.context) {
              event.context.shape = this.preview.visuals.elements[0];
+            this.eventBus.fire('snapping.snap.init', event);
         }
-        this.eventBus.fire('snapping.snap.init', event);
     }
 
 }

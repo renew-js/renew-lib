@@ -54,14 +54,13 @@ describe('modules/snapping - Snapping', () => {
         let eventBus;
 
         beforeEach(() => eventBus = diagram.get('eventBus'));
-        /*
+
         it('should snap', () => {
             const payload = {
                 x: 1000,
                 y: 200,
                 context: {
-                    shape: shape_1,
-                    target: canvas.getRootElement()
+                    shape: shape_1
                 }
             };
             eventBus.fire('snapping.snap', payload);
@@ -69,7 +68,7 @@ describe('modules/snapping - Snapping', () => {
             console.log(payload);
             expect(payload.snapped).toBeTruthy();
         })
-        */
+
     });
 
 });

@@ -8,7 +8,7 @@ export class MovePreviewBehavior extends Behavior {
         this.eventBus = eventBus;
     }
 
-    before (event) {
+    init (event) {
         this.eventBus.fire('preview.init', event);
     }
 

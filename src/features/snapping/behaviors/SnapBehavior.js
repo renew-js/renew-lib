@@ -10,6 +10,16 @@ export class SnapBehavior extends Behavior {
         this.snapping = snapping;
     }
 
+    init (event) {
+        if (event.context.shape) {
+            const center = mid(event.context.shape);
+            this.snapping.snapOrigin = {
+                x: center.x - event.x,
+                y: center.y - event.y,
+            };
+        }
+    }
+
     during (event) {
         if (event.context.shape) {
             event.snapped = this.snapping.snap(event);

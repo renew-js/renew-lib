@@ -32,9 +32,10 @@ export class PreviewProvider {
                 translate(visual, element.x, element.y);
             } else {
                 visual = clone(graphics);
-                element = JSON.parse(JSON.stringify(element));
-                element.id += '-preview';
             }
+
+            element = JSON.parse(JSON.stringify(element));
+            element.id += '-preview';
 
             switch (element.type) {
                 case 'shape':

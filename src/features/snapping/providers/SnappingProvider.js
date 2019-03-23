@@ -8,6 +8,7 @@ export class SnappingProvider extends Snapping {
         super(eventBus, canvas);
         this.canvas = canvas;
         this.points = [ ];
+        this.snapOrigin = { };
 
         this._asyncHide = () => {};
     }
@@ -20,17 +21,17 @@ export class SnappingProvider extends Snapping {
         target.children.forEach(child => this.points.push(mid(child)));
     }
 
-    snap (source) {
+    snap (source, tolerance = 7) {
         const snapped = { };
 
         this.hide();
 
         this.points.forEach((point) => {
-            if (point.x - 5 <= source.x && point.x + 5 >= source.x) {
-                snapped.x = point.x;
+            if (Math.abs(point.x - source.x - this.snapOrigin.x) <= tolerance) {
+                snapped.x = point.x - this.snapOrigin.x;
                 this.showSnapLine('vertical', point.x);
-            } else if (point.y - 5 <= source.y && point.y + 5 >= source.y) {
-                snapped.y = point.y;
+            } else if (Math.abs(point.y - source.y - this.snapOrigin.y) <= tolerance) {
+                snapped.y = point.y - this.snapOrigin.y;
                 this.showSnapLine('horizontal', point.y);
             }
         });
