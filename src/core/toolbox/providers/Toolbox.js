@@ -16,6 +16,7 @@ export class Toolbox {
         this.hover = null;
         this.hoverGfx = null;
         this.start = null;
+        this.snapped = { };
         this.mouseDown = false;
         this.pos = { x: 0, y: 0 };
 
@@ -68,6 +69,7 @@ export class Toolbox {
         const point = this.toLocal({ x: event.clientX, y: event.clientY });
         this.start.x = point.x;
         this.start.y = point.y;
+        this.snapped = { };
         this.mouseDown = true;
         const mouseEvent = this.createMouseEvent(event);
 
@@ -126,9 +128,13 @@ export class Toolbox {
         payload.ty = event.clientY - this.pos.y;
         this.pos = { x: event.clientX, y: event.clientY };
 
+        this.eventBus.fire('snapping.snap', payload);
+
         if (this.start) {
             payload.sx = this.start.x;
             payload.sy = this.start.y;
+            payload.x = (this.snapped.x || payload.x);
+            payload.y = (this.snapped.y || payload.y);
             payload.dx = payload.x - this.start.x;
             payload.dy = payload.y - this.start.y;
             payload.hoverStart = this.start.hover;

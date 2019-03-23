@@ -4,18 +4,21 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class SnapBehavior extends Behavior {
 
-    constructor (snapping) {
+    constructor (eventBus, snapping) {
         super();
+        this.eventBus = eventBus;
         this.snapping = snapping;
     }
 
     during (event) {
         if (event.context.shape) {
-            const center = mid(event.context.shape);
-            const snapped = this.snapping.snap(center);
-            if (snapped.x) event.x = center.x;
-            if (snapped.y) event.y = center.y;
+            event.snapped = this.snapping.snap(event);
+            this.eventBus.fire('snapping.snapped', event);
         }
+    }
+
+    stop (event) {
+        this.snapping.stop();
     }
 
     /*

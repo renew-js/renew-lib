@@ -35,7 +35,7 @@ export class PointerTool extends Tool {
     onMouseUp (event) {
         event.elements = this.selection.get();
 
-        this.eventBus.fire('move.preview.clear', event);
+        this.eventBus.fire('preview.clear', event);
         this.eventBus.fire('move.elements', event);
 
         if (event.rootStart) {
