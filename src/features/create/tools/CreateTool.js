@@ -36,6 +36,7 @@ export class CreateTool extends Tool {
     onMouseUp (event) {
         this.eventBus.fire('create.element', event);
         this.eventBus.fire('create.marker.clear', event);
+        this.eventBus.fire('preview.clear', event);
 
         if (!event.originalEvent.shiftKey) {
             this.eventBus.fire('toolbox.previous', event);

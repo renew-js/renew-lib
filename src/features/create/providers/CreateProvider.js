@@ -6,8 +6,11 @@ export class CreateProvider {
         this.element = null;
     }
 
-    createElement () {
-        return this.element = this.factory.createElement(this.config.type);
+    createElement (x, y) {
+        this.element = this.factory.createElement(this.config.type);
+        this.element.x = x;
+        this.element.y = y;
+        return this.element;
     }
 
 }
