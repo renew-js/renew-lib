@@ -11,17 +11,19 @@ export class SnapBehavior extends Behavior {
     }
 
     init (event) {
-        if (event.context.shape) {
-            const center = mid(event.context.shape);
-            this.snapping.snapOrigin = {
-                x: center.x - event.x,
-                y: center.y - event.y,
-            };
+        if (event.context.elements) {
+            event.context.elements.forEach((element) => {
+                const center = mid(element);
+                this.snapping.snapOrigins.push({
+                    x: center.x - event.x,
+                    y: center.y - event.y,
+                });
+            });
         }
     }
 
     during (event) {
-        if (event.context.shape) {
+        if (event.context.elements) {
             event.snapped = this.snapping.snap(event);
             this.eventBus.fire('snapping.snapped', event);
         }
