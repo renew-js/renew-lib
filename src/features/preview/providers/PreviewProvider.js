@@ -53,23 +53,15 @@ export class PreviewProvider {
     }
 
     clearVisuals () {
-        console.log('clear');
         if (this.visuals) {
             remove(this.visuals);
             this.visuals = null;
         }
     }
 
-    moveTo (x, y) {
+    move (dx, dy) {
         if (this.visuals) {
-            this.moveBy(x - this.visuals.elements[0].x, y - this.visuals.elements[0].y);
-        }
-    }
-
-    moveBy (tx, ty) {
-        if (this.visuals) {
-            translate(this.visuals, tx, ty);
-            console.log(this.visuals.elements.map(e => e.id), tx, ty);
+            translate(this.visuals, dx, dy);
         }
     }
 

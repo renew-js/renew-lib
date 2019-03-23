@@ -10,7 +10,10 @@ export class CreateElementBehavior extends Behavior {
     }
 
     init (event) {
-        this.create.createElement(event.x, event.y);
+        event.elements = this.create.createElement(
+            event.x - event.dx,
+            event.y - event.dy
+        );
     }
 
     before (event) {
