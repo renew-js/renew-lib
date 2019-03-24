@@ -43,8 +43,8 @@ export class PointerTool extends Tool {
         this.eventBus.fire('preview.clear', event);
 
         if (event.rootStart) {
-            this.eventBus.fire('rubberBand.preview.clear', event);
             this.eventBus.fire('rubberBand.select', event);
+            this.eventBus.fire('rubberBand.preview.clear', event);
         }
     }
 
