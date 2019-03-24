@@ -15,7 +15,7 @@ export class Toolbox {
 
         this.hover = null;
         this.hoverGfx = null;
-        this.start = null;
+        this.start = { x: 0, y: 0 };
         this.snapped = { };
         this.mouseDown = false;
         this.pos = { x: 0, y: 0 };
@@ -87,8 +87,6 @@ export class Toolbox {
         if (this.isOnCanvas(mouseEvent)) {
             this.activeTool.onMouseUp(mouseEvent);
         }
-
-        this.start = null;
     }
 
     onMouseMove (event) {
