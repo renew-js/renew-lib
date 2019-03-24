@@ -104,22 +104,23 @@ export class Toolbox {
     onHover (event) {
         if (!this.activeTool) return;
 
-        const mouseEvent = this.createMouseEvent(event);
-        this.activeTool.onHover(mouseEvent);
+        // const mouseEvent = this.createMouseEvent(event);
+        this.activeTool.onHover(event);
     }
 
     onOut (event) {
         if (!this.activeTool) return;
 
-        const mouseEvent = this.createMouseEvent(event);
-        mouseEvent.hover = event.element;
-        this.activeTool.onOut(mouseEvent);
+        // const mouseEvent = this.createMouseEvent(event);
+        // mouseEvent.hover = event.element;
+        this.activeTool.onOut(event);
     }
 
     createMouseEvent (event) {
         const payload = this.toLocal({ x: event.clientX, y: event.clientY });
         payload.originalEvent = event;
         payload.hover = this.hover;
+        payload.isOnCanvas = this.isOnCanvas(event);
         payload.hoverGfx = this.hoverGfx;
         payload.context = this.activeContext;
         payload.mouseDown = this.mouseDown;
@@ -133,8 +134,8 @@ export class Toolbox {
         if (this.start) {
             payload.sx = this.start.x;
             payload.sy = this.start.y;
-            payload.x = (this.snapped.x || payload.x);
-            payload.y = (this.snapped.y || payload.y);
+            payload.x = this.snapped.x || payload.x;
+            payload.y = this.snapped.y || payload.y;
             payload.dx = payload.x - this.start.x;
             payload.dy = payload.y - this.start.y;
             payload.hoverStart = this.start.hover;
