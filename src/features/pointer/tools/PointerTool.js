@@ -10,7 +10,7 @@ export class PointerTool extends Tool {
     }
 
     onDisable (event) {
-        this.selection.clear();
+        this.eventBus.fire('selection.clear');
     }
 
     onEnable (event) {

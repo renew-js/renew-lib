@@ -3,8 +3,9 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class CreateElementBehavior extends Behavior {
 
-    constructor (commandStack, create) {
+    constructor (eventBus, commandStack, create) {
         super();
+        this.eventBus = eventBus;
         this.commandStack = commandStack;
         this.create = create;
     }
@@ -34,6 +35,8 @@ export class CreateElementBehavior extends Behavior {
     }
 
     after (event) {
+        event.elements = this.create.element;
+        this.eventBus.fire('selection.add', event);
         this.create.element = null;
     }
 

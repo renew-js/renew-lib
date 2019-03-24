@@ -8,11 +8,19 @@ export class SelectionProvider extends Selection {
     }
 
     clear () {
-        this.select(null);
+        this._selectedElements = [];
     }
 
     empty () {
-        return !this._selectedElements.length;
+        return !this.count();
+    }
+
+    count () {
+        return this._selectedElements.length;
+    }
+
+    add (elements) {
+        this.select(elements, true);
     }
 
 }
