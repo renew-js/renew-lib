@@ -9,13 +9,7 @@ export class MoveBehavior extends Behavior {
     }
 
     during (event) {
-        if (event.elements) {
-            if (event.dx && event.dy) {
-                this.move.elements(event.elements).by(event.dx, event.dy);
-            } else if (event.dx !== 0 && event.dy !== 0) {
-                this.move.elements(event.elements).to(event.x, event.y);
-            }
-        }
+        this.move.elements(event.elements).by(event.dx, event.dy);
     }
 
 }

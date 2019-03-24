@@ -15,8 +15,8 @@ export class MoveElementsCommand extends Command {
         context.elements.filter(this._isShape).forEach((element) => {
             this._moveShape(
                 element,
-                context.dx || (context.x - element.x),
-                context.dy || (context.y - element.y)
+                context.dx,
+                context.dy,
             );
 
             element.incoming.forEach(this._layoutConnection.bind(this));
