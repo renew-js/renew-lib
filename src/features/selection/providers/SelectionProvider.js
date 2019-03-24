@@ -8,6 +8,7 @@ export class SelectionProvider extends Selection {
     }
 
     clear () {
+        this.select(null);
         this._selectedElements = [];
     }
 
