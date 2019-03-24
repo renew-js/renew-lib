@@ -1,10 +1,9 @@
 export default class BaseImporter {
 
-    constructor (eventBus, elementRegistry, metaFactory, modeling, canvas) {
+    constructor (eventBus, elementRegistry, metaFactory, canvas) {
         this.eventBus = eventBus;
         this.elementRegistry = elementRegistry;
         this.metaFactory = metaFactory;
-        this.modeling = modeling;
         this.canvas = canvas;
     }
 
@@ -52,14 +51,14 @@ export default class BaseImporter {
             y: element.y + element.height / 2,
         };
         const parent = this.elementRegistry.get(element.parentId);
-        this.modeling.createShape(element, position, parent);
+        // this.modeling.createShape(element, position, parent);
     }
 
     createConnection (element) {
         const parent = this.elementRegistry.get(element.parentId);
         const source = this.elementRegistry.get(element.sourceId);
         const target = this.elementRegistry.get(element.targetId);
-        this.modeling.createConnection(source, target, element, parent);
+        //this.modeling.createConnection(source, target, element, parent);
     }
 
     createLabel (element) {

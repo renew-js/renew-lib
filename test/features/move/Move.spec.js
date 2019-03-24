@@ -120,12 +120,4 @@ describe('modules/move - Move', () => {
 
     });
 
-    describe('Preview', () => {
-
-        it('should', () => {
-            // TODO
-        });
-
-    });
-
 });

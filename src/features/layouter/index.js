@@ -1,5 +1,5 @@
 import MetaFormalismModule from '../meta-formalism';
-import { MetaLayouter } from './MetaLayouter';
+import { MetaLayouter } from './providers/MetaLayouter';
 
 
 export default {
