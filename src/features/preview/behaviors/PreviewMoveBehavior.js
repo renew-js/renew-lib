@@ -3,17 +3,14 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class PreviewMoveBehavior extends Behavior {
 
-    constructor (preview) {
+    constructor (eventBus, preview) {
         super();
+        this.eventBus = eventBus;
         this.preview = preview;
     }
 
-    by (event) {
-        this.preview.moveBy(event.dx, event.dy);
-    }
-
-    to (event) {
-        this.preview.moveTo(event.x, event.y);
+    during (event) {
+        this.preview.move(event.dx, event.dy);
     }
 
 }

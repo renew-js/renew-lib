@@ -1,46 +1,49 @@
 import { Tool } from '../../../core/toolbox/Tool';
-import { set, unset } from 'diagram-js/lib/util/Cursor';
 
 export class CreateTool extends Tool {
 
-    constructor (eventBus, toolbox, create) {
+    constructor (eventBus, create) {
         super();
         this.eventBus = eventBus;
-        this.toolbox = toolbox;
+
         this.create = create;
-        this.snapContext = null;
     }
 
     onDisable (event) {
         this.create.factory = undefined;
         this.create.config = undefined;
-        unset();
+
+        this.eventBus.fire('create.cursor.unset', event);
     }
 
     onEnable (event) {
         this.create.factory = event.factory;
         this.create.config = event.config;
-        set('grabbing');
+
+        this.eventBus.fire('create.cursor.grabbing', event);
     }
 
     onMouseDown (event) {
-
+        this.eventBus.fire('create.element.init', event);
     }
 
     onMouseMove (event) {
         this.eventBus.fire('create.preview', event);
+        this.eventBus.fire('create.marker.update', event);
     }
 
     onMouseUp (event) {
-        this.eventBus.fire('create.place', event);
-        this.eventBus.fire('create.preview.clear', event);
+        this.eventBus.fire('create.element', event);
+        this.eventBus.fire('create.marker.clear', event);
+        this.eventBus.fire('preview.clear', event);
+
         if (!event.originalEvent.shiftKey) {
-            this.toolbox.activatePrevious();
+            this.eventBus.fire('toolbox.previous', event);
         }
     }
 
     onOut (event) {
-        this.eventBus.fire('create.preview.out', event);
+        this.eventBus.fire('create.marker.out', event);
     }
 
 }

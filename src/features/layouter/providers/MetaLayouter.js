@@ -1,8 +1,8 @@
 import BaseLayouter from 'diagram-js/lib/layout/BaseLayouter';
 
 import { getMid } from 'diagram-js/lib/layout/LayoutUtil';
-import { Geometry } from '../../util/Geometry';
-import { PathParser } from '../../util/PathParser';
+import { Geometry } from '../../../util/Geometry';
+import { PathParser } from '../../../util/PathParser';
 
 import Bezier from 'bezier-js';
 

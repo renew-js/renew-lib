@@ -8,8 +8,12 @@ export class MoveBehavior extends Behavior {
         this.move = move;
     }
 
-    during (event) {
+    by (event) {
         this.move.elements(event.elements).by(event.dx, event.dy);
+    }
+
+    to (event) {
+        this.move.elements(event.elements).to(event.x, event.y);
     }
 
 }

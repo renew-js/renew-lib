@@ -1,3 +1,5 @@
+import LayoutModule from '../layouter';
+
 import { MoveBehavior } from './behaviors/MoveBehavior';
 import { MovePreviewBehavior } from './behaviors/MovePreviewBehavior';
 import { MoveElementsCommand } from './commands/MoveElementsCommand';
@@ -5,7 +7,9 @@ import { MoveProvider } from './providers/MoveProvider';
 
 
 export default {
-    __depends__: [],
+    __depends__: [
+        LayoutModule
+    ],
     __init__: [
         'move',
     ],

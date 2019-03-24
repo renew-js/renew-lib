@@ -15,7 +15,8 @@ export class Toolbox {
 
         this.hover = null;
         this.hoverGfx = null;
-        this.start = null;
+        this.start = { x: 0, y: 0 };
+        this.snapped = { };
         this.mouseDown = false;
         this.pos = { x: 0, y: 0 };
 
@@ -65,11 +66,10 @@ export class Toolbox {
 
         this.start = { };
         this.start.hover = this.hover;
-        if (this.isOnCanvas({ hover: this.hover })) {
-            const point = this.toLocal({ x: event.clientX, y: event.clientY });
-            this.start.x = point.x;
-            this.start.y = point.y;
-        }
+        const point = this.toLocal({ x: event.clientX, y: event.clientY });
+        this.start.x = point.x;
+        this.start.y = point.y;
+        this.snapped = { };
         this.mouseDown = true;
         const mouseEvent = this.createMouseEvent(event);
 
@@ -87,8 +87,6 @@ export class Toolbox {
         if (this.isOnCanvas(mouseEvent)) {
             this.activeTool.onMouseUp(mouseEvent);
         }
-
-        this.start = null;
     }
 
     onMouseMove (event) {
@@ -104,22 +102,23 @@ export class Toolbox {
     onHover (event) {
         if (!this.activeTool) return;
 
-        const mouseEvent = this.createMouseEvent(event);
-        this.activeTool.onHover(mouseEvent);
+        // const mouseEvent = this.createMouseEvent(event);
+        this.activeTool.onHover(event);
     }
 
     onOut (event) {
         if (!this.activeTool) return;
 
-        const mouseEvent = this.createMouseEvent(event);
-        mouseEvent.hover = event.element;
-        this.activeTool.onOut(mouseEvent);
+        // const mouseEvent = this.createMouseEvent(event);
+        // mouseEvent.hover = event.element;
+        this.activeTool.onOut(event);
     }
 
     createMouseEvent (event) {
         const payload = this.toLocal({ x: event.clientX, y: event.clientY });
         payload.originalEvent = event;
         payload.hover = this.hover;
+        payload.isOnCanvas = this.isOnCanvas(event);
         payload.hoverGfx = this.hoverGfx;
         payload.context = this.activeContext;
         payload.mouseDown = this.mouseDown;
@@ -128,9 +127,13 @@ export class Toolbox {
         payload.ty = event.clientY - this.pos.y;
         this.pos = { x: event.clientX, y: event.clientY };
 
+        this.eventBus.fire('snapping.snap', payload);
+
         if (this.start) {
             payload.sx = this.start.x;
             payload.sy = this.start.y;
+            payload.x = this.snapped.x || payload.x;
+            payload.y = this.snapped.y || payload.y;
             payload.dx = payload.x - this.start.x;
             payload.dy = payload.y - this.start.y;
             payload.hoverStart = this.start.hover;

@@ -1,3 +1,4 @@
+import { mid } from 'diagram-js/lib/features/snapping/SnapUtil';
 import SnappingModule from '../../../src/features/snapping';
 import { Tester } from '../../Tester';
 
@@ -31,6 +32,42 @@ describe('modules/snapping - Snapping', () => {
     });
 
     describe('Provider', () => {
+
+        it('should init snapContext', () => {
+            snapping.init();
+            expect(snapping.points.length).toBe(2);
+        });
+
+        it('should snap to mid', () => {
+            snapping.init();
+
+            const source = mid(shape_2);
+            const snapped = snapping.snap(source);
+
+            expect(snapped.x).toBe(650);
+            expect(snapped.y).toBe(400);
+        });
+
+    });
+
+    describe('Behavior', () => {
+        let eventBus;
+
+        beforeEach(() => eventBus = diagram.get('eventBus'));
+
+        it('should snap', () => {
+            const payload = {
+                x: 1000,
+                y: 200,
+                context: {
+                    shape: shape_1
+                }
+            };
+            eventBus.fire('snapping.snap', payload);
+
+            console.log(payload);
+            expect(payload.snapped).toBeTruthy();
+        })
 
     });
 

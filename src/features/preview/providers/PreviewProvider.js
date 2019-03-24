@@ -16,6 +16,7 @@ export class PreviewProvider {
         this.clearVisuals();
 
         this.visuals = create('g', { opacity: 0.6 });
+        this.visuals.elements = [];
 
         // hijack renderer to draw preview
         const elementRegistry = this.canvas._elementRegistry;
@@ -26,17 +27,22 @@ export class PreviewProvider {
             let visual;
 
             if (!graphics) {
-                visual = create('g', { id: element.id + '-preview', });
+                visual = create('g', { id: element.id + '-preview' });
                 classes(visual).add('djs-visual');
+                translate(visual, element.x, element.y);
             } else {
                 visual = clone(graphics);
             }
 
+            element = JSON.parse(JSON.stringify(element));
+            element.id += '-preview';
+
             switch (element.type) {
                 case 'shape':
                     graphicsFactory.drawShape(visual, element);
-                    this.visuals.x = element.x || 0;
-                    this.visuals.y = element.y || 0;
+                    element.sx = element.x;
+                    element.sy = element.y;
+                    this.visuals.elements.push(element);
                     break;
                 case 'connection':
                     graphicsFactory.drawConnection(visual, element);
@@ -58,13 +64,13 @@ export class PreviewProvider {
         }
     }
 
-    moveTo (x, y) {
-        this.moveBy(x - this.visuals.x, y - this.visuals.y);
-    }
-
-    moveBy (dx, dy) {
+    move (dx, dy) {
         if (this.visuals) {
             translate(this.visuals, dx, dy);
+            this.visuals.elements.forEach((element) => {
+                element.x = element.sx + dx;
+                element.y = element.sy + dy;
+            })
         }
     }
 

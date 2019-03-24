@@ -1,41 +1,56 @@
-import BaseSnapping from 'diagram-js/lib/features/snapping/Snapping';
-import { mid, setSnapped } from 'diagram-js/lib/features/snapping/SnapUtil';
-
-const HIGH_PRIORITY = 1500;
+import Snapping from 'diagram-js/lib/features/snapping/Snapping';
+import { mid } from 'diagram-js/lib/features/snapping/SnapUtil';
 
 
-export class SnappingProvider extends BaseSnapping {
+export class SnappingProvider extends Snapping {
 
     constructor (eventBus, canvas) {
         super(eventBus, canvas);
-        this.init(eventBus);
+        this.canvas = canvas;
+        this.points = [];
+        this.snapOrigins = [];
+
+        this._asyncHide = () => {};
     }
 
-    init (eventBus) {
-        eventBus.on([
-            'connect.move',
-            'connect.hover',
-            'connect.end',
-        ], HIGH_PRIORITY, this.snapConnections);
-    }
+    init (target) {
+        target = !target ? this.canvas.getRootElement() : target;
 
-    snapConnections (event) {
-        event.context.sourcePosition = mid(event.context.source);
-        if (event.context.target && event.context.target.body) {
-            const position = mid(event.context.target);
-            setSnapped(event, 'x', position.x);
-            setSnapped(event, 'y', position.y);
-        }
-    }
+        this.points = [];
+        this.snapOrigins = [];
 
-    addTargetSnaps (snapPoints, source, target) {
-        const siblings = this.getSiblings(source, target);
-
-        siblings.forEach((sibling) => {
-            if (!sibling.waypoints) {
-                snapPoints.add('mid', mid(sibling));
+        target.children.forEach(child => {
+            const center = mid(child);
+            if (center) {
+                this.points.push(center);
             }
         });
+    }
+
+    snap (source, tolerance = 7) {
+        const snapped = {};
+
+        this.hide();
+
+        this.snapOrigins.forEach((snapOrigin) => {
+            this.points.forEach((point) => {
+                if (Math.abs(point.x - source.x - snapOrigin.x) <= tolerance) {
+                    snapped.x = point.x - snapOrigin.x;
+                    this.showSnapLine('vertical', point.x);
+                } else if (Math.abs(point.y - source.y - snapOrigin.y) <= tolerance) {
+                    snapped.y = point.y - snapOrigin.y;
+                    this.showSnapLine('horizontal', point.y);
+                }
+            });
+        });
+
+        return snapped;
+    }
+
+    stop () {
+        this.points = [];
+        this.snapOrigins = [];
+        this.hide();
     }
 
 }
