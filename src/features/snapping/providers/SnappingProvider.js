@@ -19,7 +19,12 @@ export class SnappingProvider extends Snapping {
         this.points = [];
         this.snapOrigins = [];
 
-        target.children.forEach(child => this.points.push(mid(child)));
+        target.children.forEach(child => {
+            const center = mid(child);
+            if (center) {
+                this.points.push(center);
+            }
+        });
     }
 
     snap (source, tolerance = 7) {

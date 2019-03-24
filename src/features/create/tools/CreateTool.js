@@ -20,7 +20,6 @@ export class CreateTool extends Tool {
         this.create.factory = event.factory;
         this.create.config = event.config;
 
-
         this.eventBus.fire('create.cursor.grabbing', event);
     }
 
