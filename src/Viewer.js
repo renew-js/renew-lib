@@ -2,6 +2,7 @@ import Diagram from 'diagram-js';
 
 import CoreModule from './core';
 import DrawModule from './draw';
+import LayouterModule from './features/layouter';
 import SelectionModule from './features/selection';
 import ExportModule from './features/export';
 import ImportModule from './features/import';
@@ -20,15 +21,19 @@ export default class Viewer extends Diagram {
         options.canvas = options.canvas || {};
         options.canvas.container = container;
 
-        super(options, new Injector([
+        const injector = new Injector([
             { 'config': [ 'value', options ] },
             CoreModule,
             DrawModule,
+            LayouterModule,
             SelectionModule,
-            //            ExportModule,
-            //            ImportModule,
-        ].concat(options.modules)));
+            ExportModule,
+            ImportModule,
+        ].concat(options.modules));
 
+        super(options, injector);
+
+        this.injector = injector;
         this.container = container;
     }
 
@@ -51,7 +56,10 @@ export default class Viewer extends Diagram {
     }
 
     addFormalism (plugin) {
-        this.get('eventBus').fire('plugin.register', { plugin: plugin });
+        const pluginInstance = this.injector.instantiate(plugin);
+        this.get('eventBus').fire('plugin.register', {
+            plugin: pluginInstance,
+        });
     }
 
 }

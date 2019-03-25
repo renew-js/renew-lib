@@ -12,7 +12,8 @@ export class MetaElementFactory extends ElementFactory {
     createElement (metaType) {
         const attributes = JSON.parse(JSON.stringify(Object.assign({},
             this.pluginManager.getElement(metaType),
-            this.pluginManager.getStyle(metaType)
+            this.pluginManager.getStyle(metaType),
+            { type: metaType }
         )));
 
         switch (this.getType(metaType)) {

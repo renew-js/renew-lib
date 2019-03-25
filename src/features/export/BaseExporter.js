@@ -25,9 +25,7 @@ export default class BaseExporter {
             return element;
         });
 
-        const increment = this.metaFactory.getIncrement();
-
-        return { elements: cloneDeep(elements), increment };
+        return { elements: cloneDeep(elements) };
     }
 
 }
