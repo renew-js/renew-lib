@@ -2,7 +2,6 @@ import MetaModelingModule from '../meta-modeling';
 
 import BaseImporter from './BaseImporter';
 import JsonImporter from './JsonImporter';
-import PnmlImporter from './PnmlImporter';
 
 
 export default {
@@ -12,9 +11,7 @@ export default {
     __init__: [
         'baseImporter',
         'jsonImporter',
-        'pnmlImporter',
     ],
     baseImporter: [ 'type', BaseImporter ],
     jsonImporter: [ 'type', JsonImporter ],
-    pnmlImporter: [ 'type', PnmlImporter ],
 };

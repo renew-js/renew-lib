@@ -1,11 +1,10 @@
 export default class BaseImporter {
 
-    constructor (eventBus, elementRegistry, metaFactory, modeling, canvas) {
+    constructor (eventBus, elementRegistry, canvas, layouter) {
         this.eventBus = eventBus;
         this.elementRegistry = elementRegistry;
-        this.metaFactory = metaFactory;
-        this.modeling = modeling;
         this.canvas = canvas;
+        this.layouter = layouter;
     }
 
     import (data) {
@@ -15,15 +14,11 @@ export default class BaseImporter {
         this.canvas.getRootElement();
         this.parseElements(data.elements);
         this.canvas.zoom('fit-viewport', 'auto');
-        this.metaFactory.setIncrement(data.increment);
     }
 
     verify (data) {
         if (!data.elements || !data.elements.length) {
             throw new Error('Import must contain elements.');
-        }
-        if (!data.increment) {
-            throw new Error('Import must contain increment index.');
         }
         // TODO error handling
     }
@@ -47,19 +42,22 @@ export default class BaseImporter {
     }
 
     createShape (element) {
-        const position = {
-            x: element.x + element.width / 2,
-            y: element.y + element.height / 2,
-        };
         const parent = this.elementRegistry.get(element.parentId);
-        this.modeling.createShape(element, position, parent);
+        element.x += element.width / 2;
+        element.y += element.height / 2;
+        this.canvas.addShape(element, parent);
     }
 
     createConnection (element) {
         const parent = this.elementRegistry.get(element.parentId);
         const source = this.elementRegistry.get(element.sourceId);
         const target = this.elementRegistry.get(element.targetId);
-        this.modeling.createConnection(source, target, element, parent);
+        source.outgoing.push(element);
+        element.source = source;
+        target.incoming.push(target);
+        element.target = target;
+        element.waypoints = this.layouter.layoutConnection(element);
+        this.canvas.addConnection(element, parent);
     }
 
     createLabel (element) {

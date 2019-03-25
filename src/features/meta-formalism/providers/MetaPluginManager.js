@@ -62,4 +62,12 @@ export class MetaPluginManager {
         return this.getToolConfiguration(model).toolMappings[type];
     }
 
+    getExport (model, additionalData) {
+        return this.getPlugin(model).getExport(additionalData);
+    }
+
+    import (model, data) {
+        return this.getPlugin(model).import(data);
+    }
+
 }
