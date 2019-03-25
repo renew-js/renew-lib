@@ -1,5 +1,6 @@
 import { translate } from 'diagram-js/lib/util/SvgTransformUtil';
 import { append, classes, clone, create, remove } from 'tiny-svg';
+import cloneDeep from 'lodash/cloneDeep';
 
 
 export class PreviewProvider {
@@ -34,7 +35,7 @@ export class PreviewProvider {
                 visual = clone(graphics);
             }
 
-            element = JSON.parse(JSON.stringify(element));
+            element = cloneDeep(element);
             element.id += '-preview';
 
             switch (element.type) {
