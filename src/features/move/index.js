@@ -1,4 +1,4 @@
-import ModelingModule from '../meta-modeling';
+import LayoutModule from '../layouter';
 
 import { MoveBehavior } from './behaviors/MoveBehavior';
 import { MovePreviewBehavior } from './behaviors/MovePreviewBehavior';
@@ -8,18 +8,18 @@ import { MoveProvider } from './providers/MoveProvider';
 
 export default {
     __depends__: [
-        ModelingModule,
+        LayoutModule
     ],
     __init__: [
-        'move'
+        'move',
     ],
     __behaviors__: [
         [ 'move.elements', MoveBehavior ],
-        [ 'move.preview', MovePreviewBehavior ]
+        [ 'move.preview', MovePreviewBehavior ],
     ],
     __commands__: [
-        [ 'move.elements', MoveElementsCommand ]
+        [ 'move.elements', MoveElementsCommand ],
     ],
 
-    move: [ 'type', MoveProvider ]
-}
+    move: [ 'type', MoveProvider ],
+};

@@ -1,4 +1,4 @@
-import MetaModelingModule from '../meta-modeling';
+import MetaFormalismModule from '../meta-formalism';
 
 import BaseExporter from './BaseExporter';
 import JsonExporter from './JsonExporter';
@@ -6,7 +6,7 @@ import JsonExporter from './JsonExporter';
 
 export default {
     __depends__: [
-        MetaModelingModule,
+        MetaFormalismModule,
     ],
     __init__: [
         'baseExporter',

@@ -10,15 +10,16 @@ export class MoveProvider {
             to: (x, y) => {
                 this.commandStack.execute('move.elements', {
                     elements: shapes,
-                    x: x,
-                    y: y,
+                    // TODO
+                    dx: x,
+                    dy: y,
                 });
             },
-            by: (tx, ty) => {
+            by: (dx, dy) => {
                 this.commandStack.execute('move.elements', {
                     elements: shapes,
-                    dx: tx,
-                    dy: ty,
+                    dx: dx,
+                    dy: dy,
                 });
             }
         }

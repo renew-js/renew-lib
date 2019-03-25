@@ -9,7 +9,6 @@ export class ConnectBehavior extends Behavior {
     }
 
     before (event) {
-        console.log(event);
         const type = event.context.config.type;
         event.connection = event.context.factory.createElement(type);
     }

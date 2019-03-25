@@ -66,13 +66,13 @@ export class Renderer extends BaseRenderer {
             fill: 'none',
         }));
 
-        if (connection.metaObject.arrowStart) {
+        if (connection.metaObject && connection.metaObject.arrowStart) {
             attr(line, {
                 markerEnd: 'url(#' + connection.metaObject.arrowStart + ')',
             });
         }
 
-        if (connection.metaObject.arrowEnd) {
+        if (connection.metaObject && connection.metaObject.arrowEnd) {
             attr(line, {
                 markerEnd: 'url(#' + connection.metaObject.arrowEnd + ')',
             });

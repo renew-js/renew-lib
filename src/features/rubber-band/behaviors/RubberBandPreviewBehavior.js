@@ -36,6 +36,7 @@ export class RubberBandPreviewBehavior extends Behavior {
         if (this.preview) {
             remove(this.preview);
             this.preview = null;
+            this.rubberBand.rect = { };
         }
     }
 

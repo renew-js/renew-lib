@@ -10,7 +10,7 @@ export class PointerTool extends Tool {
     }
 
     onDisable (event) {
-        this.selection.clear();
+        this.eventBus.fire('selection.clear');
     }
 
     onEnable (event) {
@@ -18,6 +18,10 @@ export class PointerTool extends Tool {
 
     onMouseDown (event) {
         this.eventBus.fire('pointer.select', event);
+        event.elements = this.selection.get();
+        if (!event.rootStart) {
+            this.eventBus.fire('move.preview.init', event);
+        }
     }
 
     onMouseMove (event) {
@@ -27,7 +31,7 @@ export class PointerTool extends Tool {
             if (event.rootStart) {
                 this.eventBus.fire('rubberBand.preview', event);
             } else {
-                this.eventBus.fire('move.preview', event);
+                this.eventBus.fire('preview.move', event);
             }
         }
     }
@@ -35,12 +39,12 @@ export class PointerTool extends Tool {
     onMouseUp (event) {
         event.elements = this.selection.get();
 
-        this.eventBus.fire('move.preview.clear', event);
-        this.eventBus.fire('move.elements', event);
+        this.eventBus.fire('move.elements.by', event);
+        this.eventBus.fire('preview.clear', event);
 
         if (event.rootStart) {
-            this.eventBus.fire('rubberBand.preview.clear', event);
             this.eventBus.fire('rubberBand.select', event);
+            this.eventBus.fire('rubberBand.preview.clear', event);
         }
     }
 
