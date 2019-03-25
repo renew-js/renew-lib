@@ -20,15 +20,18 @@ export default class Viewer extends Diagram {
         options.canvas = options.canvas || {};
         options.canvas.container = container;
 
-        super(options, new Injector([
+        const injector = new Injector([
             { 'config': [ 'value', options ] },
             CoreModule,
             DrawModule,
             SelectionModule,
-            //            ExportModule,
-            //            ImportModule,
-        ].concat(options.modules)));
+            ExportModule,
+            ImportModule,
+        ].concat(options.modules));
 
+        super(options, injector);
+
+        this.injector = injector;
         this.container = container;
     }
 
@@ -51,7 +54,10 @@ export default class Viewer extends Diagram {
     }
 
     addFormalism (plugin) {
-        this.get('eventBus').fire('plugin.register', { plugin: plugin });
+        const pluginInstance = this.injector.instantiate(plugin);
+        this.get('eventBus').fire('plugin.register', {
+            plugin: pluginInstance,
+        });
     }
 
 }
