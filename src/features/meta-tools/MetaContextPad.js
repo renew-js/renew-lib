@@ -16,7 +16,7 @@ export class MetaContextPad {
                 title: 'Remove ' + element.metaType,
                 action: {
                     click: (event, element) => {
-                        this.eventBus.fire('elements.remove.start', {
+                        this.eventBus.fire('remove.elements', {
                             elements: [ element ],
                         });
                     },
@@ -25,7 +25,7 @@ export class MetaContextPad {
         };
 
         return entries;
-
+        /*
         const plugin = this.pluginManager.getPlugin(element.model);
         const metaModel = plugin.getMetaModel();
 
@@ -44,6 +44,7 @@ export class MetaContextPad {
         });
 
         return entries;
+        */
     }
 
     getRelationEntry (element, relation) {

@@ -2,6 +2,7 @@ import MetaFormalismModule from '../meta-formalism';
 import ContextPadModule from 'diagram-js/lib/features/context-pad';
 import PaletteModule from 'diagram-js/lib/features/palette';
 import CreateModule from '../create';
+import RemoveModule from '../remove';
 import ConnectModule from '../connect';
 
 import { MetaContextPad } from './MetaContextPad';
@@ -18,6 +19,7 @@ export default {
         ContextPadModule,
 
         CreateModule,
+        RemoveModule,
         ConnectModule,
     ],
     __init__: [

@@ -24,4 +24,11 @@ export class SelectionProvider extends Selection {
         this.select(elements, true);
     }
 
+    remove (elements) {
+        elements = Array.isArray(elements) ? elements : [ elements ];
+        elements.forEach((element) => {
+            this.deselect(element);
+        });
+    }
+
 }
