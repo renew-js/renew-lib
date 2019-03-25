@@ -10,7 +10,7 @@ export class PointerTool extends Tool {
     }
 
     onDisable (event) {
-        this.selection.clear();
+        this.eventBus.fire('selection.clear');
     }
 
     onEnable (event) {
@@ -43,8 +43,8 @@ export class PointerTool extends Tool {
         this.eventBus.fire('preview.clear', event);
 
         if (event.rootStart) {
-            this.eventBus.fire('rubberBand.preview.clear', event);
             this.eventBus.fire('rubberBand.select', event);
+            this.eventBus.fire('rubberBand.preview.clear', event);
         }
     }
 

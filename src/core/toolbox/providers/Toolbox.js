@@ -51,6 +51,7 @@ export class Toolbox {
         if (this.activeTool) {
             this.activeTool.onEnable(context);
         }
+        return this.activeTool;
     }
 
     activatePrevious (context) {
