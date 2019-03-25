@@ -20,21 +20,18 @@ export default class BaseImporter {
         if (!data.elements || !data.elements.length) {
             throw new Error('Import must contain elements.');
         }
-        // TODO error handling
     }
 
     parseElements (elements) {
         elements.forEach((element) => {
-            delete element.labels; // TODO deserialize labels
-            delete element.children; // TODO deserialize children
-            switch (element.class) {
-                case 'Classifier':
+            switch (element.type) {
+                case 'shape':
                     this.createShape(element);
                     break;
-                case 'Connection':
+                case 'connection':
                     this.createConnection(element);
                     break;
-                case 'Text':
+                case 'label':
                     this.createLabel(element);
                     break;
             }
@@ -43,8 +40,6 @@ export default class BaseImporter {
 
     createShape (element) {
         const parent = this.elementRegistry.get(element.parentId);
-        element.x += element.width / 2;
-        element.y += element.height / 2;
         this.canvas.addShape(element, parent);
     }
 
@@ -52,9 +47,7 @@ export default class BaseImporter {
         const parent = this.elementRegistry.get(element.parentId);
         const source = this.elementRegistry.get(element.sourceId);
         const target = this.elementRegistry.get(element.targetId);
-        source.outgoing.push(element);
         element.source = source;
-        target.incoming.push(target);
         element.target = target;
         element.waypoints = this.layouter.layoutConnection(element);
         this.canvas.addConnection(element, parent);
