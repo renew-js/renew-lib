@@ -1,3 +1,4 @@
+import { mid } from 'diagram-js/lib/features/snapping/SnapUtil';
 import { append, attr, create, remove } from 'tiny-svg';
 
 import { Behavior } from '../../../core/eventBus/Behavior';
@@ -18,12 +19,21 @@ export class PreviewBehavior extends Behavior {
     }
 
     during (event) {
+        let source = { x: event.sx, y: event.sy };
+        let target = { x: event.x, y: event.y };
+        if (event.hoverStart.type === 'shape') {
+            source = mid(event.hoverStart);
+        }
+        if (event.hover.type === 'shape'
+            && event.hoverStart.id !== event.hover.id) {
+            target = mid(event.hover);
+        }
         attr(this.preview, {
             'points': [
-                event.sx,
-                event.sy,
-                event.x,
-                event.y,
+                source.x,
+                source.y,
+                target.x,
+                target.y,
             ],
         });
     }
