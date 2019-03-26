@@ -3,11 +3,13 @@
   "version": "0.1.1",
   "description": "Graphical library for modelling web editors",
   "scripts": {
-    "dev": "rollup -cw",
+    "dev": "npm test -- --auto-watch --no-single-run",
     "karma-chrome": "karma start karma.conf.js --log-level debug --browsers Chrome",
     "karma-firefox": "karma start karma.conf.js --log-level debug --browsers FirefoxHeadless",
-    "lint": "eslint src --fix",
-    "prebuild": "npm run lint",
+    "test": "karma start --single-run --browsers FirefoxHeadless",
+    "lint": "eslint src",
+    "lint-fix": "eslint src --fix",
+    "prebuild": "npm run lint-fix",
     "build": "webpack --mode=production"
   },
   "huskey": {
