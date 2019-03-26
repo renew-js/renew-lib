@@ -47,10 +47,11 @@ export class MoveElementsCommand extends Command {
 
     _updateGraphics (element) {
         const gfx = this.elementRegistery.getGraphics(element.id);
-        const event = { element: element, gfx: gfx };
+        const event = { elements: [ element ], element: element, gfx: gfx };
 
         this.graphicsFactory.update(element.type, element, gfx);
         this.eventBus.fire(element.type + '.changed', event);
+        this.eventBus.fire('elements.changed', event);
         this.eventBus.fire('element.changed', event);
     }
 
