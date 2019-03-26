@@ -25,4 +25,5 @@ export class HandTool extends Tool {
 
     onMouseUp (event) {
     }
+
 }

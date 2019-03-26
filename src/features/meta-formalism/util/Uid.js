@@ -1,4 +1,4 @@
-export const UID = (prefix) => {
+export const uid = (prefix) => {
     return [
         prefix || '',
         Date.now().toString(36).substr(-6),

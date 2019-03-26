@@ -5,7 +5,7 @@ export class HandProvider {
     }
 
     moveTo (x, y) {
-        let bbox = this.canvas.viewbox();
+        const bbox = this.canvas.viewbox();
         this.moveBy(x - (-bbox.x), y - (-bbox.y));
     }
 

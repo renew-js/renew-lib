@@ -11,4 +11,5 @@ export class MoveElementRule extends Rule {
         // TODO: find a better rule
         return context.element.id !== '__implicitroot';
     }
+
 }

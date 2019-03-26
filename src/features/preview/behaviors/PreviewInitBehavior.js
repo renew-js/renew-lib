@@ -18,7 +18,7 @@ export class PreviewInitBehavior extends Behavior {
 
     after (event) {
         if (event.context) {
-             event.context.elements = this.preview.visuals.elements;
+            event.context.elements = this.preview.visuals.elements;
             this.eventBus.fire('snapping.snap.init', event);
         }
     }

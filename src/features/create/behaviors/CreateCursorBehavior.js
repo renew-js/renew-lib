@@ -13,7 +13,7 @@ export class CreateCursorBehavior extends Behavior {
     }
 
     unset (event) {
-        unset()
+        unset();
     }
 
 }

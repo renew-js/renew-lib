@@ -7,14 +7,14 @@ export default {
     __depends__: [
     ],
     __init__: [
-        'remove'
+        'remove',
     ],
     __behaviors__: [
-        [ 'remove.elements', RemoveElementsBehavior ]
+        [ 'remove.elements', RemoveElementsBehavior ],
     ],
     __commands__: [
-        [ 'remove.elements', RemoveElementsCommand ]
+        [ 'remove.elements', RemoveElementsCommand ],
     ],
 
     remove: [ 'type', RemoveProvider ],
-}
+};

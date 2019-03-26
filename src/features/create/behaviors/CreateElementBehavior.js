@@ -28,7 +28,7 @@ export class CreateElementBehavior extends Behavior {
             shape: this.create.element,
             position: {
                 x: event.x - this.create.element.width / 2,
-                y: event.y - this.create.element.height / 2
+                y: event.y - this.create.element.height / 2,
             },
             target: event.hover,
         });

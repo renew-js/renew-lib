@@ -21,8 +21,8 @@ export class MoveProvider {
                     dx: dx,
                     dy: dy,
                 });
-            }
-        }
+            },
+        };
     }
 
 }

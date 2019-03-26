@@ -2,7 +2,7 @@ import { append, attr, create, remove } from 'tiny-svg';
 import { Behavior } from '../../../core/eventBus/Behavior';
 
 
-export class RubberBandPreviewBehavior extends Behavior {
+export class PreviewBehavior extends Behavior {
 
     constructor (canvas, rubberBand) {
         super();
@@ -43,7 +43,13 @@ export class RubberBandPreviewBehavior extends Behavior {
     _createPreview () {
         const visuals = create('rect');
 
-        attr(visuals, { class: 'djs-lasso-overlay', width: 1, height: 1, x: 0, y: 0 });
+        attr(visuals, {
+            class: 'djs-lasso-overlay',
+            width: 1,
+            height: 1,
+            x: 0,
+            y: 0,
+        });
 
         append(this.canvas.getDefaultLayer(), visuals);
 

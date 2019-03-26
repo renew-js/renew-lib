@@ -8,10 +8,10 @@ import { SelectionProvider } from './providers/SelectionProvider';
 
 export default {
     __depends__: [
-        OutlineModule
+        OutlineModule,
     ],
     __init__: [
-        'selection'
+        'selection',
     ],
     __behaviors__: [
         [ 'selection.changed', SelectedBehavior ],
@@ -25,5 +25,5 @@ export default {
     __rules__: [],
     __tools__: [],
 
-    selection: [ 'type', SelectionProvider ]
+    selection: [ 'type', SelectionProvider ],
 };

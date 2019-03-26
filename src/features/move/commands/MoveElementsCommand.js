@@ -51,4 +51,5 @@ export class MoveElementsCommand extends Command {
     revert (context) {
         // TODO: ...
     }
+
 }

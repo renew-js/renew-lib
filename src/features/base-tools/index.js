@@ -1,6 +1,6 @@
 import PaletteModule from 'diagram-js/lib/features/palette';
 import ZoomScrollModule from 'diagram-js/lib/navigation/zoomscroll';
-import AutoScrollModule from 'diagram-js/lib/features/auto-scroll';
+// import AutoScrollModule from 'diagram-js/lib/features/auto-scroll';
 import PointerModule from '../pointer';
 import HandModule from '../hand';
 
@@ -14,7 +14,7 @@ export default {
         HandModule,
 
         ZoomScrollModule,
-//        AutoScrollModule,
+        //        AutoScrollModule,
     ],
     __init__: [
         'basePalette',

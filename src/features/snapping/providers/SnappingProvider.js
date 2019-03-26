@@ -19,7 +19,7 @@ export class SnappingProvider extends Snapping {
         this.points = [];
         this.snapOrigins = [];
 
-        target.children.forEach(child => {
+        target.children.forEach((child) => {
             const center = mid(child);
             if (center) {
                 this.points.push(center);
@@ -34,10 +34,14 @@ export class SnappingProvider extends Snapping {
 
         this.snapOrigins.forEach((snapOrigin) => {
             this.points.forEach((point) => {
-                if (Math.abs(point.x - source.x - snapOrigin.x) <= tolerance) {
+                const current = {
+                    x: Math.abs(point.x - source.x - snapOrigin.x),
+                    y: Math.abs(point.y - source.y - snapOrigin.y),
+                };
+                if (current.x <= tolerance) {
                     snapped.x = point.x - snapOrigin.x;
                     this.showSnapLine('vertical', point.x);
-                } else if (Math.abs(point.y - source.y - snapOrigin.y) <= tolerance) {
+                } else if (current.y <= tolerance) {
                     snapped.y = point.y - snapOrigin.y;
                     this.showSnapLine('horizontal', point.y);
                 }

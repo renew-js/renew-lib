@@ -25,22 +25,28 @@ export class ResizeBehavior extends Behavior {
 
         switch (shape.representation.name) {
             case 'ellipse':
-                shape.representation.attributes.cx = proportions.cx * bounds.width;
-                shape.representation.attributes.cy = proportions.cy * bounds.height;
-                shape.representation.attributes.rx = proportions.rx * bounds.width;
-                shape.representation.attributes.ry = proportions.ry * bounds.height;
+                shape.representation.attributes.cx =
+                    proportions.cx * bounds.width;
+                shape.representation.attributes.cy =
+                    proportions.cy * bounds.height;
+                shape.representation.attributes.rx =
+                    proportions.rx * bounds.width;
+                shape.representation.attributes.ry =
+                    proportions.ry * bounds.height;
                 break;
             case 'circle':
-                shape.representation.attributes.cx = proportions.cx * bounds.width;
-                shape.representation.attributes.cy = proportions.cy * bounds.height;
-                shape.representation.attributes.r = proportions.r * Math.min(
-                    bounds.width,
-                    bounds.height
-                );
+                shape.representation.attributes.cx =
+                    proportions.cx * bounds.width;
+                shape.representation.attributes.cy =
+                    proportions.cy * bounds.height;
+                shape.representation.attributes.r =
+                    proportions.r * Math.min(bounds.width, bounds.height);
                 break;
             case 'rect':
-                shape.representation.attributes.x = proportions.x * bounds.width;
-                shape.representation.attributes.y = proportions.y * bounds.height;
+                shape.representation.attributes.x =
+                    proportions.x * bounds.width;
+                shape.representation.attributes.y =
+                    proportions.y * bounds.height;
                 shape.representation.attributes.width
                     = proportions.width * bounds.width;
                 shape.representation.attributes.height
