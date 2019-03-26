@@ -40,6 +40,7 @@ describe('modules/snapping - Snapping', () => {
 
         it('should snap to mid', () => {
             snapping.init();
+            snapping.snapOrigins.push({ x: 0, y: 0 });
 
             const source = mid(shape_2);
             const snapped = snapping.snap(source);
@@ -54,20 +55,6 @@ describe('modules/snapping - Snapping', () => {
         let eventBus;
 
         beforeEach(() => eventBus = diagram.get('eventBus'));
-
-        it('should snap', () => {
-            const payload = {
-                x: 1000,
-                y: 200,
-                context: {
-                    shape: shape_1
-                }
-            };
-            eventBus.fire('snapping.snap', payload);
-
-            console.log(payload);
-            expect(payload.snapped).toBeTruthy();
-        })
 
     });
 
