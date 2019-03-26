@@ -1,20 +1,20 @@
 import { LeaveCanvasBehavior } from './behaviors/LeaveCanvasBehavior';
-import { RubberBandPreviewBehavior } from './behaviors/RubberBandPreviewBehavior';
+import { PreviewBehavior } from './behaviors/PreviewBehavior';
 import { SelectSurroundedBehavior } from './behaviors/SelectSurroundedBehavior';
 import { RubberBandProvider } from './providers/RubberBandProvider';
 
 
 export default {
     __depends__: [
-        'selection'
+        'selection',
     ],
     __init__: [
         'rubberBand',
     ],
     __behaviors__: [
-        [ 'rubberBand.preview', RubberBandPreviewBehavior ],
+        [ 'rubberBand.preview', PreviewBehavior ],
         [ 'rubberBand.select', SelectSurroundedBehavior ],
-        [ 'element.out', LeaveCanvasBehavior ]
+        [ 'element.out', LeaveCanvasBehavior ],
     ],
     __commands__: [],
     __rules__: [],

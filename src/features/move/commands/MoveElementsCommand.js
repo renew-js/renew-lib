@@ -13,7 +13,13 @@ export class MoveElementsCommand extends Command {
 
     execute (context) {
         context.elements.filter(this._isShape).forEach((element) => {
-            this._moveShape(element, context.dx, context.dy);
+            let dx = context.dx;
+            let dy = context.dy;
+            if (context.x !== undefined && context.y !== undefined) {
+                dx = context.x - element.x;
+                dy = context.y - element.y;
+            }
+            this._moveShape(element, dx, dy);
 
             element.incoming.forEach(this._layoutConnection.bind(this));
             element.outgoing.forEach(this._layoutConnection.bind(this));
@@ -51,4 +57,5 @@ export class MoveElementsCommand extends Command {
     revert (context) {
         // TODO: ...
     }
+
 }

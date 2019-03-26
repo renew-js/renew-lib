@@ -11,4 +11,5 @@ export class RemoveElementsBehavior extends Behavior {
     during (event) {
         this.remove.elements(event.elements);
     }
+
 }

@@ -68,7 +68,7 @@ describe('modules/move - Move', () => {
         beforeEach(() => eventBus = diagram.get('eventBus'));
 
         it('should move a shape to an absolute position', () => {
-            eventBus.fire('move.elements', {
+            eventBus.fire('move.elements.to', {
                 elements: shape_1, x: 150, y: 160
             });
 
@@ -77,7 +77,7 @@ describe('modules/move - Move', () => {
         });
 
         it('should move multiple shape to an absolute position', () => {
-            eventBus.fire('move.elements', {
+            eventBus.fire('move.elements.to', {
                 elements: [ shape_1, shape_2 ], x: 150, y: 160
             });
 
@@ -88,7 +88,7 @@ describe('modules/move - Move', () => {
         });
 
         it('should move a shape by a relative value', () => {
-            eventBus.fire('move.elements', {
+            eventBus.fire('move.elements.by', {
                 elements: shape_1, dx: 10, dy: 15
             });
 
@@ -97,7 +97,7 @@ describe('modules/move - Move', () => {
         });
 
         it('should move multiple shape by a relative value', () => {
-            eventBus.fire('move.elements', {
+            eventBus.fire('move.elements.by', {
                 elements: [ shape_1, shape_2 ], dx: 10, dy: 15
             });
 

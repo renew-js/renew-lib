@@ -8,7 +8,7 @@ import { MoveProvider } from './providers/MoveProvider';
 
 export default {
     __depends__: [
-        LayoutModule
+        LayoutModule,
     ],
     __init__: [
         'move',

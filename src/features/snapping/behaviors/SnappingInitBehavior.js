@@ -1,4 +1,3 @@
-import { mid } from 'diagram-js/lib/features/snapping/SnapUtil';
 import { Behavior } from '../../../core/eventBus/Behavior';
 
 

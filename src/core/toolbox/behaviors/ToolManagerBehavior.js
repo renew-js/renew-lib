@@ -1,7 +1,7 @@
 import { Behavior } from '../../eventBus/Behavior';
 
 
-export class ToolManagerUpdateBehavior extends Behavior {
+export class ToolManagerBehavior extends Behavior {
 
     constructor (toolbox) {
         super();

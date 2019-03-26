@@ -41,30 +41,47 @@ export class MetaLayouter extends BaseLayouter {
         switch (shape.metaObject.representation.name) {
             case 'circle':
                 intersection = Geometry.intersectEllipse(line[0], line[1], {
-                    cx: shape.x + parseInt(shape.metaObject.representation.attributes.cx),
-                    cy: shape.y + parseInt(shape.metaObject.representation.attributes.cy),
+                    cx: shape.x + parseInt(
+                        shape.metaObject.representation.attributes.cx
+                    ),
+                    cy: shape.y + parseInt(
+                        shape.metaObject.representation.attributes.cy
+                    ),
                     rx: shape.metaObject.representation.attributes.r,
                     ry: shape.metaObject.representation.attributes.r,
                 });
                 break;
             case 'ellipse':
                 intersection = Geometry.intersectEllipse(line[0], line[1], {
-                    cx: shape.x + parseInt(shape.metaObject.representation.attributes.cx),
-                    cy: shape.y + parseInt(shape.metaObject.representation.attributes.cy),
+                    cx: shape.x + parseInt(
+                        shape.metaObject.representation.attributes.cx
+                    ),
+                    cy: shape.y + parseInt(
+                        shape.metaObject.representation.attributes.cy
+                    ),
                     rx: shape.metaObject.representation.attributes.rx,
                     ry: shape.metaObject.representation.attributes.ry,
                 });
                 break;
             case 'rect':
                 intersection = Geometry.intersectRectangle(line[0], line[1], {
-                    x: shape.x + parseInt(shape.metaObject.representation.attributes.x),
-                    y: shape.y + parseInt(shape.metaObject.representation.attributes.y),
-                    width: parseInt(shape.metaObject.representation.attributes.width),
-                    height: parseInt(shape.metaObject.representation.attributes.height),
+                    x: shape.x + parseInt(
+                        shape.metaObject.representation.attributes.x
+                    ),
+                    y: shape.y + parseInt(
+                        shape.metaObject.representation.attributes.y
+                    ),
+                    width: parseInt(
+                        shape.metaObject.representation.attributes.width
+                    ),
+                    height: parseInt(
+                        shape.metaObject.representation.attributes.height
+                    ),
                 });
                 break;
             case 'polyline':
-                pairs = shape.metaObject.representation.attributes.points.split(' ');
+                pairs = shape.metaObject.representation
+                    .attributes.points.split(' ');
                 intersection = Geometry.intersectPolyline(line[0], line[1], {
                     points: pairs.map((pair) => {
                         const p = pair.split(',');
@@ -87,7 +104,8 @@ export class MetaLayouter extends BaseLayouter {
                 intersection = Geometry.intersect(line[0], line[1], p1, p2);
                 break;
             case 'polygon':
-                p = shape.metaObject.representation.attributes.points.split(' ');
+                p = shape.metaObject.representation
+                    .attributes.points.split(' ');
                 points = [];
                 for (let i=0; i<p.length; i+=2) {
                     points.push(Geometry.localToGlobal(shape, {
@@ -101,7 +119,9 @@ export class MetaLayouter extends BaseLayouter {
                 });
                 break;
             case 'path':
-                path = new PathParser(shape.metaObject.representation.attributes.d);
+                path = new PathParser(
+                    shape.metaObject.representation.attributes.d
+                );
                 segment;
                 segments = [];
                 intersects = [];

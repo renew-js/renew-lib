@@ -19,7 +19,9 @@ export default class EventBus extends DiagramJsEventBus {
 
         const prototype = Object.getPrototypeOf(behavior);
         const methods = Object.getOwnPropertyNames(prototype).filter((p) => {
-            return p !== 'constructor' && p[0] !== '_' && typeof behavior[p] === 'function';
+            return p !== 'constructor'
+                && p[0] !== '_'
+                && typeof behavior[p] === 'function';
         });
 
         const type = breadcrumbs.splice(0, 2).join('.');

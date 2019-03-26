@@ -28,10 +28,10 @@ export class RemoveElementsCommand extends Command {
 
     _removeShape (element) {
         (element.incoming || []).forEach((connection) => {
-            this._removeConnection(connection)
+            this._removeConnection(connection);
         });
         (element.outgoing || []).forEach((connection) => {
-            this._removeConnection(connection)
+            this._removeConnection(connection);
         });
         this.canvas.removeShape(element);
     }

@@ -70,7 +70,7 @@ export class PreviewProvider {
             this.visuals.elements.forEach((element) => {
                 element.x = element.sx + dx;
                 element.y = element.sy + dy;
-            })
+            });
         }
     }
 

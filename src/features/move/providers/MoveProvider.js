@@ -10,9 +10,8 @@ export class MoveProvider {
             to: (x, y) => {
                 this.commandStack.execute('move.elements', {
                     elements: shapes,
-                    // TODO
-                    dx: x,
-                    dy: y,
+                    x: x,
+                    y: y,
                 });
             },
             by: (dx, dy) => {
@@ -21,8 +20,8 @@ export class MoveProvider {
                     dx: dx,
                     dy: dy,
                 });
-            }
-        }
+            },
+        };
     }
 
 }

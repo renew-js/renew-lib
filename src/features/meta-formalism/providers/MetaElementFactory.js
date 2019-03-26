@@ -1,5 +1,5 @@
 import ElementFactory from 'diagram-js/lib/core/ElementFactory';
-import { UID } from '../util/UID';
+import { uid } from '../util/Uid';
 
 
 export class MetaElementFactory extends ElementFactory {
@@ -41,7 +41,7 @@ export class MetaElementFactory extends ElementFactory {
 
     createShape (attributes) {
         return super.createShape({
-            id: UID('shape'),
+            id: uid('shape'),
             type: 'shape',
             businessObject: attributes,
             metaObject: attributes,
@@ -52,7 +52,7 @@ export class MetaElementFactory extends ElementFactory {
 
     createConnection (attributes) {
         return super.createConnection({
-            id: UID('connection'),
+            id: uid('connection'),
             type: 'connection',
             businessObject: attributes,
             metaObject: attributes,
@@ -61,7 +61,7 @@ export class MetaElementFactory extends ElementFactory {
 
     createLabel (attributes) {
         return super.createLabel({
-            id: UID('label'),
+            id: uid('label'),
             type: 'label',
             businessObject: attributes,
             metaObject: attributes,
