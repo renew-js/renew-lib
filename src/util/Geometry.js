@@ -32,10 +32,10 @@ export class Geometry {
         const min = { x: Math.min(x2, x3), y: Math.min(y2, y3) };
         const max = { x: Math.max(x2, x3), y: Math.max(y2, y3) };
 
-        if (min.x <= Math.round(p.x)
-            && min.y <= Math.round(p.y)
-            && max.x >= Math.round(p.x)
-            && max.y >= Math.round(p.y)) {
+        if (Math.round(min.x) <= Math.round(p.x)
+            && Math.round(min.y) <= Math.round(p.y)
+            && Math.round(max.x) >= Math.round(p.x)
+            && Math.round(max.y) >= Math.round(p.y)) {
             return p;
         }
         return false;
