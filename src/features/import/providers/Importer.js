@@ -1,4 +1,4 @@
-export default class BaseImporter {
+export class Importer {
 
     constructor (eventBus, elementRegistry, canvas, layouter) {
         this.eventBus = eventBus;
@@ -8,12 +8,8 @@ export default class BaseImporter {
     }
 
     import (data) {
-        console.log(data);
         this.verify(data);
-        this.canvas._clear();
-        this.canvas.getRootElement();
         this.parseElements(data.elements);
-        this.canvas.zoom('fit-viewport', 'auto');
     }
 
     verify (data) {

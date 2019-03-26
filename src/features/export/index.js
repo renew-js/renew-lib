@@ -1,7 +1,7 @@
 import MetaFormalismModule from '../meta-formalism';
 
-import BaseExporter from './BaseExporter';
-import JsonExporter from './JsonExporter';
+import BaseExporter from './providers/BaseExporter';
+import JsonExporter from './providers/JsonExporter';
 
 
 export default {

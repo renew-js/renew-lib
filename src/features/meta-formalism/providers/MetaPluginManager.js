@@ -66,8 +66,4 @@ export class MetaPluginManager {
         return this.getPlugin(model).getExport(additionalData);
     }
 
-    import (model, data) {
-        return this.getPlugin(model).import(data);
-    }
-
 }
