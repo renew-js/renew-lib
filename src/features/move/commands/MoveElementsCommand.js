@@ -13,7 +13,8 @@ export class MoveElementsCommand extends Command {
 
     execute (context) {
         context.elements.filter(this._isShape).forEach((element) => {
-            let dx = context.dx, dy = context.dy;
+            let dx = context.dx;
+            let dy = context.dy;
             if (context.x !== undefined && context.y !== undefined) {
                 dx = context.x - element.x;
                 dy = context.y - element.y;
