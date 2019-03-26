@@ -55,9 +55,17 @@ export default class Viewer extends Diagram {
         parentNode.removeChild(this.container);
     }
 
+    fire (eventName, context) {
+        this.get('eventBus').fire(eventName, context);
+    }
+
+    on (eventName, callback) {
+        this.get('eventBus').on(eventName, callback);
+    }
+
     addFormalism (plugin) {
         const pluginInstance = this.injector.instantiate(plugin);
-        this.get('eventBus').fire('plugin.register', {
+        this.fire('plugin.register', {
             plugin: pluginInstance,
         });
     }
