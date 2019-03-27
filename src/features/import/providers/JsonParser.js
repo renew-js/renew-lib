@@ -1,4 +1,4 @@
-export class JsonImportParser {
+export class JsonParser {
 
     constructor (elementFactory) {
         this.elementFactory = elementFactory;
