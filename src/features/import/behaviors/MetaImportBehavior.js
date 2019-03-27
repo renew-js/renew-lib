@@ -11,7 +11,7 @@ export class MetaImportBehavior extends Behavior {
 
     during (context) {
         const plugin = this.metaPluginManager.getPlugin(context.model);
-        const parser = plugin.getImportParser(context.format);
+        const parser = plugin.getParser(context.format);
         const data = parser.parse(context.data);
         this.eventBus.fire('import', { data });
     }

@@ -1,11 +1,10 @@
 import cloneDeep from 'lodash/cloneDeep';
 
 
-export default class BaseExporter {
+export class Exporter {
 
-    constructor (elementRegistry, metaFactory, canvas) {
+    constructor (elementRegistry, canvas) {
         this.elementRegistry = elementRegistry;
-        this.metaFactory = metaFactory;
         this.canvas = canvas;
     }
 

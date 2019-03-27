@@ -16,7 +16,7 @@ export class ImportBehavior extends Behavior {
 
     during (context) {
         // TODO: Block canvas interaction
-        return this.importer.import(context.data);
+        this.importer.import(context.data);
     }
 
     after (context) {

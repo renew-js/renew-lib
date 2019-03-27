@@ -5,7 +5,7 @@ import { ImportBehavior } from './behaviors/ImportBehavior';
 import { JsonImportBehavior } from './behaviors/JsonImportBehavior';
 import { MetaImportBehavior } from './behaviors/MetaImportBehavior';
 import { Importer } from './providers/Importer';
-import { JsonImportParser } from './providers/JsonImportParser';
+import { JsonParser } from './providers/JsonParser';
 
 export default {
     __depends__: [
@@ -14,7 +14,7 @@ export default {
     ],
     __init__: [
         'importer',
-        'jsonImportParser',
+        'jsonParser',
     ],
     __behaviors__: [
         [ 'import', 1500, ImportBehavior ],
@@ -22,5 +22,5 @@ export default {
         [ 'import.meta', 1500, MetaImportBehavior ],
     ],
     importer: [ 'type', Importer ],
-    jsonImportParser: [ 'type', JsonImportParser ],
+    jsonParser: [ 'type', JsonParser ],
 };
