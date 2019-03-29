@@ -7,13 +7,17 @@ export class CreatePreviewBehavior extends Behavior {
         super();
         this.eventBus = eventBus;
         this.create = create;
+
+        this.shape = null;
+    }
+
+    init (event) {
+        this.shape = this.create.element();
+        this.eventBus.fire('preview.init', { element: this.shape });
     }
 
     before (event) {
-        if (!this.create.element) {
-            this.eventBus.fire('create.element.init', event);
-            this.eventBus.fire('preview.init', event);
-        }
+
     }
 
     during (event) {

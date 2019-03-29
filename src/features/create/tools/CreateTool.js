@@ -15,10 +15,11 @@ export class CreateTool extends Tool {
     onEnable (event) {
         this.eventBus.fire('create.factory.set', event);
         this.eventBus.fire('create.cursor.grabbing', event);
+        this.eventBus.fire('create.preview.init', event);
     }
 
     onMouseDown (event) {
-        this.eventBus.fire('create.element.init', event);
+        this.eventBus.fire('create.preview.init', event);
     }
 
     onMouseMove (event) {

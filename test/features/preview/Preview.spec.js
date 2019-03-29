@@ -88,6 +88,10 @@ describe('modules/preview - Preview', () => {
             expect(canvas.getDefaultLayer().childNodes.length).toBe(4);
         });
 
+        it('should translate', () => {
+
+        });
+
     });
 
     describe('Behavior', () => {
@@ -95,6 +99,18 @@ describe('modules/preview - Preview', () => {
 
         beforeEach(() => eventBus = diagram.get('eventBus'));
 
+        it('should init the preview', () => {
+            eventBus.fire('preview.init', { element: shape_1 });
+
+            expect(preview.visuals.elements[0]).toBeDefined();
+            expect(preview.visuals.elements[0].id).not.toBe(shape_1.id);
+            expect(preview.visuals.elements[0].x).toBe(shape_1.x);
+            expect(preview.visuals.elements[0].y).toBe(shape_1.y);
+        });
+
+        it('should translate', () => {
+
+        });
     });
 
 });

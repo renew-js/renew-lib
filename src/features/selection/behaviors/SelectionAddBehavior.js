@@ -9,7 +9,7 @@ export class SelectionAddBehavior extends Behavior {
     }
 
     during (event) {
-        this.selection.add(event.elements);
+        this.selection.add(event.element || event.elements);
     }
 
 }

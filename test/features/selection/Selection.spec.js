@@ -136,10 +136,8 @@ describe('modules/selection - Selection', () => {
             it('should select the created element', () => {
                 expect(selection.count()).toBe(0);
 
-                create.element = shape_1;
                 eventBus.fire('create.element', {
-                    x: 100, y: 200,
-                    target: canvas.getRootElement(),
+                    element: shape_1, x: 100, y: 200
                 });
 
                 expect(selection.count()).toBe(1);

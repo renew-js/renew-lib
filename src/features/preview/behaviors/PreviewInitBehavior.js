@@ -10,10 +10,9 @@ export class PreviewInitBehavior extends Behavior {
     }
 
     during (event) {
-        if (!this.preview.visuals) {
-            this.preview.createVisuals(event.elements);
-            this.preview.move(event.dx, event.dy);
-        }
+        event.elements = event.elements || [ event.element ];
+        this.preview.createVisuals(event.elements);
+        // this.preview.move(event.dx, event.dy);
     }
 
     after (event) {
