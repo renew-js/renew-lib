@@ -1,4 +1,5 @@
 import { CreateCursorBehavior } from './behaviors/CreateCursorBehavior';
+import { CreateFactoryBehavior } from './behaviors/CreateFactoryBehavior';
 import { CreateMarkerBehavior } from './behaviors/CreateMarkerBehavior';
 import { CreatePreviewBehavior } from './behaviors/CreatePreviewBehavior';
 import { CreateShapeCommand } from './commands/CreateShapeCommand';
@@ -17,9 +18,10 @@ export default {
         [ 'create.preview', CreatePreviewBehavior ],
         [ 'create.marker', CreateMarkerBehavior ],
         [ 'create.cursor', CreateCursorBehavior ],
+        [ 'create.factory', CreateFactoryBehavior ],
     ],
     __commands__: [
-        [ 'tool.shape.create', CreateShapeCommand ],
+        [ 'create.element', CreateShapeCommand ],
     ],
     __rules__: [],
     __tools__: [

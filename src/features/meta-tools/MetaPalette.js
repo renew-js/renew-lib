@@ -40,8 +40,9 @@ export class MetaPalette {
 
     activateTool (config) {
         this.toolbox.activate(this.getTool(config), {
-            factory: this.factory,
-            config: config,
+            factory: {
+                create: () => this.factory.createElement(config.type),
+            }
         });
     }
 

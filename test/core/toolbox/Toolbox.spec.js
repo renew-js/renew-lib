@@ -60,17 +60,17 @@ describe('core/toolbox - Toolbox', () => {
         });
     });
 
-    /*
-    it('should listen on mouse events', function () {
-        diagram.invoke((toolbox, state) => {
-            toolbox.activate('test');
+    describe('Behavior', () => {
+        let eventBus;
+        let state;
 
-            expect(state.mousedown).toBeUndefined();
+        beforeEach(() => eventBus = diagram.get('eventBus'));
 
-            mousedown(diagram, { x: 60, y: 60 });
+        beforeEach(() => state = diagram.get('state'));
 
-            expect(state.mousedown).toBe(true);
+        it('should activate tool', () => {
+            eventBus.fire('toolbox.activate', { tool: 'test' });
+            expect(state.enabled).toBe(true);
         });
     });
-    */
 });

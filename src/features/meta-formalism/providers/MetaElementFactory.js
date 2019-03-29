@@ -1,5 +1,5 @@
 import ElementFactory from 'diagram-js/lib/core/ElementFactory';
-import { uid } from '../util/Uid';
+import { uid } from '../../../core/util/Uid';
 
 
 export class MetaElementFactory extends ElementFactory {

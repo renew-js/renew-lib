@@ -20,4 +20,8 @@ export class CreatePreviewBehavior extends Behavior {
         this.eventBus.fire('preview.move', event);
     }
 
+    clear (event) {
+        this.eventBus.fire('preview.clear', event);
+    }
+
 }

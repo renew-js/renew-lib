@@ -2,24 +2,18 @@ import { Tool } from '../../../core/toolbox/Tool';
 
 export class CreateTool extends Tool {
 
-    constructor (eventBus, create) {
+    constructor (eventBus) {
         super();
         this.eventBus = eventBus;
-
-        this.create = create;
     }
 
     onDisable (event) {
-        this.create.factory = undefined;
-        this.create.config = undefined;
-
+        this.eventBus.fire('create.factory.reset', event);
         this.eventBus.fire('create.cursor.unset', event);
     }
 
     onEnable (event) {
-        this.create.factory = event.factory;
-        this.create.config = event.config;
-
+        this.eventBus.fire('create.factory.set', event);
         this.eventBus.fire('create.cursor.grabbing', event);
     }
 
@@ -33,12 +27,12 @@ export class CreateTool extends Tool {
     }
 
     onMouseUp (event) {
-        this.eventBus.fire('create.element', event);
+        this.eventBus.fire('create.element.center', event, true);
         this.eventBus.fire('create.marker.clear', event);
-        this.eventBus.fire('preview.clear', event);
+        this.eventBus.fire('create.preview.clear', event);
 
         if (!event.originalEvent.shiftKey) {
-            this.eventBus.fire('toolbox.previous', event);
+            this.eventBus.fire('toolbox.activate', { tool: 'pointer', });
         }
     }
 

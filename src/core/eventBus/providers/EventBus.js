@@ -7,10 +7,21 @@ export default class EventBus extends DiagramJsEventBus {
         super();
     }
 
-    fire (name, payload) {
-        super.fire(name + '.start', payload);
+    fire (name, payload, middleware) {
+        const breadcrumbs = name.split('.');
+        const fireMiddleware = middleware || breadcrumbs.length === 2;
+        const type = breadcrumbs.splice(0, 2).join('.');
+
+        if (fireMiddleware) {
+            super.fire(type + '.start', payload);
+        }
+
         const result = super.fire(name, payload);
-        super.fire(name + '.end', payload);
+
+        if (fireMiddleware) {
+            super.fire(type + '.end', payload);
+        }
+
         return result;
     }
 
