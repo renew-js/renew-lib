@@ -31,7 +31,11 @@ module.exports = function (config) {
         },
         reporters: [ 'progress', 'coverage' ],
         coverageReporter: {
-            reports: [ 'text-summary' ],
+            reports: [
+                'text-summary',
+                { subdir: '.', type:'lcovonly' },
+                { subdir: '.', type:'json' },
+            ],
             fixWebpackSourcePaths: true
         },
         port: 9876,
