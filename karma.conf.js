@@ -9,12 +9,31 @@ module.exports = function (config) {
         ],
         exclude: [ 'karma.conf.js' ],
         preprocessors: {
-            "test/**/*.spec.js": [ "webpack" ],
+            'test/**/*.spec.js': [ 'webpack' ],
+            'src/**/*.js': 'coverage',
         },
         webpack: {
             mode: 'development',
+            module: {
+                rules: [
+                    {
+                        test: /\.js$/,
+                        use: {
+                            loader: 'istanbul-instrumenter-loader',
+                            options: { esModules: true }
+                        },
+                        include: /src\.*/,
+                        enforce: 'post',
+                        exclude: /node_modules|\.spec\.js$|\.json$|index\.js|\.s?css$/,
+                    }
+                ]
+            }
         },
-        reporters: [ 'progress' ],
+        reporters: [ 'progress', 'coverage' ],
+        coverageReporter: {
+            reports: [ 'text-summary' ],
+            fixWebpackSourcePaths: true
+        },
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
