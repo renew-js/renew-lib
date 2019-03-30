@@ -1,4 +1,5 @@
 import CoreModule from '../../core';
+import LayouterModule from '../layouter';
 import MetaFormalismModule from '../meta-formalism';
 
 import { ImportBehavior } from './behaviors/ImportBehavior';
@@ -10,6 +11,7 @@ import { JsonParser } from './providers/JsonParser';
 export default {
     __depends__: [
         CoreModule,
+        LayouterModule,
         MetaFormalismModule,
     ],
     __init__: [
