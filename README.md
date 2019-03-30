@@ -1,4 +1,5 @@
 [![Build Status][travis-svg]][travis]
+[![codecov][codecov-svg]][codecov]
 
 # renew-lib
 
@@ -37,3 +38,5 @@ MIT
 [1]: http://www.renew.de/
 [travis]: https://travis-ci.org/renew-js/renew-lib
 [travis-svg]: https://travis-ci.org/renew-js/renew-lib.svg?branch=master
+[codecov]: https://codecov.io/gh/renew-js/renew-lib
+[codecov-svg]: https://codecov.io/gh/renew-js/renew-lib/branch/master/graph/badge.svg
