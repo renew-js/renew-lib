@@ -103,20 +103,20 @@ describe('modules/preview - Preview', () => {
         beforeEach(() => eventBus = diagram.get('eventBus'));
 
         it('should init the preview', () => {
-            eventBus.fire('preview.init', { element: shape_1 });
+            eventBus.fire('preview.init', { element: shape1 });
 
             expect(preview.visuals.elements[0]).toBeDefined();
-            expect(preview.visuals.elements[0].id).not.toBe(shape_1.id);
-            expect(preview.visuals.elements[0].x).toBe(shape_1.x);
-            expect(preview.visuals.elements[0].y).toBe(shape_1.y);
+            expect(preview.visuals.elements[0].id).not.toBe(shape1.id);
+            expect(preview.visuals.elements[0].x).toBe(shape1.x);
+            expect(preview.visuals.elements[0].y).toBe(shape1.y);
         });
 
         it('should translate', () => {
-            eventBus.fire('preview.init', { element: shape_1 });
+            eventBus.fire('preview.init', { element: shape1 });
             eventBus.fire('preview.move', { dx: 15, dy: 20 });
 
-            expect(preview.visuals.elements[0].x).toBe(shape_1.x + 15);
-            expect(preview.visuals.elements[0].y).toBe(shape_1.y + 20);
+            expect(preview.visuals.elements[0].x).toBe(shape1.x + 15);
+            expect(preview.visuals.elements[0].y).toBe(shape1.y + 20);
         });
     });
 
