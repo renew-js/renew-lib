@@ -6,16 +6,32 @@ describe('core/toolbox - Toolbox', () => {
     let diagram;
 
     class TestProvider {
+
         constructor () { }
+
     }
     class TestTool extends Tool {
-        constructor (state) { super(); this.state = state }
-        onDisable (event) { this.state.enabled = false; }
-        onEnable (event) { this.state.enabled = true; }
 
-        onMouseDown (event) { this.state.mousedown = true; }
-        onMouseMove (event) { this.state.mousemove = true; }
-        onMouseUp (event) { this.state.mousedown = false; }
+        constructor (state) {
+            super(); this.state = state;
+        }
+        onDisable (event) {
+            this.state.enabled = false;
+        }
+        onEnable (event) {
+            this.state.enabled = true;
+        }
+
+        onMouseDown (event) {
+            this.state.mousedown = true;
+        }
+        onMouseMove (event) {
+            this.state.mousemove = true;
+        }
+        onMouseUp (event) {
+            this.state.mousedown = false;
+        }
+
     }
 
     beforeEach(() => {
@@ -24,23 +40,24 @@ describe('core/toolbox - Toolbox', () => {
                 {
                     __init__: [ 'state' ],
                     __tools__: [
-                        [ 'test', TestTool ]
+                        [ 'test', TestTool ],
                     ],
-                    state: [ 'type', TestProvider ]
-                }
-            ]
+                    state: [ 'type', TestProvider ],
+                },
+            ],
         });
     });
 
     it('should be defined', function () {
         diagram.invoke(function (toolbox) {
-            expect(toolbox).toBeDefined()
+            expect(toolbox).toBeDefined();
         });
     });
 
     it('should activate a tool', function () {
         diagram.invoke(function (toolbox) {
             toolbox.activate('test');
+
             expect(toolbox.activeTool.type).toEqual('test');
         });
     });
@@ -48,6 +65,7 @@ describe('core/toolbox - Toolbox', () => {
     it('should have enable behavior', function () {
         diagram.invoke(function (toolbox, state) {
             toolbox.activate('test');
+
             expect(state.enabled).toBe(true);
         });
     });
@@ -56,6 +74,7 @@ describe('core/toolbox - Toolbox', () => {
         diagram.invoke(function (toolbox, state) {
             toolbox.activate('test');
             toolbox.activate('other');
+
             expect(state.enabled).toBe(false);
         });
     });
