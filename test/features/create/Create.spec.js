@@ -5,7 +5,7 @@ describe('modules/create - Create', () => {
     let diagram;
     let create;
 
-    beforeEach(() => diagram = new Tester({ modules: [ CreateModule, ] }));
+    beforeEach(() => diagram = new Tester({ modules: [ CreateModule ] }));
 
     beforeEach(() => create = diagram.get('create'));
 
@@ -29,14 +29,14 @@ describe('modules/create - Create', () => {
                 id: 'shape-test-20583',
                 type: 'Shape',
                 width: 42,
-                height: 42
+                height: 42,
             };
 
             expect(canvas.getDefaultLayer().children.length).toBe(0);
 
             commandStack.execute('tool.shape.create', {
                 shape: elementFactory.createShape(attributes),
-                position: { x: 50, y: 60, }
+                position: { x: 50, y: 60 },
             });
 
             expect(canvas.getDefaultLayer().children.length).toBe(1);

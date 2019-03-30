@@ -5,7 +5,8 @@ import { Tester } from '../../Tester';
 
 describe('modules/snapping - Snapping', () => {
     let diagram;
-    let shape_1, shape_2;
+    let shape1;
+    let shape2;
     let snapping;
     let canvas;
 
@@ -16,15 +17,15 @@ describe('modules/snapping - Snapping', () => {
     beforeEach(() => canvas = diagram.get('canvas'));
 
     beforeEach(() => diagram.invoke(function (elementFactory) {
-        shape_1 = elementFactory.createShape({
-            id: 'shape_1', x: 100, y: 200, width: 300, height: 400,
+        shape1 = elementFactory.createShape({
+            id: 'shape1', x: 100, y: 200, width: 300, height: 400,
         });
-        shape_2 = elementFactory.createShape({
-            id: 'shape_2', x: 500, y: 200, width: 300, height: 400,
+        shape2 = elementFactory.createShape({
+            id: 'shape2', x: 500, y: 200, width: 300, height: 400,
         });
 
-        canvas.addShape(shape_1);
-        canvas.addShape(shape_2);
+        canvas.addShape(shape1);
+        canvas.addShape(shape2);
     }));
 
     it('should be defined', () => {
@@ -35,6 +36,7 @@ describe('modules/snapping - Snapping', () => {
 
         it('should init snapContext', () => {
             snapping.init();
+
             expect(snapping.points.length).toBe(2);
         });
 
@@ -42,7 +44,7 @@ describe('modules/snapping - Snapping', () => {
             snapping.init();
             snapping.snapOrigins.push({ x: 0, y: 0 });
 
-            const source = mid(shape_2);
+            const source = mid(shape2);
             const snapped = snapping.snap(source);
 
             expect(snapped.x).toBe(650);
