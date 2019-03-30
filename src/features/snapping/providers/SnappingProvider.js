@@ -35,8 +35,8 @@ export class SnappingProvider extends Snapping {
         this.snapOrigins.forEach((snapOrigin) => {
             this.points.forEach((point) => {
                 const current = {
-                    x: Math.abs(point.x - source.x - snapOrigin.x),
-                    y: Math.abs(point.y - source.y - snapOrigin.y),
+                    x: Math.abs(point.x - source.x - (snapOrigin.x || 0)),
+                    y: Math.abs(point.y - source.y - (snapOrigin.y || 0)),
                 };
                 if (current.x <= tolerance) {
                     snapped.x = point.x - snapOrigin.x;

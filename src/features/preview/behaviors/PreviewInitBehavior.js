@@ -15,11 +15,13 @@ export class PreviewInitBehavior extends Behavior {
     }
 
     after (event) {
-        if (!event.context) {
-            event.context = { };
+        if (this.preview.visuals) {
+            if (!event.context) {
+                event.context = { };
+            }
+            event.context.elements = this.preview.visuals.elements;
+            this.eventBus.fire('snapping.snap.init', event);
         }
-        event.context.elements = this.preview.visuals.elements;
-        this.eventBus.fire('snapping.snap.init', event);
     }
 
 }

@@ -10,8 +10,14 @@ export class PreviewMoveBehavior extends Behavior {
     }
 
     during (event) {
-        this.eventBus.fire('snapping.snap', event);
-        this.preview.move(event.dx, event.dy);
+        if (this.preview.visuals) {
+            if (!event.context) {
+                event.context = { };
+            }
+            event.context.elements = this.preview.visuals.elements;
+            this.eventBus.fire('snapping.snap', event);
+            this.preview.move(event.dx, event.dy);
+        }
     }
 
 }

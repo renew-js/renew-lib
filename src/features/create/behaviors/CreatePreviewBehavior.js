@@ -15,7 +15,9 @@ export class CreatePreviewBehavior extends Behavior {
         this.shape = this.create.element(event.x, event.y);
         this.shape.x -= this.shape.width / 2;
         this.shape.y -= this.shape.height / 2;
-        this.eventBus.fire('preview.init', { element: this.shape });
+        event.element = this.shape;
+        event.elements = [ this.shape ];
+        this.eventBus.fire('preview.init', event);
     }
 
     before (event) {
