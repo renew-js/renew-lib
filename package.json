@@ -39,6 +39,7 @@
     "min-dom": "^3.1.1",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
+    "travis-weigh-in": "^1.0.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
   },
