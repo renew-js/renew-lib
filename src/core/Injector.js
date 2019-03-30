@@ -1,51 +1,117 @@
-import { Injector as DiDiInjector } from 'didi';
+import { annotate, Injector as DiDiInjector } from 'didi';
 import deprecated from './deprecated';
 
 const PRIORITY_DEFAULT = 1000;
 
+let providers = [];
+let commands = [];
+let behaviors = [];
+let rules = [];
+let tools = [];
+
+const bootstrap = (modules) => {
+    const result = [];
+
+    const visited = (module) => result.indexOf(module) !== -1;
+
+    const visit = (module) => {
+        if (visited(module)) return;
+
+        (module.__depends__ || []).forEach(visit);
+
+        if (visited(module)) return;
+
+        result.push(module);
+
+        providers = providers.concat(module.__init__ || []);
+        commands = commands.concat(module.__commands__ || []);
+        behaviors = behaviors.concat(module.__behaviors__ || []);
+        rules = rules.concat(module.__rules__ || []);
+        tools = tools.concat(module.__tools__ || []);
+    };
+
+    modules.forEach(visit);
+
+    return result;
+};
 
 export class Injector extends DiDiInjector {
 
     constructor (modules) {
-        let providers = [];
-        let commands = [];
-        let behaviors = [];
-        let rules = [];
-        let tools = [];
+        super(bootstrap(modules));
+        this.copy();
+        this.initialize();
+        this.clear();
+    }
 
-        const bootstrap = (modules) => {
-            const result = [];
+    copy () {
+        this.providers = providers;
+        this.commands = commands;
+        this.behaviors = behaviors;
+        this.rules = rules;
+        this.tools = tools;
+    }
 
-            const visited = (module) => result.indexOf(module) !== -1;
+    initialize() {
+        this.providers.forEach(this.initProvider.bind(this));
+        this.commands.forEach(this.initCommand.bind(this));
+        this.behaviors.forEach(this.initBehavior.bind(this));
+        this.rules.forEach(this.initRule.bind(this));
+        this.tools.forEach(this.initTool.bind(this));
+    }
 
-            const visit = (module) => {
-                if (visited(module)) return;
+    load () {
+        providers = this.providers;
+        commands = this.commands;
+        behaviors = this.behaviors;
+        rules = this.rules;
+        tools = this.tools;
+    }
 
-                (module.__depends__ || []).forEach(visit);
+    clear () {
+        providers = [ ];
+        commands = [ ];
+        behaviors = [ ];
+        rules = [ ];
+        tools = [ ];
+    }
 
-                if (visited(module)) return;
+    loadModule (module) {
+        this.load();
+        bootstrap([ module ]);
+        this.copy();
+        this.registerProviders(module);
+        this.initialize();
+        this.clear();
+    }
 
-                result.push(module);
-
-                providers = providers.concat(module.__init__ || []);
-                commands = commands.concat(module.__commands__ || []);
-                behaviors = behaviors.concat(module.__behaviors__ || []);
-                rules = rules.concat(module.__rules__ || []);
-                tools = tools.concat(module.__tools__ || []);
+    registerProviders (module) {
+        Object.keys(module).forEach((name) => {
+            const type = module[name][0];
+            const value = module[name][1];
+            const factoryMap = {
+                factory: this.invoke, type: this.instantiate, value: (v) => v
+            };
+            const annotate = () => {
+                let args = Array.prototype.slice.call(arguments);
+                if (args.length === 1 && Array.isArray(args[0])) args = args[0];
+                const fn = args.pop();
+                fn.$inject = args;
+                return fn;
+            };
+            const arrayUnwrap = (type, value) => {
+                if (type !== 'value' && Array.isArray(value)) {
+                    return annotate(value.slice());
+                }
+                return value;
             };
 
-            modules.forEach(visit);
-
-            return result;
-        };
-
-        super(bootstrap(modules));
-
-        providers.forEach(this.initProvider.bind(this));
-        commands.forEach(this.initCommand.bind(this));
-        behaviors.forEach(this.initBehavior.bind(this));
-        rules.forEach(this.initRule.bind(this));
-        tools.forEach(this.initTool.bind(this));
+            this._providers[name] = [
+                factoryMap[type],
+                arrayUnwrap(type, value),
+                type
+            ];
+        });
     }
 
     initProvider (component) {
