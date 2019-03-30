@@ -1,5 +1,6 @@
 // import { create, append } from 'tiny-svg';
 import PreviewModule from '../../../src/features/preview';
+import CreateModule from '../../../src/features/create';
 import { Tester } from '../../Tester';
 
 
@@ -109,8 +110,30 @@ describe('modules/preview - Preview', () => {
         });
 
         it('should translate', () => {
+            eventBus.fire('preview.init', { element: shape_1 });
+            eventBus.fire('preview.move', { dx: 15, dy: 20 });
+
+            expect(preview.visuals.elements[0].x).toBe(shape_1.x + 15);
+            expect(preview.visuals.elements[0].y).toBe(shape_1.y + 20);
+        });
+    });
+
+    describe('Tool', () => {
+        let toolbox;
+
+        beforeEach(() => toolbox = diagram.get('toolbox'));
+
+        describe('Create', () => {
+
+            beforeEach(() => diagram.injector.loadModule(CreateModule));
+
+            it('should be defined', () => {
+                const create = diagram.get('create');
+                expect(create).toBeDefined()
+            });
 
         });
+
     });
 
 });

@@ -123,9 +123,15 @@ describe('modules/create - Create', () => {
 
         beforeEach(() => {
             toolbox = diagram.get('toolbox');
-            toolbox.activate('create');
         });
 
+        it('should have a position', () => {
+            document.dispatchEvent(new MouseEvent('mousemove', {
+                pageX: 250,
+                pageY: 320
+            }));
+            toolbox.activate('create');
+        });
 
     })
 });

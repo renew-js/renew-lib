@@ -19,7 +19,7 @@ export class CreateTool extends Tool {
     }
 
     onMouseDown (event) {
-        this.eventBus.fire('create.preview.init', event);
+
     }
 
     onMouseMove (event) {
@@ -34,6 +34,8 @@ export class CreateTool extends Tool {
 
         if (!event.originalEvent.shiftKey) {
             this.eventBus.fire('toolbox.activate', { tool: 'pointer', });
+        } else {
+            this.eventBus.fire('create.preview.init', event);
         }
     }
 

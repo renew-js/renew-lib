@@ -12,7 +12,6 @@ export class PreviewInitBehavior extends Behavior {
     during (event) {
         event.elements = event.elements || [ event.element ];
         this.preview.createVisuals(event.elements);
-        // this.preview.move(event.dx, event.dy);
     }
 
     after (event) {
