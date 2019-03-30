@@ -18,6 +18,7 @@ export class Toolbox {
         this.start = { x: 0, y: 0 };
         this.snapped = { };
         this.mouseDown = false;
+        this.mouseEvent = { };
         this.pos = { x: 0, y: 0 };
 
         event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
@@ -42,14 +43,14 @@ export class Toolbox {
         this.previousTool = this.activeTool;
         this.activeTool = this.tools[tool];
         this.activeContext = context;
-        Object.assign(context, {
+        Object.assign(this.mouseEvent, context, {
             tool: this.activeTool,
             previousTool: this.previousTool,
         });
         this.eventBus.fire('toolbox.update', context);
 
         if (this.activeTool) {
-            this.activeTool.onEnable(context);
+            this.activeTool.onEnable(this.mouseEvent);
         }
         return this.activeTool;
     }
@@ -93,10 +94,10 @@ export class Toolbox {
     onMouseMove (event) {
         if (!this.activeTool) return;
 
-        const mouseEvent = this.createMouseEvent(event);
+        this.mouseEvent = this.createMouseEvent(event);
 
-        if (this.isOnCanvas(mouseEvent)) {
-            this.activeTool.onMouseMove(mouseEvent);
+        if (this.isOnCanvas(this.mouseEvent)) {
+            this.activeTool.onMouseMove(this.mouseEvent);
         }
     }
 
