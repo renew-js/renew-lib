@@ -28,7 +28,7 @@ export class CreateMarkerBehavior extends Behavior {
     }
 
     clear (event) {
-        this.marked.forEach(element => this._setMarker(element));
+        this.marked.forEach((element) => this._setMarker(element));
     }
 
     _setMarker (element, name) {

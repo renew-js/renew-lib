@@ -42,7 +42,7 @@ export class MetaPalette {
         this.toolbox.activate(this.getTool(config), {
             factory: {
                 create: () => this.factory.createElement(config.type),
-            }
+            },
         });
     }
 

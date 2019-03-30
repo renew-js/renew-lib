@@ -8,7 +8,7 @@ export class CreateProvider {
     }
 
     element (x, y) {
-        let shape = this.factory.create();
+        const shape = this.factory.create();
         shape.x = x;
         shape.y = y;
         shape.width = shape.width || 1;

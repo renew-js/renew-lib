@@ -1,4 +1,4 @@
-import { annotate, Injector as DiDiInjector } from 'didi';
+import { Injector as DiDiInjector } from 'didi';
 import deprecated from './deprecated';
 
 const PRIORITY_DEFAULT = 1000;
@@ -52,7 +52,7 @@ export class Injector extends DiDiInjector {
         this.tools = tools;
     }
 
-    initialize() {
+    initialize () {
         this.providers.forEach(this.initProvider.bind(this));
         this.commands.forEach(this.initCommand.bind(this));
         this.behaviors.forEach(this.initBehavior.bind(this));
@@ -90,10 +90,9 @@ export class Injector extends DiDiInjector {
             const type = module[name][0];
             const value = module[name][1];
             const factoryMap = {
-                factory: this.invoke, type: this.instantiate, value: (v) => v
+                factory: this.invoke, type: this.instantiate, value: (v) => v,
             };
-            const annotate = () => {
-                let args = Array.prototype.slice.call(arguments);
+            const annotate = (...args) => {
                 if (args.length === 1 && Array.isArray(args[0])) args = args[0];
                 const fn = args.pop();
                 fn.$inject = args;
@@ -109,7 +108,7 @@ export class Injector extends DiDiInjector {
             this._providers[name] = [
                 factoryMap[type],
                 arrayUnwrap(type, value),
-                type
+                type,
             ];
         });
     }

@@ -35,7 +35,7 @@ export class CreateTool extends Tool {
         this.eventBus.fire('create.preview.clear', event);
 
         if (!event.originalEvent.shiftKey) {
-            this.eventBus.fire('toolbox.activate', { tool: 'pointer', });
+            this.eventBus.fire('toolbox.activate', { tool: 'pointer' });
         } else {
             this.eventBus.fire('create.preview.init', event);
         }

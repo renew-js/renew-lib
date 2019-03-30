@@ -11,7 +11,7 @@ export class ElementFactory extends BaseElementFactory {
     create (type, attrs) {
         return super.create(type, Object.assign(attrs, {
             id: uid(type),
-            type: type
+            type: type,
         }));
     }
 
