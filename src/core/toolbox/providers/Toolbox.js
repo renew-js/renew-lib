@@ -73,22 +73,18 @@ export class Toolbox {
         this.start.y = point.y;
         this.snapped = { };
         this.mouseDown = true;
-        const mouseEvent = this.createMouseEvent(event);
+        this.mouseEvent = this.createMouseEvent(event);
 
-        if (this.isOnCanvas(mouseEvent)) {
-            this.activeTool.onMouseDown(mouseEvent);
-        }
+        this.activeTool.onMouseDown(this.mouseEvent);
     }
 
     onMouseUp (event) {
         if (!this.activeTool) return;
 
         this.mouseDown = false;
-        const mouseEvent = this.createMouseEvent(event);
+        this.mouseEvent = this.createMouseEvent(event);
 
-        if (this.isOnCanvas(mouseEvent)) {
-            this.activeTool.onMouseUp(mouseEvent);
-        }
+        this.activeTool.onMouseUp(this.mouseEvent);
     }
 
     onMouseMove (event) {
@@ -96,9 +92,7 @@ export class Toolbox {
 
         this.mouseEvent = this.createMouseEvent(event);
 
-        if (this.isOnCanvas(this.mouseEvent)) {
-            this.activeTool.onMouseMove(this.mouseEvent);
-        }
+        this.activeTool.onMouseMove(this.mouseEvent);
     }
 
     onHover (event) {

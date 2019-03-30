@@ -7,13 +7,19 @@ export class CreateMarkerBehavior extends Behavior {
         super();
         this.policy = policy;
         this.canvas = canvas;
+
+        this.marked = [];
     }
 
     update (event) {
-        if (this.policy.allowed('create.element', { })) {
+        if (!event.hover) {
+            this.clear();
+        } else if (this.policy.allowed('create.element', { })) {
             this._setMarker(event.hover, 'new-parent');
+            this.marked.push(event.hover);
         } else {
             this._setMarker(event.hover, 'drop-not-ok');
+            this.marked.push(event.hover);
         }
     }
 
@@ -22,9 +28,7 @@ export class CreateMarkerBehavior extends Behavior {
     }
 
     clear (event) {
-        if (event.hover) {
-            this._setMarker(event.hover);
-        }
+        this.marked.forEach(element => this._setMarker(element));
     }
 
     _setMarker (element, name) {

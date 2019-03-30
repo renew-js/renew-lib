@@ -28,7 +28,9 @@ export class CreateTool extends Tool {
     }
 
     onMouseUp (event) {
-        this.eventBus.fire('create.element.center', event, true);
+        if (event.hover) {
+            this.eventBus.fire('create.element.center', event, true);
+        }
         this.eventBus.fire('create.marker.clear', event);
         this.eventBus.fire('create.preview.clear', event);
 
