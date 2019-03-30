@@ -121,7 +121,9 @@ describe('modules/selection - Selection', () => {
         });
 
         describe('Create', () => {
-            let create; let createTool; let eventBus;
+            let create;
+            let createTool;
+            let eventBus;
 
             beforeEach(() => {
                 diagram = new Tester({
@@ -137,10 +139,10 @@ describe('modules/selection - Selection', () => {
             it('should select the created element', () => {
                 expect(selection.count()).toBe(0);
 
-                create.element = shape1;
                 eventBus.fire('create.element', {
-                    x: 100, y: 200,
-                    target: canvas.getRootElement(),
+                    element: shape1,
+                    x: 100,
+                    y: 200,
                 });
 
                 expect(selection.count()).toBe(1);

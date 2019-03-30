@@ -1,5 +1,6 @@
 // import { create, append } from 'tiny-svg';
 import PreviewModule from '../../../src/features/preview';
+import CreateModule from '../../../src/features/create';
 import { Tester } from '../../Tester';
 
 
@@ -90,12 +91,50 @@ describe('modules/preview - Preview', () => {
             expect(canvas.getDefaultLayer().childNodes.length).toBe(4);
         });
 
+        it('should translate', () => {
+
+        });
+
     });
 
     describe('Behavior', () => {
         let eventBus;
 
         beforeEach(() => eventBus = diagram.get('eventBus'));
+
+        it('should init the preview', () => {
+            eventBus.fire('preview.init', { element: shape1 });
+
+            expect(preview.visuals.elements[0]).toBeDefined();
+            expect(preview.visuals.elements[0].id).not.toBe(shape1.id);
+            expect(preview.visuals.elements[0].x).toBe(shape1.x);
+            expect(preview.visuals.elements[0].y).toBe(shape1.y);
+        });
+
+        it('should translate', () => {
+            eventBus.fire('preview.init', { element: shape1 });
+            eventBus.fire('preview.move', { dx: 15, dy: 20 });
+
+            expect(preview.visuals.elements[0].x).toBe(shape1.x + 15);
+            expect(preview.visuals.elements[0].y).toBe(shape1.y + 20);
+        });
+    });
+
+    describe('Tool', () => {
+        let toolbox;
+
+        beforeEach(() => toolbox = diagram.get('toolbox'));
+
+        describe('Create', () => {
+
+            beforeEach(() => diagram.injector.loadModule(CreateModule));
+
+            it('should be defined', () => {
+                const create = diagram.get('create');
+                expect(create).toBeDefined()
+            });
+
+        });
 
     });
 

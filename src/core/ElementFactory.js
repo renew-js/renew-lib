@@ -1,4 +1,5 @@
 import BaseElementFactory from 'diagram-js/lib/core/ElementFactory';
+import { uid } from './util/Uid';
 
 
 export class ElementFactory extends BaseElementFactory {
@@ -8,7 +9,10 @@ export class ElementFactory extends BaseElementFactory {
     }
 
     create (type, attrs) {
-        return super.create(type, Object.assign(attrs, { type: type }));
+        return super.create(type, Object.assign(attrs, {
+            id: uid(type),
+            type: type,
+        }));
     }
 
 }

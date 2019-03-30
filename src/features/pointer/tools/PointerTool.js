@@ -7,6 +7,9 @@ export class PointerTool extends Tool {
         super();
         this.eventBus = eventBus;
         this.selection = selection;
+
+        this.isSelecting = false;
+        this.isMoving = false;
     }
 
     onDisable (event) {
@@ -17,10 +20,17 @@ export class PointerTool extends Tool {
     }
 
     onMouseDown (event) {
-        this.eventBus.fire('pointer.select', event);
+        if (event.hover) {
+            this.eventBus.fire('pointer.select', event);
+        }
         event.elements = this.selection.get();
-        if (!event.rootStart) {
-            this.eventBus.fire('move.preview.init', event);
+        if (event.hover) {
+            if (event.rootStart) {
+                this.isSelecting = true;
+            } else {
+                this.eventBus.fire('move.preview.init', event);
+                this.isMoving = true;
+            }
         }
     }
 
@@ -28,10 +38,10 @@ export class PointerTool extends Tool {
         event.elements = this.selection.get();
 
         if (event.mouseDown) {
-            if (event.rootStart) {
-                this.eventBus.fire('rubberBand.preview', event);
-            } else {
+            if (this.isMoving) {
                 this.eventBus.fire('preview.move', event);
+            } else if (this.isSelecting) {
+                this.eventBus.fire('rubberBand.preview', event);
             }
         }
     }
@@ -39,12 +49,14 @@ export class PointerTool extends Tool {
     onMouseUp (event) {
         event.elements = this.selection.get();
 
-        this.eventBus.fire('move.elements.by', event);
-        this.eventBus.fire('preview.clear', event);
-
-        if (event.rootStart) {
+        if (this.isMoving) {
+            this.eventBus.fire('move.elements.by', event);
+            this.eventBus.fire('preview.clear', event);
+            this.isMoving = false;
+        } else if (this.isSelecting) {
             this.eventBus.fire('rubberBand.select', event);
             this.eventBus.fire('rubberBand.preview.clear', event);
+            this.isSelecting = false;
         }
     }
 
