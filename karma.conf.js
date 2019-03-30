@@ -24,24 +24,23 @@ module.exports = function (config) {
                         },
                         include: /src\.*/,
                         enforce: 'post',
-                        exclude: /node_modules|\.spec\.js$|\.json$|index\.js|\.s?css$/,
+                        exclude: /test|node_modules|\.spec\.js$|\.json$|index\.js|\.s?css$/,
                     }
                 ]
             }
         },
-        reporters: [ 'progress', 'coverage' ],
-        coverageReporter: {
+        reporters: [ 'progress', 'coverage-istanbul' ],
+        coverageIstanbulReporter: {
+            dir : 'coverage/',
             reports: [
-                'text-summary',
-                { subdir: '.', type:'lcovonly' },
-                { subdir: '.', type:'json' },
-            ],
-            fixWebpackSourcePaths: true
+                'json',
+                'lcov',
+            ]
         },
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: true,
+        autoWatch: false,
         browsers: [
             'FirefoxHeadless',
         ],
@@ -51,7 +50,7 @@ module.exports = function (config) {
                 flags: [ '-headless' ],
             },
         },
-        singleRun: false,
+        singleRun: true,
         concurrency: Infinity,
     });
 };
