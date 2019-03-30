@@ -6,6 +6,7 @@ import { Injector } from '../src/core/Injector';
 
 
 export class Tester extends Diagram {
+
     constructor (options = { modules: [ ], canvas: { } }) {
         const container = document.createElement('div');
         container.className = 'rnw-container';
@@ -13,7 +14,8 @@ export class Tester extends Diagram {
         super({ }, new Injector([
             { 'config': [ 'value', options ] },
             CoreModule,
-            DrawModule
+            DrawModule,
         ].concat(options.modules)));
     }
+
 }

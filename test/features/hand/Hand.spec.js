@@ -52,12 +52,10 @@ describe('modules/hand - Hand', () => {
         });
 
         it('should not move', () => {
-            let bbox;
-
             hand.moveTo(30, 15);
 
             hand.moveBy(0, 0);
-            bbox = canvas.viewbox();
+            const bbox = canvas.viewbox();
 
             expect(bbox.x).toBe(-30);
             expect(bbox.y).toBe(-15);
@@ -93,6 +91,7 @@ describe('modules/hand - Hand', () => {
 
         it('should activate hand tool', () => {
             toolbox.activate('hand');
+
             expect(toolbox.activeTool.constructor.name).toEqual('HandTool');
         });
     });

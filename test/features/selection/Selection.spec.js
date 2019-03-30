@@ -6,7 +6,8 @@ import { Tester } from '../../Tester';
 
 describe('modules/selection - Selection', () => {
     let diagram;
-    let shape_1, shape_2;
+    let shape1;
+    let shape2;
     let selection;
     let canvas;
 
@@ -17,15 +18,15 @@ describe('modules/selection - Selection', () => {
     beforeEach(() => canvas = diagram.get('canvas'));
 
     beforeEach(() => diagram.invoke(function (elementFactory) {
-        shape_1 = elementFactory.createShape({
-            id: 'shape_1', x: 100, y: 200, width: 300, height: 400,
+        shape1 = elementFactory.createShape({
+            id: 'shape1', x: 100, y: 200, width: 300, height: 400,
         });
-        shape_2 = elementFactory.createShape({
-            id: 'shape_2', x: 500, y: 200, width: 300, height: 400,
+        shape2 = elementFactory.createShape({
+            id: 'shape2', x: 500, y: 200, width: 300, height: 400,
         });
 
-        canvas.addShape(shape_1);
-        canvas.addShape(shape_2);
+        canvas.addShape(shape1);
+        canvas.addShape(shape2);
     }));
 
     it('should be defined', () => {
@@ -35,29 +36,29 @@ describe('modules/selection - Selection', () => {
     describe('Provider', () => {
 
         it('should add to selection', () => {
-            selection.select(shape_1);
+            selection.select(shape1);
 
             expect(selection.count()).toBe(1);
         });
 
         it('should deselect on selection change', () => {
-            selection.select(shape_1);
+            selection.select(shape1);
 
             expect(selection.count()).toBe(1);
 
-            selection.select(shape_2);
+            selection.select(shape2);
 
             expect(selection.count()).toBe(1);
         });
 
         it('should add multiple to selection', () => {
-            selection.select([ shape_1, shape_2 ]);
+            selection.select([ shape1, shape2 ]);
 
             expect(selection.count()).toBe(2);
         });
 
         it('should clear the selection', () => {
-            selection.select([ shape_1, shape_2 ]);
+            selection.select([ shape1, shape2 ]);
 
             expect(selection.count()).toBe(2);
 
@@ -73,7 +74,7 @@ describe('modules/selection - Selection', () => {
         beforeEach(() => eventBus = diagram.get('eventBus'));
 
         it('should clear the selection', () => {
-            selection.select(shape_1);
+            selection.select(shape1);
 
             expect(selection.count()).toBe(1);
 
@@ -83,11 +84,11 @@ describe('modules/selection - Selection', () => {
         });
 
         it('should add an element to selection', () => {
-            eventBus.fire('selection.add', { elements: shape_1 });
+            eventBus.fire('selection.add', { elements: shape1 });
 
             expect(selection.count()).toBe(1);
 
-            eventBus.fire('selection.add', { elements: shape_2 });
+            eventBus.fire('selection.add', { elements: shape2 });
 
             expect(selection.count()).toBe(2);
         });
@@ -100,7 +101,7 @@ describe('modules/selection - Selection', () => {
 
             beforeEach(() => {
                 diagram = new Tester({
-                    modules: [ SelectionModule, PointerModule ]
+                    modules: [ SelectionModule, PointerModule ],
                 });
                 selection = diagram.get('selection');
                 toolbox = diagram.get('toolbox');
@@ -108,7 +109,7 @@ describe('modules/selection - Selection', () => {
             });
 
             it('should clear the selection on pointer tool disable', () => {
-                selection.select(shape_1);
+                selection.select(shape1);
 
                 expect(selection.count()).toBe(1);
 
@@ -120,11 +121,11 @@ describe('modules/selection - Selection', () => {
         });
 
         describe('Create', () => {
-            let create, createTool, eventBus;
+            let create; let createTool; let eventBus;
 
             beforeEach(() => {
                 diagram = new Tester({
-                    modules: [ SelectionModule, CreateModule ]
+                    modules: [ SelectionModule, CreateModule ],
                 });
                 selection = diagram.get('selection');
                 eventBus = diagram.get('eventBus');
@@ -136,7 +137,7 @@ describe('modules/selection - Selection', () => {
             it('should select the created element', () => {
                 expect(selection.count()).toBe(0);
 
-                create.element = shape_1;
+                create.element = shape1;
                 eventBus.fire('create.element', {
                     x: 100, y: 200,
                     target: canvas.getRootElement(),
@@ -146,6 +147,6 @@ describe('modules/selection - Selection', () => {
             });
 
         });
-    })
+    });
 
 });
