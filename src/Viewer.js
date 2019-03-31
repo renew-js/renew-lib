@@ -63,23 +63,15 @@ export default class Viewer extends Diagram {
         this.get('eventBus').on(eventName, callback);
     }
 
+    off () {
+        // TODO
+    }
+
     addFormalism (plugin) {
         const pluginInstance = this.injector.instantiate(plugin);
         this.fire('plugin.register', {
             plugin: pluginInstance,
         });
-    }
-
-    on () {
-        // TODO
-    }
-
-    off () {
-        // TODO
-    }
-
-    emit () {
-        // TODO
     }
 
 }
