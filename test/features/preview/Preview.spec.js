@@ -131,7 +131,8 @@ describe('modules/preview - Preview', () => {
 
             it('should be defined', () => {
                 const create = diagram.get('create');
-                expect(create).toBeDefined()
+
+                expect(create).toBeDefined();
             });
 
         });

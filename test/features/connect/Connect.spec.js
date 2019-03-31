@@ -8,12 +8,14 @@ describe('modules/connect - Connect', () => {
     let canvas;
 
     beforeEach(() => {
-        diagram = new Tester({ modules: [ ConnectModule, ] });
+        diagram = new Tester({ modules: [ ConnectModule ] });
         connect = diagram.get('connect');
         canvas = diagram.get('canvas');
     });
 
-    it('should be defined', () => expect(connect).toBeDefined());
+    it('should be defined', () =>
+
+        expect(connect).toBeDefined());
 
     describe('Provider', () => {
 

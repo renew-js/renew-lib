@@ -7,17 +7,19 @@ describe('modules/create - Create', () => {
     let canvas;
 
     beforeEach(() => {
-        diagram = new Tester({ modules: [ CreateModule, ] });
+        diagram = new Tester({ modules: [ CreateModule ] });
         create = diagram.get('create');
         canvas = diagram.get('canvas');
     });
 
-    it('should be defined', () => expect(create).toBeDefined());
+    it('should be defined', () =>
+
+        expect(create).toBeDefined());
 
     describe('Provider', () => {
 
         it('should creat a shape', () => {
-            let element = create.element(50, 150);
+            const element = create.element(50, 150);
 
             expect(element.x).toBe(50);
             expect(element.y).toBe(150);
@@ -46,6 +48,7 @@ describe('modules/create - Create', () => {
             });
 
             const root = canvas.getRootElement();
+
             expect(root.children.length).toBe(count + 1);
             expect(root.children[0].x).toBe(50);
             expect(root.children[0].y).toBe(60);
@@ -57,6 +60,7 @@ describe('modules/create - Create', () => {
             commandStack.execute('create.element', { x: 50, y: 60 });
 
             const root = canvas.getRootElement();
+
             expect(root.children.length).toBe(count + 1);
             expect(root.children[0].x).toBe(50);
             expect(root.children[0].y).toBe(60);
@@ -75,6 +79,7 @@ describe('modules/create - Create', () => {
             eventBus.fire('create.element', { x: 50, y: 60 });
 
             const root = canvas.getRootElement();
+
             expect(root.children.length).toBe(count + 1);
             expect(root.children[0].x).toBe(50);
             expect(root.children[0].y).toBe(60);
@@ -84,10 +89,11 @@ describe('modules/create - Create', () => {
             const count = canvas.getRootElement().children.length;
 
             eventBus.fire('create.element.center', {
-                x: 50, y: 60, width: 25, height: 20
+                x: 50, y: 60, width: 25, height: 20,
             }, true);
 
             const root = canvas.getRootElement();
+
             expect(root.children.length).toBe(count + 1);
             expect(root.children[0].x).toBe(37.5);
             expect(root.children[0].y).toBe(50);
@@ -97,7 +103,7 @@ describe('modules/create - Create', () => {
             eventBus.fire('create.factory.set', {
                 factory: {
                     create: () => 'test',
-                }
+                },
             });
 
             expect(create.factory.create()).toBe('test');
@@ -128,10 +134,10 @@ describe('modules/create - Create', () => {
         it('should have a position', () => {
             document.dispatchEvent(new MouseEvent('mousemove', {
                 pageX: 250,
-                pageY: 320
+                pageY: 320,
             }));
             toolbox.activate('create');
         });
 
-    })
+    });
 });

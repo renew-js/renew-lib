@@ -11,7 +11,7 @@ export function mousedown (diagram, position) {
         if (mouseEvent.initMouseEvent) {
             mouseEvent.initMouseEvent(
                 'mousedown', true, true, window, 0, 0, 0,
-                event.x, event.y, false, false, false, false, 0, null,
+                event.x, event.y, false, false, false, false, 0, null
             );
         }
 

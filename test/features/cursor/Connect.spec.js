@@ -8,23 +8,27 @@ describe('modules/cursor - Cursor', () => {
     let canvas;
 
     beforeEach(() => {
-        diagram = new Tester({ modules: [ CursorModule, ] });
+        diagram = new Tester({ modules: [ CursorModule ] });
         cursor = diagram.get('cursor');
         canvas = diagram.get('canvas');
     });
 
-    it('should be defined', () => expect(cursor).toBeDefined());
+    it('should be defined', () =>
+
+        expect(cursor).toBeDefined());
 
     describe('Provider', () => {
 
         it('should set the cursor', () => {
             cursor.set('pointer');
+
             expect(document.body.style.cursor).toBe('pointer');
         });
 
         it('should unset the cursor', () => {
             cursor.set('pointer');
             cursor.unset();
+
             expect(document.body.style.cursor).toBe('default');
         });
 
@@ -37,12 +41,14 @@ describe('modules/cursor - Cursor', () => {
 
         it('should set the cursor', () => {
             eventBus.fire('cursor.set', { cursor: 'pointer' });
+
             expect(document.body.style.cursor).toBe('pointer');
         });
 
         it('should unset the cursor', () => {
             cursor.set('pointer');
             eventBus.fire('cursor.unset');
+
             expect(document.body.style.cursor).toBe('default');
         });
 
