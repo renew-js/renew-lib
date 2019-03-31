@@ -1,16 +1,23 @@
+import { DefaultFactory } from '../util/DefaultFactory';
+
+
 export class CreateProvider {
 
     constructor () {
-        this.factory = null;
-        this.config = null;
-        this.element = null;
+        this.factory = new DefaultFactory();
     }
 
-    createElement (x, y) {
-        this.element = this.factory.createElement(this.config.type);
-        this.element.x = x - this.element.width/2;
-        this.element.y = y - this.element.height/2;
-        return this.element;
+    element (x, y) {
+        const shape = this.factory.create();
+        shape.x = x;
+        shape.y = y;
+        shape.width = shape.width || 1;
+        shape.height = shape.height || 1;
+        return shape;
+    }
+
+    resetFactory () {
+        this.factory = new DefaultFactory();
     }
 
 }

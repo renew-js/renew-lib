@@ -70,4 +70,16 @@ export default class Viewer extends Diagram {
         });
     }
 
+    on () {
+        // TODO
+    }
+
+    off () {
+        // TODO
+    }
+
+    emit () {
+        // TODO
+    }
+
 }
