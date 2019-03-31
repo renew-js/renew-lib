@@ -1,5 +1,4 @@
 import { Tool } from '../../../core/toolbox/Tool';
-import { set, unset } from 'diagram-js/lib/util/Cursor';
 
 
 export class ConnectTool extends Tool {
@@ -9,38 +8,45 @@ export class ConnectTool extends Tool {
         this.eventBus = eventBus;
         this.policy = policy;
         this.connect = connect;
-        this.mouseDown = false;
+
+        this.isConnecting = false;
     }
 
     onDisable (event) {
-        this.connect.factory = undefined;
+        this.eventBus.fire('connect.factory.reset', event);
     }
 
     onEnable (event) {
-        this.connect.factory = event.factory;
+        this.eventBus.fire('connect.factory.set', event);
     }
 
     onMouseDown (event) {
-        this.mouseDown = true;
+        if (event.hover) {
+            this.isConnecting = true;
+        }
     }
 
     onMouseMove (event) {
-        if (this.policy.allowed('connect.start')) {
-            unset();
-            if (this.mouseDown) {
-                this.eventBus.fire('connect.preview', event);
+        if (this.isConnecting) {
+            if (this.policy.allowed('connect.start')) {
+                this.eventBus.fire('cursor.unset');
+                if (event.mouseDown) {
+                    this.eventBus.fire('connect.preview', event);
+                }
+            } else {
+                this.eventBus.fire('cursor.set', { cursor: 'not-allowed' });
             }
-        } else {
-            set('not-allowed');
         }
     }
 
     onMouseUp (event) {
-        this.mouseDown = false;
-        if (this.policy.allowed('connect.end')) {
-            this.eventBus.fire('connect.shapes', event);
+        if (this.isConnecting) {
+            if (this.policy.allowed('connect.end')) {
+                this.eventBus.fire('connect.elements', event);
+            }
+            this.eventBus.fire('connect.preview.clear', event);
+            this.isConnecting = false;
         }
-        this.eventBus.fire('connect.preview.clear', event);
     }
 
 }

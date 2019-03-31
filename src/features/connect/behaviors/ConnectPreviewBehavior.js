@@ -4,7 +4,7 @@ import { append, attr, create, remove } from 'tiny-svg';
 import { Behavior } from '../../../core/eventBus/Behavior';
 
 
-export class PreviewBehavior extends Behavior {
+export class ConnectPreviewBehavior extends Behavior {
 
     constructor (canvas) {
         super();

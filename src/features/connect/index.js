@@ -1,25 +1,31 @@
+import LayouterModule from '../layouter';
+import CursorModule from '../cursor';
+import { ConnectFactoryBehavior } from './behaviors/ConnectFactoryBehavior';
+
 import { ConnectTool } from './tools/ConnectTool';
 import { ConnectProvider } from './providers/ConnectProvider';
-import { PreviewBehavior } from './behaviors/PreviewBehavior';
-import { ConnectBehavior } from './behaviors/ConnectBehavior';
+import { ConnectPreviewBehavior } from './behaviors/ConnectPreviewBehavior';
+import { ConnectElementsBehavior } from './behaviors/ConnectElementsBehavior';
 import { ConnectStartRule } from './rules/ConnectStartRule';
 import { ConnectEndRule } from './rules/ConnectEndRule';
-import { ConnectCommand } from './commands/ConnectCommand';
+import { ConnectElementsCommand } from './commands/ConnectElementsCommand';
 
 
 export default {
     __depends__: [
-
+        CursorModule,
+        LayouterModule,
     ],
     __init__: [
         'connect',
     ],
     __behaviors__: [
-        [ 'connect.preview', PreviewBehavior ],
-        [ 'connect.shapes', ConnectBehavior ],
+        [ 'connect.preview', ConnectPreviewBehavior ],
+        [ 'connect.factory', ConnectFactoryBehavior ],
+        [ 'connect.elements', ConnectElementsBehavior ],
     ],
     __commands__: [
-        [ 'tool.connect.shapes', ConnectCommand ],
+        [ 'connect.elements', ConnectElementsCommand ],
     ],
     __rules__: [
         [ 'connect.start', ConnectStartRule ],
@@ -28,5 +34,6 @@ export default {
     __tools__: [
         [ 'connect', ConnectTool ],
     ],
+
     connect: [ 'type', ConnectProvider ],
 };

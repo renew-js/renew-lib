@@ -1,7 +1,7 @@
 import { Command } from '../../../core/command/Command';
 
 
-export class ConnectCommand extends Command {
+export class ConnectElementsCommand extends Command {
 
     constructor (canvas, layouter) {
         super();
@@ -28,12 +28,12 @@ export class ConnectCommand extends Command {
             context.connection.target = context.hover;
         }
 
-        if (!context.connection.waypoints) {
-            context.connection.waypoints = this.layouter.layoutConnection(
-                context.connection
-            );
-        }
 
+        context.connection.waypoints = this.layouter.layoutConnection(
+            context.connection
+        );
+
+        console.log(context.connection);
         this.canvas.addConnection(context.connection);
 
         return context.connection;
