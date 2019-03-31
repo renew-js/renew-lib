@@ -1,0 +1,121 @@
+{
+  "elements": [
+    {
+      "labels": [],
+      "children": [],
+      "id": "shape-vu1wos-ai2txn9g",
+      "type": "shape",
+      "metaObject": {
+        "type": "base:ellipse",
+        "labels": [],
+        "targetType": "ellipse",
+        "backgroundColor": "white",
+        "lineColor": "black",
+        "lineStyle": "normal-line",
+        "defaultDimension": {
+          "width": 40,
+          "height": 40
+        },
+        "representation": {
+          "name": "ellipse",
+          "type": "element",
+          "value": "",
+          "attributes": {
+            "cx": "20",
+            "cy": "20",
+            "rx": "19",
+            "ry": "19",
+            "style": "fill:#fff;stroke:#000;stroke-width:2px;"
+          },
+          "proportions": {
+            "cx": 0.5,
+            "cy": 0.5,
+            "rx": 0.475,
+            "ry": 0.475
+          },
+          "children": []
+        }
+      },
+      "width": 40,
+      "height": 40,
+      "x": 108,
+      "y": 151,
+      "parentId": "__implicitroot"
+    },
+    {
+      "labels": [],
+      "children": [],
+      "id": "shape-vu1xy2-ga03bxls",
+      "type": "shape",
+      "metaObject": {
+        "type": "base:rectangle",
+        "labels": [],
+        "targetType": "rectangle",
+        "backgroundColor": "white",
+        "lineColor": "black",
+        "lineStyle": "normal-line",
+        "defaultDimension": {
+          "width": 48,
+          "height": 32
+        },
+        "representation": {
+          "name": "rect",
+          "type": "element",
+          "value": "",
+          "attributes": {
+            "x": "1",
+            "y": "1",
+            "width": "46",
+            "height": "30",
+            "style": "fill:#fff;stroke:#000;stroke-width:2px;"
+          },
+          "proportions": {
+            "x": 0.02083,
+            "y": 0.03125,
+            "width": 0.958333,
+            "height": 0.9375
+          },
+          "children": []
+        }
+      },
+      "width": 48,
+      "height": 32,
+      "x": 216,
+      "y": 155,
+      "parentId": "__implicitroot"
+    },
+    {
+      "labels": [],
+      "id": "connection-vu1zra-e32mx3qz",
+      "type": "connection",
+      "metaObject": {
+        "type": "base:arc",
+        "labels": [],
+        "arrowEnd": "arrow-head",
+        "bind": {
+          "ellipse": [
+            "*"
+          ],
+          "rectangle": [
+            "*"
+          ]
+        },
+        "targetType": "arc"
+      },
+      "waypoints": [
+        {
+          "x": 147,
+          "y": 171
+        },
+        {
+          "x": 217,
+          "y": 171
+        }
+      ],
+      "parentId": "__implicitroot",
+      "sourceId": "shape-vu1wos-ai2txn9g",
+      "targetId": "shape-vu1xy2-ga03bxls"
+    }
+  ],
+  "title": "trivial_net"
+}

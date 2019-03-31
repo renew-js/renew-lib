@@ -9,10 +9,10 @@ export class ElementFactory extends BaseElementFactory {
     }
 
     create (type, attrs) {
-        return super.create(type, Object.assign(attrs, {
+        return super.create(type, Object.assign({
             id: uid(type),
             type: type,
-        }));
+        }, attrs));
     }
 
 }
