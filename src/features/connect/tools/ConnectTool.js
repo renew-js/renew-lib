@@ -17,7 +17,7 @@ export class ConnectTool extends Tool {
     }
 
     onEnable (event) {
-        // this.eventBus.fire('connect.factory.set', event);
+        this.eventBus.fire('connect.factory.set', event);
     }
 
     onMouseDown (event) {
