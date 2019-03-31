@@ -12,8 +12,8 @@ export class DefaultFactory extends ElementFactory {
             waypoints: waypoints,
             metaObject: {
                 arrowEnd: 'arrow-head',
-                lineColor: 'magenta'
-            }
+                lineColor: 'magenta',
+            },
         });
     }
 

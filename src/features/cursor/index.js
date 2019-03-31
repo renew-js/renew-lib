@@ -14,4 +14,4 @@ export default {
     __rules__: [],
 
     cursor: [ 'type', CursorProvider ],
-}
+};

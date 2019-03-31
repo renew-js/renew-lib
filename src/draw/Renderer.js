@@ -61,10 +61,13 @@ export class Renderer extends BaseRenderer {
             }, ''),
         });
         attr(line, this.styles.style([ 'no-fill' ], {
-            stroke: connection.metaObject.lineColor || 'black',
+            stroke: 'black',
             strokeWidth: 2,
             fill: 'none',
         }));
+        if (connection.metaObject && connection.metaObject.lineColor) {
+            attr(line, { stroke: connection.metaObject.lineColor });
+        }
 
         if (connection.metaObject && connection.metaObject.arrowStart) {
             attr(line, {
