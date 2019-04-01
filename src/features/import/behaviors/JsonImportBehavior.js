@@ -11,7 +11,7 @@ export class JsonImportBehavior extends Behavior {
 
     during (context) {
         const data = this.jsonParser.parse(context.data);
-        this.eventBus.fire('import', { data });
+        this.eventBus.fire('import', { data }, true);
     }
 
 }
