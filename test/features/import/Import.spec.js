@@ -10,6 +10,7 @@ describe('modules/import - Import', () => {
     let jsonParser;
     let elementRegistry;
     let canvas;
+    let parsedData;
 
     beforeEach(() => {
         diagram = new Tester({ modules: [ ImportModule ] });
@@ -19,18 +20,16 @@ describe('modules/import - Import', () => {
         canvas = diagram.get('canvas');
     });
 
+    beforeEach(() => {
+        parsedData = jsonParser.parse(JSON.stringify(trivialNet));
+    });
+
     it('should be defined', () => {
         expect(importer).toBeDefined();
         expect(jsonParser).toBeDefined();
     });
 
     describe('Providers', () => {
-        let parsedData;
-
-        beforeEach(() => {
-            parsedData = jsonParser.parse(JSON.stringify(trivialNet));
-        });
-
         it('should require elements', () => {
             const importError = new Error('Import must contain elements.');
 
@@ -83,6 +82,15 @@ describe('modules/import - Import', () => {
             eventBus.fire('import', { data: { elements: [ shape ] } }, true);
 
             expect(canvas.getDefaultLayer().children.length).toBe(1);
+        });
+
+        it('should move the canvas', () => {
+            eventBus.fire('import', { data: parsedData }, true);
+
+            const viewBox = canvas.viewbox(false);
+
+            expect(viewBox.x).not.toBe(0);
+            expect(viewBox.y).not.toBe(0);
         });
 
         it('should fire import with parsed data', () => {
