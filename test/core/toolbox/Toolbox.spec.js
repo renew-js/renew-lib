@@ -89,6 +89,7 @@ describe('core/toolbox - Toolbox', () => {
 
         it('should activate tool', () => {
             eventBus.fire('toolbox.activate', { tool: 'test' });
+
             expect(state.enabled).toBe(true);
         });
     });

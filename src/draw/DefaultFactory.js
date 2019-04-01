@@ -1,4 +1,4 @@
-import { ElementFactory } from '../../../core/ElementFactory';
+import { ElementFactory } from '../core/ElementFactory';
 
 
 export class DefaultFactory extends ElementFactory {
@@ -7,8 +7,17 @@ export class DefaultFactory extends ElementFactory {
         super();
     }
 
-    create () {
-        return super.create('shape', {
+    createConnection () {
+        return super.createConnection({
+            metaObject: {
+                arrowEnd: 'arrow-head',
+                lineColor: 'magenta',
+            },
+        });
+    }
+
+    createShape () {
+        return super.createShape({
             metaObject: {
                 representation: {
                     name: 'rect',

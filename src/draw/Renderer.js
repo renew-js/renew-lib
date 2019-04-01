@@ -65,6 +65,9 @@ export class Renderer extends BaseRenderer {
             strokeWidth: 2,
             fill: 'none',
         }));
+        if (connection.metaObject && connection.metaObject.lineColor) {
+            attr(line, { stroke: connection.metaObject.lineColor });
+        }
 
         if (connection.metaObject && connection.metaObject.arrowStart) {
             attr(line, {
