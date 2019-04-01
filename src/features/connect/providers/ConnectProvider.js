@@ -7,8 +7,14 @@ export class ConnectProvider {
         this.factory = new DefaultFactory();
     }
 
-    connection (start, end) {
-        return this.factory.create([ start, end ]);
+    connection (src, dest) {
+        const toPoint = (object) => {
+            return { x: object.x, y: object.y };
+        };
+        const connection = this.factory.create([ toPoint(src), toPoint(dest) ]);
+        connection.source = src;
+        connection.target = dest;
+        return connection;
     }
 
     resetFactory () {
