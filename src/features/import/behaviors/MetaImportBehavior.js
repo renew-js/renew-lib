@@ -13,7 +13,7 @@ export class MetaImportBehavior extends Behavior {
         const plugin = this.metaPluginManager.getPlugin(context.model);
         const parser = plugin.getParser(context.format);
         const data = parser.parse(context.data);
-        this.eventBus.fire('import', { data });
+        this.eventBus.fire('import', { data }, true);
     }
 
 }
