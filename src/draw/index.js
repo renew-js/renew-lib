@@ -1,3 +1,5 @@
+import FactoryModule from '../features/factory';
+
 import Styles from 'diagram-js/lib/draw/Styles';
 import { PluginRegisterBehavior } from './behaviors/PluginRegisterBehavior';
 import { SetRootElementBehavior } from './behaviors/SetRootElementBehavior';
@@ -5,6 +7,9 @@ import { Renderer } from './Renderer';
 
 
 export default {
+    __depends__: [
+        FactoryModule
+    ],
     __init__: [
         'renderer',
         'styles',
