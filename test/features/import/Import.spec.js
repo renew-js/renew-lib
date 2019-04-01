@@ -69,8 +69,8 @@ describe('modules/import - Import', () => {
 
         it('should clear the canvas', () => {
             const shape = elementFactory.createShape({
-                id: 'shape-test-20583',
-                type: 'Shape',
+                id: 'shape-test-22765',
+                type: 'shape',
                 x: 100,
                 y: 100,
                 width: 42,
@@ -80,9 +80,9 @@ describe('modules/import - Import', () => {
 
             expect(canvas.getDefaultLayer().children.length).toBe(1);
 
-            eventBus.fire('import.start', {});
+            eventBus.fire('import', { data: { elements: [ shape ] } }, true);
 
-            expect(canvas.getDefaultLayer().children.length).toBe(0);
+            expect(canvas.getDefaultLayer().children.length).toBe(1);
         });
 
         it('should fire import with parsed data', () => {
