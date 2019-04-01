@@ -1,4 +1,4 @@
-import { ElementFactory } from '../../../core/ElementFactory';
+import { ElementFactory } from './ElementFactory';
 
 
 export class DefaultFactory extends ElementFactory {

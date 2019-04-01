@@ -6,7 +6,7 @@ import CommandStackModule from './command';
 import PolicyModule from './policy';
 import ToolboxModule from './toolbox';
 
-import { ElementFactory } from './ElementFactory';
+import { ElementFactory } from '../features/factory/providers/ElementFactory';
 
 
 export default {
