@@ -14,7 +14,6 @@ export class ConnectElementsCommand extends Command {
             context.connection
         );
 
-        console.log(context.connection);
         this.canvas.addConnection(context.connection);
 
         return context.connection;
