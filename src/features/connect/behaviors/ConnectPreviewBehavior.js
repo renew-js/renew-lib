@@ -24,7 +24,7 @@ export class ConnectPreviewBehavior extends Behavior {
         if (event.hoverStart.type === 'shape') {
             source = mid(event.hoverStart);
         }
-        if (event.hover.type === 'shape'
+        if (event.hover && event.hover.type === 'shape'
             && event.hoverStart.id !== event.hover.id) {
             target = mid(event.hover);
         }

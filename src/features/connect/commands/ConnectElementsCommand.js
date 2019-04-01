@@ -10,6 +10,10 @@ export class ConnectElementsCommand extends Command {
     }
 
     execute (context) {
+        if (!context.hover || !context.hoverStart) {
+            return;
+        }
+
         if (!context.hoverStart.x || !context.hoverStart.y) {
             context.connection.source = {
                 x: context.sx,
