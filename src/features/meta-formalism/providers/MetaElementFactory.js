@@ -7,14 +7,15 @@ export class MetaElementFactory extends ElementFactory {
     constructor (metaPluginManager) {
         super();
         this.pluginManager = metaPluginManager;
+        this.defaultAttributes = {};
+    }
+
+    setType (metaType) {
+        this.defaultAttributes = this.getAttributes(metaType);
     }
 
     createElement (metaType) {
-        const attributes = JSON.parse(JSON.stringify(Object.assign({},
-            this.pluginManager.getElement(metaType),
-            this.pluginManager.getStyle(metaType),
-            { type: metaType }
-        )));
+        const attributes = this.getAttributes(metaType);
 
         switch (this.getType(metaType)) {
             case 'shape':
@@ -23,6 +24,36 @@ export class MetaElementFactory extends ElementFactory {
                 return this.createConnection(attributes);
             case 'label':
                 return this.createLabel(attributes);
+        }
+    }
+
+    getAttributes (metaType) {
+        const metaObject = JSON.parse(JSON.stringify(Object.assign({},
+            this.pluginManager.getElement(metaType),
+            this.pluginManager.getStyle(metaType),
+            { type: metaType }
+        )));
+
+        switch (this.getType(metaType)) {
+            case 'shape':
+                return {
+                    businessObject: metaObject,
+                    metaObject: metaObject,
+                    width: metaObject.defaultDimension.width,
+                    height: metaObject.defaultDimension.height,
+                };
+            case 'connection':
+                return {
+                    businessObject: metaObject,
+                    metaObject: metaObject,
+                };
+            case 'label':
+                return {
+                    businessObject: metaObject,
+                    metaObject: metaObject,
+                    width: metaObject.defaultDimension.width,
+                    height: metaObject.defaultDimension.height,
+                };
         }
     }
 
@@ -40,113 +71,24 @@ export class MetaElementFactory extends ElementFactory {
     }
 
     createShape (attributes) {
-        return super.createShape({
+        return super.createShape(Object.assign({
             id: uid('shape'),
             type: 'shape',
-            businessObject: attributes,
-            metaObject: attributes,
-            width: attributes.defaultDimension.width,
-            height: attributes.defaultDimension.height,
-        });
+        }, this.defaultAttributes, attributes));
     }
 
     createConnection (attributes) {
-        return super.createConnection({
+        return super.createConnection(Object.assign({
             id: uid('connection'),
             type: 'connection',
-            businessObject: attributes,
-            metaObject: attributes,
-        });
+        }, this.defaultAttributes, attributes));
     }
 
     createLabel (attributes) {
-        return super.createLabel({
+        return super.createConnection(Object.assign({
             id: uid('label'),
             type: 'label',
-            businessObject: attributes,
-            metaObject: attributes,
-            width: attributes.defaultDimension.width,
-            height: attributes.defaultDimension.height,
-        });
+        }, this.defaultAttributes, attributes));
     }
-
-    /*
-    onCreateClassifier (event) {
-        const metaModel = event.plugin.getMetaModel();
-        const stylesheet = event.plugin.getStylesheet();
-        const style = stylesheet.styles[event.element.type];
-
-        const clone = (object) => JSON.parse(JSON.stringify(object));
-
-        const shape = this.createShape({
-            class: event.element.constructor.name,
-            type: metaModel.type + ':' + event.element.type,
-            model: metaModel.type,
-            metaType: event.element.type,
-            metaLabels: event.element.labels,
-            width: style.defaultDimension.width,
-            height: style.defaultDimension.height,
-            body: clone(style.representation),
-            resizable: true,
-        });
-
-        this.dragging.start(event.click, shape);
-    }
-
-    onCreateRelation (event) {
-        this.connect.toggle(event);
-    }
-
-    onConnectRelation (event) {
-        const relationType = this.getConnectionType(event);
-
-        if (!relationType) {
-            return;
-        }
-
-        const [ model, type ] = relationType.split(':');
-        const relation = this.pluginManager.getMetaModelElement(model, type);
-
-        event.element.class = event.element.constructor.name;
-        event.element.type = relationType;
-        event.element.model = model;
-        event.element.metaType = type;
-        event.element.metaLabels = relation.labels;
-        event.element.arrowStart = relation.arrowStart;
-        event.element.arrowEnd = relation.arrowEnd;
-        event.element.resizable = false;
-    }
-
-    getConnectionType (event) {
-        const source = event.element.source;
-        const metaModel = this.pluginManager.getMetaModel(source.model);
-
-        for (const relation of metaModel.relations) {
-            for (const type of relation.bind[source.metaType]) {
-                if (this.isBindable(type, event.element.target)) {
-                    return source.model + ':' + relation.type;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    isBindable (type, target) {
-        return type === '*' || type === target.type || type === target.metaType;
-    }
-
-    onCreateText (event) {
-        console.log('TODO: create Text', event);
-    }
-
-    getIncrement () {
-        return this._uid;
-    }
-
-    setIncrement (uid) {
-        this._uid = uid;
-    }
-*/
 
 }
