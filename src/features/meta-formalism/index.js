@@ -1,15 +1,16 @@
+import MetaFactoryModule from '../meta-factory';
+
 import { PluginRegisterBehavior } from './behaviors/PluginRegisterBehavior';
-import { MetaElementFactory } from './providers/MetaElementFactory';
 import { MetaPluginManager } from './providers/MetaPluginManager';
 import { MoveElementRule } from './rules/MoveElementRule';
 
 
 export default {
     __depends__: [
+        MetaFactoryModule,
     ],
     __init__: [
         'metaPluginManager',
-        'metaFactory',
     ],
     __behaviors__: [
         [ 'plugin.register', 1500, PluginRegisterBehavior ],
@@ -18,5 +19,4 @@ export default {
         [ 'element.move', MoveElementRule ],
     ],
     metaPluginManager: [ 'type', MetaPluginManager ],
-    metaFactory: [ 'type', MetaElementFactory ],
 };

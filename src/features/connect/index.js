@@ -1,6 +1,6 @@
 import LayouterModule from '../layouter';
 import CursorModule from '../cursor';
-import { ConnectFactoryBehavior } from './behaviors/ConnectFactoryBehavior';
+import FactoryModule from '../factory';
 
 import { ConnectTool } from './tools/ConnectTool';
 import { ConnectProvider } from './providers/ConnectProvider';
@@ -15,13 +15,13 @@ export default {
     __depends__: [
         CursorModule,
         LayouterModule,
+        FactoryModule,
     ],
     __init__: [
         'connect',
     ],
     __behaviors__: [
         [ 'connect.preview', ConnectPreviewBehavior ],
-        [ 'connect.factory', ConnectFactoryBehavior ],
         [ 'connect.elements', ConnectElementsBehavior ],
     ],
     __commands__: [

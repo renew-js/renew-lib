@@ -2,7 +2,7 @@ import ElementFactory from 'diagram-js/lib/core/ElementFactory';
 import { uid } from '../../../core/util/Uid';
 
 
-export class MetaElementFactory extends ElementFactory {
+export class MetaFactory extends ElementFactory {
 
     constructor (metaPluginManager) {
         super();

@@ -1,5 +1,6 @@
 import { Tester } from '../../Tester';
 import CreateModule from '../../../src/features/create';
+import { TestFactory } from '../../util/TestFactory';
 
 describe('modules/create - Create', () => {
     let diagram;
@@ -23,14 +24,6 @@ describe('modules/create - Create', () => {
 
             expect(element.x).toBe(50);
             expect(element.y).toBe(150);
-        });
-
-        it('should reset the factory', () => {
-            create.factory = null;
-
-            create.resetFactory();
-
-            expect(create.factory.constructor.name).toBe('DefaultFactory');
         });
 
     });
@@ -99,36 +92,33 @@ describe('modules/create - Create', () => {
             expect(root.children[0].y).toBe(50);
         });
 
-        it('should set the factory', function () {
-            eventBus.fire('create.factory.set', {
-                factory: {
-                    create: () => 'test',
-                },
-            });
-
-            expect(create.factory.create()).toBe('test');
-        });
-
-        it('should not set the factory', function () {
-            eventBus.fire('create.factory.set', { factory: { } });
-
-            expect(create.factory.constructor.name).toBe('DefaultFactory');
-        });
-
-        it('should reset the factory', function () {
-            create.factory = null;
-            eventBus.fire('create.factory.reset');
-
-            expect(create.factory.constructor.name).toBe('DefaultFactory');
-        });
-
     });
 
     describe('Tool', () => {
         let toolbox;
+        let testFactory;
 
         beforeEach(() => {
             toolbox = diagram.get('toolbox');
+        });
+
+        beforeAll(() => {
+            testFactory = new TestFactory();
+        });
+
+        it('should set the factory of enable', () => {
+            toolbox.activate('create', { factory: testFactory });
+            const factory = diagram.get('factory');
+
+            expect(factory.factory.constructor.name).toBe('TestFactory');
+        });
+
+        it('should reset the factory of disable', () => {
+            toolbox.activate('create', { factory: testFactory });
+            toolbox.activate('test');
+            const factory = diagram.get('factory');
+
+            expect(factory.factory.constructor.name).toBe('DefaultFactory');
         });
 
         it('should have a position', () => {
