@@ -17,7 +17,9 @@ describe('modules/factory - Factory', () => {
         testFactory = new TestFactory();
     });
 
-    it('should be defined', () => expect(factory).toBeDefined());
+    it('should be defined', () =>
+
+        expect(factory).toBeDefined());
 
     describe('Provider', () => {
 

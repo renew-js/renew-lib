@@ -7,17 +7,17 @@ export class DefaultFactory extends ElementFactory {
         super();
     }
 
-    createConnection () {
-        return super.createConnection({
+    createConnection (attributes) {
+        return super.createConnection(Object.assign({
             metaObject: {
                 arrowEnd: 'arrow-head',
                 lineColor: 'magenta',
             },
-        });
+        }, attributes));
     }
 
-    createShape () {
-        return super.createShape({
+    createShape (attributes) {
+        return super.createShape(Object.assign({
             metaObject: {
                 representation: {
                     name: 'rect',
@@ -40,7 +40,7 @@ export class DefaultFactory extends ElementFactory {
             },
             width: 48,
             height: 32,
-        });
+        }, attributes));
     }
 
 }

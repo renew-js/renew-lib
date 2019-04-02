@@ -1,8 +1,12 @@
+import MetaFormalismModule from '../meta-formalism';
+
 import { MetaFactory } from './providers/MetaFactory';
 
 
 export default {
-    __depends__: [],
+    __depends__: [
+        MetaFormalismModule,
+    ],
     __init__: [
         'metaFactory',
     ],

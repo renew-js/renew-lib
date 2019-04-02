@@ -11,7 +11,9 @@ describe('modules/metaFactory - MetaFactory', () => {
         metaFactory = diagram.get('metaFactory');
     });
 
-    it('should be defined', () => expect(metaFactory).toBeDefined());
+    it('should be defined', () =>
+
+        expect(metaFactory).toBeDefined());
 
     describe('Provider', () => {
 

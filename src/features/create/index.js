@@ -11,7 +11,7 @@ import { CreateElementBehavior } from './behaviors/CreateElementBehavior';
 
 export default {
     __depends__: [
-        FactoryModule
+        FactoryModule,
     ],
     __init__: [
         'create',

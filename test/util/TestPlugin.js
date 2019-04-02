@@ -17,7 +17,7 @@ export class TestPlugin extends Formalism.Plugin {
             relations: [
                 {
                     type: 'relation_1',
-                }
+                },
             ],
         });
     }
@@ -29,15 +29,15 @@ export class TestPlugin extends Formalism.Plugin {
                     'target-type': 'classifier_1',
                     'default-dimension': {
                         width: 30,
-                        height: 40
-                    }
+                        height: 40,
+                    },
                 },
                 {
                     'target-type': 'classifier_1',
                     'default-dimension': {
                         width: 25,
-                        height: 50
-                    }
+                        height: 50,
+                    },
                 },
             ],
             'relation-styles': [
@@ -45,9 +45,9 @@ export class TestPlugin extends Formalism.Plugin {
                     'target-type': 'relation_1',
                     'line-color': 'blue',
                     'line-width': 3,
-                    'line-style': 'normal-line'
+                    'line-style': 'normal-line',
                 },
-            ]
+            ],
         });
     }
 
