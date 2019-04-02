@@ -3,11 +3,9 @@ import Viewer from '../../src/Viewer';
 
 describe('instances/viewer - Viewer', () => {
     let viewer;
-    let callback;
 
     beforeEach(() => {
         viewer = new Viewer();
-        callback = () => true;
     });
 
     it('should be defined', function () {
