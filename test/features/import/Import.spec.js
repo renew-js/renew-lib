@@ -1,5 +1,6 @@
 import ImportModule from '../../../src/features/import';
 import { Tester } from '../../Tester';
+import { TestPlugin } from '../../util/TestPlugin';
 
 import trivialNet from './trivial_net.json';
 
@@ -60,10 +61,23 @@ describe('modules/import - Import', () => {
     describe('Behaviors', () => {
         let eventBus;
         let elementFactory;
+        let importFired;
 
         beforeEach(() => {
             eventBus = diagram.get('eventBus');
             elementFactory = diagram.get('elementFactory');
+        });
+
+        beforeEach(() => {
+            importFired = false;
+            eventBus.on('import', (context) => {
+                if (context
+                    && context.data
+                    && context.data.elements
+                    && context.data.elements.length) {
+                    importFired = true;
+                }
+            });
         });
 
         it('should clear the canvas', () => {
@@ -94,19 +108,24 @@ describe('modules/import - Import', () => {
         });
 
         it('should fire import with parsed data', () => {
-            let fired = false;
-            eventBus.on('import', (context) => {
-                if (context
-                    && context.data
-                    && context.data.elements
-                    && context.data.elements.length) {
-                    fired = true;
-                }
-            });
-
             eventBus.fire('import.json', { data: JSON.stringify(trivialNet) });
 
-            expect(fired).toBe(true);
+            expect(importFired).toBe(true);
+        });
+
+        it('should fire meta import', () => {
+            const testPlugin = new TestPlugin();
+            eventBus.fire('plugin.register', {
+                plugin: testPlugin,
+            });
+
+            eventBus.fire('import.meta', {
+                model: 'test',
+                format: 'test',
+                data: { elements: [ { type: null } ] },
+            });
+
+            expect(importFired).toBe(true);
         });
     });
 });
