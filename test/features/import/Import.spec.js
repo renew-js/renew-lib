@@ -20,13 +20,13 @@ describe('modules/import - Import', () => {
         canvas = diagram.get('canvas');
     });
 
-    beforeEach(() => {
-        parsedData = jsonParser.parse(JSON.stringify(trivialNet));
-    });
-
     it('should be defined', () => {
         expect(importer).toBeDefined();
         expect(jsonParser).toBeDefined();
+    });
+
+    beforeEach(() => {
+        parsedData = jsonParser.parse(JSON.stringify(trivialNet));
     });
 
     describe('Providers', () => {

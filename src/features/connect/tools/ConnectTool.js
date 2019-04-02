@@ -13,11 +13,11 @@ export class ConnectTool extends Tool {
     }
 
     onDisable (event) {
-        this.eventBus.fire('connect.factory.reset', event);
+        this.eventBus.fire('factory.reset', event);
     }
 
     onEnable (event) {
-        this.eventBus.fire('connect.factory.set', event);
+        this.eventBus.fire('factory.set', event);
     }
 
     onMouseDown (event) {

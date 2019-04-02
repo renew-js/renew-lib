@@ -1,8 +1,7 @@
 export class ConnectProvider {
 
-    constructor (defaultFactory) {
-        this.defaultFactory = defaultFactory;
-        this.factory = defaultFactory;
+    constructor (factory) {
+        this.factory = factory;
     }
 
     connection (src, dest) {
@@ -10,15 +9,11 @@ export class ConnectProvider {
             return { x: object.x, y: object.y };
         };
 
-        const connection = this.factory.createConnection();
-        connection.waypoints = [ toPoint(src), toPoint(dest) ];
-        connection.source = src;
-        connection.target = dest;
-        return connection;
-    }
-
-    resetFactory () {
-        this.factory = this.defaultFactory;
+        return this.factory.createConnection({
+            waypoints: [ toPoint(src), toPoint(dest) ],
+            source: src,
+            target: dest,
+        });
     }
 
 }

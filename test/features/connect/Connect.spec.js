@@ -1,5 +1,6 @@
 import ConnectModule from '../../../src/features/connect';
 import { Tester } from '../../Tester';
+import { TestFactory } from '../../util/TestFactory';
 
 
 describe('modules/connect - Connect', () => {
@@ -31,17 +32,6 @@ describe('modules/connect - Connect', () => {
         expect(connect).toBeDefined());
 
     describe('Provider', () => {
-
-        it('should have a default factory', () => {
-            expect(connect.factory.constructor.name).toBe('DefaultFactory');
-        });
-
-        it('should reset to default factory', () => {
-            connect.factory = null;
-            connect.resetFactory();
-
-            expect(connect.factory.constructor.name).toBe('DefaultFactory');
-        });
 
         it('should create a connection', () => {
             const from = { x: 50, y: 55 };
@@ -124,22 +114,31 @@ describe('modules/connect - Connect', () => {
             toolbox = diagram.get('toolbox');
         });
 
-        it('should have set the factory on enable', () => {
-            toolbox.activate('connect', { factory: { create: () => { } } });
+        let testFactory;
 
-            expect(connect.factory).toBeDefined();
-            expect(typeof connect.factory.create).toBe('function');
-            expect(connect.factory.constructor.name).not.toBe('DefaultFactory');
+        beforeEach(() => {
+            toolbox = diagram.get('toolbox');
         });
 
-        it('should reset to default factory on disable', () => {
-            connect.factory = null;
-
-            toolbox.activate('connect');
-            toolbox.activate('some other tool');
-
-            expect(connect.factory.constructor.name).toBe('DefaultFactory');
+        beforeAll(() => {
+            testFactory = new TestFactory();
         });
+
+        it('should set the factory of enable', () => {
+            toolbox.activate('connect', { factory: testFactory });
+            const factory = diagram.get('factory');
+
+            expect(factory.factory.constructor.name).toBe('TestFactory');
+        });
+
+        it('should reset the factory of disable', () => {
+            toolbox.activate('connect', { factory: testFactory });
+            toolbox.activate('test');
+            const factory = diagram.get('factory');
+
+            expect(factory.factory.constructor.name).toBe('DefaultFactory');
+        });
+
     });
 
 });
