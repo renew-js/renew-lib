@@ -9,7 +9,7 @@ export class Importer {
 
     import (data) {
         this.verify(data);
-        this.parseElements(data.elements);
+        this.createElements(data.elements);
     }
 
     verify (data) {
@@ -18,7 +18,7 @@ export class Importer {
         }
     }
 
-    parseElements (elements) {
+    createElements (elements) {
         elements.forEach((element) => {
             switch (element.type) {
                 case 'shape':
@@ -45,7 +45,9 @@ export class Importer {
         const target = this.elementRegistry.get(element.targetId);
         element.source = source;
         element.target = target;
-        element.waypoints = this.layouter.layoutConnection(element);
+        if (!element.waypoints) {
+            element.waypoints = this.layouter.layoutConnection(element);
+        }
         this.canvas.addConnection(element, parent);
     }
 
