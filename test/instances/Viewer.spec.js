@@ -1,7 +1,7 @@
 import Viewer from '../../src/Viewer';
 
 
-describe('instances/viewer - Viewer', () => {
+describe('instances - Viewer', () => {
     let viewer;
 
     beforeEach(() => {

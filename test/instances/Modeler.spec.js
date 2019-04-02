@@ -1,7 +1,7 @@
 import Modeler from '../../src/Modeler';
 
 
-describe('instances/modeler - Modeler', () => {
+describe('instances - Modeler', () => {
     let modeler;
 
     beforeEach(() => {

@@ -1,7 +1,7 @@
 import Simulator from '../../src/Simulator';
 
 
-describe('instances/simulator - Simulator', () => {
+describe('instances - Simulator', () => {
     let simulator;
 
     beforeEach(() => {
