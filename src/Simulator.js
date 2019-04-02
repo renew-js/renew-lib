@@ -8,7 +8,9 @@ import Viewer from './Viewer';
  */
 export default class Simulator extends Viewer {
 
-    constructor (options = {}) {
+    constructor (options = { canvas: { } }) {
+        options.canvas.id = 'rnw-simulator';
+
         super(Object.assign({
             modules: [
                 // MetaSimulatingModule,
