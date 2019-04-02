@@ -41,6 +41,8 @@ export default class Viewer extends Diagram {
         parentNode.appendChild(this.container);
 
         this.get('canvas').resized();
+
+        this.fire('attached', { instance: this });
     }
 
     detach () {
@@ -51,6 +53,8 @@ export default class Viewer extends Diagram {
         }
 
         parentNode.removeChild(this.container);
+
+        this.fire('detached', { instance: this });
     }
 
     fire (eventName, payload, middleware) {
