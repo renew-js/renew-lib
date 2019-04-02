@@ -56,15 +56,15 @@ export default class Viewer extends Diagram {
     }
 
     fire (eventName, context) {
-        this.get('eventBus').fire(eventName, context);
+        return this.get('eventBus').fire(eventName, context);
     }
 
     on (eventName, callback) {
         this.get('eventBus').on(eventName, callback);
     }
 
-    off () {
-        // TODO
+    off (eventName, callback) {
+        this.get('eventBus').off(eventName, callback);
     }
 
     addFormalism (plugin) {
