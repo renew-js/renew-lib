@@ -37,9 +37,13 @@ describe('instances - Viewer', () => {
     });
 
     describe('Event handling', function () {
+        let context;
         let callback;
 
-        beforeEach(() => callback = () => true);
+        beforeEach(() => {
+            context = { fired: false };
+            callback = () => context.fired = true;
+        });
 
         it('should register event', function () {
             viewer.on('test', callback);
@@ -52,18 +56,18 @@ describe('instances - Viewer', () => {
         it('should fire event', function () {
             viewer.on('test', callback);
 
-            const context = viewer.fire('test');
+            viewer.fire('test');
 
-            expect(context).toBe(true);
+            expect(context.fired).toBe(true);
         });
 
         it('should unregister event', function () {
             viewer.on('test', callback);
             viewer.off('test', callback);
 
-            const context = viewer.fire('test');
+            viewer.fire('test');
 
-            expect(context).toBe(undefined);
+            expect(context.fired).toBe(false);
         });
     });
 });
