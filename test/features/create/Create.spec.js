@@ -121,14 +121,13 @@ describe('modules/create - Create', () => {
             expect(factory.factory.constructor.name).toBe('DefaultFactory');
         });
 
-        // TODO #75
-        // it('should have a position', () => {
-        //     document.dispatchEvent(new MouseEvent('mousemove', {
-        //         pageX: 250,
-        //         pageY: 320,
-        //     }));
-        //     toolbox.activate('create');
-        // });
+        it('should have a position', () => {
+            document.dispatchEvent(new MouseEvent('mousemove', {
+                clientX: 250,
+                clientY: 320,
+            }));
+            toolbox.activate('create');
+        });
 
     });
 });
