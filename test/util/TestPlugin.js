@@ -3,20 +3,28 @@ import Formalism from 'renew-formalism';
 
 export class TestPlugin extends Formalism.Plugin {
 
+    constructor () {
+        super();
+        this.type = 'test';
+    }
+
     getMetaModel () {
         return Formalism.Ontology.MetaModel.fromJson({
             type: 'test',
             classifiers: [
                 {
-                    type: 'classifiers_1',
+                    type: 'classifier_1',
+                    labels: [ 'label_1' ],
                 },
                 {
-                    type: 'classifiers_2',
+                    type: 'classifier_2',
+                    labels: [ 'label_1' ],
                 },
             ],
             relations: [
                 {
                     type: 'relation_1',
+                    labels: [ 'label_1' ],
                 },
             ],
         });
@@ -72,6 +80,18 @@ export class TestPlugin extends Formalism.Plugin {
                 },
             ],
         });
+    }
+
+    getSerializer (format) {
+        return {
+            serialize: (data) => data,
+        };
+    }
+
+    getParser (format) {
+        return {
+            parse: (data) => data,
+        };
     }
 
 }
