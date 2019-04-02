@@ -1,12 +1,12 @@
 import ExportModule from '../../../src/features/export';
 import { Tester } from '../../Tester';
+import { TestPlugin } from '../../util/TestPlugin';
 
 
 describe('modules/export - Export', () => {
     let diagram;
     let exporter;
     let jsonSerializer;
-    let elementRegistry;
     let canvas;
     let shape1;
     let shape2;
@@ -16,7 +16,6 @@ describe('modules/export - Export', () => {
         diagram = new Tester({ modules: [ ExportModule ] });
         exporter = diagram.get('exporter');
         jsonSerializer = diagram.get('jsonSerializer');
-        elementRegistry = diagram.get('elementRegistry');
         canvas = diagram.get('canvas');
     });
 
@@ -114,6 +113,24 @@ describe('modules/export - Export', () => {
                 additionalData: {
                     foo: 'bar',
                 },
+            });
+        });
+
+        it('should fire meta import', () => {
+            const testPlugin = new TestPlugin();
+            eventBus.fire('plugin.register', {
+                plugin: testPlugin,
+            });
+
+            eventBus.on('export', (data) => {
+                expect(data.elements.length).toBe(3);
+                expect(data.foo).toBe('bar');
+            });
+
+            eventBus.fire('export.meta', {
+                model: 'test',
+                format: 'test',
+                additionalData: { foo: 'bar' },
             });
         });
     });
