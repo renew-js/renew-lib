@@ -122,10 +122,11 @@ describe('modules/create - Create', () => {
         });
 
         it('should have a position', () => {
-            document.dispatchEvent(new MouseEvent('mousemove', {
+            const position = JSON.parse(JSON.stringify({
                 clientX: 250,
                 clientY: 320,
             }));
+            document.dispatchEvent(new MouseEvent('mousemove', position));
             toolbox.activate('create');
         });
 
