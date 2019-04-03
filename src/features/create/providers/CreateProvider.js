@@ -4,7 +4,7 @@ export class CreateProvider {
         this.factory = factory;
     }
 
-    element (x, y) {
+    shape (x, y) {
         return this.factory.createShape({ x: x, y: y });
     }
 

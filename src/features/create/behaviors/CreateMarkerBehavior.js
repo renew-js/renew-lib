@@ -14,7 +14,7 @@ export class CreateMarkerBehavior extends Behavior {
     update (event) {
         if (!event.hover) {
             this.clear();
-        } else if (this.policy.allowed('create.element', { })) {
+        } else if (this.policy.allowed('create.shape', { })) {
             this._setMarker(event.hover, 'new-parent');
             this.marked.push(event.hover);
         } else {

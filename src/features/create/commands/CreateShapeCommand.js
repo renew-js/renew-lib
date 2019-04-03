@@ -13,12 +13,12 @@ export class CreateShapeCommand extends Command {
     }
 
     canExecute (context) {
-        return this.policy.allowed('create.element', context);
+        return this.policy.allowed('create.shape', context);
     }
 
     preExecute (context) {
         if (!context.shape) {
-            context.shape = this.create.element();
+            context.shape = this.create.shape();
         }
         this.state.shape = context.shape;
         this.state.shape.x = context.x || this.state.shape.x;

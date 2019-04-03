@@ -5,7 +5,7 @@ import { CreatePreviewBehavior } from './behaviors/CreatePreviewBehavior';
 import { CreateShapeCommand } from './commands/CreateShapeCommand';
 import { CreateProvider } from './providers/CreateProvider';
 import { CreateTool } from './tools/CreateTool';
-import { CreateElementBehavior } from './behaviors/CreateElementBehavior';
+import { CreateShapeBehavior } from './behaviors/CreateShapeBehavior';
 
 
 export default {
@@ -16,12 +16,12 @@ export default {
         'create',
     ],
     __behaviors__: [
-        [ 'create.element', CreateElementBehavior ],
+        [ 'create.shape', CreateShapeBehavior ],
         [ 'create.preview', CreatePreviewBehavior ],
         [ 'create.marker', CreateMarkerBehavior ],
     ],
     __commands__: [
-        [ 'create.element', CreateShapeCommand ],
+        [ 'create.shape', CreateShapeCommand ],
     ],
     __rules__: [],
     __tools__: [

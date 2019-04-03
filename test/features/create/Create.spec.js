@@ -20,7 +20,7 @@ describe('modules/create - Create', () => {
     describe('Provider', () => {
 
         it('should creat a shape', () => {
-            const element = create.element(50, 150);
+            const element = create.shape(50, 150);
 
             expect(element.x).toBe(50);
             expect(element.y).toBe(150);
@@ -36,8 +36,8 @@ describe('modules/create - Create', () => {
         it('should create a shape', function () {
             const count = canvas.getRootElement().children.length;
 
-            commandStack.execute('create.element', {
-                shape: create.element(50, 60),
+            commandStack.execute('create.shape', {
+                shape: create.shape(50, 60),
             });
 
             const root = canvas.getRootElement();
@@ -50,7 +50,7 @@ describe('modules/create - Create', () => {
         it('should create a shape without a specific shape', function () {
             const count = canvas.getRootElement().children.length;
 
-            commandStack.execute('create.element', { x: 50, y: 60 });
+            commandStack.execute('create.shape', { x: 50, y: 60 });
 
             const root = canvas.getRootElement();
 
@@ -69,7 +69,7 @@ describe('modules/create - Create', () => {
         it('should create a shape', function () {
             const count = canvas.getRootElement().children.length;
 
-            eventBus.fire('create.element', { x: 50, y: 60 });
+            eventBus.fire('create.shape', { x: 50, y: 60 });
 
             const root = canvas.getRootElement();
 
@@ -81,7 +81,7 @@ describe('modules/create - Create', () => {
         it('should create a center oriented shape', function () {
             const count = canvas.getRootElement().children.length;
 
-            eventBus.fire('create.element.center', {
+            eventBus.fire('create.shape.center', {
                 x: 50, y: 60, width: 25, height: 20,
             }, true);
 
