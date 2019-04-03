@@ -9,12 +9,12 @@ export class CreateTool extends Tool {
 
     onDisable (event) {
         this.eventBus.fire('factory.reset', event);
-        this.eventBus.fire('create.cursor.unset', event);
+        this.eventBus.fire('cursor.unset', event);
     }
 
     onEnable (event) {
         this.eventBus.fire('factory.set', event);
-        this.eventBus.fire('create.cursor.grabbing', event);
+        this.eventBus.fire('cursor.set.grabbing', event);
         this.eventBus.fire('create.preview.init', event);
     }
 

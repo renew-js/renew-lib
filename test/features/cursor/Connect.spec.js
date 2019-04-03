@@ -52,6 +52,18 @@ describe('modules/cursor - Cursor', () => {
             expect(document.body.style.cursor).toBe('default');
         });
 
+        it('should set the cursor to pointer', () => {
+            eventBus.fire('cursor.set.pointer');
+
+            expect(document.body.style.cursor).toBe('pointer');
+        });
+
+        it('should set the cursor to grabbing', () => {
+            eventBus.fire('cursor.set.grabbing');
+
+            expect(document.body.style.cursor).toBe('grabbing');
+        });
+
     });
 
 });

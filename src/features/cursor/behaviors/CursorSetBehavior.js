@@ -12,4 +12,12 @@ export class CursorSetBehavior extends Behavior {
         this.cursor.set(event.cursor);
     }
 
+    pointer (event) {
+        this.cursor.set('pointer');
+    }
+
+    grabbing (event) {
+        this.cursor.set('grabbing');
+    }
+
 }

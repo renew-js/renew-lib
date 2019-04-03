@@ -1,6 +1,5 @@
 import FactoryModule from '../factory';
 
-import { CreateCursorBehavior } from './behaviors/CreateCursorBehavior';
 import { CreateMarkerBehavior } from './behaviors/CreateMarkerBehavior';
 import { CreatePreviewBehavior } from './behaviors/CreatePreviewBehavior';
 import { CreateShapeCommand } from './commands/CreateShapeCommand';
@@ -20,7 +19,6 @@ export default {
         [ 'create.element', CreateElementBehavior ],
         [ 'create.preview', CreatePreviewBehavior ],
         [ 'create.marker', CreateMarkerBehavior ],
-        [ 'create.cursor', CreateCursorBehavior ],
     ],
     __commands__: [
         [ 'create.element', CreateShapeCommand ],
