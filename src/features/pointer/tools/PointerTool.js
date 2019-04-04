@@ -14,6 +14,7 @@ export class PointerTool extends Tool {
 
     onDisable (event) {
         this.eventBus.fire('selection.clear');
+        this.eventBus.fire('preview.clear');
     }
 
     onEnable (event) {
