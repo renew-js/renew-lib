@@ -48,13 +48,13 @@ export default class Viewer extends Diagram {
     }
 
     detach () {
-        this.fire('detach.before', { instance: this });
-
         const parentNode = this.container.parentNode;
 
         if (!parentNode) {
             return;
         }
+
+        this.fire('detach.before', { instance: this });
 
         parentNode.removeChild(this.container);
 
