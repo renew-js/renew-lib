@@ -21,9 +21,21 @@ export class Toolbox {
         this.mouseEvent = { };
         this.pos = { x: 0, y: 0 };
 
+        eventBus.on('attach.after', () => this.afterAttach());
+        eventBus.on('detach.before', () => this.beforeDetach());
+    }
+
+    afterAttach () {
         event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
         event.bind(document, 'mousemove', this.onMouseMove.bind(this), true);
         event.bind(document, 'mouseup', this.onMouseUp.bind(this), true);
+    }
+
+    beforeDetach () {
+        this.deactivate();
+        event.unbind(document, 'mousedown', this.onMouseDown, true);
+        event.unbind(document, 'mousemove', this.onMouseMove, true);
+        event.unbind(document, 'mouseup', this.onMouseUp, true);
     }
 
     setDefaultTool (name) {
@@ -53,6 +65,18 @@ export class Toolbox {
             this.activeTool.onEnable(this.mouseEvent);
         }
         return this.activeTool;
+    }
+
+    deactivate () {
+        if (!this.activeTool) return;
+
+        this.previousTool = this.activeTool;
+
+        this.mouseDown = false;
+        this.mouseEvent = { };
+
+        this.activeTool.onDisable({});
+        this.activeTool = null;
     }
 
     activatePrevious (context) {
