@@ -29,6 +29,7 @@ export class CreatePreviewBehavior extends Behavior {
     }
 
     clear (event) {
+        this.shape = null;
         this.eventBus.fire('preview.clear', event);
     }
 
