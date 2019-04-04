@@ -29,6 +29,9 @@ export class Toolbox {
         event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
         event.bind(document, 'mousemove', this.onMouseMove.bind(this), true);
         event.bind(document, 'mouseup', this.onMouseUp.bind(this), true);
+        if (this.defaultTool) {
+            this.activate(this.defaultTool);
+        }
     }
 
     beforeDetach () {
@@ -103,7 +106,7 @@ export class Toolbox {
     }
 
     onMouseUp (event) {
-        if (!this.activeTool) return;
+        if (!this.activeTool || !this.mouseDown) return;
 
         this.mouseDown = false;
         this.mouseEvent = this.createMouseEvent(event);
