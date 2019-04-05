@@ -1,7 +1,7 @@
 import { Command } from '../../../core/command/Command';
 
 
-export class ConnectElementsCommand extends Command {
+export class CreateConnectionCommand extends Command {
 
     constructor (canvas, layouter) {
         super();
@@ -9,13 +9,14 @@ export class ConnectElementsCommand extends Command {
         this.layouter = layouter;
     }
 
-    execute (context) {
+    preExecute (context) {
         context.connection.waypoints = this.layouter.layoutConnection(
             context.connection
         );
+    }
 
+    execute (context) {
         this.canvas.addConnection(context.connection);
-
         return context.connection;
     }
 

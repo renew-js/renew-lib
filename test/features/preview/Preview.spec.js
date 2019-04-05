@@ -1,4 +1,3 @@
-// import { create, append } from 'tiny-svg';
 import PreviewModule from '../../../src/features/preview';
 import CreateModule from '../../../src/features/create';
 import { Tester } from '../../Tester';
@@ -129,7 +128,7 @@ describe('modules/preview - Preview', () => {
 
             beforeEach(() => diagram.injector.loadModule(CreateModule));
 
-            it('should be defined', () => {
+            it('should be defined (create)', () => {
                 const create = diagram.get('create');
 
                 expect(create).toBeDefined();

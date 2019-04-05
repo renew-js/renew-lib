@@ -26,14 +26,11 @@ export class CreateShapeCommand extends Command {
     }
 
     execute (context) {
-        return this.canvas._addElement(this.state.shape.type, this.state.shape);
+        return this.canvas.addShape(this.state.shape);
     }
 
     revert (context) {
         this.canvas.removeShape(this.state.shape);
-    }
-
-    postExecute (context) {
     }
 
 }
