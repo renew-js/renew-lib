@@ -1,5 +1,3 @@
-import { event } from 'min-dom';
-
 import { Behavior } from '../../eventBus/Behavior';
 
 
