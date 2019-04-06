@@ -15,6 +15,7 @@ export class PointerTool extends Tool {
     onDisable (event) {
         this.eventBus.fire('selection.clear');
         this.eventBus.fire('preview.clear');
+        this.eventBus.fire('rubberBand.preview.clear');
     }
 
     onEnable (event) {
