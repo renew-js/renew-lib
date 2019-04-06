@@ -29,13 +29,10 @@ export class Toolbox {
         event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
         event.bind(document, 'mousemove', this.onMouseMove.bind(this), true);
         event.bind(document, 'mouseup', this.onMouseUp.bind(this), true);
-        if (this.defaultTool) {
-            this.activate(this.defaultTool);
-        }
     }
 
     beforeDetach () {
-        this.deactivate();
+        this.activateDefault();
         event.unbind(document, 'mousedown', this.onMouseDown, true);
         event.unbind(document, 'mousemove', this.onMouseMove, true);
         event.unbind(document, 'mouseup', this.onMouseUp, true);
@@ -70,16 +67,11 @@ export class Toolbox {
         return this.activeTool;
     }
 
-    deactivate () {
-        if (!this.activeTool) return;
-
-        this.previousTool = this.activeTool;
-
+    activateDefault () {
         this.mouseDown = false;
         this.mouseEvent = { };
 
-        this.activeTool.onDisable({});
-        this.activeTool = null;
+        this.activate(this.defaultTool);
     }
 
     activatePrevious (context) {
