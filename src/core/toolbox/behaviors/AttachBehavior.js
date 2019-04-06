@@ -11,24 +11,7 @@ export class AttachBehavior extends Behavior {
     }
 
     after () {
-        event.bind(
-            document,
-            'mousedown',
-            this.toolbox.onMouseDown.bind(this.toolbox),
-            true
-        );
-        event.bind(
-            document,
-            'mousemove',
-            this.toolbox.onMouseMove.bind(this.toolbox),
-            true
-        );
-        event.bind(
-            document,
-            'mouseup',
-            this.toolbox.onMouseUp.bind(this.toolbox),
-            true
-        );
+        this.toolbox.bindListeners();
     }
 
 }

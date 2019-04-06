@@ -20,6 +20,28 @@ export class Toolbox {
         this.mouseDown = false;
         this.mouseEvent = { };
         this.pos = { x: 0, y: 0 };
+
+        this.mouseDownListener = null;
+        this.mouseMoveListener = null;
+        this.mouseUpListener = null;
+    }
+
+    bindListeners () {
+        this.mouseDownListener = this.onMouseDown.bind(this);
+        this.mouseMoveListener = this.onMouseMove.bind(this);
+        this.mouseUpListener = this.onMouseUp.bind(this);
+        event.bind(document, 'mousedown', this.mouseDownListener, true);
+        event.bind(document, 'mousemove', this.mouseMoveListener, true);
+        event.bind(document, 'mouseup', this.mouseUpListener, true);
+    }
+
+    unbindListeners () {
+        event.unbind(document, 'mousedown', this.mouseDownListener, true);
+        event.unbind(document, 'mousemove', this.mouseMoveListener, true);
+        event.unbind(document, 'mouseup', this.mouseUpListener, true);
+        this.mouseDownListener = null;
+        this.mouseMoveListener = null;
+        this.mouseUpListener = null;
     }
 
     setDefaultTool (name) {
