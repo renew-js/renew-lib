@@ -38,13 +38,13 @@ export default class Viewer extends Diagram {
     attachTo (parentNode) {
         this.detach();
 
-        this.fire('attach.before', { instance: this, parentNode });
+        this.fire('attach.start', { instance: this, parentNode });
 
         parentNode.appendChild(this.container);
 
         this.get('canvas').resized();
 
-        this.fire('attach.after', { instance: this, parentNode });
+        this.fire('attach.end', { instance: this, parentNode });
     }
 
     detach () {
@@ -54,11 +54,11 @@ export default class Viewer extends Diagram {
             return;
         }
 
-        this.fire('detach.before', { instance: this });
+        this.fire('detach.start', { instance: this });
 
         parentNode.removeChild(this.container);
 
-        this.fire('detach.after', { instance: this });
+        this.fire('detach.end', { instance: this });
     }
 
     fire (eventName, payload, middleware) {
