@@ -6,8 +6,6 @@ export class KeyboardEvents {
     constructor (eventBus) {
         this.eventBus = eventBus;
 
-        this.keyDown = null;
-
         this.keyDownListener = null;
         this.keyUpListener = null;
     }
@@ -31,15 +29,11 @@ export class KeyboardEvents {
     onKeyDown (event) {
         if (event.defaultPrevented) return;
 
-        this.keyDown = event;
         this.eventBus.fire('keypress.start', { originalEvent: event });
     }
 
     onKeyUp (event) {
-        if (!this.keyDown) return;
-
         this.eventBus.fire('keypress.end', { originalEvent: event });
-        this.keyDown = null;
     }
 
 }
