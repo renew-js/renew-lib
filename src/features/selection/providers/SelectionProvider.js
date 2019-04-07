@@ -7,6 +7,10 @@ export class SelectionProvider extends Selection {
         super(eventBus);
     }
 
+    getAll () {
+        return this._selectedElements;
+    }
+
     clear () {
         this.select(null);
         this._selectedElements = [];
