@@ -30,7 +30,7 @@ export class TestPlugin extends Formalism.Plugin {
         });
     }
 
-    getStyleSheet () {
+    getStylesheet () {
         return Formalism.Ontology.Stylesheet.fromJson({
             'classifier-styles': [
                 {
@@ -56,6 +56,8 @@ export class TestPlugin extends Formalism.Plugin {
                     'line-style': 'normal-line',
                 },
             ],
+            'arrow-head-styles': [],
+            'text-styles': [],
         });
     }
 

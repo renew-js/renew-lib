@@ -14,6 +14,7 @@ export class ConnectTool extends Tool {
 
     onDisable (event) {
         this.eventBus.fire('factory.reset', event);
+        this.eventBus.fire('connect.preview.clear', event);
     }
 
     onEnable (event) {

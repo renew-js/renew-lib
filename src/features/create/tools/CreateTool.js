@@ -10,6 +10,8 @@ export class CreateTool extends Tool {
     onDisable (event) {
         this.eventBus.fire('factory.reset', event);
         this.eventBus.fire('create.cursor.unset', event);
+        this.eventBus.fire('create.preview.clear', event);
+        this.eventBus.fire('create.marker.clear', event);
     }
 
     onEnable (event) {

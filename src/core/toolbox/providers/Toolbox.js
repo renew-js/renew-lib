@@ -21,9 +21,27 @@ export class Toolbox {
         this.mouseEvent = { };
         this.pos = { x: 0, y: 0 };
 
-        event.bind(document, 'mousedown', this.onMouseDown.bind(this), true);
-        event.bind(document, 'mousemove', this.onMouseMove.bind(this), true);
-        event.bind(document, 'mouseup', this.onMouseUp.bind(this), true);
+        this.mouseDownListener = null;
+        this.mouseMoveListener = null;
+        this.mouseUpListener = null;
+    }
+
+    bindListeners () {
+        this.mouseDownListener = this.onMouseDown.bind(this);
+        this.mouseMoveListener = this.onMouseMove.bind(this);
+        this.mouseUpListener = this.onMouseUp.bind(this);
+        event.bind(document, 'mousedown', this.mouseDownListener, true);
+        event.bind(document, 'mousemove', this.mouseMoveListener, true);
+        event.bind(document, 'mouseup', this.mouseUpListener, true);
+    }
+
+    unbindListeners () {
+        event.unbind(document, 'mousedown', this.mouseDownListener, true);
+        event.unbind(document, 'mousemove', this.mouseMoveListener, true);
+        event.unbind(document, 'mouseup', this.mouseUpListener, true);
+        this.mouseDownListener = null;
+        this.mouseMoveListener = null;
+        this.mouseUpListener = null;
     }
 
     setDefaultTool (name) {
@@ -35,13 +53,13 @@ export class Toolbox {
         this.tools[name].type = name;
     }
 
-    activate (tool, context = {}) {
+    activate (name, context = {}) {
         if (this.activeTool) {
             this.activeTool.onDisable(context);
         }
 
         this.previousTool = this.activeTool;
-        this.activeTool = this.tools[tool];
+        this.activeTool = this.tools[name];
         this.activeContext = context;
         Object.assign(this.mouseEvent, context, {
             tool: this.activeTool,
@@ -53,6 +71,13 @@ export class Toolbox {
             this.activeTool.onEnable(this.mouseEvent);
         }
         return this.activeTool;
+    }
+
+    activateDefault () {
+        this.mouseDown = false;
+        this.mouseEvent = { };
+
+        this.activate(this.defaultTool);
     }
 
     activatePrevious (context) {
@@ -79,7 +104,7 @@ export class Toolbox {
     }
 
     onMouseUp (event) {
-        if (!this.activeTool) return;
+        if (!this.activeTool || !this.mouseDown) return;
 
         this.mouseDown = false;
         this.mouseEvent = this.createMouseEvent(event);
