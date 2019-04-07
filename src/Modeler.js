@@ -3,6 +3,7 @@ import OriginModule from 'diagram-js-origin';
 import ResizeModule from './features/resize';
 import PreviewModule from './features/preview';
 import SnappingModule from './features/snapping';
+import KeyboardEventsModule from './features/keyboard-events';
 
 import Viewer from './Viewer';
 import BaseToolsModule from './features/base-tools';
@@ -26,6 +27,7 @@ export default class Modeler extends Viewer {
                 OriginModule,
                 SnappingModule,
                 PreviewModule,
+                KeyboardEventsModule,
             ],
         }, options));
 
