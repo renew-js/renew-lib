@@ -26,7 +26,7 @@ describe('modules/keyboard-events - KeyboardEvents', () => {
         });
 
         it('it should fire keypress.start on key down', () => {
-            eventBus.on('keypress.start', (context) => {
+            eventBus.on('keypress.start', () => {
                 fired = true;
             });
 
@@ -37,7 +37,7 @@ describe('modules/keyboard-events - KeyboardEvents', () => {
         });
 
         it('it should fire keypress.end on key up', () => {
-            eventBus.on('keypress.end', (context) => {
+            eventBus.on('keypress.end', () => {
                 fired = true;
             });
 
@@ -48,15 +48,16 @@ describe('modules/keyboard-events - KeyboardEvents', () => {
         });
 
         it('it should not fire keypress.start if default was prevented', () => {
-            eventBus.on('keypress.start', (context) => {
+            eventBus.on('keypress.start', () => {
                 fired = true;
             });
 
             const event = new KeyboardEvent('keydown');
             event.preventDefault();
+            event.stopPropagation();
             document.dispatchEvent(event);
 
-            expect(fired).toBe(true);
+            expect(fired).toBe(false);
         });
 
     });
