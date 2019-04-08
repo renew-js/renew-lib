@@ -8,6 +8,10 @@ export class CreateConnectionTool extends CreateTool {
         this.policy = policy;
     }
 
+    onDisable (event) {
+        super.onDisable(event);
+        this.eventBus.fire('connect.preview.clear', event);
+    }
 
     onCreateDown (event) {
         if (!this.policy.allowed('connect.start')) {
