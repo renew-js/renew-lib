@@ -12,13 +12,11 @@ import { Injector } from './core/Injector';
 
 export default class Viewer extends Diagram {
 
-    constructor (options = { modules: [ ] }) {
-        // Create new container
+    constructor (options = { modules: [ ], canvas: { } }) {
         const container = document.createElement('div');
+        container.id = options.canvas.id || 'rnw-viewer';
         container.className = 'rnw-container';
 
-        // Pass container through options
-        options.canvas = options.canvas || {};
         options.canvas.container = container;
 
         const injector = new Injector([
@@ -40,9 +38,13 @@ export default class Viewer extends Diagram {
     attachTo (parentNode) {
         this.detach();
 
+        this.fire('attach.start', { instance: this, parentNode });
+
         parentNode.appendChild(this.container);
 
         this.get('canvas').resized();
+
+        this.fire('attach.end', { instance: this, parentNode });
     }
 
     detach () {
@@ -52,11 +54,15 @@ export default class Viewer extends Diagram {
             return;
         }
 
+        this.fire('detach.start', { instance: this });
+
         parentNode.removeChild(this.container);
+
+        this.fire('detach.end', { instance: this });
     }
 
-    fire (eventName, context) {
-        return this.get('eventBus').fire(eventName, context);
+    fire (eventName, payload, middleware) {
+        this.get('eventBus').fire(eventName, payload, middleware);
     }
 
     on (eventName, callback) {

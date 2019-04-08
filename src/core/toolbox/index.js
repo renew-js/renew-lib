@@ -1,5 +1,8 @@
 import { HoverBehavior } from './behaviors/HoverBehavior';
+import { AttachBehavior } from './behaviors/AttachBehavior';
+import { DetachBehavior } from './behaviors/DetachBehavior';
 import { OutBehavior } from './behaviors/OutBehavior';
+import { KeypressBehavior } from './behaviors/KeypressBehavior';
 import { PreviousToolBehavior } from './behaviors/PreviousToolBehavior';
 import { SnappedBehavior } from './behaviors/SnappedBehavior';
 import { ToolboxActivateBehavior } from './behaviors/ToolboxActivateBehavior';
@@ -16,8 +19,11 @@ export default {
         'toolbox',
     ],
     __behaviors__: [
+        [ 'attach', AttachBehavior ],
+        [ 'detach', DetachBehavior ],
         [ 'element.hover', HoverBehavior ],
         [ 'element.out', OutBehavior ],
+        [ 'keypress', KeypressBehavior ],
         [ 'tool-manager.update', ToolManagerBehavior ],
         [ 'toolbox.previous', PreviousToolBehavior ],
         [ 'toolbox.activate', ToolboxActivateBehavior ],
