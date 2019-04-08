@@ -37,22 +37,28 @@ export class RemoveElementsCommand extends Command {
     }
 
     _removeConnection (element) {
-        element.source.incoming.splice(
-            element.source.incoming.indexOf(element),
-            1
-        );
-        element.source.outgoing.splice(
-            element.source.outgoing.indexOf(element),
-            1
-        );
-        element.target.incoming.splice(
-            element.target.incoming.indexOf(element),
-            1
-        );
-        element.target.outgoing.splice(
-            element.target.outgoing.indexOf(element),
-            1
-        );
+        const source = element.source || null;
+        const target = element.target || null;
+
+        if (source) {
+            if (source.incoming) {
+                source.incoming.splice(source.incoming.indexOf(element), 1);
+            }
+
+            if (source.outgoing) {
+                source.outgoing.splice(source.outgoing.indexOf(element), 1);
+            }
+        }
+
+        if (target) {
+            if (target.incoming) {
+                target.incoming.splice(target.incoming.indexOf(element), 1);
+            }
+
+            if (target.outgoing) {
+                target.outgoing.splice(target.outgoing.indexOf(element), 1);
+            }
+        }
 
         this.canvas.removeConnection(element);
     }
