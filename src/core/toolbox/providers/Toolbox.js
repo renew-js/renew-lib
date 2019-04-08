@@ -123,6 +123,7 @@ export class Toolbox {
     onHover (event) {
         if (!this.activeTool) return;
 
+        // TODO: add mouseEvent to hover and out events
         // const mouseEvent = this.createMouseEvent(event);
         this.activeTool.onHover(event);
     }

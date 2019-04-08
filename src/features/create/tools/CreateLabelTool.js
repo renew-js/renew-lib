@@ -8,7 +8,7 @@ export class CreateLabelTool extends CreateTool {
     }
 
     onMouseDown (event) {
-
+        this.eventBus.fire('create.label', event);
     }
 
     onMouseMove (event) {

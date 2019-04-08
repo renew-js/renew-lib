@@ -25,11 +25,11 @@ export class CreateProvider {
 
     label (text, position) {
         return this.factory.createLabel({
-            text,
+            text: text || '',
             x: position.x,
             y: position.y,
-            width: 800,
-            height: 200,
+            width: 200,
+            height: 40,
         });
     }
 
