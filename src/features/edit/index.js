@@ -1,3 +1,6 @@
+import { EditProvider } from './providers/EditProvider';
+
+
 export default {
     __depends__: [],
     __init__: [],

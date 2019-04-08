@@ -4,7 +4,6 @@ import FactoryModule from '../factory';
 
 import { ConnectProvider } from './providers/ConnectProvider';
 import { ConnectPreviewBehavior } from './behaviors/ConnectPreviewBehavior';
-import { ConnectElementsBehavior } from './behaviors/ConnectElementsBehavior';
 import { ConnectStartRule } from './rules/ConnectStartRule';
 import { ConnectEndRule } from './rules/ConnectEndRule';
 
@@ -20,7 +19,6 @@ export default {
     ],
     __behaviors__: [
         [ 'connect.preview', ConnectPreviewBehavior ],
-        [ 'connect.elements', ConnectElementsBehavior ],
     ],
     __commands__: [],
     __rules__: [

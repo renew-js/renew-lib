@@ -1,14 +1,10 @@
 export class ConnectProvider {
 
-    constructor () {
+    source (connection, source) {
 
     }
 
-    source (connection, shape) {
-
-    }
-
-    target (connection, shape) {
+    target (connection, target) {
 
     }
 
