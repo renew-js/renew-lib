@@ -18,46 +18,48 @@ describe('modules/keyboard-events - KeyboardEvents', () => {
     });
 
     describe('Provider', () => {
-        let fired;
+        let keyDownFired;
+        let keyUpFired;
+        let onKeyDown;
+        let onKeyUp;
 
         beforeEach(() => {
             keyboardEvents.bindListeners();
-            fired = false;
+            keyDownFired = false;
+            keyUpFired = false;
+            onKeyDown = () => keyDownFired = true;
+            onKeyUp = () => keyUpFired = true;
+            eventBus.on('keypress.start', onKeyDown);
+            eventBus.on('keypress.end', onKeyUp);
+        });
+
+        afterEach(() => {
+            keyboardEvents.unbindListeners();
+            eventBus.off('keypress.start', onKeyDown);
+            eventBus.off('keypress.end', onKeyUp);
         });
 
         it('it should fire keypress.start on key down', () => {
-            eventBus.on('keypress.start', () => {
-                fired = true;
-            });
-
             const event = new KeyboardEvent('keydown');
             document.dispatchEvent(event);
 
-            expect(fired).toBe(true);
+            expect(keyDownFired).toBe(true);
         });
 
         it('it should fire keypress.end on key up', () => {
-            eventBus.on('keypress.end', () => {
-                fired = true;
-            });
-
             const event = new KeyboardEvent('keyup');
             document.dispatchEvent(event);
 
-            expect(fired).toBe(true);
+            expect(keyUpFired).toBe(true);
         });
 
         it('it should not fire keypress.start if default was prevented', () => {
-            eventBus.on('keypress.start', () => {
-                fired = true;
-            });
-
             const event = new KeyboardEvent('keydown');
             event.preventDefault();
             event.stopPropagation();
             document.dispatchEvent(event);
 
-            expect(fired).toBe(false);
+            expect(keyDownFired).toBe(false);
         });
 
     });
