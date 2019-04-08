@@ -12,8 +12,6 @@ export class KeypressBehavior extends Behavior {
     }
 
     after (event) {
-        let elements;
-
         switch (event.originalEvent.key) {
             case 'Delete':
             case 'Backspace':
