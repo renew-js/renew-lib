@@ -12,7 +12,7 @@
     "prebuild": "npm run lint-fix",
     "build": "webpack --mode=production"
   },
-  "huskey": {
+  "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
     }
