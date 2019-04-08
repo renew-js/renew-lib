@@ -40,20 +40,24 @@ export class RemoveElementsCommand extends Command {
         const source = element.source || null;
         const target = element.target || null;
 
-        if (source && source.incoming) {
-            source.incoming.splice(source.incoming.indexOf(element), 1);
+        if (source) {
+            if (source.incoming) {
+                source.incoming.splice(source.incoming.indexOf(element), 1);
+            }
+
+            if (source.outgoing) {
+                source.outgoing.splice(source.outgoing.indexOf(element), 1);
+            }
         }
 
-        if (source && source.outgoing) {
-            source.outgoing.splice(source.outgoing.indexOf(element), 1);
-        }
+        if (target) {
+            if (target.incoming) {
+                target.incoming.splice(target.incoming.indexOf(element), 1);
+            }
 
-        if (target && target.incoming) {
-            target.incoming.splice(target.incoming.indexOf(element), 1);
-        }
-
-        if (target &&target.outgoing) {
-            target.outgoing.splice(target.outgoing.indexOf(element), 1);
+            if (target.outgoing) {
+                target.outgoing.splice(target.outgoing.indexOf(element), 1);
+            }
         }
 
         this.canvas.removeConnection(element);
