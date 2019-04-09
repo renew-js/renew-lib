@@ -5,6 +5,7 @@ import MetaFactoryModule from '../features/meta-factory';
 import { PluginRegisterBehavior } from './behaviors/PluginRegisterBehavior';
 import { SetRootElementBehavior } from './behaviors/SetRootElementBehavior';
 import { Renderer } from './Renderer';
+import { TextRenderer } from './TextRenderer';
 
 
 export default {
@@ -23,4 +24,5 @@ export default {
     ],
     styles: [ 'type', Styles ],
     renderer: [ 'type', Renderer ],
+    textRenderer: [ 'type', TextRenderer ],
 };
