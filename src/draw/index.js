@@ -14,8 +14,9 @@ export default {
         MetaFactoryModule,
     ],
     __init__: [
-        'renderer',
         'styles',
+        'renderer',
+        'textRenderer',
         'defaultFactory',
     ],
     __behaviors__: [

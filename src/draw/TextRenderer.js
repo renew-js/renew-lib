@@ -1,21 +1,26 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
+import { create, attr, append, classes } from 'tiny-svg';
+import TextUtils from 'diagram-js/lib/util/Text';
 
 
 export class TextRenderer extends BaseRenderer {
 
-    constructor (eventBus, canvas, style) {
+    constructor (eventBus, canvas) {
         super(eventBus, 10);
         this.canvas = canvas;
-        this.style = style;
+        this.textUtils = new TextUtils();
     }
 
     canRender (element) {
-        console.log('canRender', element);
         return element.type === 'label';
     }
 
     drawShape (graphics, element) {
-        console.log('drawShape', element);
+        const text = this.textUtils.createText(element.text, {});
+
+        classes(text, );
+        append(graphics, text);
+        return text;
     }
 
 }

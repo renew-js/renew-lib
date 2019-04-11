@@ -1,6 +1,7 @@
 export class EditProvider {
 
-    constructor (directEditing) {
+    constructor (commandStack, directEditing) {
+        this.commandStack = commandStack;
         this.directEditing = directEditing;
         this.directEditing.registerProvider(this);
 
@@ -33,7 +34,8 @@ export class EditProvider {
     }
 
     update (element, text, old, bounds) {
-        console.log('TODO', element, text, old, bounds);
+        this.label.text = text;
+        this.commandStack.execute('edit.label', { label: this.label, text });
     }
 
 }

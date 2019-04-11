@@ -11,7 +11,7 @@ export class EditTool extends Tool {
         this.directEditing = directEditing;
     }
 
-    onDisable () {
+    onDisable (event) {
         this.eventBus.fire('edit.complete');
     }
 
@@ -23,6 +23,9 @@ export class EditTool extends Tool {
         if (this.edit.isActive() && event.hover !== null) {
             this.toolbox.activateDefault();
         }
+    }
+
+    onMouseMove (event) {
     }
 
     onMouseUp (event) {

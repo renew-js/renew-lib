@@ -2,6 +2,7 @@ import DirectEditingModule from 'diagram-js-direct-editing';
 
 import { EditActivateBehavior } from './behaviors/EditActivateBehavior';
 import { EditCompleteBehavior } from './behaviors/EditCompleteBehavior';
+import { EditLabelCommand } from './commands/EditLabelCommand';
 import { EditProvider } from './providers/EditProvider';
 import { EditTool } from './tools/EditTool';
 
@@ -17,7 +18,9 @@ export default {
         [ 'edit.activate', EditActivateBehavior ],
         [ 'edit.complete', EditCompleteBehavior ],
     ],
-    __commands__: [],
+    __commands__: [
+        [ 'edit.label', EditLabelCommand ],
+    ],
     __rules__: [],
     __tools__: [
         [ 'edit', EditTool ],
