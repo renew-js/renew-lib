@@ -28,8 +28,8 @@ export class CreateProvider {
             text: text || '',
             x: position.x,
             y: position.y,
-            width: 200,
-            height: 40,
+            width: 150,
+            height: 50,
         });
     }
 
