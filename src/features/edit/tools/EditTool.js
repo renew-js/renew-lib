@@ -9,19 +9,23 @@ export class EditTool extends Tool {
         this.toolbox = toolbox;
         this.edit = edit;
         this.directEditing = directEditing;
+
+        this.label = { };
     }
 
     onDisable (event) {
-        this.eventBus.fire('edit.complete');
     }
 
     onEnable (event) {
-        this.eventBus.fire('edit.activate', { element: event.label });
+        this.label = event.label;
+        this.eventBus.fire('edit.activate', { element: this.label });
     }
 
     onMouseDown (event) {
-        if (this.edit.isActive() && event.hover !== null) {
-            this.toolbox.activateDefault();
+        if (this.edit.isActive()
+            && event.hover
+            && event.hover.id !== this.label.id) {
+            this.eventBus.fire('edit.complete');
         }
     }
 
@@ -33,6 +37,7 @@ export class EditTool extends Tool {
         if (!editingContent.innerHTML) {
             editingContent.innerHTML = '<br>';
         }
+        editingContent.focus();
         editingContent.focus();
     }
 

@@ -1,5 +1,5 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
-import { create, attr, append, classes } from 'tiny-svg';
+import { append, classes } from 'tiny-svg';
 import TextUtils from 'diagram-js/lib/util/Text';
 
 
@@ -16,9 +16,9 @@ export class TextRenderer extends BaseRenderer {
     }
 
     drawShape (graphics, element) {
-        const text = this.textUtils.createText(element.text, {});
-
-        classes(text, );
+        const options = element.options || { };
+        const text = this.textUtils.createText(element.text, options);
+        classes(text).add('djs-label');
         append(graphics, text);
         return text;
     }

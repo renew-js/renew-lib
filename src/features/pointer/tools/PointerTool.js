@@ -3,9 +3,10 @@ import { Tool } from '../../../core/toolbox/Tool';
 
 export class PointerTool extends Tool {
 
-    constructor (eventBus, selection) {
+    constructor (eventBus, toolbox, selection) {
         super();
         this.eventBus = eventBus;
+        this.toolbox = toolbox;
         this.selection = selection;
 
         this.isSelecting = false;
@@ -59,6 +60,12 @@ export class PointerTool extends Tool {
             this.eventBus.fire('rubberBand.select', event);
             this.eventBus.fire('rubberBand.preview.clear', event);
             this.isSelecting = false;
+        }
+    }
+
+    onDoubleClick (event) {
+        if (event.hover.type === 'label') {
+            this.toolbox.activate('edit', { label: event.hover });
         }
     }
 

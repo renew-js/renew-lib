@@ -47,4 +47,8 @@ export class Tool {
      */
     onOut (event) { }
 
+    /**
+     * @param {Object} event
+     */
+    onDoubleClick (event) { }
 }

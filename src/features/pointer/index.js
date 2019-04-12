@@ -3,6 +3,7 @@ import RubberBandModule from '../rubber-band';
 import MoveModule from '../move';
 
 import { SelectBehavior } from './behaviors/SelectBehavior';
+import { PointerProvider } from './providers/PointerProvider';
 import { PointerTool } from './tools/PointerTool';
 
 
@@ -12,7 +13,9 @@ export default {
         RubberBandModule,
         MoveModule,
     ],
-    __init__: [],
+    __init__: [
+        'pointer',
+    ],
     __behaviors__: [
         [ 'pointer.select', SelectBehavior ],
     ],
@@ -22,4 +25,6 @@ export default {
     __tools__: [
         [ 'pointer', PointerTool ],
     ],
+
+    pointer: [ 'type', PointerProvider ],
 };

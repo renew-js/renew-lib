@@ -60,6 +60,11 @@ export class Toolbox {
 
         this.previousTool = this.activeTool;
         this.activeTool = this.tools[name];
+
+        if (!this.activeTool) {
+            return null;
+        }
+
         this.activeContext = context;
         Object.assign(this.mouseEvent, context, {
             tool: this.activeTool,
@@ -134,6 +139,18 @@ export class Toolbox {
         // const mouseEvent = this.createMouseEvent(event);
         // mouseEvent.hover = event.element;
         this.activeTool.onOut(event);
+    }
+
+    onDoubleClick (event) {
+        if (!this.activeTool) return;
+
+        if (!this.hover) {
+            this.hover = event.element;
+            this.hoverGfx = event.gfx;
+        }
+        const originalEvent = event.originalEvent || this.mouseEvent;
+        this.mouseEvent = this.createMouseEvent(originalEvent);
+        this.activeTool.onDoubleClick(this.mouseEvent);
     }
 
     createMouseEvent (event) {

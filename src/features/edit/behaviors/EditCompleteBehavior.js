@@ -8,7 +8,7 @@ export class EditCompleteBehavior extends Behavior {
         this.directEditing = directEditing;
     }
 
-    during () {
+    during (event) {
         this.directEditing.complete();
     }
 

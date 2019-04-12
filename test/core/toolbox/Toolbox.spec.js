@@ -35,6 +35,10 @@ describe('core/toolbox - Toolbox', () => {
             this.state.mousedown = false;
         }
 
+        onDoubleClick (event) {
+            this.state.doubleClick = true;
+        }
+
     }
 
     beforeEach(() => {
@@ -88,11 +92,12 @@ describe('core/toolbox - Toolbox', () => {
     describe('Behavior', () => {
         let eventBus;
 
-        beforeEach(() => eventBus = diagram.get('eventBus'));
+        beforeEach(() => {
+            eventBus = diagram.get('eventBus');
+            eventBus.fire('toolbox.activate', { tool: 'test' });
+        });
 
         it('should activate tool', () => {
-            eventBus.fire('toolbox.activate', { tool: 'test' });
-
             expect(state.enabled).toBe(true);
         });
 
@@ -113,11 +118,15 @@ describe('core/toolbox - Toolbox', () => {
         });
 
         it('should reset tool before detach', () => {
-            eventBus.fire('toolbox.activate', { tool: 'test' });
-
             eventBus.fire('detach.start');
 
             expect(state.enabled).toBe(false);
+        });
+
+        it('should react on double click', () => {
+            eventBus.fire('element.dblclick');
+
+            expect(state.doubleClick).toBeTruthy();
         });
     });
 });

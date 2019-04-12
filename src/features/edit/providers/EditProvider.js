@@ -14,8 +14,8 @@ export class EditProvider {
 
     activate (element) {
         this.label = element;
-
-        return {
+        this.label.options = {
+            align: 'center-middle',
             bounds: {
                 x: element.x,
                 y: element.y,
@@ -29,8 +29,11 @@ export class EditProvider {
             options: {
                 resizable: true,
                 centerVertically: true,
+                autoActivate: true,
             },
         };
+
+        return this.label.options;
     }
 
     update (element, text, old, bounds) {
