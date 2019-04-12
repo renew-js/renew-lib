@@ -47,7 +47,7 @@ export class EditProvider {
             label: this.label,
             text: text,
             old: old,
-            bounds: bounds
+            bounds: bounds,
         });
     }
 

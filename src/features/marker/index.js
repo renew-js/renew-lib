@@ -6,7 +6,7 @@ import { MarkerProvider } from './providers/MarkerProvider';
 export default {
     __depends__: [],
     __init__: [
-        'marker'
+        'marker',
     ],
     __behaviors__: [
         [ 'marker.clear', MarkerClearBehavior ],
@@ -16,5 +16,5 @@ export default {
     __rules__: [],
     __tools__: [],
 
-    marker: [ 'type', MarkerProvider ]
+    marker: [ 'type', MarkerProvider ],
 };

@@ -20,7 +20,7 @@ export class CreateProvider {
             return { x: object.x, y: object.y };
         });
 
-        return this.factory.createConnection({ waypoints, source, target, });
+        return this.factory.createConnection({ waypoints, source, target });
     }
 
     label (text, position) {

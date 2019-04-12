@@ -20,14 +20,14 @@ export class CreateConnectionTool extends CreateTool {
     }
 
     onCreateMove (event) {
-//        if (this.policy.allowed('connect.start')) {
-//            this.eventBus.fire('cursor.unset');
+        // if (this.policy.allowed('connect.start')) {
+        //     this.eventBus.fire('cursor.unset');
         if (event.mouseDown) {
             this.eventBus.fire('connect.preview', event);
         }
-//        } else {
-//            this.eventBus.fire('cursor.set', { cursor: 'not-allowed' });
-//        }
+        // } else {
+        //     this.eventBus.fire('cursor.set', { cursor: 'not-allowed' });
+        // }
     }
 
     onCreateUp (event) {

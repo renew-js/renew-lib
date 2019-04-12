@@ -31,4 +31,5 @@ export class EditLabelCommand extends Command {
 
     revert (context) {
     }
+
 }
