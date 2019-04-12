@@ -37,8 +37,12 @@ export class EditProvider {
     }
 
     update (element, text, old, bounds) {
-        this.label.text = text;
-        this.commandStack.execute('edit.label', { label: this.label, text });
+        this.commandStack.execute('edit.label', {
+            label: this.label,
+            text: text,
+            old: old,
+            bounds: bounds
+        });
     }
 
 }

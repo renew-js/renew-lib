@@ -12,6 +12,10 @@ export class EditLabelCommand extends Command {
 
     execute (context) {
         context.label.text = context.text;
+        context.label.x = context.bounds.x;
+        context.label.y = context.bounds.y;
+        context.label.width = context.bounds.width;
+        context.label.height = context.bounds.height;
     }
 
     postExecute (context) {
