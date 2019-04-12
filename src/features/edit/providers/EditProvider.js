@@ -16,6 +16,12 @@ export class EditProvider {
         this.label = element;
         this.label.options = {
             align: 'center-middle',
+            box: {
+                x: element.x,
+                y: element.y,
+                width: element.width - 4,
+                height: element.height + 4,
+            },
             bounds: {
                 x: element.x,
                 y: element.y,
