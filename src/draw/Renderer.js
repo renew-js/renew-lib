@@ -41,7 +41,6 @@ export class Renderer extends BaseRenderer {
     }
 
     canRender (element) {
-        console.log('renderer', element);
         return (element.metaObject && element.metaObject.representation)
             || element.waypoints;
     }

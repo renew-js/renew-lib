@@ -27,7 +27,7 @@ export class MoveElementsCommand extends Command {
     }
 
     _isShape (shape) {
-        return shape.type === 'shape';
+        return shape.type === 'shape' || shape.type === 'label';
     }
 
     _moveShape (shape, dx, dy) {
@@ -37,7 +37,7 @@ export class MoveElementsCommand extends Command {
     _setPositionOfShape (shape, x, y) {
         shape.x = x;
         shape.y = y;
-        this._updateGraphics(shape);
+        this._updateGraphics(shape, 'shape');
     }
 
     _layoutConnection (connection) {
@@ -45,11 +45,11 @@ export class MoveElementsCommand extends Command {
         this._updateGraphics(connection);
     }
 
-    _updateGraphics (element) {
+    _updateGraphics (element, type) {
         const gfx = this.elementRegistery.getGraphics(element.id);
         const event = { elements: [ element ], element: element, gfx: gfx };
 
-        this.graphicsFactory.update(element.type, element, gfx);
+        this.graphicsFactory.update(type || element.type, element, gfx);
         this.eventBus.fire(element.type + '.changed', event);
         this.eventBus.fire('elements.changed', event);
         this.eventBus.fire('element.changed', event);
