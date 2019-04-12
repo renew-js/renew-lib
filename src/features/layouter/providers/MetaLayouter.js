@@ -13,6 +13,10 @@ export class MetaLayouter extends BaseLayouter {
         super();
     }
 
+    canLayout (element) {
+
+    }
+
     layoutConnection (connection, hints) {
         const line = [ getMid(connection.target), getMid(connection.source) ];
 
@@ -34,7 +38,7 @@ export class MetaLayouter extends BaseLayouter {
 
         let path; let segment; let segments; let intersects;
 
-        if (!shape.metaObject) {
+        if (!shape.metaObject || !shape.metaObject.representation) {
             return line[1];
         }
 
