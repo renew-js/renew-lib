@@ -39,10 +39,10 @@ export class SnappingProvider extends Snapping {
                     y: Math.abs(point.y - source.y - (snapOrigin.y || 0)),
                 };
                 if (current.x <= tolerance) {
-                    snapped.x = point.x - snapOrigin.x;
+                    snapped.x = point.x - (snapOrigin.x || 0);
                     this.showSnapLine('vertical', point.x);
                 } else if (current.y <= tolerance) {
-                    snapped.y = point.y - snapOrigin.y;
+                    snapped.y = point.y - (snapOrigin.y || 0);
                     this.showSnapLine('horizontal', point.y);
                 }
             });

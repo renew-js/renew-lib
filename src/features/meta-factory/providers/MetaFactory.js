@@ -1,4 +1,4 @@
-import ElementFactory from 'diagram-js/lib/core/ElementFactory';
+import { ElementFactory } from '../../factory/providers/ElementFactory';
 import { uid } from '../../../core/util/Uid';
 
 
@@ -37,22 +37,17 @@ export class MetaFactory extends ElementFactory {
         switch (this.getType(metaType)) {
             case 'shape':
                 return {
-                    businessObject: metaObject,
                     metaObject: metaObject,
                     width: metaObject.defaultDimension.width,
                     height: metaObject.defaultDimension.height,
                 };
             case 'connection':
                 return {
-                    businessObject: metaObject,
                     metaObject: metaObject,
                 };
             case 'label':
                 return {
-                    businessObject: metaObject,
                     metaObject: metaObject,
-                    width: metaObject.defaultDimension.width,
-                    height: metaObject.defaultDimension.height,
                 };
         }
     }
@@ -85,7 +80,7 @@ export class MetaFactory extends ElementFactory {
     }
 
     createLabel (attributes) {
-        return super.createConnection(Object.assign({
+        return super.createLabel(Object.assign({
             id: uid('label'),
             type: 'label',
         }, this.defaultAttributes, attributes));

@@ -3,6 +3,7 @@ import deprecated from './deprecated';
 
 const PRIORITY_DEFAULT = 1000;
 
+let result = [];
 let providers = [];
 let commands = [];
 let behaviors = [];
@@ -10,8 +11,6 @@ let rules = [];
 let tools = [];
 
 const bootstrap = (modules) => {
-    const result = [];
-
     const visited = (module) => result.indexOf(module) !== -1;
 
     const visit = (module) => {
@@ -45,6 +44,7 @@ export class Injector extends DiDiInjector {
     }
 
     copy () {
+        this.result = result;
         this.providers = providers;
         this.commands = commands;
         this.behaviors = behaviors;
@@ -61,6 +61,7 @@ export class Injector extends DiDiInjector {
     }
 
     load () {
+        result = this.result;
         providers = this.providers;
         commands = this.commands;
         behaviors = this.behaviors;
@@ -69,6 +70,7 @@ export class Injector extends DiDiInjector {
     }
 
     clear () {
+        result = [ ];
         providers = [ ];
         commands = [ ];
         behaviors = [ ];
@@ -80,6 +82,7 @@ export class Injector extends DiDiInjector {
         this.load();
         bootstrap([ module ]);
         this.copy();
+        module.__depends__.forEach(this.registerProviders.bind(this));
         this.registerProviders(module);
         this.initialize();
         this.clear();

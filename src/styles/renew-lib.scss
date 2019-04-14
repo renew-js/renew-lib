@@ -6,7 +6,13 @@
 @import 'minimap';
 
 .rnw-container {
+
   .djs-resizer-visual, .djs-outline, .djs-lasso-overlay {
     shape-rendering: initial !important;
   }
+
+  .djs-label {
+    user-select: none;
+  }
+
 }

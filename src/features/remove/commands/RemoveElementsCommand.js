@@ -16,6 +16,7 @@ export class RemoveElementsCommand extends Command {
     execute (context) {
         context.elements.forEach((element) => {
             switch (element.type) {
+                case 'label':
                 case 'shape':
                     this._removeShape(element);
                     break;

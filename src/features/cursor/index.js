@@ -5,7 +5,9 @@ import { CursorProvider } from './providers/CursorProvider';
 
 export default {
     __depends__: [],
-    __init__: [],
+    __init__: [
+        'cursor',
+    ],
     __behaviors__: [
         [ 'cursor.set', CursorSetBehavior ],
         [ 'cursor.unset', CursorUnsetBehavior ],

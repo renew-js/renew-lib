@@ -13,12 +13,12 @@ export class CreateShapeCommand extends Command {
     }
 
     canExecute (context) {
-        return this.policy.allowed('create.element', context);
+        return this.policy.allowed('create.shape', context);
     }
 
     preExecute (context) {
         if (!context.shape) {
-            context.shape = this.create.element();
+            context.shape = this.create.shape();
         }
         this.state.shape = context.shape;
         this.state.shape.x = context.x || this.state.shape.x;
@@ -26,14 +26,11 @@ export class CreateShapeCommand extends Command {
     }
 
     execute (context) {
-        return this.canvas._addElement(this.state.shape.type, this.state.shape);
+        return this.canvas.addShape(this.state.shape);
     }
 
     revert (context) {
         this.canvas.removeShape(this.state.shape);
-    }
-
-    postExecute (context) {
     }
 
 }

@@ -40,19 +40,8 @@ export class MetaPalette {
 
     activateTool (config) {
         this.factory.setType(config.type);
-        this.toolbox.activate(this.getTool(config), { factory: this.factory });
-    }
-
-    getTool (config) {
-        switch (this.factory.getType(config.type)) {
-            case 'shape':
-                return 'create';
-            case 'connection':
-                return 'connect';
-            case 'label':
-                return 'labeling';
-        }
-        return null;
+        const tool = 'create.' + this.factory.getType(config.type);
+        this.toolbox.activate(tool, { factory: this.factory });
     }
 
     addSeparator (type) {

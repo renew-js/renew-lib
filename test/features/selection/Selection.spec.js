@@ -139,7 +139,7 @@ describe('modules/selection - Selection', () => {
             it('should select the created element', () => {
                 expect(selection.count()).toBe(0);
 
-                eventBus.fire('create.element', {
+                eventBus.fire('create.shape', {
                     element: shape1,
                     x: 100,
                     y: 200,

@@ -1,17 +1,17 @@
 import { Behavior } from '../../../core/eventBus/Behavior';
 
 
-export class ConnectElementsBehavior extends Behavior {
+export class CreateConnectionBehavior extends Behavior {
 
-    constructor (commandStack, connect) {
+    constructor (commandStack, create) {
         super();
         this.commandStack = commandStack;
-        this.connect = connect;
+        this.create = create;
 
         this.connection = null;
     }
 
-    before (event) {
+    during (event) {
         let source;
         let target;
 
@@ -26,12 +26,8 @@ export class ConnectElementsBehavior extends Behavior {
             target = { x: event.x, y: event.y };
         }
 
-        this.connection = this.connect.connection(source, target);
-    }
-
-    during (event) {
-        event.connection = this.connection;
-        this.commandStack.execute('connect.elements', event);
+        const connection = this.create.connection(source, target);
+        this.commandStack.execute('create.connection', { connection });
     }
 
 }
