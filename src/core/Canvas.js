@@ -21,7 +21,6 @@ export class Canvas extends BaseCanvas {
     }
 
     addShape (shape, parent, parentIndex) {
-        console.log(shape);
         return super.addShape(shape, parent, parentIndex);
     }
 

@@ -1,9 +1,11 @@
+import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 
-export class HandleRenderer {
+export class HandleRenderer extends BaseRenderer {
 
-    constructor () {
-
+    constructor (eventBus, canvas) {
+        super(eventBus, 5);
+        this.canvas = canvas;
     }
 
     canRender (element) {
@@ -11,7 +13,6 @@ export class HandleRenderer {
     }
 
     drawShape (graphics, element) {
-
     }
 
 }
