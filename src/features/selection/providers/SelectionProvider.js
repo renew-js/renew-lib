@@ -1,14 +1,11 @@
 import Selection from 'diagram-js/lib/features/selection/Selection';
+import { getBBox } from 'diagram-js/lib/util/Elements';
 
 
 export class SelectionProvider extends Selection {
 
     constructor (eventBus) {
         super(eventBus);
-    }
-
-    getAll () {
-        return this._selectedElements;
     }
 
     clear () {
@@ -33,6 +30,10 @@ export class SelectionProvider extends Selection {
         elements.forEach((element) => {
             this.deselect(element);
         });
+    }
+
+    getBBox (elements) {
+        return getBBox(this.get());
     }
 
 }
