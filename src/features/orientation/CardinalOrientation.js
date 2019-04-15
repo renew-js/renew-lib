@@ -3,11 +3,11 @@ import { Orientation } from './Orientation';
 
 export class CardinalOrientation extends Orientation {
 
-    constructor (owner, orientation) {
+    constructor (owner, direction) {
         super(owner);
-        this.direction = orientation.direction;
-        if (typeof orientation.direction === 'string') {
-            this.direction = CardinalOrientation.parse(orientation.direction);
+        this.direction = direction;
+        if (typeof direction === 'string') {
+            this.direction = CardinalOrientation.parse(direction);
         }
     }
 
