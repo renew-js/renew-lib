@@ -3,9 +3,8 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class SelectedBehavior extends Behavior {
 
-    constructor (selection, canvas) {
+    constructor (canvas) {
         super();
-        this.selection = selection;
         this.canvas = canvas;
     }
 

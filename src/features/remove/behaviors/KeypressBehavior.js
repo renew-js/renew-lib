@@ -17,7 +17,7 @@ export class KeypressBehavior extends Behavior {
             case 'Backspace':
                 if (!this.selection.count()) return;
                 this.eventBus.fire('remove.elements', {
-                    elements: cloneDeep(this.selection.getAll()),
+                    elements: cloneDeep(this.selection.get()),
                 });
                 break;
             default:

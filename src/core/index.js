@@ -1,5 +1,5 @@
-import Canvas from 'diagram-js/lib/core/Canvas';
 import ElementRegistry from 'diagram-js/lib/core/ElementRegistry';
+import { Canvas } from './Canvas';
 import EventBusModule from './eventBus';
 import CommandStackModule from './command';
 import PolicyModule from './policy';
