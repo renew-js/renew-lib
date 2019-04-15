@@ -53,7 +53,7 @@ export class PointerTool extends Tool {
         event.elements = this.selection.get();
 
         if (this.isMoving) {
-            this.eventBus.fire('move.elements.by', event);
+            this.eventBus.fire('move.elements.by', event, true);
             this.eventBus.fire('preview.clear', event);
             this.isMoving = false;
         } else if (this.isSelecting) {
