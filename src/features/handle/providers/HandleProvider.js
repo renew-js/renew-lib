@@ -5,8 +5,11 @@ export class HandleProvider {
         this.canvas = canvas;
     }
 
-    create (orientation) {
-        return this.factory.createShape({ orientation });
+    create (orientation, attributes) {
+        return this.factory.createShape(Object.assign({},
+            { orientation },
+            attributes
+        ));
     }
 
     show (handle) {
