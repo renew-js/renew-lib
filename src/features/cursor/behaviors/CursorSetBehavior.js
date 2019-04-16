@@ -20,4 +20,12 @@ export class CursorSetBehavior extends Behavior {
         this.cursor.set('grabbing');
     }
 
+    nwse (event) {
+        this.cursor.set('nwse-resize');
+    }
+
+    nesw (event) {
+        this.cursor.set('nesw-resize');
+    }
+
 }
