@@ -1,3 +1,4 @@
+import { uid } from '../../../core/util/Uid';
 import { ElementFactory } from '../../factory/providers/ElementFactory';
 
 
@@ -9,6 +10,7 @@ export class HandleFactory extends ElementFactory {
 
     createShape (attributes = {}) {
         return super.createShape(Object.assign({
+            id: uid('handle'),
             type: 'handle',
             metaObject: {
                 representation: {
