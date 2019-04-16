@@ -83,10 +83,10 @@ export class SelectionProvider extends Selection {
         this.selectionHandles.hide();
 
         const bbox = getBBox(this.get());
-        this.bbox.x = bbox.x;
-        this.bbox.y = bbox.y;
-        this.bbox.width = bbox.width;
-        this.bbox.height = bbox.height;
+        this.bbox.x = bbox.x - 6;
+        this.bbox.y = bbox.y - 6;
+        this.bbox.width = bbox.width + 12;
+        this.bbox.height = bbox.height + 12;
 
         if (!this.empty()) {
             this.selectionHandles.show();
