@@ -9,11 +9,15 @@ describe('modules/selection - Selection', () => {
     let shape1;
     let shape2;
     let selection;
+    let selectionHandles;
     let canvas;
 
     beforeEach(() => diagram = new Tester({ modules: [ SelectionModule ] }));
 
-    beforeEach(() => selection = diagram.get('selection'));
+    beforeEach(() => {
+        selection = diagram.get('selection');
+        selectionHandles = diagram.get('selectionHandles');
+    });
 
     beforeEach(() => canvas = diagram.get('canvas'));
 
@@ -31,6 +35,7 @@ describe('modules/selection - Selection', () => {
 
     it('should be defined', () => {
         expect(selection).toBeDefined();
+        expect(selectionHandles).toBeDefined();
     });
 
     describe('Provider', () => {
@@ -66,6 +71,24 @@ describe('modules/selection - Selection', () => {
 
             expect(selection.count()).toBe(0);
         });
+
+        it('should show handles', function () {
+            selection.select(shape1);
+
+            selectionHandles.handles.forEach((handle) => {
+                expect(handle.visible).toBeTruthy();
+            });
+        });
+
+        it('should hide handles on clear', function () {
+            selection.select(shape1);
+            selection.clear();
+
+            selectionHandles.handles.forEach((handle) => {
+                expect(handle.visible).toBeFalsy();
+            });
+        });
+
     });
 
     describe('Behavior', () => {
