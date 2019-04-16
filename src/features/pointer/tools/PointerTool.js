@@ -1,4 +1,5 @@
 import { Tool } from '../../../core/toolbox/Tool';
+import { CardinalOrientation } from '../../orientation/CardinalOrientation';
 
 
 export class PointerTool extends Tool {
@@ -11,6 +12,7 @@ export class PointerTool extends Tool {
 
         this.isSelecting = false;
         this.isMoving = false;
+        this.isResizing = false;
     }
 
     onDisable (event) {
@@ -23,17 +25,22 @@ export class PointerTool extends Tool {
     }
 
     onMouseDown (event) {
-        if (event.hover) {
-            this.eventBus.fire('pointer.select', event);
-        }
-        event.elements = this.selection.get();
-        if (event.hover) {
-            if (event.rootStart) {
-                this.isSelecting = true;
-            } else {
-                this.eventBus.fire('move.preview.init', event);
-                this.isMoving = true;
+        if (event.hover && event.hover.type === 'handle') {
+            this.isResizing = event.hover.orientation.direction;
+        } else {
+            if (event.hover) {
+                this.eventBus.fire('pointer.select', event);
             }
+            event.elements = this.selection.get();
+            if (event.hover) {
+                if (event.rootStart) {
+                    this.isSelecting = true;
+                } else {
+                    this.eventBus.fire('move.preview.init', event);
+                    this.isMoving = true;
+                }
+            }
+
         }
     }
 
@@ -45,6 +52,21 @@ export class PointerTool extends Tool {
                 this.eventBus.fire('preview.move', event);
             } else if (this.isSelecting) {
                 this.eventBus.fire('rubberBand.preview', event);
+            } else if (this.isResizing) {
+                switch (this.isResizing) {
+                    case CardinalOrientation.NORTH_WEST:
+                        console.log('resize NORTH_WEST');
+                        break;
+                    case CardinalOrientation.NORTH_EAST:
+                        console.log('resize NORTH_EAST');
+                        break;
+                    case CardinalOrientation.SOUTH_EAST:
+                        console.log('resize SOUTH_EAST');
+                        break;
+                    case CardinalOrientation.SOUTH_WEST:
+                        console.log('resize SOUTH_WEST');
+                        break;
+                }
             }
         }
     }
@@ -60,12 +82,52 @@ export class PointerTool extends Tool {
             this.eventBus.fire('rubberBand.select', event);
             this.eventBus.fire('rubberBand.preview.clear', event);
             this.isSelecting = false;
+        } else if (this.isResizing) {
+            this.isResizing = false;
         }
     }
 
     onDoubleClick (event) {
         if (event.hover.type === 'label') {
             this.toolbox.activate('edit', { label: event.hover });
+        }
+    }
+
+    onHover (event) {
+        if (event.element && event.element.type === 'handle') {
+            switch (event.element.orientation.direction) {
+                case CardinalOrientation.NORTH_WEST:
+                    this.eventBus.fire('cursor.set.nwse');
+                    break;
+                case CardinalOrientation.NORTH_EAST:
+                    this.eventBus.fire('cursor.set.nesw');
+                    break;
+                case CardinalOrientation.SOUTH_EAST:
+                    this.eventBus.fire('cursor.set.nwse');
+                    break;
+                case CardinalOrientation.SOUTH_WEST:
+                    this.eventBus.fire('cursor.set.nesw');
+                    break;
+            }
+        }
+    }
+
+    onOut (event) {
+        if (event.element && event.element.type === 'handle') {
+            switch (event.element.orientation.direction) {
+                case CardinalOrientation.NORTH_WEST:
+                    this.eventBus.fire('cursor.unset');
+                    break;
+                case CardinalOrientation.NORTH_EAST:
+                    this.eventBus.fire('cursor.unset');
+                    break;
+                case CardinalOrientation.SOUTH_EAST:
+                    this.eventBus.fire('cursor.unset');
+                    break;
+                case CardinalOrientation.SOUTH_WEST:
+                    this.eventBus.fire('cursor.unset');
+                    break;
+            }
         }
     }
 
