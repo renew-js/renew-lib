@@ -94,6 +94,8 @@ export class PointerTool extends Tool {
     }
 
     onHover (event) {
+        if (this.isResizing) return;
+
         if (event.element && event.element.type === 'handle') {
             switch (event.element.orientation.direction) {
                 case CardinalOrientation.NORTH_WEST:
@@ -113,6 +115,8 @@ export class PointerTool extends Tool {
     }
 
     onOut (event) {
+        if (this.isResizing) return;
+
         if (event.element && event.element.type === 'handle') {
             switch (event.element.orientation.direction) {
                 case CardinalOrientation.NORTH_WEST:
