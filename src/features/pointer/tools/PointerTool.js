@@ -55,16 +55,16 @@ export class PointerTool extends Tool {
             } else if (this.isResizing) {
                 switch (this.isResizing) {
                     case CardinalOrientation.NORTH_WEST:
-                        console.log('resize NORTH_WEST');
+                        this.eventBus.fire('resize.element.nw', event, true);
                         break;
                     case CardinalOrientation.NORTH_EAST:
-                        console.log('resize NORTH_EAST');
+                        this.eventBus.fire('resize.element.ne', event, true);
                         break;
                     case CardinalOrientation.SOUTH_EAST:
-                        console.log('resize SOUTH_EAST');
+                        this.eventBus.fire('resize.element.se', event, true);
                         break;
                     case CardinalOrientation.SOUTH_WEST:
-                        console.log('resize SOUTH_WEST');
+                        this.eventBus.fire('resize.element.sw', event, true);
                         break;
                 }
             }
