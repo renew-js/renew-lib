@@ -7,6 +7,7 @@ describe('modules/export - Export', () => {
     let diagram;
     let exporter;
     let jsonSerializer;
+    let svgSerializer;
     let canvas;
     let shape1;
     let shape2;
@@ -16,6 +17,7 @@ describe('modules/export - Export', () => {
         diagram = new Tester({ modules: [ ExportModule ] });
         exporter = diagram.get('exporter');
         jsonSerializer = diagram.get('jsonSerializer');
+        svgSerializer = diagram.get('svgSerializer');
         canvas = diagram.get('canvas');
     });
 
@@ -41,6 +43,7 @@ describe('modules/export - Export', () => {
     it('should be defined', () => {
         expect(exporter).toBeDefined();
         expect(jsonSerializer).toBeDefined();
+        expect(svgSerializer).toBeDefined();
     });
 
     describe('Providers', () => {
@@ -116,15 +119,15 @@ describe('modules/export - Export', () => {
             });
         });
 
-        it('should fire meta import', () => {
+        it('should fire meta export', () => {
             const testPlugin = new TestPlugin();
             eventBus.fire('plugin.register', {
                 plugin: testPlugin,
             });
 
-            eventBus.on('export', (data) => {
-                expect(data.elements.length).toBe(3);
-                expect(data.foo).toBe('bar');
+            eventBus.on('export', (context) => {
+                expect(context.elements.length).toBe(3);
+                expect(context.foo).toBe('bar');
             });
 
             eventBus.fire('export.meta', {
@@ -132,6 +135,21 @@ describe('modules/export - Export', () => {
                 format: 'test',
                 additionalData: { foo: 'bar' },
             });
+        });
+
+        it('should fire svg export', () => {
+            eventBus.on('export', (context) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(
+                    context.payload,
+                    context.mimeType
+                );
+
+                expect(doc.documentElement).toBeDefined();
+                expect(doc.documentElement.nodeName).toBe('svg');
+            });
+
+            eventBus.fire('export.svg');
         });
     });
 });
