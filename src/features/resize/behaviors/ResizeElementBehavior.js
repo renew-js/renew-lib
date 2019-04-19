@@ -15,43 +15,13 @@ export class ResizeElementBehavior extends Behavior {
         this.resize.init(event.element.x, event.element.y);
     }
 
-    nw (event) {
-        const element = event.element || event.elements[0];
-        this.resize.element(element).dimension(
-            element.x,
-            element.y,
-            Math.abs(event.x - element.x),
-            Math.abs(event.y - element.y)
-        );
-    }
-
-    ne (event) {
-        const element = event.element || event.elements[0];
-        this.resize.element(element).dimension(
-            element.x,
-            element.y,
-            Math.abs(event.x - element.x),
-            Math.abs(event.y - element.y)
-        );
-    }
-
-    sw (event) {
-        const element = event.element || event.elements[0];
-        this.resize.element(element).dimension(
-            element.x,
-            element.y,
-            Math.abs(event.x - element.x),
-            Math.abs(event.y - element.y)
-        );
-    }
-
     se (event) {
         const element = event.element || event.elements[0];
         this.resize.element(element).dimension(
             element.x,
             element.y,
-            Math.abs(event.x - element.x),
-            Math.abs(event.y - element.y)
+            Math.max(element.minWidth || 0, event.x - element.x),
+            Math.max(element.minHeight || 0, event.y - element.y)
         );
     }
 
