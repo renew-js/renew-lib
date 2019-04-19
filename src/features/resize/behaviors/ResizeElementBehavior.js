@@ -1,21 +1,35 @@
 import { Behavior } from '../../../core/eventBus/Behavior';
 
-/**
- * Resize any shape and path relative to initial state
- */
-export class ResizeBehavior extends Behavior {
 
-    constructor (eventBus) {
+export class ResizeElementBehavior extends Behavior {
+
+    constructor (eventBus, resize, elementRegistry, graphicsFactory) {
         super();
         this.eventBus = eventBus;
+        this.resize = resize;
+        this.elementRegistry = elementRegistry;
+        this.graphicsFactory = graphicsFactory;
     }
 
-    during (event) {
-        console.log(event);
+    init (event) {
+        this.resize.init(event.element.x, event.element.y);
+    }
 
-        const shape = event.shape.businessObject;
+    se (event) {
+        const element = event.element || event.elements[0];
+        this.resize.element(element).dimension(
+            element.x,
+            element.y,
+            Math.max(element.minWidth || 0, event.x - element.x),
+            Math.max(element.minHeight || 0, event.y - element.y)
+        );
+    }
 
-        const bounds = event.context.newBounds;
+    after (event) {
+        const element = event.element || event.elements[0];
+        const shape = element.metaObject;
+
+        const bounds = element;
         const proportions = shape.representation.proportions;
 
         if (!proportions) return;
@@ -62,6 +76,18 @@ export class ResizeBehavior extends Behavior {
                 }
                 shape.representation.attributes.points = points.join(' ');
         }
+
+        this._updateGraphics(element, 'shape');
+    }
+
+    _updateGraphics (element, type) {
+        const gfx = this.elementRegistry.getGraphics(element.id);
+        const event = { elements: [ element ], element: element, gfx: gfx };
+
+        this.graphicsFactory.update(type || element.type, element, gfx);
+        this.eventBus.fire(element.type + '.changed', event);
+        this.eventBus.fire('elements.changed', event);
+        this.eventBus.fire('element.changed', event);
     }
 
 }

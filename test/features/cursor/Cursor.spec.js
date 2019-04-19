@@ -64,6 +64,18 @@ describe('modules/cursor - Cursor', () => {
             expect(document.body.style.cursor).toBe('grabbing');
         });
 
+        it('should set the cursor to nwse-resize', () => {
+            eventBus.fire('cursor.set.nwse');
+
+            expect(document.body.style.cursor).toBe('nwse-resize');
+        });
+
+        it('should set the cursor to nesw-resize', () => {
+            eventBus.fire('cursor.set.nesw');
+
+            expect(document.body.style.cursor).toBe('nesw-resize');
+        });
+
     });
 
 });

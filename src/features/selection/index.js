@@ -28,6 +28,7 @@ export default {
         [ 'shape.remove', SelectionRemoveBehavior ],
         [ 'connection.remove', SelectionRemoveBehavior ],
         [ 'move.elements', MoveElementsBehavior ],
+        [ 'resize.element', MoveElementsBehavior ],
     ],
     __commands__: [],
     __rules__: [],
