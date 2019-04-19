@@ -83,7 +83,7 @@ export class PointerTool extends Tool {
             this.eventBus.fire('rubberBand.preview.clear', event);
             this.isSelecting = false;
         } else if (this.isResizing) {
-            this.eventBus.fire('cursor.unset');
+            this.handleResizeCursor(event.hover);
             this.isResizing = false;
         }
     }
@@ -96,9 +96,12 @@ export class PointerTool extends Tool {
 
     onHover (event) {
         if (this.isResizing) return;
+        this.handleResizeCursor(event.element);
+    }
 
-        if (event.element && event.element.type === 'handle') {
-            switch (event.element.orientation.direction) {
+    handleResizeCursor (element) {
+        if (element && element.type === 'handle') {
+            switch (element.orientation.direction) {
                 case CardinalOrientation.NORTH_WEST:
                     this.eventBus.fire('cursor.set.nwse');
                     break;
@@ -112,6 +115,8 @@ export class PointerTool extends Tool {
                     this.eventBus.fire('cursor.set.nesw');
                     break;
             }
+        } else {
+            this.eventBus.fire('cursor.unset');
         }
     }
 

@@ -1,3 +1,4 @@
+import { CardinalOrientation } from '../../../src/features/orientation/CardinalOrientation';
 import { Tester } from '../../Tester';
 import PointerModule from '../../../src/features/pointer';
 import EditModule from '../../../src/features/edit';
@@ -67,6 +68,34 @@ describe('modules/pointer - Pointer', () => {
             toolbox.activeTool.onMouseUp({});
 
             expect(document.body.style.cursor).toBe('default');
+        });
+
+        it('should not reset if the mouse is still over a handle', function () {
+            document.body.style.cursor = 'nesw-resize';
+
+            toolbox.activeTool.isResizing = true;
+            toolbox.activeTool.onMouseUp({
+                hover: {
+                    type: 'handle',
+                    orientation: { direction: CardinalOrientation.NORTH_EAST },
+                }
+            });
+
+            expect(document.body.style.cursor).toBe('nesw-resize');
+        });
+
+        it('should change the cursor if landed on other resize handle', function () {
+            document.body.style.cursor = 'nesw-resize';
+
+            toolbox.activeTool.isResizing = true;
+            toolbox.activeTool.onMouseUp({
+                hover: {
+                    type: 'handle',
+                    orientation: { direction: CardinalOrientation.SOUTH_EAST },
+                }
+            });
+
+            expect(document.body.style.cursor).toBe('nwse-resize');
         });
 
     });
