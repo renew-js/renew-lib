@@ -83,6 +83,7 @@ export class PointerTool extends Tool {
             this.eventBus.fire('rubberBand.preview.clear', event);
             this.isSelecting = false;
         } else if (this.isResizing) {
+            this.eventBus.fire('cursor.unset');
             this.isResizing = false;
         }
     }

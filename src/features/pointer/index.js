@@ -1,6 +1,7 @@
 import SelectionModule from '../selection';
 import RubberBandModule from '../rubber-band';
 import MoveModule from '../move';
+import CursorModule from '../cursor';
 
 import { SelectBehavior } from './behaviors/SelectBehavior';
 import { PointerProvider } from './providers/PointerProvider';
@@ -9,6 +10,7 @@ import { PointerTool } from './tools/PointerTool';
 
 export default {
     __depends__: [
+        CursorModule,
         SelectionModule,
         RubberBandModule,
         MoveModule,
