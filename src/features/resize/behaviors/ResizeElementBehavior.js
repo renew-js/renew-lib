@@ -11,6 +11,10 @@ export class ResizeElementBehavior extends Behavior {
         this.graphicsFactory = graphicsFactory;
     }
 
+    init (event) {
+        this.resize.init(event.element.x, event.element.y);
+    }
+
     nw (event) {
         const element = event.element || event.elements[0];
         this.resize.element(element).dimension(

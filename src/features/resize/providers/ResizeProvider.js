@@ -1,7 +1,12 @@
 export class ResizeProvider {
 
     constructor () {
+        this.position = { x: 0, y: 0 };
+    }
 
+    init (x, y) {
+        this.position.x = x;
+        this.position.y = y;
     }
 
     element (element) {

@@ -30,6 +30,13 @@ describe('modules/resize - Resize', () => {
 
     describe('Provider', () => {
 
+        it('should init the resize', function () {
+            resize.init(50, 100);
+
+            expect(resize.position.x).toBe(50);
+            expect(resize.position.y).toBe(100);
+        });
+
         it('should resize a shape', () => {
             resize.element(shape_1).dimension(50, 100, 600, 550);
 
@@ -37,6 +44,22 @@ describe('modules/resize - Resize', () => {
             expect(shape_1.y).toBe(100);
             expect(shape_1.width).toBe(600);
             expect(shape_1.height).toBe(550);
+        });
+
+    });
+
+    describe('Behavior', () => {
+        let eventBus;
+
+        beforeEach(() => eventBus = diagram.get('eventBus'));
+
+        it('should init the resize with one element', () => {
+            eventBus.fire('resize.element.init', {
+                element: { x: 50, y: 100 }
+            });
+
+            expect(resize.position.x).toBe(50);
+            expect(resize.position.y).toBe(100);
         });
 
     });
