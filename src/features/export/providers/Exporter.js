@@ -27,4 +27,10 @@ export class Exporter {
         return { elements: cloneDeep(elements) };
     }
 
+    getGraphics () {
+        const rootElement = this.canvas.getRootElement();
+        const graphicsElement = this.elementRegistry.getGraphics(rootElement);
+        return graphicsElement.cloneNode(true);
+    }
+
 }
