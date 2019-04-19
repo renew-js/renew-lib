@@ -87,29 +87,27 @@ describe('modules/export - Export', () => {
         });
 
         it('should fire export with serialized data', () => {
-            let fired = false;
+            let exportFired = false;
+
             eventBus.on('export', (context) => {
                 if (context
                     && context.payload
                     && context.mimeType
                     && context.fileExtension) {
-                    fired = true;
+                    exportFired = true;
                 }
-                fired = true;
             });
 
             eventBus.fire('export.json');
 
-            expect(fired).toBe(true);
+            expect(exportFired).toBe(true);
         });
 
         it('should include additional data', () => {
+            let parsedData = {};
+
             eventBus.on('export', (context) => {
-                expect(context.payload).toBeDefined();
-
-                const parsedData = JSON.parse(context.payload);
-
-                expect(parsedData.foo).toBe('bar');
+                parsedData = JSON.parse(context.payload);
             });
 
             eventBus.fire('export.json', {
@@ -117,17 +115,20 @@ describe('modules/export - Export', () => {
                     foo: 'bar',
                 },
             });
+
+            expect(parsedData.foo).toBe('bar');
         });
 
         it('should fire meta export', () => {
             const testPlugin = new TestPlugin();
+            let data = {};
+
             eventBus.fire('plugin.register', {
                 plugin: testPlugin,
             });
 
             eventBus.on('export', (context) => {
-                expect(context.elements.length).toBe(3);
-                expect(context.foo).toBe('bar');
+                data = context;
             });
 
             eventBus.fire('export.meta', {
@@ -135,21 +136,26 @@ describe('modules/export - Export', () => {
                 format: 'test',
                 additionalData: { foo: 'bar' },
             });
+
+            expect(data.elements.length).toBe(3);
+            expect(data.foo).toBe('bar');
         });
 
         it('should fire svg export', () => {
+            const parser = new DOMParser();
+            let doc = {};
+
             eventBus.on('export', (context) => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(
+                doc = parser.parseFromString(
                     context.payload,
                     context.mimeType
                 );
-
-                expect(doc.documentElement).toBeDefined();
-                expect(doc.documentElement.nodeName).toBe('svg');
             });
 
             eventBus.fire('export.svg');
+
+            expect(doc.documentElement).toBeDefined();
+            expect(doc.documentElement.nodeName).toBe('svg');
         });
     });
 });
