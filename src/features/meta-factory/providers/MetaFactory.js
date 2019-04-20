@@ -28,10 +28,11 @@ export class MetaFactory extends ElementFactory {
     }
 
     getAttributes (metaType) {
+        const [ model, type ] = metaType.split(':');
         const metaObject = JSON.parse(JSON.stringify(Object.assign({},
             this.pluginManager.getElement(metaType),
             this.pluginManager.getStyle(metaType),
-            { type: metaType }
+            { type: metaType, model }
         )));
 
         switch (this.getType(metaType)) {
@@ -40,14 +41,20 @@ export class MetaFactory extends ElementFactory {
                     metaObject: metaObject,
                     width: metaObject.defaultDimension.width,
                     height: metaObject.defaultDimension.height,
+                    metaType: type,
+                    model,
                 };
             case 'connection':
                 return {
                     metaObject: metaObject,
+                    metaType: type,
+                    model,
                 };
             case 'label':
                 return {
                     metaObject: metaObject,
+                    metaType: type,
+                    model,
                 };
         }
     }

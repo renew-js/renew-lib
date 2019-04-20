@@ -27,6 +27,11 @@ export class TestPlugin extends Formalism.Plugin {
                     labels: [ 'label_1' ],
                 },
             ],
+            texts: [
+                {
+                    type: 'label_1',
+                },
+            ],
         });
     }
 
