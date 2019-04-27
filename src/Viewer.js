@@ -4,6 +4,7 @@ import CoreModule from './core';
 import DrawModule from './draw';
 import LayouterModule from './features/layouter';
 import SelectionModule from './features/selection';
+import ZoomModule from './features/zoom';
 import ExportModule from './features/export';
 import ImportModule from './features/import';
 
@@ -23,6 +24,7 @@ export default class Viewer extends Diagram {
             { 'config': [ 'value', options ] },
             CoreModule,
             DrawModule,
+            ZoomModule,
             LayouterModule,
             SelectionModule,
             ExportModule,

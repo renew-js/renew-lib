@@ -14,6 +14,10 @@ export class Canvas extends BaseCanvas {
         this.createUiGroup();
     }
 
+    getCurrentScale () {
+        return +this._viewport.getCTM().a.toFixed(5);
+    }
+
     createUiGroup () {
         const group = create('g');
         classes(group).add('ui');
