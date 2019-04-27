@@ -4,13 +4,18 @@ import { getBBox } from 'diagram-js/lib/util/Elements';
 
 export class SelectionProvider extends Selection {
 
-    constructor (eventBus, selectionHandles) {
+    constructor (eventBus, selectionHandles, elementRegistry) {
         super(eventBus);
         this.eventBus = eventBus;
         this.selectionHandles = selectionHandles;
+        this.elementRegistry = elementRegistry;
         this.bbox = {};
 
         this.selectionHandles.create(this.bbox);
+    }
+
+    selectAll () {
+        this.add(this.elementRegistry.getAll());
     }
 
     clear () {

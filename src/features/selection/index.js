@@ -1,6 +1,7 @@
 import OutlineModule from 'diagram-js/lib/features/outline';
 import HandleModule from '../handle';
 import OrientationModule from '../orientation';
+import { SelectAllBehavior } from './behaviors/SelectAllBehavior';
 import { SelectedBehavior } from './behaviors/SelectedBehavior';
 import { SelectionAddBehavior } from './behaviors/SelectionAddBehavior';
 import { SelectionClearBehavior } from './behaviors/SelectionClearBehavior';
@@ -21,6 +22,7 @@ export default {
         'selection',
     ],
     __behaviors__: [
+        [ 'select.all', SelectAllBehavior ],
         [ 'selection.changed', SelectedBehavior ],
         [ 'selection.clear', SelectionClearBehavior ],
         [ 'selection.add', SelectionAddBehavior ],
