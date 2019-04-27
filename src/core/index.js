@@ -1,4 +1,4 @@
-import ElementRegistry from 'diagram-js/lib/core/ElementRegistry';
+import { ElementRegistry } from './ElementRegistry';
 import { Canvas } from './Canvas';
 import EventBusModule from './eventBus';
 import CommandStackModule from './command';
