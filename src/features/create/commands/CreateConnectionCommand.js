@@ -7,21 +7,25 @@ export class CreateConnectionCommand extends Command {
         super();
         this.canvas = canvas;
         this.layouter = layouter;
+
+        this.state = {};
     }
 
     preExecute (context) {
         context.connection.waypoints = this.layouter.layoutConnection(
             context.connection
         );
+
+        this.state.connection = context.connection;
     }
 
     execute (context) {
-        this.canvas.addConnection(context.connection);
-        return context.connection;
+        this.canvas.addConnection(this.state.connection);
+        return this.state.connection;
     }
 
     revert (context) {
-
+        this.canvas.removeConnection(this.state.connection);
     }
 
 }
