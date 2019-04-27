@@ -66,6 +66,9 @@ export class MoveElementsCommand extends Command {
     revert (context) {
         this.moves.forEach((move) => {
             this._moveShape(move.element, -move.dx, -move.dy);
+
+            move.element.incoming.forEach(this._layoutConnection.bind(this));
+            move.element.outgoing.forEach(this._layoutConnection.bind(this));
         });
     }
 
