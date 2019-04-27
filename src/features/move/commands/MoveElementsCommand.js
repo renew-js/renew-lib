@@ -9,20 +9,28 @@ export class MoveElementsCommand extends Command {
         this.graphicsFactory = graphicsFactory;
         this.elementRegistery = elementRegistry;
         this.layouter = layouter;
+
+        this.moves = [];
     }
 
     execute (context) {
-        context.elements.filter(this._isShape).forEach((element) => {
-            let dx = context.dx;
-            let dy = context.dy;
-            if (context.x !== undefined && context.y !== undefined) {
-                dx = context.x - element.x;
-                dy = context.y - element.y;
-            }
-            this._moveShape(element, dx, dy);
+        if (this.moves.length === 0) {
+            context.elements.filter(this._isShape).forEach((element) => {
+                let dx = context.dx;
+                let dy = context.dy;
+                if (context.x !== undefined && context.y !== undefined) {
+                    dx = context.x - element.x;
+                    dy = context.y - element.y;
+                }
+                this.moves.push({ element, dx, dy });
+            });
+        }
 
-            element.incoming.forEach(this._layoutConnection.bind(this));
-            element.outgoing.forEach(this._layoutConnection.bind(this));
+        this.moves.forEach((move) => {
+            this._moveShape(move.element, move.dx, move.dy);
+
+            move.element.incoming.forEach(this._layoutConnection.bind(this));
+            move.element.outgoing.forEach(this._layoutConnection.bind(this));
         });
     }
 
@@ -56,7 +64,9 @@ export class MoveElementsCommand extends Command {
     }
 
     revert (context) {
-        // TODO: ...
+        this.moves.forEach((move) => {
+            this._moveShape(move.element, -move.dx, -move.dy);
+        });
     }
 
 }
