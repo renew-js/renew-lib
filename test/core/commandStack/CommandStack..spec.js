@@ -68,6 +68,23 @@ describe('modules/commandStack - CommandStack', () => {
             expect(commandStack._stack.length).toBe(1);
             expect(test.count).toBe(1);
         });
+
+        it('should have its own state', function () {
+            commandStack.execute('test.state', { count: 2 });
+            commandStack.execute('test.state', { count: 5 });
+
+            expect(test.count).toBe(5);
+
+            commandStack.undo();
+
+            expect(test.count).toBe(2);
+
+            commandStack.undo();
+
+            expect(test.count).toBe(0);
+        });
+
+
     });
 
     describe('Behavior', () => {
