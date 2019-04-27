@@ -6,6 +6,8 @@ export class RemoveElementsCommand extends Command {
     constructor (canvas) {
         super();
         this.canvas = canvas;
+
+        this.state = { removed: [], unbind: [] };
     }
 
     preExecute (context) {
@@ -28,44 +30,38 @@ export class RemoveElementsCommand extends Command {
     }
 
     _removeShape (element) {
+        this.state.removed.push(element);
+
         (element.incoming || []).forEach((connection) => {
             this._removeConnection(connection);
         });
         (element.outgoing || []).forEach((connection) => {
             this._removeConnection(connection);
         });
+
         this.canvas.removeShape(element);
     }
 
     _removeConnection (element) {
-        const source = element.source || null;
-        const target = element.target || null;
+        this.state.removed.push(element);
 
-        if (source) {
-            if (source.incoming) {
-                source.incoming.splice(source.incoming.indexOf(element), 1);
-            }
-
-            if (source.outgoing) {
-                source.outgoing.splice(source.outgoing.indexOf(element), 1);
-            }
-        }
-
-        if (target) {
-            if (target.incoming) {
-                target.incoming.splice(target.incoming.indexOf(element), 1);
-            }
-
-            if (target.outgoing) {
-                target.outgoing.splice(target.outgoing.indexOf(element), 1);
-            }
-        }
+        // TODO: Unbind incomming / outgoing
 
         this.canvas.removeConnection(element);
     }
 
     revert (context) {
-        // TODO
+        this.state.removed.forEach((element) => {
+            switch (element.type) {
+                case 'label':
+                case 'shape':
+                    this.canvas.addShape(element);
+                    break;
+                case 'connection':
+                    this.canvas.addConnection(element);
+                    break;
+            }
+        });
     }
 
 }
