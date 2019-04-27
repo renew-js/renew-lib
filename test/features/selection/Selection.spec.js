@@ -89,6 +89,16 @@ describe('modules/selection - Selection', () => {
             });
         });
 
+        it('should select all elements', function () {
+            expect(selection.count()).toBe(0);
+
+            selection.selectAll();
+
+            const count = canvas._elementRegistry.getAll().length;
+
+            expect(selection.count()).toBe(count - 1);
+        });
+
     });
 
     describe('Behavior', () => {
@@ -115,6 +125,17 @@ describe('modules/selection - Selection', () => {
 
             expect(selection.count()).toBe(2);
         });
+
+        it('should select all elements on select.all', function () {
+            expect(selection.count()).toBe(0);
+
+            eventBus.fire('select.all');
+
+            const count = canvas._elementRegistry.getAll().length;
+
+            expect(selection.count()).toBe(count - 1);
+        });
+
     });
 
     describe('Tools', () => {
