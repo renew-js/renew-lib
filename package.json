@@ -1,6 +1,6 @@
 {
   "name": "renew-lib",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Graphical library for modelling web editors",
   "scripts": {
     "dev": "npm test -- --auto-watch --no-single-run",
