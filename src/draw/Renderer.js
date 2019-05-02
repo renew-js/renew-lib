@@ -1,7 +1,6 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { create, attr, append, innerSVG } from 'tiny-svg';
 import { stringify } from 'svgson';
-import { query } from 'min-dom'; // TODO: install min dom
 
 
 export class Renderer extends BaseRenderer {
@@ -15,12 +14,6 @@ export class Renderer extends BaseRenderer {
     registerMarker (event) {
         const metaModel = event.plugin.getMetaModel();
         const stylesheet = event.plugin.getStylesheet();
-
-        let defs = query('defs', this.canvas._svg);
-        if (!defs) {
-            defs = create('defs');
-            append(this.canvas._svg, defs);
-        }
 
         metaModel.arrowHeads.forEach((arrowHead) => {
             const style = stylesheet.styles[arrowHead.type];
@@ -36,7 +29,7 @@ export class Renderer extends BaseRenderer {
                 markerHeight: 10,
                 orient: 'auto',
             });
-            append(defs, marker);
+            append(this.canvas._defs, marker);
         });
     }
 

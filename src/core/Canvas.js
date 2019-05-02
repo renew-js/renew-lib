@@ -11,17 +11,25 @@ export class Canvas extends BaseCanvas {
 
     constructor (config, eventBus, graphicsFactory, elementRegistry) {
         super(config, eventBus, graphicsFactory, elementRegistry);
-        this.createUiGroup();
+        this._uiGroup = this.createUiGroup();
+        this._defs = this.createDefs();
     }
 
-    getCurrentScale () {
-        return +this._viewport.getCTM().a.toFixed(5);
+    createDefs () {
+        const defs = create('defs');
+        append(this._svg, defs);
+        return defs;
     }
 
     createUiGroup () {
         const group = create('g');
         classes(group).add('ui');
         append(this._svg, group);
+        return group;
+    }
+
+    getCurrentScale () {
+        return +this._viewport.getCTM().a.toFixed(5);
     }
 
     addShape (shape, parent, parentIndex) {

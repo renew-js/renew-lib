@@ -5,13 +5,7 @@ export class SVGSerializer {
     }
 
     serialize (data) {
-        const ns = 'http://www.w3.org/2000/svg';
-        // const doc = document.implementation.createDocument(ns, 'svg', null);
-        // doc.documentElement.appendChild(data);
-        const doc = document.createElementNS(ns, 'svg');
-        doc.appendChild(data);
-
-        const payload = this.xmlSerializer.serializeToString(doc);
+        const payload = this.xmlSerializer.serializeToString(data);
 
         const mimeType = 'image/svg+xml';
         const fileExtension = '.svg';
