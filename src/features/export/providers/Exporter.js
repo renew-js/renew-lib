@@ -30,7 +30,13 @@ export class Exporter {
     getGraphics () {
         const rootElement = this.canvas.getRootElement();
         const graphicsElement = this.elementRegistry.getGraphics(rootElement);
-        return graphicsElement.cloneNode(true);
+
+        const ns = 'http://www.w3.org/2000/svg';
+        const doc = document.createElementNS(ns, 'svg');
+        doc.appendChild(graphicsElement.cloneNode(true));
+        doc.appendChild(this.canvas._defs.cloneNode(true));
+
+        return doc;
     }
 
 }
