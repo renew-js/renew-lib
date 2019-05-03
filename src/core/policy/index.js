@@ -1,10 +1,10 @@
-import { Policy } from './providers/Policy';
+import { RulePolicy } from './providers/RulePolicy';
 
 
 export default {
     __depends__: [ ],
     __init__: [
-        'policy',
+        'rulePolicy',
     ],
-    policy: [ 'type', Policy ],
+    rulePolicy: [ 'type', RulePolicy ],
 };

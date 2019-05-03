@@ -160,7 +160,7 @@ export class Injector extends DiDiInjector {
         }
 
         rule[2].$inject = undefined;
-        this.get('policy').registerRule(
+        this.get('rulePolicy').registerRule(
             rule[0],
             rule[1],
             this.instantiate(rule[2])

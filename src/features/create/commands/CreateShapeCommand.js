@@ -3,17 +3,17 @@ import { Command } from '../../../core/command/Command';
 
 export class CreateShapeCommand extends Command {
 
-    constructor (create, canvas, policy) {
+    constructor (create, canvas, rulePolicy) {
         super();
         this.create = create;
         this.canvas = canvas;
-        this.policy = policy;
+        this.rulePolicy = rulePolicy;
 
         this.state = {};
     }
 
     canExecute (context) {
-        return this.policy.allowed('create.shape', context);
+        return this.rulePolicy.allowed('create.shape', context);
     }
 
     preExecute (context) {

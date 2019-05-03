@@ -39,7 +39,7 @@ export class CreateTool extends Tool {
         /*
         if (!event.hover) {
             this.clear();
-        } else if (this.policy.allowed('create.shape', { })) {
+        } else if (this.rulePolicy.allowed('create.shape', { })) {
             this._setMarker(event.hover, 'new-parent');
             this.marked.push(event.hover);
         } else {
