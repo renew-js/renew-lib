@@ -1,4 +1,4 @@
-export class Policy {
+export class RulePolicy {
 
     constructor () {
         this.rules = { };

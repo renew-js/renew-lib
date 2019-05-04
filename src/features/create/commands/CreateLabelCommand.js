@@ -3,16 +3,16 @@ import { Command } from '../../../core/command/Command';
 
 export class CreateLabelCommand extends Command {
 
-    constructor (policy, canvas) {
+    constructor (rulePolicy, canvas) {
         super();
-        this.policy = policy;
+        this.rulePolicy = rulePolicy;
         this.canvas = canvas;
 
         this.state = {};
     }
 
     canExecute (context) {
-        return this.policy.allowed('create.label', context);
+        return this.rulePolicy.allowed('create.label', context);
     }
 
     preExecute (context) {

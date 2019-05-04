@@ -3,9 +3,9 @@ import { CreateTool } from './CreateTool';
 
 export class CreateConnectionTool extends CreateTool {
 
-    constructor (eventBus, policy) {
+    constructor (eventBus, rulePolicy) {
         super(eventBus);
-        this.policy = policy;
+        this.rulePolicy = rulePolicy;
     }
 
     onDisable (event) {
@@ -14,13 +14,13 @@ export class CreateConnectionTool extends CreateTool {
     }
 
     onCreateDown (event) {
-        if (!this.policy.allowed('connect.start')) {
+        if (!this.rulePolicy.allowed('connect.start')) {
             this.isCreating = false;
         }
     }
 
     onCreateMove (event) {
-        // if (this.policy.allowed('connect.start')) {
+        // if (this.rulePolicy.allowed('connect.start')) {
         //     this.eventBus.fire('cursor.unset');
         if (event.mouseDown) {
             this.eventBus.fire('connect.preview', event);
@@ -31,7 +31,7 @@ export class CreateConnectionTool extends CreateTool {
     }
 
     onCreateUp (event) {
-        if (this.policy.allowed('connect.end')) {
+        if (this.rulePolicy.allowed('connect.end')) {
             this.eventBus.fire('create.connection', event);
         }
         this.eventBus.fire('connect.preview.clear', event);
