@@ -52,7 +52,7 @@ export class Importer {
     }
 
     createLabel (element) {
-        // TODO
+        this.createShape(element);
     }
 
 }
