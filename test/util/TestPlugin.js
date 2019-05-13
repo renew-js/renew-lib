@@ -14,17 +14,24 @@ export class TestPlugin extends Formalism.Plugin {
             classifiers: [
                 {
                     type: 'classifier_1',
-                    labels: [ 'label_1' ],
                 },
                 {
                     type: 'classifier_2',
-                    labels: [ 'label_1' ],
                 },
             ],
             relations: [
                 {
                     type: 'relation_1',
-                    labels: [ 'label_1' ],
+                },
+            ],
+            texts: [
+                {
+                    type: 'label_1',
+                    targets: [
+                        'classifier_1',
+                        'classifier_2',
+                        'relation_1',
+                    ],
                 },
             ],
         });
