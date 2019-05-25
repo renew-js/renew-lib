@@ -29,6 +29,9 @@ export class MoveElementsCommand extends Command {
         this.moves.forEach((move) => {
             this._moveShape(move.element, move.dx, move.dy);
 
+            move.element.labels.forEach((label) => {
+                this._moveShape(label, move.dx, move.dy);
+            });
             move.element.incoming.forEach(this._layoutConnection.bind(this));
             move.element.outgoing.forEach(this._layoutConnection.bind(this));
         });

@@ -9,9 +9,7 @@ export class EditActivateBehavior extends Behavior {
     }
 
     during (context) {
-        if (context.element.type === 'label') {
-            this.directEditing.activate(context.element);
-        }
+        this.directEditing.activate(context);
     }
 
 }

@@ -19,14 +19,14 @@ describe('modules/create - Create', () => {
 
     describe('Provider', () => {
 
-        it('should creat a shape', () => {
+        it('should create a shape', () => {
             const element = create.shape(50, 150);
 
             expect(element.x).toBe(50);
             expect(element.y).toBe(150);
         });
 
-        it('should creat a connection', () => {
+        it('should create a connection', () => {
             const src = { x: 20, y: 40 };
             const dest = { x: 45, y: 25 };
             const element = create.connection(src, dest);
@@ -40,7 +40,7 @@ describe('modules/create - Create', () => {
             expect(element.waypoints[1].y).toBe(25);
         });
 
-        it('should creat a label', () => {
+        it('should create a label', () => {
             const position = { x: 50, y: 100 };
             const element = create.label('hello world', position);
 

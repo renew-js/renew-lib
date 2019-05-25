@@ -1,9 +1,17 @@
 export class MetaContextPad {
 
-    constructor (eventBus, contextPad, metaPluginManager) {
+    constructor (
+        eventBus,
+        contextPad,
+        metaPluginManager,
+        metaFactory,
+        orientation
+    ) {
         this.eventBus = eventBus;
         this.contextPad = contextPad;
         this.pluginManager = metaPluginManager;
+        this.metaFactory = metaFactory;
+        this.orientation = orientation;
 
         this.contextPad.registerProvider(this);
     }
@@ -24,23 +32,26 @@ export class MetaContextPad {
             },
         };
 
-        const model = element.metaObject.model;
-        const type = element.metaObject.targetType;
-        const metaModel = this.pluginManager.getMetaModel(model);
+        if (element.metaObject) {
 
-        metaModel.relations.forEach((relation) => {
-            if (relation.bind[type]) {
-                entries['bind'] = this.getRelationEntry(element, relation);
-            }
-        });
+            const model = element.metaObject.model;
+            const type = element.metaObject.targetType;
+            const metaModel = this.pluginManager.getMetaModel(model);
 
-        metaModel.texts.forEach((text) => {
-            if (text.labels) {
-                text.labels.forEach((label) => {
-                    entries['text' + label] = this.getTextEntry(element, text);
-                });
-            }
-        });
+            metaModel.relations.forEach((relation) => {
+                if (relation.bind[type]) {
+                    entries['bind'] = this.getRelationEntry(element, relation);
+                }
+            });
+
+            metaModel.texts.forEach((metaText) => {
+                if (metaText.targets.includes(element.metaObject.targetType)) {
+                    const entryName = 'text-' + metaText.type;
+                    entries[entryName] = this.getTextEntry(element, metaText);
+                }
+            });
+
+        }
 
         return entries;
     }
@@ -66,15 +77,20 @@ export class MetaContextPad {
         };
     }
 
-    getTextEntry (element, type) {
-        const plugin = this.pluginManager.getPlugin(element.model);
+    getTextEntry (element, metaText) {
+        const plugin = this.pluginManager.getPlugin(element.metaObject.model);
         const toolConfiguration = plugin.getToolConfiguration();
-        const mapping = toolConfiguration.contextToolMappings[type];
-
+        const mapping = toolConfiguration.contextToolMappings[metaText.type];
 
         if (!mapping) {
             return false;
         }
+
+        const style = plugin.getStylesheet().getStyle(metaText.type);
+        const orientation = this.orientation.position(
+            element,
+            style.orientation
+        );
 
         return {
             group: element.model,
@@ -82,10 +98,23 @@ export class MetaContextPad {
             title: mapping.title,
             action: {
                 click: (event, element) => {
-                    this.eventBus.fire('contextPad.text.click', {
-                        element: element,
-                        textType: type,
+                    const target = element.labels.find((label) => {
+                        return label.metaObject.targetType === metaText.type;
                     });
+                    if (target) {
+                        this.eventBus.fire('edit.activate', {
+                            element: target,
+                        });
+                    } else {
+                        const metaType = plugin.type + ':' + metaText.type;
+                        this.metaFactory.setType(metaType);
+                        this.eventBus.fire('create.label', {
+                            factory: this.metaFactory,
+                            parent: element,
+                            text: metaText.default,
+                            orientation,
+                        });
+                    }
                 },
             },
         };
