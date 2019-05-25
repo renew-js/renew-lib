@@ -23,13 +23,13 @@ export class CreateProvider {
         return this.factory.createConnection({ waypoints, source, target });
     }
 
-    label (text, position) {
+    label (text, bbox) {
         return this.factory.createLabel({
             text: text || '',
-            x: position.x,
-            y: position.y,
-            width: 150,
-            height: 50,
+            x: bbox.x,
+            y: bbox.y,
+            width: bbox.width,
+            height: bbox.height,
         });
     }
 

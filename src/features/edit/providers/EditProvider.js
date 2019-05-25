@@ -12,7 +12,8 @@ export class EditProvider {
         return this.directEditing.isActive();
     }
 
-    activate (element) {
+    activate (context) {
+        const element = context.element;
         this.label = element;
         this.label.options = {
             align: 'center-middle',

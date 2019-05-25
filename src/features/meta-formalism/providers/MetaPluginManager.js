@@ -59,7 +59,7 @@ export class MetaPluginManager {
     }
 
     getToolConfigurationContextMapping (model, type) {
-        return this.getToolConfiguration(model).toolMappings[type];
+        return this.getToolConfiguration(model).contextToolMappings[type];
     }
 
     getExport (model, additionalData) {

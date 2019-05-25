@@ -14,7 +14,18 @@ export class CreateLabelBehavior extends Behavior {
     }
 
     before (event) {
-        this.label = this.create.label(event.text, { x: event.x, y: event.y });
+        if (event.factory) {
+            this.create.factory.set(event.factory);
+        }
+        const bbox = { x: event.x, y: event.y, width: 150, height: 50 };
+        if (event.orientation) {
+            bbox.x = event.orientation.x - 75;
+            bbox.y = event.orientation.y - 25;
+        }
+        this.label = this.create.label(event.text, bbox);
+        if (event.parent) {
+            event.parent.labels.push(this.label);
+        }
     }
 
     during (event) {
