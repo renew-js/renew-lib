@@ -24,34 +24,33 @@ export class MetaContextPad {
             },
         };
 
-        return entries;
-        /*
-        const plugin = this.pluginManager.getPlugin(element.model);
-        const metaModel = plugin.getMetaModel();
+        const model = element.metaObject.model;
+        const type = element.metaObject.targetType;
+        const metaModel = this.pluginManager.getMetaModel(model);
 
         metaModel.relations.forEach((relation) => {
-            const relationEntry = this.getRelationEntry(element, relation);
-            if (relationEntry) {
-                entries[relation.type] = relationEntry;
+            if (relation.bind[type]) {
+                entries['bind'] = this.getRelationEntry(element, relation);
             }
         });
 
-        metaModel.getElement(element.metaType).labels.forEach((label) => {
-            const textEntry = this.getTextEntry(element, label);
-            if (textEntry) {
-                entries[label] = textEntry;
+        metaModel.texts.forEach((text) => {
+            if (text.labels) {
+                text.labels.forEach((label) => {
+                    entries['text' + label] = this.getTextEntry(element, text);
+                });
             }
         });
 
         return entries;
-        */
     }
 
     getRelationEntry (element, relation) {
-        const config = this.pluginManager.getToolConfiguration(element.model);
+        const model = element.metaObject.model;
+        const config = this.pluginManager.getToolConfiguration(model);
         const mapping = config.contextToolMappings[relation.type];
 
-        if (!mapping || !relation.bind[element.metaType]) {
+        if (!mapping) {
             return false;
         }
 
