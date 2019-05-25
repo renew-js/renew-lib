@@ -45,7 +45,7 @@ export class Importer {
         const target = this.elementRegistry.get(element.targetId);
         element.source = source;
         element.target = target;
-        if (!element.waypoints) {
+        if (!element.waypoints || !element.waypoints.length) {
             element.waypoints = this.layouter.layoutConnection(element);
         }
         this.canvas.addConnection(element, parent);
