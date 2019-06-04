@@ -1,6 +1,7 @@
 import Viewer from './Viewer';
 
-// import MetaSimulatingModule from './modules/meta-simulating';
+import MetaSimulationModule from './features/meta-simulation';
+import ExternalSimulationModule from './features/external-simulation';
 
 
 /**
@@ -13,7 +14,8 @@ export default class Simulator extends Viewer {
 
         super(Object.assign({
             modules: [
-                // MetaSimulatingModule,
+                MetaSimulationModule,
+                ExternalSimulationModule,
             ],
         }, options));
     }
