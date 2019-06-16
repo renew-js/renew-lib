@@ -9,8 +9,22 @@ export class ConnectTargetRule extends Rule {
 
 
     validate (context) {
-        console.log('connect element rule', context);
-        return true;
+        const originTypes = [ '*' ];
+        const targetTypes = [ '*' ];
+
+        if (context.hoverStart && context.hoverStart.metaObject) {
+            originTypes.push(context.hoverStart.metaObject.targetType);
+        }
+        if (context.hover && context.hover.metaObject) {
+            targetTypes.push(context.hover.metaObject.targetType);
+        }
+
+        return originTypes.some((sourceType) => {
+            return context.metaObject.bind[sourceType]
+                && context.metaObject.bind[sourceType].some((targetType) => {
+                    return targetTypes.includes(targetType);
+                });
+        });
     }
 
 }

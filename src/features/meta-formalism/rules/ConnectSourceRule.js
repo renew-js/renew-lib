@@ -9,8 +9,13 @@ export class ConnectSourceRule extends Rule {
 
 
     validate (context) {
-        console.log('connect element rule', context);
-        return true;
+        const allowedTypes = [ '*' ];
+        if (context.hover && context.hover.metaObject) {
+            allowedTypes.push(context.hover.metaObject.targetType);
+        }
+        return Object.keys(context.metaObject.bind).some((type) => {
+            return allowedTypes.includes(type);
+        });
     }
 
 }
