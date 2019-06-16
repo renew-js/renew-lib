@@ -1,7 +1,7 @@
 import { Rule } from '../../../core/policy/Rule';
 
 
-export class ConnectStartRule extends Rule {
+export class ConnectSourceRule extends Rule {
 
     constructor () {
         super();

@@ -14,24 +14,19 @@ export class CreateConnectionTool extends CreateTool {
     }
 
     onCreateDown (event) {
-        if (!this.rulePolicy.allowed('connect.start')) {
+        if (!this.rulePolicy.allowed('connect.origin')) {
             this.isCreating = false;
         }
     }
 
     onCreateMove (event) {
-        // if (this.rulePolicy.allowed('connect.start')) {
-        //     this.eventBus.fire('cursor.unset');
         if (event.mouseDown) {
             this.eventBus.fire('connect.preview', event);
         }
-        // } else {
-        //     this.eventBus.fire('cursor.set', { cursor: 'not-allowed' });
-        // }
     }
 
     onCreateUp (event) {
-        if (this.rulePolicy.allowed('connect.end')) {
+        if (this.rulePolicy.allowed('connect.target')) {
             this.eventBus.fire('create.connection', event);
         }
         this.eventBus.fire('connect.preview.clear', event);
