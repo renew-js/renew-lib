@@ -93,7 +93,7 @@ export class Toolbox {
         }
     }
 
-    onMouseDown (event) {
+    onMouseDown (event = {}) {
         if (!this.activeTool) return;
 
         this.start = { };
@@ -108,7 +108,7 @@ export class Toolbox {
         this.activeTool.onMouseDown(this.mouseEvent);
     }
 
-    onMouseUp (event) {
+    onMouseUp (event = {}) {
         if (!this.activeTool || !this.mouseDown) return;
 
         this.mouseDown = false;
@@ -117,7 +117,7 @@ export class Toolbox {
         this.activeTool.onMouseUp(this.mouseEvent);
     }
 
-    onMouseMove (event) {
+    onMouseMove (event = {}) {
         if (!this.activeTool) return;
 
         this.mouseEvent = this.createMouseEvent(event);
@@ -125,7 +125,7 @@ export class Toolbox {
         this.activeTool.onMouseMove(this.mouseEvent);
     }
 
-    onHover (event) {
+    onHover (event = {}) {
         if (!this.activeTool) return;
 
         // TODO: add mouseEvent to hover and out events
@@ -133,7 +133,7 @@ export class Toolbox {
         this.activeTool.onHover(event);
     }
 
-    onOut (event) {
+    onOut (event = {}) {
         if (!this.activeTool) return;
 
         // const mouseEvent = this.createMouseEvent(event);
@@ -141,7 +141,7 @@ export class Toolbox {
         this.activeTool.onOut(event);
     }
 
-    onDoubleClick (event) {
+    onDoubleClick (event = {}) {
         if (!this.activeTool) return;
 
         if (!this.hover) {
@@ -153,7 +153,7 @@ export class Toolbox {
         this.activeTool.onDoubleClick(this.mouseEvent);
     }
 
-    createMouseEvent (event) {
+    createMouseEvent (event = {}) {
         const payload = this.toLocal({ x: event.clientX, y: event.clientY });
         payload.originalEvent = event;
         payload.hover = this.hover;
