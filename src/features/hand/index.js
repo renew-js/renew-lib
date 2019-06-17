@@ -1,3 +1,5 @@
+import CursorModule from '../cursor';
+
 import { MoveCanvasBehavior } from './behaviors/MoveCanvasBehavior';
 import { HandProvider } from './providers/HandProvider';
 import { HandTool } from './tools/HandTool';
@@ -5,6 +7,7 @@ import { HandTool } from './tools/HandTool';
 
 export default {
     __depends__: [
+        CursorModule,
     ],
     __behaviors__: [
         [ 'hand.move', MoveCanvasBehavior ],

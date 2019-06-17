@@ -58,6 +58,12 @@ describe('modules/cursor - Cursor', () => {
             expect(document.body.style.cursor).toBe('pointer');
         });
 
+        it('should set the cursor to grab', () => {
+            eventBus.fire('cursor.set.grab');
+
+            expect(document.body.style.cursor).toBe('grab');
+        });
+
         it('should set the cursor to grabbing', () => {
             eventBus.fire('cursor.set.grabbing');
 
