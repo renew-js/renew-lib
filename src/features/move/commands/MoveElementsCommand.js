@@ -15,23 +15,22 @@ export class MoveElementsCommand extends Command {
 
     execute (context) {
         if (this.moves.length === 0) {
-            context.elements.filter(this._isShape).forEach((element) => {
-                let dx = context.dx;
-                let dy = context.dy;
-                if (context.x !== undefined && context.y !== undefined) {
-                    dx = context.x - element.x;
-                    dy = context.y - element.y;
-                }
-                this.moves.push({ element, dx, dy });
+            context.elements.forEach((element) => {
+                this.moves.push({ element, dx: context.dx, dy: context.dy });
             });
         }
 
         this.moves.forEach((move) => {
-            this._moveShape(move.element, move.dx, move.dy);
+            if (this._isShape(move.element)) {
+                this._moveShape(move.element, move.dx, move.dy);
+            } else if (move.element.waypoints) {
+                this._moveConnection(move.element, move.dx, move.dy);
+            }
 
             move.element.labels.forEach((label) => {
                 this._moveShape(label, move.dx, move.dy);
             });
+
             move.element.incoming.forEach(this._layoutConnection.bind(this));
             move.element.outgoing.forEach(this._layoutConnection.bind(this));
         });
@@ -41,8 +40,30 @@ export class MoveElementsCommand extends Command {
         return shape.type === 'shape' || shape.type === 'label';
     }
 
+    _isConnection (element) {
+        return element.type === 'connection';
+    }
+
     _moveShape (shape, dx, dy) {
         this._setPositionOfShape(shape, shape.x + dx, shape.y + dy);
+    }
+
+    _moveConnection (connection, dx, dy) {
+        if (!connection.source.type) {
+            connection.source.x += dx;
+            connection.source.y += dy;
+        }
+
+        if (!connection.target.type) {
+            connection.target.x += dx;
+            connection.target.y += dy;
+        }
+
+        for (let i = 1; i < connection.waypoints.length -1; i++) {
+            connection.waypoints[i].x += dx;
+            connection.waypoints[i].y += dy;
+        }
+        this._layoutConnection(connection);
     }
 
     _setPositionOfShape (shape, x, y) {
@@ -68,7 +89,11 @@ export class MoveElementsCommand extends Command {
 
     revert (context) {
         this.moves.forEach((move) => {
-            this._moveShape(move.element, -move.dx, -move.dy);
+            if (move.element.waypoints) {
+                this._moveConnection(move.element, -move.dx, -move.dy);
+            } else {
+                this._moveShape(move.element, -move.dx, -move.dy);
+            }
 
             move.element.incoming.forEach(this._layoutConnection.bind(this));
             move.element.outgoing.forEach(this._layoutConnection.bind(this));
