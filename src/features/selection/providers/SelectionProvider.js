@@ -4,9 +4,10 @@ import { getBBox } from 'diagram-js/lib/util/Elements';
 
 export class SelectionProvider extends Selection {
 
-    constructor (eventBus, selectionHandles, elementRegistry) {
+    constructor (eventBus, rulePolicy, selectionHandles, elementRegistry) {
         super(eventBus);
         this.eventBus = eventBus;
+        this.rulePolicy = rulePolicy;
         this.selectionHandles = selectionHandles;
         this.elementRegistry = elementRegistry;
         this.bbox = {};
@@ -93,7 +94,10 @@ export class SelectionProvider extends Selection {
         this.bbox.width = bbox.width + 12;
         this.bbox.height = bbox.height + 12;
 
-        if (!this.empty()) {
+        const element = this._selectedElements[0];
+
+        if (this.count() === 1
+            && this.rulePolicy.allowed('resize.element', { element })) {
             this.selectionHandles.show();
         }
     }
