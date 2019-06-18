@@ -9,12 +9,15 @@ export class HandTool extends Tool {
     }
 
     onDisable (event) {
+        this.eventBus.fire('cursor.unset');
     }
 
     onEnable (event) {
+        this.eventBus.fire('cursor.set.grab');
     }
 
     onMouseDown (event) {
+        this.eventBus.fire('cursor.set.grabbing');
     }
 
     onMouseMove (event) {
@@ -24,6 +27,7 @@ export class HandTool extends Tool {
     }
 
     onMouseUp (event) {
+        this.eventBus.fire('cursor.set.grab');
     }
 
 }

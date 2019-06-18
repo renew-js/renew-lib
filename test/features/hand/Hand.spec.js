@@ -94,6 +94,36 @@ describe('modules/hand - Hand', () => {
 
             expect(toolbox.activeTool.constructor.name).toEqual('HandTool');
         });
+
+        it('should set the cursor to grab after activate', () => {
+            toolbox.activate('hand');
+
+            expect(document.body.style.cursor).toBe('grab');
+        });
+
+        it('should unset the cursor after disable', () => {
+            toolbox.activate('hand');
+            toolbox.activate('pointer');
+
+            expect(document.body.style.cursor).toBe('default');
+        });
+
+        it('should set the cursor to grabbing after mouseDown', () => {
+            toolbox.activate('hand');
+
+            toolbox.onMouseDown();
+
+            expect(document.body.style.cursor).toBe('grabbing');
+        });
+
+        it('should set the cursor to grab after mouseUp', () => {
+            toolbox.activate('hand');
+
+            toolbox.onMouseDown();
+            toolbox.onMouseUp();
+
+            expect(document.body.style.cursor).toBe('grab');
+        });
     });
 
 });
