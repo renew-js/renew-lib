@@ -1,3 +1,5 @@
+import { ConnectSourceRule } from './rules/ConnectSourceRule';
+import { ConnectTargetRule } from './rules/ConnectTargetRule';
 import { PluginRegisterBehavior } from './behaviors/PluginRegisterBehavior';
 import { MetaPluginManager } from './providers/MetaPluginManager';
 import { MoveElementRule } from './rules/MoveElementRule';
@@ -12,6 +14,8 @@ export default {
         [ 'plugin.register', 1500, PluginRegisterBehavior ],
     ],
     __rules__: [
+        [ 'connect.source', ConnectSourceRule ],
+        [ 'connect.target', ConnectTargetRule ],
         [ 'element.move', MoveElementRule ],
     ],
 

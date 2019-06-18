@@ -22,6 +22,14 @@ export class TestPlugin extends Formalism.Plugin {
             relations: [
                 {
                     type: 'relation_1',
+                    bind: {
+                        'classifier_1': [
+                            'classifier_2',
+                        ],
+                        'classifier_2': [
+                            'classifier_1',
+                        ],
+                    },
                 },
             ],
             texts: [
