@@ -53,6 +53,7 @@
     "didi": "^4.0.0",
     "lodash": "^4.17.11",
     "renew-formalism": "^1.0.1",
+    "renew-simulator-client": "git+https://github.com/renew-js/renew-simulator-client",
     "svgson": "^3.0.0",
     "tiny-svg": "^2.2.1"
   },
