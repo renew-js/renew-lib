@@ -4,7 +4,7 @@ export class ExternalSimulation {
 
     constructor (simulationManager) {
         this.simulationManager = simulationManager;
-        this.simulators = [];
+        this.formalisms = [];
         this.socket = io('http://localhost:3000/', {
             'path': '/gateway',
         });
@@ -18,23 +18,23 @@ export class ExternalSimulation {
 
         this.socket.on('disconnect', () => {
             console.log('Simulator gateway disconnected');
-            this.simulators.forEach((simulatorId) => {
-                this.simulationManager.deleteSimulator(simulatorId);
+            this.formalisms.forEach((formalismId) => {
+                this.simulationManager.deleteFormalism(formalismId);
             });
         });
 
         this.socket.on('plugin.list', (plugins) => {
-            this.simulators = [];
+            this.formalisms = [];
             plugins.forEach((plugin) => {
-                plugin.provides.forEach((simulator) => {
-                    const externalSimulator = {
+                plugin.provides.forEach((formalism) => {
+                    const externalFormalism = {
                         type: 'external',
                         plugin: plugin.name,
-                        id: simulator.id,
-                        name: simulator.name,
+                        id: formalism.id,
+                        name: formalism.name,
                     };
-                    this.simulationManager.addSimulator(externalSimulator);
-                    this.simulators.push(simulator.id);
+                    this.simulationManager.addFormalism(externalFormalism);
+                    this.formalisms.push(formalism.id);
                 });
             });
         });
