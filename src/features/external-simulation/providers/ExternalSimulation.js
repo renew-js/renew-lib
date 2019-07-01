@@ -2,8 +2,10 @@ import Client from 'renew-simulator-client';
 
 export class ExternalSimulation {
 
-    constructor (simulationManager) {
+    constructor (eventBus, simulationManager, metaPluginManager) {
+        this.eventBus = eventBus;
         this.simulationManager = simulationManager;
+        this.metaPluginManager = metaPluginManager;
         this.formalisms = [];
         this.client = new Client();
         this.registerHandlers();
@@ -21,16 +23,38 @@ export class ExternalSimulation {
             plugins.forEach((plugin) => {
                 plugin.provides.forEach((formalism) => {
                     const externalFormalism = {
-                        type: 'external',
                         plugin: plugin.name,
                         id: formalism.id,
                         name: formalism.name,
+                        metaModel: formalism.metaModel,
                     };
                     this.simulationManager.addFormalism(externalFormalism);
                     this.formalisms.push(formalism.id);
                 });
             });
         });
+    }
+
+    getSerializedData (model, format) {
+        const data = this.simulationManager.getData();
+        const plugin = this.metaPluginManager.getPlugin(model);
+        const serializer = plugin.getSerializer(format);
+
+        return serializer.serialize(data);
+    }
+
+    start (formalismId) {
+        if (!this.formalisms.includes(formalismId)) {
+            return;
+        }
+
+        const formalism = this.simulationManager.getFormalism(formalismId);
+        const data = this.getSerializedData(
+            formalism.metaModel.type,
+            formalism.metaModel.format
+        );
+
+        this.client.startSimulation(formalism, data.payload);
     }
 
 }

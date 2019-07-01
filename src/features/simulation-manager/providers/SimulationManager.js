@@ -1,9 +1,17 @@
 export class SimulationManager {
 
-    constructor (eventBus) {
+    constructor (eventBus, exporter) {
         this.eventBus = eventBus;
+        this.exporter = exporter;
         this.formalisms = {};
-        this.activeFormalism = null;
+    }
+
+    getData () {
+        return this.exporter.getExport();
+    }
+
+    getFormalism (formalismId) {
+        return this.formalisms[formalismId];
     }
 
     addFormalism (formalism) {
@@ -11,20 +19,19 @@ export class SimulationManager {
         this.emitUpdate();
     }
 
-    deleteFormalism (simulatorId) {
-        delete this.formalisms[simulatorId];
+    deleteFormalism (formalismId) {
+        delete this.formalisms[formalismId];
         this.emitUpdate();
-    }
-
-    activateFormalism (simulatorId) {
-        console.log('Formalism activated:', simulatorId);
-        this.activeFormalism = this.formalisms[simulatorId];
     }
 
     emitUpdate () {
         this.eventBus.fire('formalisms.update', {
             formalisms: Object.values(this.formalisms),
         });
+    }
+
+    start (formalismId) {
+        //
     }
 
 }
