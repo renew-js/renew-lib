@@ -4,9 +4,10 @@ export class SimulationManager {
         this.eventBus = eventBus;
         this.exporter = exporter;
         this.formalisms = {};
+        this.activeFormalism = null;
     }
 
-    getData () {
+    getNetInstance () {
         return this.exporter.getExport();
     }
 
@@ -16,22 +17,22 @@ export class SimulationManager {
 
     addFormalism (formalism) {
         this.formalisms[formalism.id] = formalism;
-        this.emitUpdate();
+        this.emitFormalismUpdate();
     }
 
     deleteFormalism (formalismId) {
         delete this.formalisms[formalismId];
-        this.emitUpdate();
+        this.emitFormalismUpdate();
     }
 
-    emitUpdate () {
-        this.eventBus.fire('formalisms.update', {
+    emitFormalismUpdate () {
+        this.eventBus.fire('formalism.update', {
             formalisms: Object.values(this.formalisms),
         });
     }
 
     start (formalismId) {
-        //
+        this.activeFormalism = this.getFormalism(formalismId);
     }
 
 }

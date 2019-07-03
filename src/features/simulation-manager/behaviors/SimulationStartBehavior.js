@@ -1,7 +1,7 @@
 import { Behavior } from '../../../core/eventBus/Behavior';
 
 
-export class StartSimulationBehavior extends Behavior {
+export class SimulationStartBehavior extends Behavior {
 
     constructor (simulationManager) {
         super();

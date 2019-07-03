@@ -1,7 +1,7 @@
 import { Behavior } from '../../../core/eventBus/Behavior';
 
 
-export class StartSimulationBehavior extends Behavior {
+export class SimulationStepBehavior extends Behavior {
 
     constructor (externalSimulation) {
         super();
@@ -9,7 +9,7 @@ export class StartSimulationBehavior extends Behavior {
     }
 
     during (event) {
-        this.externalSimulation.init(event.formalismId);
+        this.externalSimulation.step();
     }
 
 }

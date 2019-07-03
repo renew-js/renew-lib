@@ -1,6 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep';
-
-
 export class Exporter {
 
     constructor (elementRegistry, canvas) {
@@ -24,7 +21,7 @@ export class Exporter {
             return element;
         });
 
-        return { elements: cloneDeep(elements) };
+        return { elements: Object.assign(elements, {}) };
     }
 
     getGraphics () {
