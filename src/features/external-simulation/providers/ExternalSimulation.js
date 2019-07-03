@@ -39,11 +39,12 @@ export class ExternalSimulation {
         const data = this.simulationManager.getData();
         const plugin = this.metaPluginManager.getPlugin(model);
         const serializer = plugin.getSerializer(format);
+        data.title = 'foo';
 
         return serializer.serialize(data);
     }
 
-    start (formalismId) {
+    init (formalismId) {
         if (!this.formalisms.includes(formalismId)) {
             return;
         }
@@ -54,7 +55,8 @@ export class ExternalSimulation {
             formalism.metaModel.format
         );
 
-        this.client.startSimulation(formalism, data.payload);
+        this.client.initSimulation(formalism, data.payload);
+        this.client.step(formalism);
     }
 
 }

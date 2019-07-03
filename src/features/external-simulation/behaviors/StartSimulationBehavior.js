@@ -9,7 +9,7 @@ export class StartSimulationBehavior extends Behavior {
     }
 
     during (event) {
-        this.externalSimulation.start(event.formalismId);
+        this.externalSimulation.init(event.formalismId);
     }
 
 }
