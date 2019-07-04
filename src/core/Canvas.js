@@ -23,11 +23,15 @@ export class Canvas extends BaseCanvas {
         return this._graphicsFactory;
     }
 
-    getElements () {
+    getChildren () {
         const elements = this._elementRegistry._elements;
         return Object.values(elements).filter((object) => {
             return object.element.id !== '__implicitroot';
         });
+    }
+
+    getElements () {
+        return this.getChildren().map((object) => object.element);
     }
 
     createDefs () {
