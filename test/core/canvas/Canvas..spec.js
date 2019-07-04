@@ -26,6 +26,20 @@ describe('modules/canvas - Canvas', () => {
             expect(canvas.getCurrentScale()).toBe(0.9);
         });
 
+        it('should get the element registry', function () {
+            expect(canvas.getElementRegistry()).toBe(canvas._elementRegistry);
+        });
+
+        it('should get the graphics factory', function () {
+            expect(canvas.getGraphicsFactory()).toBe(canvas._graphicsFactory);
+        });
+
+        it('should not contain the root element', function () {
+            const elements = canvas.getElements();
+            const elementIds = elements.map((element) => element.id);
+            expect(elementIds).not.toContain('__implicitroot');
+        });
+
     });
 
 });
