@@ -15,6 +15,18 @@ export class Canvas extends BaseCanvas {
         this._defs = this.createDefs();
     }
 
+    getElementRegistry () {
+        return this._elementRegistry;
+    }
+
+    getGraphicsFactory () {
+        return this._graphicsFactory;
+    }
+
+    getElements () {
+        return this._elementRegistry._elements;
+    }
+
     createDefs () {
         const defs = create('defs');
         append(this._svg, defs);
