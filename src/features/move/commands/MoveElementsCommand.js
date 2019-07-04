@@ -16,7 +16,10 @@ export class MoveElementsCommand extends Command {
     execute (context) {
         if (this.moves.length === 0) {
             context.elements.forEach((element) => {
-                this.moves.push({ element, dx: context.dx, dy: context.dy });
+                const dx = context.dx || (context.x - element.x);
+                const dy = context.dy || (context.y - element.y);
+
+                this.moves.push({ element, dx, dy });
             });
         }
 
