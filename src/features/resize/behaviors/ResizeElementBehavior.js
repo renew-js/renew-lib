@@ -3,12 +3,13 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class ResizeElementBehavior extends Behavior {
 
-    constructor (eventBus, resize, elementRegistry, graphicsFactory) {
+    constructor (eventBus, resize, elementRegistry, graphicsFactory, layouter) {
         super();
         this.eventBus = eventBus;
         this.resize = resize;
         this.elementRegistry = elementRegistry;
         this.graphicsFactory = graphicsFactory;
+        this.layouter = layouter;
     }
 
     init (event) {
@@ -78,6 +79,8 @@ export class ResizeElementBehavior extends Behavior {
         }
 
         this._updateGraphics(element, 'shape');
+        element.incoming.forEach(this._layoutConnection.bind(this));
+        element.outgoing.forEach(this._layoutConnection.bind(this));
     }
 
     _updateGraphics (element, type) {
@@ -88,6 +91,11 @@ export class ResizeElementBehavior extends Behavior {
         this.eventBus.fire(element.type + '.changed', event);
         this.eventBus.fire('elements.changed', event);
         this.eventBus.fire('element.changed', event);
+    }
+
+    _layoutConnection (connection) {
+        connection.waypoints = this.layouter.layoutConnection(connection);
+        this._updateGraphics(connection);
     }
 
 }
