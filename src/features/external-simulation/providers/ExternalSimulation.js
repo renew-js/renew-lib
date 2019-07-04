@@ -7,19 +7,19 @@ export class ExternalSimulation {
         simulationManager,
         metaPluginManager,
         metaFactory,
-        elementRegistry,
         canvas
     ) {
         this.eventBus = eventBus;
         this.simulationManager = simulationManager;
         this.metaPluginManager = metaPluginManager;
         this.metaFactory = metaFactory;
-        this.elementRegistry = elementRegistry;
         this.canvas = canvas;
+        this.client = new Client();
 
         this.formalisms = [];
         this.activeFormalism = null;
-        this.client = new Client();
+        this.isInitialized = false;
+        this.isContinuous = false;
 
         this.registerHandlers();
     }
@@ -50,11 +50,8 @@ export class ExternalSimulation {
                 // TODO Use Statusbar for this
                 console.error('External simulation error:', error);
             })
-            .on('remove.label', (labelData) => {
-                this.removeLabel(labelData);
-            })
-            .on('create.label', (labelData) => {
-                this.createLabel(labelData);
+            .on('marking.update', (newMarking) => {
+                this.updateMarking(newMarking);
             });
     }
 
@@ -89,24 +86,66 @@ export class ExternalSimulation {
             netInstance,
             serializedData
         );
-        this.step();
+        this.start();
+    }
+
+    start () {
+        this.isContinuous = true;
+        this.client.start(this.activeFormalism);
+        window.requestAnimationFrame(this.getMarking.bind(this));
     }
 
     step () {
         this.client.step(this.activeFormalism);
+        this.getMarking();
     }
 
     stop () {
-
+        this.client.stop(this.activeFormalism);
+        this.isContinuous = false;
     }
 
     terminate () {
         this.client.terminate(this.activeFormalism);
-        this.activeFormalism = null;
+        this.isContinuous = false;
+    }
+
+    getMarking () {
+        this.client.getMarking(this.activeFormalism);
+
+        if (this.isContinuous) {
+            window.requestAnimationFrame(this.getMarking.bind(this));
+        }
+    }
+
+    updateMarking (newMarking) {
+        newMarking.forEach(this.updateLabel.bind(this));
+    }
+
+    getLabel (labelData) {
+        const parent = this.canvas._elementRegistry.get(labelData.parentId);
+
+        for (let i = parent.labels.length - 1; i >= 0; i--) {
+            if (parent.labels[i].metaObject
+                && parent.labels[i].metaObject.type === labelData.type) {
+                return parent.labels[i];
+            }
+        }
+    }
+
+    updateLabel (labelData) {
+        const label = this.getLabel(labelData);
+
+        if (label) {
+            label.text = labelData.text + '';
+            this.updateGraphics(label, 'shape');
+        } else if (labelData.text) {
+            this.createLabel(labelData);
+        }
     }
 
     createLabel (labelData) {
-        const parent = this.elementRegistry.get(labelData.parentId);
+        const parent = this.canvas._elementRegistry.get(labelData.parentId);
         const label = this.metaFactory.createElement(labelData.type);
 
         label.width = 150; // TODO get default dimensions from somewhere
@@ -122,15 +161,14 @@ export class ExternalSimulation {
         this.canvas.addShape(label, parent);
     }
 
-    removeLabel (labelData) {
-        const parent = this.elementRegistry.get(labelData.parentId);
+    updateGraphics (element, type) {
+        const gfx = this.canvas._elementRegistry.getGraphics(element.id);
+        // const event = { elements: [ element ], element: element, gfx: gfx };
 
-        parent.labels.forEach((label) => {
-            if (label.metaObject
-                && label.metaObject.type === labelData.type) {
-                this.canvas.removeShape(label);
-            }
-        });
+        this.canvas._graphicsFactory.update(type || element.type, element, gfx);
+        // this.eventBus.fire(element.type + '.changed', event);
+        // this.eventBus.fire('elements.changed', event);
+        // this.eventBus.fire('element.changed', event);
     }
 
 }
