@@ -26,7 +26,7 @@ export class Canvas extends BaseCanvas {
     getElements () {
         const elements = this._elementRegistry._elements;
         return Object.values(elements).filter((object) => {
-            return object.id !== '__implicitroot';
+            return object.element.id !== '__implicitroot';
         });
     }
 
