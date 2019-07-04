@@ -34,6 +34,7 @@ export class EditProvider {
             },
             text: element.text,
             options: {
+                forceUpdate: true,
                 resizable: true,
                 centerVertically: true,
                 autoActivate: true,
