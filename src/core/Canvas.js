@@ -24,7 +24,10 @@ export class Canvas extends BaseCanvas {
     }
 
     getElements () {
-        return this._elementRegistry._elements;
+        const elements = this._elementRegistry._elements;
+        return Object.values(elements).filter((object) => {
+            return object.id !== '__implicitroot';
+        });
     }
 
     createDefs () {
