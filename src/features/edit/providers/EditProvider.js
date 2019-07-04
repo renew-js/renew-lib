@@ -53,4 +53,13 @@ export class EditProvider {
         });
     }
 
+    focus () {
+        const editingContent = this.directEditing._textbox.parent.firstChild;
+        if (!editingContent.innerHTML) {
+            editingContent.innerHTML = '<br>';
+        }
+        editingContent.focus();
+        editingContent.focus();
+    }
+
 }
