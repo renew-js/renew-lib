@@ -6,6 +6,12 @@ import {
 import {
     SimulationStepBehavior,
 } from './behaviors/SimulationStepBehavior';
+import {
+    SimulationStopBehavior,
+} from './behaviors/SimulationStopBehavior';
+import {
+    SimulationTerminateBehavior,
+} from './behaviors/SimulationTerminateBehavior';
 import { ExternalSimulation } from './providers/ExternalSimulation';
 
 export default {
@@ -18,6 +24,8 @@ export default {
     __behaviors__: [
         [ 'simulation.start', SimulationStartBehavior ],
         [ 'simulation.step', SimulationStepBehavior ],
+        [ 'simulation.stop', SimulationStopBehavior ],
+        [ 'simulation.terminate', SimulationTerminateBehavior ],
     ],
     __commands__: [],
     __rules__: [],
