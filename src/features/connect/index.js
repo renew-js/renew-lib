@@ -4,8 +4,8 @@ import FactoryModule from '../factory';
 
 import { ConnectProvider } from './providers/ConnectProvider';
 import { ConnectPreviewBehavior } from './behaviors/ConnectPreviewBehavior';
-import { ConnectStartRule } from './rules/ConnectStartRule';
-import { ConnectEndRule } from './rules/ConnectEndRule';
+import { ConnectSourceRule } from './rules/ConnectSourceRule';
+import { ConnectTargetRule } from './rules/ConnectTargetRule';
 
 
 export default {
@@ -22,8 +22,8 @@ export default {
     ],
     __commands__: [],
     __rules__: [
-        [ 'connect.start', ConnectStartRule ],
-        [ 'connect.end', ConnectEndRule ],
+        [ 'connect.source', ConnectSourceRule ],
+        [ 'connect.target', ConnectTargetRule ],
     ],
     __tools__: [],
 

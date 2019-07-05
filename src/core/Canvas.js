@@ -11,8 +11,28 @@ export class Canvas extends BaseCanvas {
 
     constructor (config, eventBus, graphicsFactory, elementRegistry) {
         super(config, eventBus, graphicsFactory, elementRegistry);
+        this.eventBus = eventBus;
         this._uiGroup = this.createUiGroup();
         this._defs = this.createDefs();
+    }
+
+    getElementRegistry () {
+        return this._elementRegistry;
+    }
+
+    getGraphicsFactory () {
+        return this._graphicsFactory;
+    }
+
+    getChildren () {
+        const elements = this._elementRegistry._elements;
+        return Object.values(elements).filter((object) => {
+            return object.element.id !== '__implicitroot';
+        });
+    }
+
+    getElements () {
+        return this.getChildren().map((object) => object.element);
     }
 
     createDefs () {
@@ -32,8 +52,12 @@ export class Canvas extends BaseCanvas {
         return +this._viewport.getCTM().a.toFixed(5);
     }
 
-    addShape (shape, parent, parentIndex) {
-        return super.addShape(shape, parent, parentIndex);
+    addShape (element, parent, parentIndex) {
+        const shape = super.addShape(element, parent, parentIndex);
+        if (element.type === 'shape') {
+            this.eventBus.fire('resize.element', { element });
+        }
+        return shape;
     }
 
     addUiElement (type, element) {

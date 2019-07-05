@@ -34,6 +34,7 @@ export class EditProvider {
             },
             text: element.text,
             options: {
+                forceUpdate: true,
                 resizable: true,
                 centerVertically: true,
                 autoActivate: true,
@@ -50,6 +51,15 @@ export class EditProvider {
             old: old,
             bounds: bounds,
         });
+    }
+
+    focus () {
+        const editingContent = this.directEditing._textbox.parent.firstChild;
+        if (!editingContent.innerHTML) {
+            editingContent.innerHTML = '<br>';
+        }
+        editingContent.focus();
+        editingContent.focus();
     }
 
 }

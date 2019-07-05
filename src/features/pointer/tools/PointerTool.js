@@ -4,9 +4,10 @@ import { CardinalOrientation } from '../../orientation/CardinalOrientation';
 
 export class PointerTool extends Tool {
 
-    constructor (eventBus, toolbox, selection) {
+    constructor (eventBus, rulePolicy, toolbox, selection) {
         super();
         this.eventBus = eventBus;
+        this.rulePolicy = rulePolicy;
         this.toolbox = toolbox;
         this.selection = selection;
 
@@ -36,8 +37,11 @@ export class PointerTool extends Tool {
                 if (event.rootStart) {
                     this.isSelecting = true;
                 } else {
-                    this.eventBus.fire('move.preview.init', event);
-                    this.isMoving = true;
+                    const context = { elements: event.elements };
+                    if (this.rulePolicy.allowed('move.elements', context)) {
+                        this.eventBus.fire('move.preview.init', event);
+                        this.isMoving = true;
+                    }
                 }
             }
 

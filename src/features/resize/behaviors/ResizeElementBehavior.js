@@ -27,6 +27,11 @@ export class ResizeElementBehavior extends Behavior {
 
     after (event) {
         const element = event.element || event.elements[0];
+
+        if (!element.metaObject) {
+            return;
+        }
+
         const shape = element.metaObject;
 
         const bounds = element;

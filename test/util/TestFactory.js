@@ -1,5 +1,5 @@
 import {
-    ElementFactory
+    ElementFactory,
 } from '../../src/features/factory/providers/ElementFactory';
 
 
