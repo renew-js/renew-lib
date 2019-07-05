@@ -33,6 +33,17 @@ describe('modules/edit - Edit', () => {
 
     describe('Provider', () => {
 
+        it('should should not be empty', function () {
+            const textBox = edit.directEditing._textbox;
+            const editingContent = textBox.parent.firstChild;
+
+            expect(editingContent.innerHTML).toEqual('');
+
+            edit.focus();
+
+            expect(editingContent.innerHTML).not.toEqual('');
+        });
+
     });
 
     describe('Behavior', () => {
@@ -61,6 +72,20 @@ describe('modules/edit - Edit', () => {
             expect(span.getAttribute('x')).toBe('8');
             expect(span.getAttribute('y')).toMatch('16');
         });
+    });
+
+    describe('Tool', () => {
+        let toolbox;
+
+        beforeEach(() => {
+            toolbox = diagram.get('toolbox');
+            toolbox.activate('edit', { label });
+        });
+
+        it('should be activated', function () {
+            expect(edit.isActive()).toBe(true);
+        });
+
     });
 
 });
