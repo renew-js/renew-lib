@@ -3,26 +3,17 @@ import { Command } from '../../../core/command/Command';
 
 export class MoveElementsCommand extends Command {
 
-    constructor (eventBus, graphicsFactory, elementRegistry, layouter) {
+    constructor (eventBus, canvas, layouter) {
         super();
         this.eventBus = eventBus;
-        this.graphicsFactory = graphicsFactory;
-        this.elementRegistery = elementRegistry;
+        this.graphicsFactory = canvas.getGraphicsFactory();
+        this.elementRegistery = canvas.getElementRegistry();
         this.layouter = layouter;
 
         this.moves = [];
     }
 
     execute (context) {
-        if (this.moves.length === 0) {
-            context.elements.forEach((element) => {
-                const dx = context.dx || (context.x - element.x);
-                const dy = context.dy || (context.y - element.y);
-
-                this.moves.push({ element, dx, dy });
-            });
-        }
-
         this.moves.forEach((move) => {
             if (this._isShape(move.element)) {
                 this._moveShape(move.element, move.dx, move.dy);
