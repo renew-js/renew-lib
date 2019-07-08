@@ -3,3 +3,6 @@ plugins:
 env:
   jasmine: true
 extends: 'plugin:jasmine/recommended'
+rules:
+  camelcase: off
+  id-match: [ 'error', '^[A-Za-z]+([_]\d+)?$' ]

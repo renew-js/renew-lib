@@ -3,9 +3,11 @@ import { ResizeElementCommand } from './commands/ResizeElementCommand';
 import { ResizeProvider } from './providers/ResizeProvider';
 import { ResizeElementRule } from './rules/ResizeElementRule';
 
+import LayouterModule from '../layouter';
 
 export default {
     __depends__: [
+        LayouterModule,
     ],
     __init__: [
         'resize',

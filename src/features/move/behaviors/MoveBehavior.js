@@ -9,11 +9,13 @@ export class MoveBehavior extends Behavior {
     }
 
     by (event) {
-        this.move.elements(event.elements).by(event.dx, event.dy);
+        const elements = event.elements || [ event.element ];
+        this.move.elements(elements).by(event.dx, event.dy);
     }
 
     to (event) {
-        this.move.elements(event.elements).to(event.x, event.y);
+        const elements = event.elements || [ event.element ];
+        this.move.elements(elements).to(event.x, event.y);
     }
 
 }
