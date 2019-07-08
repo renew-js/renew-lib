@@ -20,8 +20,8 @@ export class EditProvider {
             box: {
                 x: element.x,
                 y: element.y,
-                width: element.width - 4,
-                height: element.height + 4,
+                width: element.width,
+                height: element.height,
             },
             bounds: {
                 x: element.x,

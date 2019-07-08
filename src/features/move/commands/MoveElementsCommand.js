@@ -7,7 +7,7 @@ export class MoveElementsCommand extends Command {
         super();
         this.eventBus = eventBus;
         this.graphicsFactory = canvas.getGraphicsFactory();
-        this.elementRegistery = canvas.getElementRegistry();
+        this.elementRegistry = canvas.getElementRegistry();
         this.layouter = layouter;
 
         this.moves = [];
@@ -72,7 +72,7 @@ export class MoveElementsCommand extends Command {
     }
 
     _updateGraphics (element, type) {
-        const gfx = this.elementRegistery.getGraphics(element.id);
+        const gfx = this.elementRegistry.getGraphics(element.id);
         const event = { elements: [ element ], element: element, gfx: gfx };
 
         this.graphicsFactory.update(type || element.type, element, gfx);

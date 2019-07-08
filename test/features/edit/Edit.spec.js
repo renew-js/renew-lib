@@ -69,8 +69,8 @@ describe('modules/edit - Edit', () => {
             const elementGfx = canvas.getChildren()[0].gfx;
             const span = elementGfx.getElementsByTagName('tspan')[0];
 
-            expect(span.getAttribute('x')).toBe('8');
-            expect(span.getAttribute('y')).toMatch('16');
+            expect(span.getAttribute('x')).toBe('10');
+            expect(span.getAttribute('y')).toBe('14.75');
         });
     });
 

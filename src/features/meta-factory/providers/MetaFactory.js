@@ -38,17 +38,17 @@ export class MetaFactory extends ElementFactory {
         switch (this.getType(metaType)) {
             case 'shape':
                 return {
-                    metaObject: metaObject,
+                    metaObject,
                     width: metaObject.defaultDimension.width,
                     height: metaObject.defaultDimension.height,
                 };
             case 'connection':
                 return {
-                    metaObject: metaObject,
+                    metaObject,
                 };
             case 'label':
                 return {
-                    metaObject: metaObject,
+                    metaObject,
                 };
         }
     }

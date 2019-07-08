@@ -1,6 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep';
-
-
 export class Exporter {
 
     constructor (elementRegistry, canvas) {
@@ -17,14 +14,14 @@ export class Exporter {
         }).map((element) => {
             // Serialize object-refs (see diagram-js/lib/model/index.js)
             refs.forEach((ref) => {
-                if (element.hasOwnProperty(ref)) {
+                if (element.hasOwnProperty(ref) && element[ref]) {
                     element[ref + 'Id'] = element[ref].id;
                 }
             });
             return element;
         });
 
-        return { elements: cloneDeep(elements) };
+        return { elements: Object.assign(elements, {}) };
     }
 
     getGraphics () {
