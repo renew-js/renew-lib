@@ -73,6 +73,7 @@
       "require-jsdoc": "off"
     },
     "parserOptions": {
+      "ecmaVersion": 9,
       "parser": "babel-eslint",
       "sourceType": "module"
     }
@@ -83,7 +84,8 @@
         "@babel/preset-env",
         {
           "useBuiltIns": "entry"
-        }
+        },
+        "@babel/plugin-transform-object-assign"
       ]
     ]
   },

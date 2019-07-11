@@ -26,10 +26,7 @@ export class CreateProvider {
     label (text, bbox) {
         return this.factory.createLabel({
             text: text || '',
-            x: bbox.x,
-            y: bbox.y,
-            width: bbox.width,
-            height: bbox.height,
+            ...bbox,
         });
     }
 

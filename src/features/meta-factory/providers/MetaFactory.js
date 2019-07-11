@@ -81,10 +81,16 @@ export class MetaFactory extends ElementFactory {
     }
 
     createLabel (attributes) {
+        const defaultDimension = { };
+        const metaObject = this.defaultAttributes.metaObject;
+        if (metaObject && metaObject.boundingBox) {
+            defaultDimension.width = metaObject.boundingBox.width;
+            defaultDimension.height = metaObject.boundingBox.height;
+        }
         return super.createLabel(Object.assign({
             id: uid('label'),
             type: 'label',
-        }, this.defaultAttributes, attributes));
+        }, defaultDimension, this.defaultAttributes, attributes));
     }
 
 }

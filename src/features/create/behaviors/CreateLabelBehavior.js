@@ -17,12 +17,17 @@ export class CreateLabelBehavior extends Behavior {
         if (event.factory) {
             this.create.factory.set(event.factory);
         }
-        const bbox = { x: event.x, y: event.y, width: 150, height: 50 };
-        if (event.orientation) {
-            bbox.x = event.orientation.x - 75;
-            bbox.y = event.orientation.y - 25;
-        }
+
+        const bbox = { x: event.x || 0, y: event.y || 0 };
         this.label = this.create.label(event.text, bbox);
+
+        console.log(this.label.width, this.label.height);
+
+        if (event.orientation) {
+            this.label.x = event.orientation.x - this.label.width / 2;
+            this.label.y = event.orientation.y - this.label.height / 2;
+        }
+
         if (event.parent) {
             event.parent.labels.push(this.label);
         }
