@@ -1,6 +1,6 @@
 import {
-    SimulationStartBehavior,
-} from './behaviors/SimulationStartBehavior';
+    SimulationInitBehavior,
+} from './behaviors/SimulationInitBehavior';
 import { SimulationManager } from './providers/SimulationManager';
 
 
@@ -10,7 +10,7 @@ export default {
         'simulationManager',
     ],
     __behaviors__: [
-        [ 'simulation.start', 1500, SimulationStartBehavior ],
+        [ 'simulation.init', 1500, SimulationInitBehavior ],
     ],
     __commands__: [],
     __rules__: [],

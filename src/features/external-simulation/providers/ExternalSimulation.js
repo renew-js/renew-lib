@@ -17,7 +17,6 @@ export class ExternalSimulation {
         this.client = new Client();
 
         this.formalisms = [];
-        this.activeFormalism = null;
         this.isInitialized = false;
         this.isContinuous = false;
 
@@ -50,6 +49,11 @@ export class ExternalSimulation {
                 // TODO Use Statusbar for this
                 console.error('External simulation error:', error);
             })
+            .on('simulation.initialized', () => {
+                console.log('Simulation initialized');
+                this.isInitialized = true;
+                this.start();
+            })
             .on('marking.update', (newMarking) => {
                 this.updateMarking(newMarking);
             });
@@ -73,47 +77,50 @@ export class ExternalSimulation {
             return;
         }
 
-        this.activeFormalism = this.simulationManager.activeFormalism;
+        const formalism = this.simulationManager.activeFormalism;
 
         const serializedData = this.getSerializedData(
             netInstance,
-            this.activeFormalism.metaModel.type,
-            this.activeFormalism.metaModel.format
+            formalism.metaModel.type,
+            formalism.metaModel.format
         );
 
         this.client.initSimulation(
-            this.activeFormalism,
+            formalism,
             netInstance,
             serializedData
         );
-        this.start();
     }
 
     start () {
         this.isContinuous = true;
-        this.client.start(this.activeFormalism);
-        window.requestAnimationFrame(this.getMarking.bind(this));
+        this.client.start();
+        this.getMarking();
     }
 
     step () {
-        this.client.step(this.activeFormalism);
+        this.client.step();
         this.getMarking();
     }
 
     stop () {
-        this.client.stop(this.activeFormalism);
+        this.client.stop();
         this.isContinuous = false;
     }
 
     terminate () {
-        this.client.terminate(this.activeFormalism);
+        if (this.isContinuous) {
+            this.client.stop();
+        }
+        this.client.terminate();
         this.isContinuous = false;
+        this.isInitialized = false;
     }
 
     getMarking () {
-        this.client.getMarking(this.activeFormalism);
+        this.client.getMarking();
 
-        if (this.isContinuous) {
+        if (this.isContinuous && this.isInitialized) {
             window.requestAnimationFrame(this.getMarking.bind(this));
         }
     }
