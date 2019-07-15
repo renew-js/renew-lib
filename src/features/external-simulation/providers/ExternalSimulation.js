@@ -52,7 +52,7 @@ export class ExternalSimulation {
             .on('simulation.initialized', () => {
                 console.log('Simulation initialized');
                 this.isInitialized = true;
-                this.start();
+                this.getMarking();
             })
             .on('marking.update', (newMarking) => {
                 this.updateMarking(newMarking);
@@ -90,6 +90,7 @@ export class ExternalSimulation {
             netInstance,
             serializedData
         );
+        this.start();
     }
 
     start () {
