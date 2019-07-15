@@ -127,7 +127,10 @@ export class ExternalSimulation {
     }
 
     updateMarking (newMarking) {
-        newMarking.forEach(this.updateLabel.bind(this));
+        newMarking.elements.forEach(this.updateLabel.bind(this));
+        if (newMarking.isHalted) {
+            this.isContinuous = false;
+        }
     }
 
     getLabel (labelData) {
