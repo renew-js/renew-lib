@@ -131,12 +131,13 @@ export class ExternalSimulation {
     }
 
     getLabel (labelData) {
-        const parent = this.canvas._elementRegistry.get(labelData.parentId);
+        const elementRegistry = this.canvas.getElementRegistry();
+        const parent = elementRegistry.get(labelData.parentId);
 
         for (let i = parent.labels.length - 1; i >= 0; i--) {
             if (parent.labels[i].metaObject
                 && parent.labels[i].metaObject.type === labelData.type) {
-                return parent.labels[i];
+                return elementRegistry.get(parent.labels[i].id);
             }
         }
     }
@@ -153,7 +154,7 @@ export class ExternalSimulation {
     }
 
     createLabel (labelData) {
-        const parent = this.canvas._elementRegistry.get(labelData.parentId);
+        const parent = this.canvas.getElementRegistry().get(labelData.parentId);
         const label = this.metaFactory.createElement(labelData.type);
 
         label.width = 150; // TODO get default dimensions from somewhere
@@ -165,18 +166,15 @@ export class ExternalSimulation {
         label.y -= (label.height - (parent.height || 0)) / 2;
         label.text = labelData.text + '';
 
-        parent.labels.add(label);
+        parent.labels.push(label);
         this.canvas.addShape(label, parent);
     }
 
     updateGraphics (element, type) {
-        const gfx = this.canvas._elementRegistry.getGraphics(element.id);
-        // const event = { elements: [ element ], element: element, gfx: gfx };
+        const gfx = this.canvas.getElementRegistry().getGraphics(element.id);
 
-        this.canvas._graphicsFactory.update(type || element.type, element, gfx);
-        // this.eventBus.fire(element.type + '.changed', event);
-        // this.eventBus.fire('elements.changed', event);
-        // this.eventBus.fire('element.changed', event);
+        this.canvas.getGraphicsFactory()
+            .update(type || element.type, element, gfx);
     }
 
 }
