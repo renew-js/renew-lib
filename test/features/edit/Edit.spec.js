@@ -52,19 +52,23 @@ describe('modules/edit - Edit', () => {
         beforeEach(() => eventBus = diagram.get('eventBus'));
 
         it('should activate direct editing', () => {
-            eventBus.fire('edit.activate', { element: label });
+            const context = { element: label };
+
+            eventBus.fire('edit.activate', context);
 
             expect(edit.isActive()).toBe(true);
 
-            eventBus.fire('edit.complete');
+            eventBus.fire('edit.complete', context);
 
             expect(edit.isActive()).toBe(false);
         });
 
         it('should initialize label at the correct position', () => {
-            eventBus.fire('edit.activate', { element: label });
+            const context = { element: label };
 
-            eventBus.fire('edit.complete');
+            eventBus.fire('edit.activate', context);
+
+            eventBus.fire('edit.complete', context);
 
             const elementGfx = canvas.getChildren()[0].gfx;
             const span = elementGfx.getElementsByTagName('tspan')[0];

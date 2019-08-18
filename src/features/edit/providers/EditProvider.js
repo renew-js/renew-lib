@@ -18,12 +18,6 @@ export class EditProvider {
         this.label = element;
         this.label.options = {
             align: 'center-middle',
-            box: {
-                x: element.x,
-                y: element.y,
-                width: element.width,
-                height: element.height,
-            },
             bounds: {
                 x: element.x,
                 y: element.y,
@@ -45,13 +39,20 @@ export class EditProvider {
         return this.label.options;
     }
 
-    update (element, text, old, bounds) {
-        if (old !== text) {
+    update (context, text, old, bounds) {
+        this.label.options.bounds = bounds;
+
+        const label = context.element;
+
+        if (old !== text
+            || bounds.height !== context.height
+            || bounds.width !== context.width
+        ) {
             this.commandStack.execute('edit.label', {
-                label: this.label,
-                text: text,
-                old: old,
-                bounds: bounds,
+                label,
+                text,
+                old,
+                bounds,
             });
         }
 
