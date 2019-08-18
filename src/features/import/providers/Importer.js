@@ -53,6 +53,7 @@ export class Importer {
 
     createLabel (element) {
         this.createShape(element);
+        this.eventBus.fire('edit.update', { element });
     }
 
 }
