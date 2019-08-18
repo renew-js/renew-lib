@@ -1,6 +1,7 @@
 export class EditProvider {
 
-    constructor (commandStack, directEditing) {
+    constructor (canvas, commandStack, directEditing) {
+        this.canvas = canvas;
         this.commandStack = commandStack;
         this.directEditing = directEditing;
         this.directEditing.registerProvider(this);
@@ -45,12 +46,16 @@ export class EditProvider {
     }
 
     update (element, text, old, bounds) {
-        this.commandStack.execute('edit.label', {
-            label: this.label,
-            text: text,
-            old: old,
-            bounds: bounds,
-        });
+        if (old !== text) {
+            this.commandStack.execute('edit.label', {
+                label: this.label,
+                text: text,
+                old: old,
+                bounds: bounds,
+            });
+        }
+
+        this.canvas.updateGraphics(this.label);
     }
 
     focus () {

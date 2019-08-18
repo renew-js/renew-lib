@@ -6,8 +6,6 @@ export class EditLabelCommand extends Command {
     constructor (eventBus, graphicsFactory, elementRegistry) {
         super();
         this.eventBus = eventBus;
-        this.graphicsFactory = graphicsFactory;
-        this.elementRegistry = elementRegistry;
     }
 
     execute (context) {
@@ -16,17 +14,6 @@ export class EditLabelCommand extends Command {
         context.label.y = context.bounds.y;
         context.label.width = context.bounds.width;
         context.label.height = context.bounds.height;
-    }
-
-    postExecute (context) {
-        const element = context.label;
-        const gfx = this.elementRegistry.getGraphics(element.id);
-        const event = { elements: [ element ], element: element, gfx: gfx };
-
-        this.graphicsFactory.update('shape', element, gfx);
-        this.eventBus.fire('shape.changed', event);
-        this.eventBus.fire('elements.changed', event);
-        this.eventBus.fire('element.changed', event);
     }
 
     revert (context) {
