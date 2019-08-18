@@ -14,15 +14,16 @@ export class EditProvider {
     }
 
     activate (context) {
+        const viewbox = this.canvas.viewbox();
         const element = context.element;
         this.label = element;
         this.label.options = {
             align: 'center-middle',
             bounds: {
-                x: element.x,
-                y: element.y,
-                width: element.width,
-                height: element.height,
+                x: (element.x - viewbox.x) * viewbox.scale,
+                y: (element.y - viewbox.y) * viewbox.scale,
+                width: element.width * viewbox.scale,
+                height: element.height * viewbox.scale,
             },
             style: {
                 border: '2px dashed #ccc',
