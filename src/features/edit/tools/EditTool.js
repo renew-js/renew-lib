@@ -33,7 +33,7 @@ export class EditTool extends Tool {
     }
 
     onMouseUp (event) {
-        this.directEditing.focus();
+        this.edit.focus();
     }
 
 }
