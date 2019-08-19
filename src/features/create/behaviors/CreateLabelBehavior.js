@@ -20,7 +20,7 @@ export class CreateLabelBehavior extends Behavior {
         }
         const bbox = { x: event.x, y: event.y, width: 150, height: 50 };
         if (event.parent && event.parent.waypoints) {
-            const connectionBBox = this.canvas.getConnectionBBox(event.parent);
+            const connectionBBox = this.canvas.getBBox(event.parent);
             event.orientation.x = connectionBBox.x + connectionBBox.width / 2;
             event.orientation.y = connectionBBox.y + connectionBBox.height / 2;
         }

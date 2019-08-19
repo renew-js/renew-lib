@@ -63,8 +63,8 @@ export class Canvas extends BaseCanvas {
         return +this._viewport.getCTM().a.toFixed(5);
     }
 
-    getConnectionBBox (connection) {
-        return this.getGraphics(connection).getBBox();
+    getBBox (element) {
+        return this.getGraphics(element).getBBox();
     }
 
     addShape (element, parent, parentIndex) {
