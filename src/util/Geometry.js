@@ -71,7 +71,7 @@ export class Geometry {
     }
 
     static intersectRect (point, rect) {
-        return self.intersectRectangle(point.x, point.y, rect);
+        return this.intersectRectangle(point.x, point.y, rect);
     }
 
     static intersectRectangle (p0, p1, r) {
