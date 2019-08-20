@@ -63,6 +63,10 @@ export class Canvas extends BaseCanvas {
         return +this._viewport.getCTM().a.toFixed(5);
     }
 
+    getBBox (element) {
+        return this.getGraphics(element).getBBox();
+    }
+
     addShape (element, parent, parentIndex) {
         const shape = super.addShape(element, parent, parentIndex);
         if (element.type === 'shape') {

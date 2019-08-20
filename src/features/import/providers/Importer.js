@@ -52,6 +52,11 @@ export class Importer {
     }
 
     createLabel (element) {
+        if (element.parent && element.parent.waypoints) {
+            const bbox = this.canvas.getBBox(element.parent);
+            element.x += bbox.x + bbox.width / 2;
+            element.y += bbox.y + bbox.height / 2;
+        }
         this.createShape(element);
         this.eventBus.fire('edit.update', { element });
     }
