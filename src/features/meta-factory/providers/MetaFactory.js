@@ -28,7 +28,7 @@ export class MetaFactory extends ElementFactory {
     }
 
     getAttributes (metaType) {
-        const [ model, type ] = metaType.split(':');
+        const model = metaType.split(':')[0];
         const metaObject = JSON.parse(JSON.stringify(Object.assign({},
             this.pluginManager.getElement(metaType),
             this.pluginManager.getStyle(metaType),

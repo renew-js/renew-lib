@@ -1,4 +1,5 @@
 import { event } from 'min-dom';
+import { Geometry } from '../../../util/Geometry';
 
 
 export class Toolbox {
@@ -97,7 +98,9 @@ export class Toolbox {
         if (!this.activeTool) return;
 
         this.start = { };
-        this.start.hover = this.hover;
+        const hover = this.getHover(event);
+        this.start.hover = hover.element;
+        this.start.hoverGfx = hover.gfx;
         const point = this.toLocal({ x: event.clientX, y: event.clientY });
         this.start.x = point.x;
         this.start.y = point.y;
@@ -156,9 +159,7 @@ export class Toolbox {
     createMouseEvent (event = {}) {
         const payload = this.toLocal({ x: event.clientX, y: event.clientY });
         payload.originalEvent = event;
-        payload.hover = this.hover;
         payload.isOnCanvas = this.isOnCanvas(event);
-        payload.hoverGfx = this.hoverGfx;
         payload.context = this.activeContext;
         payload.mouseDown = this.mouseDown;
         payload.root = this.isRootElement(this.hover);
@@ -179,7 +180,66 @@ export class Toolbox {
             payload.rootStart = this.isRootElement(this.start.hover);
         }
 
+        const hover = this.getHover(event);
+        payload.hover = hover.element;
+        payload.hoverGfx = hover.gfx;
+
         return this.eventBus.createEvent(payload);
+    }
+
+    getHover (event) {
+        if (!this.hoverGfx) {
+            return {
+                element: this.hover,
+                gfx: this.hoverGfx,
+            };
+        }
+
+        const textElements = [ ...this.hoverGfx.getElementsByTagName('text') ];
+
+        const viewbox = this.canvas.viewbox();
+        const point = {
+            x: (event.layerX / viewbox.scale) + viewbox.x,
+            y: (event.layerY / viewbox.scale) + viewbox.y,
+        };
+
+        const hoveredText = textElements.filter((element) => {
+            try {
+                const bbox = element.getBBox();
+                const rect = {
+                    x: bbox.x + parseInt(this.hover.x),
+                    y: bbox.y + parseInt(this.hover.y),
+                    width: bbox.width,
+                    height: bbox.height,
+                };
+                return Geometry.intersectRect(point, rect);
+            } catch (e) {
+                return element;
+            }
+        });
+
+        if (this.hover.type === 'label' && hoveredText.length === 0) {
+            const shapesAt = this.canvas.shapesAt(point);
+
+            if (shapesAt.length > 0) {
+                return {
+                    element: shapesAt[0],
+                    gfx: this.canvas.getGraphics(shapesAt[0]),
+                };
+            } else {
+                const rootElement = this.canvas.getRootElement();
+
+                return {
+                    element: rootElement,
+                    gfx: this.canvas.getGraphics(rootElement),
+                };
+            }
+        }
+
+        return {
+            element: this.hover,
+            gfx: this.hoverGfx,
+        };
     }
 
     toLocal (position) {

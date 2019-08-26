@@ -23,9 +23,6 @@ export class CreateLabelBehavior extends Behavior {
             bbox.y = event.orientation.y - 25;
         }
         this.label = this.create.label(event.text, bbox);
-        if (event.parent) {
-            event.parent.labels.push(this.label);
-        }
     }
 
     during (event) {
@@ -33,6 +30,11 @@ export class CreateLabelBehavior extends Behavior {
     }
 
     after (event) {
+        if (event.parent) {
+            event.parent.labels.push(this.label);
+            this.label.parent = event.parent;
+        }
+
         this.toolbox.activate('edit', { label: this.label });
     }
 

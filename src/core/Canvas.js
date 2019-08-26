@@ -34,6 +34,12 @@ export class Canvas extends BaseCanvas {
         });
     }
 
+    shapesAt (point) {
+        return this.objectsAt(point).filter((element) => {
+            return element.type === 'shape';
+        });
+    }
+
     getElementRegistry () {
         return this._elementRegistry;
     }
