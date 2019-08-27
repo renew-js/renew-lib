@@ -1,6 +1,10 @@
-export class CreateProvider {
+import { Provider } from '../../../core/Provider';
+
+
+export class CreateProvider extends Provider {
 
     constructor (factory) {
+        super();
         this.factory = factory;
     }
 

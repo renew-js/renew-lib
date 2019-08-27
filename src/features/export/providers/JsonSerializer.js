@@ -1,4 +1,7 @@
-export class JsonSerializer {
+import { Provider } from '../../../core/Provider';
+
+
+export class JsonSerializer extends Provider {
 
     serialize (data) {
         const payload = JSON.stringify(data, null, 2);

@@ -1,13 +1,13 @@
 import { translate } from 'diagram-js/lib/util/SvgTransformUtil';
 import { append, classes, clone, create, remove } from 'tiny-svg';
 import cloneDeep from 'lodash/cloneDeep';
+import { Provider } from '../../../core/Provider';
 
 
-export class PreviewProvider {
+export class PreviewProvider extends Provider {
 
-    constructor (canvas) {
-        this.canvas = canvas;
-
+    constructor () {
+        super();
         this.visuals = null;
     }
 

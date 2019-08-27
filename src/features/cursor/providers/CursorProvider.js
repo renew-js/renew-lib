@@ -1,8 +1,7 @@
-export class CursorProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor () {
 
-    }
+export class CursorProvider extends Provider {
 
     set (type) {
         document.body.style.cursor = type;

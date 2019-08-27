@@ -124,7 +124,12 @@ export class Injector extends DiDiInjector {
                     console.warn(warning, component);
                 }
 
-                this.get(component);
+                const provider = this.get(component);
+                provider.canvas = this.get('canvas');
+                provider.eventBus = this.get('eventBus');
+                provider.commandStack = this.get('commandStack');
+                provider.rulePolicy = this.get('rulePolicy');
+                provider.toolbox = this.get('toolbox');
             } else {
                 this.invoke(component);
             }

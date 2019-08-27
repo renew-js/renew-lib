@@ -1,7 +1,10 @@
-export class EditProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (commandStack, directEditing) {
-        this.commandStack = commandStack;
+
+export class EditProvider extends Provider {
+
+    constructor (directEditing) {
+        super();
         this.directEditing = directEditing;
         this.directEditing.registerProvider(this);
 

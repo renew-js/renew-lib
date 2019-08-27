@@ -1,8 +1,7 @@
-export class ConnectProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (rulePolicy) {
-        this.rulePolicy = rulePolicy;
-    }
+
+export class ConnectProvider extends Provider {
 
     source (connection, source) {
         if (this.rulePolicy.validate('connect.source')) {

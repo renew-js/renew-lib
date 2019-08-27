@@ -1,8 +1,11 @@
-export class HandleProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (handleFactory, canvas) {
+
+export class HandleProvider extends Provider {
+
+    constructor (handleFactory) {
+        super();
         this.factory = handleFactory;
-        this.canvas = canvas;
     }
 
     create (orientation, attributes) {

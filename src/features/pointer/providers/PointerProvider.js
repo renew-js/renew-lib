@@ -1,7 +1,6 @@
-export class PointerProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor () {
 
-    }
+export class PointerProvider extends Provider {
 
 }

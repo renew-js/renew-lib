@@ -1,8 +1,11 @@
-export class Exporter {
+import { Provider } from '../../../core/Provider';
 
-    constructor (elementRegistry, canvas) {
+
+export class Exporter extends Provider {
+
+    constructor (elementRegistry) {
+        super();
         this.elementRegistry = elementRegistry;
-        this.canvas = canvas;
     }
 
     getExport () {

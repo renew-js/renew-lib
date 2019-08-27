@@ -1,9 +1,11 @@
-export class Importer {
+import { Provider } from '../../../core/Provider';
 
-    constructor (eventBus, elementRegistry, canvas, layouter) {
-        this.eventBus = eventBus;
+
+export class Importer extends Provider {
+
+    constructor (elementRegistry, layouter) {
+        super();
         this.elementRegistry = elementRegistry;
-        this.canvas = canvas;
         this.layouter = layouter;
     }
 

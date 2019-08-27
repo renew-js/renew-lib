@@ -1,8 +1,10 @@
-export class MarkerProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (canvas) {
-        this.canvas = canvas;
 
+export class MarkerProvider extends Provider {
+
+    constructor () {
+        super();
         this.markers = [];
         this.marked = [];
     }

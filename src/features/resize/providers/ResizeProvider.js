@@ -1,6 +1,10 @@
-export class ResizeProvider {
+import { Provider } from '../../../core/Provider';
+
+
+export class ResizeProvider extends Provider {
 
     constructor () {
+        super();
         this.position = { x: 0, y: 0 };
     }
 

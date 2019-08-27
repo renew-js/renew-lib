@@ -1,11 +1,11 @@
 import { event } from 'min-dom';
+import { Provider } from '../../../core/Provider';
 
 
-export class KeyboardEvents {
+export class KeyboardEvents extends Provider {
 
-    constructor (eventBus) {
-        this.eventBus = eventBus;
-
+    constructor () {
+        super();
         this.keyDownListener = null;
         this.keyUpListener = null;
     }

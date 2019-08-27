@@ -1,6 +1,6 @@
-export class MetaSimulation {
+import { Provider } from '../../../core/Provider';
 
-    constructor () {
-    }
+
+export class MetaSimulation extends Provider {
 
 }
