@@ -22,7 +22,11 @@ export class MoveElementsCommand extends Command {
             }
 
             move.element.labels.forEach((label) => {
-                this._moveShape(label, move.dx, move.dy);
+                if (!this.moves.find((move) => {
+                    return move.element === label;
+                })) {
+                    this._moveShape(label, move.dx, move.dy);
+                }
             });
 
             move.element.incoming.forEach(this._layoutConnection.bind(this));
@@ -88,6 +92,14 @@ export class MoveElementsCommand extends Command {
             } else {
                 this._moveShape(move.element, -move.dx, -move.dy);
             }
+
+            move.element.labels.forEach((label) => {
+                if (!this.moves.find((move) => {
+                    return move.element === label;
+                })) {
+                    this._moveShape(label, -move.dx, -move.dy);
+                }
+            });
 
             move.element.incoming.forEach(this._layoutConnection.bind(this));
             move.element.outgoing.forEach(this._layoutConnection.bind(this));
