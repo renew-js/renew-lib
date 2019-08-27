@@ -15,7 +15,6 @@ export class ExternalSimulation extends Provider {
         this.client = new Client();
 
         this.formalisms = [];
-        this.activeFormalism = null;
         this.isInitialized = false;
         this.isContinuous = false;
 
@@ -24,12 +23,12 @@ export class ExternalSimulation extends Provider {
 
     registerHandlers () {
         this.client
-            .on('disconnect', () => {
+            .onDisconnect(() => {
                 this.formalisms.forEach((formalismId) => {
                     this.simulationManager.deleteFormalism(formalismId);
                 });
             })
-            .on('plugin.list', (plugins) => {
+            .onPluginUpdate((plugins) => {
                 this.formalisms = [];
                 plugins.forEach((plugin) => {
                     plugin.provides.forEach((formalism) => {
@@ -44,11 +43,16 @@ export class ExternalSimulation extends Provider {
                     });
                 });
             })
-            .on('simulation.error', (error) => {
+            .onSimulationError((error) => {
                 // TODO Use Statusbar for this
                 console.error('External simulation error:', error);
             })
-            .on('marking.update', (newMarking) => {
+            .onSimulationInit(() => {
+                console.log('Simulation initialized');
+                this.isInitialized = true;
+                this.getMarking();
+            })
+            .onMarkingUpdate((newMarking) => {
                 this.updateMarking(newMarking);
             });
     }
@@ -71,16 +75,16 @@ export class ExternalSimulation extends Provider {
             return;
         }
 
-        this.activeFormalism = this.simulationManager.activeFormalism;
+        const formalism = this.simulationManager.activeFormalism;
 
         const serializedData = this.getSerializedData(
             netInstance,
-            this.activeFormalism.metaModel.type,
-            this.activeFormalism.metaModel.format
+            formalism.metaModel.type,
+            formalism.metaModel.format
         );
 
-        this.client.initSimulation(
-            this.activeFormalism,
+        this.client.sendInit(
+            formalism,
             netInstance,
             serializedData
         );
@@ -89,44 +93,52 @@ export class ExternalSimulation extends Provider {
 
     start () {
         this.isContinuous = true;
-        this.client.start(this.activeFormalism);
-        window.requestAnimationFrame(this.getMarking.bind(this));
+        this.client.sendStart();
+        this.getMarking();
     }
 
     step () {
-        this.client.step(this.activeFormalism);
+        this.client.sendStep();
         this.getMarking();
     }
 
     stop () {
-        this.client.stop(this.activeFormalism);
+        this.client.sendStop();
         this.isContinuous = false;
     }
 
     terminate () {
-        this.client.terminate(this.activeFormalism);
+        if (this.isContinuous) {
+            this.client.sendStop();
+        }
+        this.client.sendTerminate();
         this.isContinuous = false;
+        this.isInitialized = false;
     }
 
     getMarking () {
-        this.client.getMarking(this.activeFormalism);
+        this.client.sendGetMarking();
 
-        if (this.isContinuous) {
+        if (this.isContinuous && this.isInitialized) {
             window.requestAnimationFrame(this.getMarking.bind(this));
         }
     }
 
     updateMarking (newMarking) {
-        newMarking.forEach(this.updateLabel.bind(this));
+        newMarking.elements.forEach(this.updateLabel.bind(this));
+        if (newMarking.isHalted) {
+            this.isContinuous = false;
+        }
     }
 
     getLabel (labelData) {
-        const parent = this.canvas._elementRegistry.get(labelData.parentId);
+        const elementRegistry = this.canvas.getElementRegistry();
+        const parent = elementRegistry.get(labelData.parentId);
 
         for (let i = parent.labels.length - 1; i >= 0; i--) {
             if (parent.labels[i].metaObject
                 && parent.labels[i].metaObject.type === labelData.type) {
-                return parent.labels[i];
+                return elementRegistry.get(parent.labels[i].id);
             }
         }
     }
@@ -143,7 +155,7 @@ export class ExternalSimulation extends Provider {
     }
 
     createLabel (labelData) {
-        const parent = this.canvas._elementRegistry.get(labelData.parentId);
+        const parent = this.canvas.getElementRegistry().get(labelData.parentId);
         const label = this.metaFactory.createElement(labelData.type);
 
         label.width = 150; // TODO get default dimensions from somewhere
@@ -155,18 +167,15 @@ export class ExternalSimulation extends Provider {
         label.y -= (label.height - (parent.height || 0)) / 2;
         label.text = labelData.text + '';
 
-        parent.labels.add(label);
+        parent.labels.push(label);
         this.canvas.addShape(label, parent);
     }
 
     updateGraphics (element, type) {
-        const gfx = this.canvas._elementRegistry.getGraphics(element.id);
-        // const event = { elements: [ element ], element: element, gfx: gfx };
+        const gfx = this.canvas.getElementRegistry().getGraphics(element.id);
 
-        this.canvas._graphicsFactory.update(type || element.type, element, gfx);
-        // this.eventBus.fire(element.type + '.changed', event);
-        // this.eventBus.fire('elements.changed', event);
-        // this.eventBus.fire('element.changed', event);
+        this.canvas.getGraphicsFactory()
+            .update(type || element.type, element, gfx);
     }
 
 }

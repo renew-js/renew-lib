@@ -16,21 +16,16 @@ export class EditProvider extends Provider {
     }
 
     activate (context) {
+        const viewbox = this.canvas.viewbox();
         const element = context.element;
         this.label = element;
         this.label.options = {
             align: 'center-middle',
-            box: {
-                x: element.x,
-                y: element.y,
-                width: element.width,
-                height: element.height,
-            },
             bounds: {
-                x: element.x,
-                y: element.y,
-                width: element.width,
-                height: element.height,
+                x: (element.x - viewbox.x) * viewbox.scale,
+                y: (element.y - viewbox.y) * viewbox.scale,
+                width: element.width * viewbox.scale,
+                height: element.height * viewbox.scale,
             },
             style: {
                 border: '2px dashed #ccc',
@@ -47,13 +42,24 @@ export class EditProvider extends Provider {
         return this.label.options;
     }
 
-    update (element, text, old, bounds) {
-        this.commandStack.execute('edit.label', {
-            label: this.label,
-            text: text,
-            old: old,
-            bounds: bounds,
-        });
+    update (context, text, old, bounds) {
+        this.label.options.bounds = bounds;
+
+        const label = context.element;
+
+        if (old !== text
+            || bounds.height !== context.height
+            || bounds.width !== context.width
+        ) {
+            this.commandStack.execute('edit.label', {
+                label,
+                text,
+                old,
+                bounds,
+            });
+        }
+
+        this.canvas.updateGraphics(this.label);
     }
 
     focus () {

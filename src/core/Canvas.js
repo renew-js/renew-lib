@@ -16,6 +16,17 @@ export class Canvas extends BaseCanvas {
         this._defs = this.createDefs();
     }
 
+    updateGraphics (element) {
+        const gfx = this._elementRegistry.getGraphics(element);
+        const event = { elements: [ element ], element: element, gfx: gfx };
+
+        this._graphicsFactory.update('shape', element, gfx);
+
+        this.eventBus.fire('shape.changed', event);
+        this.eventBus.fire('elements.changed', event);
+        this.eventBus.fire('element.changed', event);
+    }
+
     getElementRegistry () {
         return this._elementRegistry;
     }
@@ -50,6 +61,10 @@ export class Canvas extends BaseCanvas {
 
     getCurrentScale () {
         return +this._viewport.getCTM().a.toFixed(5);
+    }
+
+    getBBox (element) {
+        return this.getGraphics(element).getBBox();
     }
 
     addShape (element, parent, parentIndex) {

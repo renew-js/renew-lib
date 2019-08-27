@@ -34,7 +34,7 @@ export class SimulationManager extends Provider {
         });
     }
 
-    start (formalismId) {
+    initSimulation (formalismId) {
         this.activeFormalism = this.getFormalism(formalismId);
     }
 

@@ -25,7 +25,7 @@ export class EditTool extends Tool {
         if (this.edit.isActive()
             && event.hover
             && event.hover.id !== this.label.id) {
-            this.eventBus.fire('edit.complete');
+            this.eventBus.fire('edit.complete', { element: this.label });
         }
     }
 
@@ -33,7 +33,7 @@ export class EditTool extends Tool {
     }
 
     onMouseUp (event) {
-        this.directEditing.focus();
+        this.edit.focus();
     }
 
 }

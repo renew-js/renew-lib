@@ -1,6 +1,9 @@
 import SimulationManagerModule from '../simulation-manager';
 
 import {
+    SimulationInitBehavior,
+} from './behaviors/SimulationInitBehavior';
+import {
     SimulationStartBehavior,
 } from './behaviors/SimulationStartBehavior';
 import {
@@ -22,6 +25,7 @@ export default {
         'externalSimulation',
     ],
     __behaviors__: [
+        [ 'simulation.init', SimulationInitBehavior ],
         [ 'simulation.start', SimulationStartBehavior ],
         [ 'simulation.step', SimulationStepBehavior ],
         [ 'simulation.stop', SimulationStopBehavior ],
