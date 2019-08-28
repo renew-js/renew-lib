@@ -16,17 +16,6 @@ export class EditLabelCommand extends Command {
         context.label.height = context.bounds.height / viewbox.scale;
     }
 
-    postExecute (context) {
-        const element = context.label;
-        const gfx = this.canvas.getElementRegistry().getGraphics(element.id);
-        const event = { elements: [ element ], element: element, gfx: gfx };
-
-        this.canvas.getGraphicsFactory().update('shape', element, gfx);
-        this.eventBus.fire('shape.changed', event);
-        this.eventBus.fire('elements.changed', event);
-        this.eventBus.fire('element.changed', event);
-    }
-
     revert (context) {
     }
 

@@ -11,7 +11,7 @@ export class MoveElementsCommand extends Command {
         this.layouter = layouter;
 
         this.moves = [];
-    }
+    }https://github.com/renew-js/renew-lib
 
     execute (context) {
         this.moves.forEach((move) => {
@@ -23,7 +23,11 @@ export class MoveElementsCommand extends Command {
 
             if (move.element.labels) {
                 move.element.labels.forEach((label) => {
-                    this._moveShape(label, move.dx, move.dy);
+                    if (!this.moves.find((move) => {
+                        return move.element === label;
+                    })) {
+                        this._moveShape(label, move.dx, move.dy);
+                    }
                 });
             }
 
@@ -96,6 +100,14 @@ export class MoveElementsCommand extends Command {
             } else {
                 this._moveShape(move.element, -move.dx, -move.dy);
             }
+
+            move.element.labels.forEach((label) => {
+                if (!this.moves.find((move) => {
+                    return move.element === label;
+                })) {
+                    this._moveShape(label, -move.dx, -move.dy);
+                }
+            });
 
             move.element.incoming.forEach(this._layoutConnection.bind(this));
             move.element.outgoing.forEach(this._layoutConnection.bind(this));
