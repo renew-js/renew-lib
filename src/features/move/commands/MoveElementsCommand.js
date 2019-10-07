@@ -11,7 +11,7 @@ export class MoveElementsCommand extends Command {
         this.layouter = layouter;
 
         this.moves = [];
-    }https://github.com/renew-js/renew-lib
+    }
 
     execute (context) {
         this.moves.forEach((move) => {
