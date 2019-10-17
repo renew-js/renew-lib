@@ -5,6 +5,7 @@ import {
 } from 'tiny-svg';
 
 import BaseCanvas from 'diagram-js/lib/core/Canvas';
+import { Geometry } from '../util/Geometry';
 
 
 export class Canvas extends BaseCanvas {
@@ -25,6 +26,18 @@ export class Canvas extends BaseCanvas {
         this.eventBus.fire('shape.changed', event);
         this.eventBus.fire('elements.changed', event);
         this.eventBus.fire('element.changed', event);
+    }
+
+    objectsAt (point) {
+        return this.getElements().filter((element) => {
+            return Geometry.intersectRect(point, element);
+        });
+    }
+
+    shapesAt (point) {
+        return this.objectsAt(point).filter((element) => {
+            return element.type === 'shape';
+        });
     }
 
     getElementRegistry () {
