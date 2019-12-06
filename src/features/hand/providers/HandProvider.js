@@ -1,8 +1,7 @@
-export class HandProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (canvas) {
-        this.canvas = canvas;
-    }
+
+export class HandProvider extends Provider {
 
     moveTo (x, y) {
         const bbox = this.canvas.viewbox();

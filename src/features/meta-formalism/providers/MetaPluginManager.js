@@ -1,8 +1,10 @@
-export class MetaPluginManager {
+import { Provider } from '../../../core/Provider';
 
-    constructor (eventBus) {
-        this.eventBus = eventBus;
 
+export class MetaPluginManager extends Provider {
+
+    constructor () {
+        super();
         this.plugins = { };
     }
 

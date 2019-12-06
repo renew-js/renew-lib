@@ -1,8 +1,7 @@
-export class MoveProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (commandStack) {
-        this.commandStack = commandStack;
-    }
+
+export class MoveProvider extends Provider {
 
     elements (shapes) {
         if (!shapes) {

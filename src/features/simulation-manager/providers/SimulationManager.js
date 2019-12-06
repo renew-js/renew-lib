@@ -1,7 +1,10 @@
-export class SimulationManager {
+import { Provider } from '../../../core/Provider';
 
-    constructor (eventBus, exporter) {
-        this.eventBus = eventBus;
+
+export class SimulationManager extends Provider {
+
+    constructor (exporter) {
+        super();
         this.exporter = exporter;
         this.formalisms = {};
         this.activeFormalism = null;

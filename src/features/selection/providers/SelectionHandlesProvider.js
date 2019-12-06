@@ -1,7 +1,10 @@
-export class SelectionHandlesProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (eventBus, handle, orientation) {
-        this.eventBus = eventBus;
+
+export class SelectionHandlesProvider extends Provider {
+
+    constructor (handle, orientation) {
+        super();
         this.handle = handle;
         this.orientation = orientation;
         this.handles = [];

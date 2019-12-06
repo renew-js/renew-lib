@@ -1,8 +1,7 @@
-export class RemoveProvider {
+import { Provider } from '../../../core/Provider';
 
-    constructor (commandStack) {
-        this.commandStack = commandStack;
-    }
+
+export class RemoveProvider extends Provider {
 
     elements (elements) {
         this.commandStack.execute('remove.elements', { elements: elements });

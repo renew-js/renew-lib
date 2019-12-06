@@ -1,19 +1,17 @@
 import Client from 'renew-simulator-client';
+import { Provider } from '../../../core/Provider';
 
-export class ExternalSimulation {
+export class ExternalSimulation extends Provider {
 
     constructor (
-        eventBus,
         simulationManager,
         metaPluginManager,
-        metaFactory,
-        canvas
+        metaFactory
     ) {
-        this.eventBus = eventBus;
+        super();
         this.simulationManager = simulationManager;
         this.metaPluginManager = metaPluginManager;
         this.metaFactory = metaFactory;
-        this.canvas = canvas;
         this.client = new Client();
 
         this.formalisms = [];
