@@ -3,16 +3,21 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class CreateShapeBehavior extends Behavior {
 
-    constructor (eventBus, commandStack, create) {
+    constructor (eventBus, commandStack, create, canvas) {
         super();
         this.eventBus = eventBus;
         this.commandStack = commandStack;
         this.create = create;
+        this.canvas = canvas;
 
         this.shape = null;
     }
 
     before (event) {
+
+        console.log(this.canvas.getChildren());
+
+
         this.shape = this.create.shape(event.x, event.y);
         this.shape.width = event.width || this.shape.width;
         this.shape.height = event.height || this.shape.height;
