@@ -5,8 +5,14 @@ import DrawModule from './draw';
 import LayouterModule from './features/layouter';
 import SelectionModule from './features/selection';
 import ZoomModule from './features/zoom';
+import FillColorModule from './features/fillcolor';
 import ExportModule from './features/export';
 import ImportModule from './features/import';
+import RemoveModule from './features/remove';
+import PreviewModule from './features/preview';
+import ResizeModule from './features/resize';
+
+
 
 import { Injector } from './core/Injector';
 
@@ -29,6 +35,10 @@ export default class Viewer extends Diagram {
             SelectionModule,
             ExportModule,
             ImportModule,
+            FillColorModule,
+            ResizeModule,
+            RemoveModule,
+            PreviewModule
         ].concat(options.modules));
 
         super(options, injector);
