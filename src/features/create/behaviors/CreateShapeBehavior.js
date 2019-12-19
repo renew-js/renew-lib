@@ -3,12 +3,11 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class CreateShapeBehavior extends Behavior {
 
-    constructor (eventBus, commandStack, create, canvas) {
+    constructor (eventBus, commandStack, create) {
         super();
         this.eventBus = eventBus;
         this.commandStack = commandStack;
         this.create = create;
-        this.canvas = canvas;
 
         this.shape = null;
     }
