@@ -14,10 +14,6 @@ export class CreateShapeBehavior extends Behavior {
     }
 
     before (event) {
-
-        console.log(this.canvas.getChildren());
-
-
         this.shape = this.create.shape(event.x, event.y);
         this.shape.width = event.width || this.shape.width;
         this.shape.height = event.height || this.shape.height;
