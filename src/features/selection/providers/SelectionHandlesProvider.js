@@ -27,7 +27,6 @@ export class SelectionHandlesProvider {
             },
         };
         this.handles = [
-            /*
             this.handle.create(
                 new CardinalOrientation(bbox, 'northwest'),
                 style
@@ -36,17 +35,14 @@ export class SelectionHandlesProvider {
                 new CardinalOrientation(bbox, 'northeast'),
                 style
             ),
-            */
             this.handle.create(
                 new CardinalOrientation(bbox, 'southeast'),
                 style
             ),
-            /*
             this.handle.create(
                 new CardinalOrientation(bbox, 'southwest'),
                 style
             ),
-            */
         ];
     }
 

@@ -26,8 +26,11 @@ export class PointerTool extends Tool {
     }
 
     onMouseDown (event) {
+        event.elements = this.selection.get();
+
         if (event.hover && event.hover.type === 'handle') {
             this.isResizing = event.hover.orientation.direction;
+            this.eventBus.fire('resize.element.init', event);
         } else {
             if (event.hover) {
                 this.eventBus.fire('pointer.select', event);
