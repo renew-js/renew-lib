@@ -2,6 +2,7 @@ export class ResizeProvider {
 
     constructor () {
         this.element = null;
+        // TODO: Support multiple objects
         this.start = { x: 0, y: 0, width: 1, height: 1 };
     }
 
@@ -13,7 +14,7 @@ export class ResizeProvider {
         this.start.height = element.height;
     }
 
-    updateDimension (x, y, width, height) {
+    dimension (x, y, width, height) {
         if (this.element) {
             this.element.x = x;
             this.element.y = y;

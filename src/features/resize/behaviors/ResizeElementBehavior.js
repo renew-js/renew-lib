@@ -24,7 +24,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x,
             y: event.sy - this.resize.start.y,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             Math.min(
                 event.x - error.x,
                 this.resize.start.x + this.resize.start.width
@@ -43,7 +43,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x - this.resize.start.width,
             y: event.sy - this.resize.start.y,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             this.resize.start.x,
             Math.min(
                 event.y - error.y,
@@ -59,7 +59,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x,
             y: event.sy - this.resize.start.y - this.resize.start.height,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             Math.min(
                 event.x - error.x,
                 this.resize.start.x + this.resize.start.width
@@ -75,7 +75,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x - this.resize.start.width,
             y: event.sy - this.resize.start.y - this.resize.start.height,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             this.resize.start.x,
             this.resize.start.y,
             Math.max(1, event.x - error.x - this.resize.start.x),
@@ -88,7 +88,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x - this.resize.start.width / 2,
             y: event.sy - this.resize.start.y,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             this.resize.start.x,
             Math.min(
                 event.y - error.y,
@@ -104,7 +104,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x - this.resize.start.width,
             y: event.sy - this.resize.start.y - this.resize.start.height / 2,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             this.resize.start.x,
             this.resize.start.y,
             Math.max(1, event.x - error.x - this.resize.start.x),
@@ -117,7 +117,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x - this.resize.start.width / 2,
             y: event.sy - this.resize.start.y - this.resize.start.height,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             this.resize.start.x,
             this.resize.start.y,
             this.resize.start.width,
@@ -130,7 +130,7 @@ export class ResizeElementBehavior extends Behavior {
             x: event.sx - this.resize.start.x,
             y: event.sy - this.resize.start.y - this.resize.start.height / 2,
         };
-        this.resize.updateDimension(
+        this.resize.dimension(
             Math.min(
                 event.x - error.x,
                 this.resize.start.x + this.resize.start.width
