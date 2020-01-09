@@ -83,6 +83,64 @@ export class ResizeElementBehavior extends Behavior {
         );
     }
 
+    n (event) {
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width / 2,
+            y: event.sy - this.resize.start.y,
+        };
+        this.resize.updateDimension(
+            this.resize.start.x,
+            Math.min(
+                event.y - error.y,
+                this.resize.start.y + this.resize.start.height
+            ),
+            this.resize.start.width,
+            Math.max(1, event.sy - event.y + this.resize.start.height)
+        );
+    }
+
+    e (event) {
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width,
+            y: event.sy - this.resize.start.y - this.resize.start.height / 2,
+        };
+        this.resize.updateDimension(
+            this.resize.start.x,
+            this.resize.start.y,
+            Math.max(1, event.x - error.x - this.resize.start.x),
+            this.resize.start.height
+        );
+    }
+
+    s (event) {
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width / 2,
+            y: event.sy - this.resize.start.y - this.resize.start.height,
+        };
+        this.resize.updateDimension(
+            this.resize.start.x,
+            this.resize.start.y,
+            this.resize.start.width,
+            Math.max(1, event.y - error.y - this.resize.start.y)
+        );
+    }
+
+    w (event) {
+        const error = {
+            x: event.sx - this.resize.start.x,
+            y: event.sy - this.resize.start.y - this.resize.start.height / 2,
+        };
+        this.resize.updateDimension(
+            Math.min(
+                event.x - error.x,
+                this.resize.start.x + this.resize.start.width
+            ),
+            this.resize.start.y,
+            Math.max(1, event.sx - event.x + this.resize.start.width),
+            this.resize.start.height
+        );
+    }
+
     after (event) {
         if (!this.resize.element || !this.resize.element.metaObject) {
             return;

@@ -32,4 +32,12 @@ export class CursorSetBehavior extends Behavior {
         this.cursor.set('nesw-resize');
     }
 
+    ns (event) {
+        this.cursor.set('ns-resize');
+    }
+
+    ew (event) {
+        this.cursor.set('ew-resize');
+    }
+
 }
