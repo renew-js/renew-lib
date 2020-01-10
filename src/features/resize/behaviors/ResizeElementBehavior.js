@@ -13,29 +13,142 @@ export class ResizeElementBehavior extends Behavior {
     }
 
     init (event) {
-        this.resize.init(event.element.x, event.element.y);
+        this.resize.init(event.element || event.elements[0]);
+    }
+
+    before (event) {
+    }
+
+    nw (event) {
+        const error = {
+            x: event.sx - this.resize.start.x,
+            y: event.sy - this.resize.start.y,
+        };
+        this.resize.dimension(
+            Math.min(
+                event.x - error.x,
+                this.resize.start.x + this.resize.start.width
+            ),
+            Math.min(
+                event.y - error.y,
+                this.resize.start.y + this.resize.start.height
+            ),
+            Math.max(1, event.sx - event.x + this.resize.start.width),
+            Math.max(1, event.sy - event.y + this.resize.start.height)
+        );
+    }
+
+    ne (event) {
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width,
+            y: event.sy - this.resize.start.y,
+        };
+        this.resize.dimension(
+            this.resize.start.x,
+            Math.min(
+                event.y - error.y,
+                this.resize.start.y + this.resize.start.height
+            ),
+            Math.max(1, event.x - error.x - this.resize.start.x),
+            Math.max(1, event.sy - event.y + this.resize.start.height)
+        );
+    }
+
+    sw (event) {
+        const error = {
+            x: event.sx - this.resize.start.x,
+            y: event.sy - this.resize.start.y - this.resize.start.height,
+        };
+        this.resize.dimension(
+            Math.min(
+                event.x - error.x,
+                this.resize.start.x + this.resize.start.width
+            ),
+            this.resize.start.y,
+            Math.max(1, event.sx - event.x + this.resize.start.width),
+            Math.max(1, event.y - error.y - this.resize.start.y)
+        );
     }
 
     se (event) {
-        const element = event.element || event.elements[0];
-        this.resize.element(element).dimension(
-            element.x,
-            element.y,
-            Math.max(element.minWidth || 0, event.x - element.x),
-            Math.max(element.minHeight || 0, event.y - element.y)
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width,
+            y: event.sy - this.resize.start.y - this.resize.start.height,
+        };
+        this.resize.dimension(
+            this.resize.start.x,
+            this.resize.start.y,
+            Math.max(1, event.x - error.x - this.resize.start.x),
+            Math.max(1, event.y - error.y - this.resize.start.y)
+        );
+    }
+
+    n (event) {
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width / 2,
+            y: event.sy - this.resize.start.y,
+        };
+        this.resize.dimension(
+            this.resize.start.x,
+            Math.min(
+                event.y - error.y,
+                this.resize.start.y + this.resize.start.height
+            ),
+            this.resize.start.width,
+            Math.max(1, event.sy - event.y + this.resize.start.height)
+        );
+    }
+
+    e (event) {
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width,
+            y: event.sy - this.resize.start.y - this.resize.start.height / 2,
+        };
+        this.resize.dimension(
+            this.resize.start.x,
+            this.resize.start.y,
+            Math.max(1, event.x - error.x - this.resize.start.x),
+            this.resize.start.height
+        );
+    }
+
+    s (event) {
+        const error = {
+            x: event.sx - this.resize.start.x - this.resize.start.width / 2,
+            y: event.sy - this.resize.start.y - this.resize.start.height,
+        };
+        this.resize.dimension(
+            this.resize.start.x,
+            this.resize.start.y,
+            this.resize.start.width,
+            Math.max(1, event.y - error.y - this.resize.start.y)
+        );
+    }
+
+    w (event) {
+        const error = {
+            x: event.sx - this.resize.start.x,
+            y: event.sy - this.resize.start.y - this.resize.start.height / 2,
+        };
+        this.resize.dimension(
+            Math.min(
+                event.x - error.x,
+                this.resize.start.x + this.resize.start.width
+            ),
+            this.resize.start.y,
+            Math.max(1, event.sx - event.x + this.resize.start.width),
+            this.resize.start.height
         );
     }
 
     after (event) {
-        const element = event.element || event.elements[0];
-
-        if (!element.metaObject) {
+        if (!this.resize.element || !this.resize.element.metaObject) {
             return;
         }
 
-        const shape = element.metaObject;
+        const shape = this.resize.element.metaObject;
 
-        const bounds = element;
+        const bounds = this.resize.element;
         const proportions = shape.representation.proportions;
 
         if (!proportions) return;
@@ -83,9 +196,9 @@ export class ResizeElementBehavior extends Behavior {
                 shape.representation.attributes.points = points.join(' ');
         }
 
-        this._updateGraphics(element, 'shape');
-        element.incoming.forEach(this._layoutConnection.bind(this));
-        element.outgoing.forEach(this._layoutConnection.bind(this));
+        this._updateGraphics(this.resize.element, 'shape');
+        this.resize.element.incoming.forEach(this._layoutConnection.bind(this));
+        this.resize.element.outgoing.forEach(this._layoutConnection.bind(this));
     }
 
     _updateGraphics (element, type) {

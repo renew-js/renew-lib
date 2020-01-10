@@ -83,6 +83,7 @@ export class Canvas extends BaseCanvas {
     addShape (element, parent, parentIndex) {
         const shape = super.addShape(element, parent, parentIndex);
         if (element.type === 'shape') {
+            this.eventBus.fire('resize.element.init', { element });
             this.eventBus.fire('resize.element', { element });
         }
         return shape;
