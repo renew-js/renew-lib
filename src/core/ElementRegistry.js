@@ -11,8 +11,17 @@ export class ElementRegistry extends BaseElementRegistry {
      * TODO: Remove hotfix for handles
      * @return {*}[]
      */
+
     getAll () {
-        return super.getAll().filter((element) => element.type !== 'handle');
+        return super.getAll();
+    }
+
+    add (element, gfx, secondaryGfx) {
+        super.add(element, gfx, secondaryGfx);
+    }
+
+    remove (element) {
+        super.remove(element);
     }
 
 }
