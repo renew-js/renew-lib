@@ -6,8 +6,6 @@ import LayouterModule from './features/layouter';
 import SelectionModule from './features/selection';
 import ZoomModule from './features/zoom';
 import FillColorModule from './features/fillcolor';
-import LineWidthModule from './features/linewidth';
-import PenColorModule from './features/pencolor';
 import ExportModule from './features/export';
 import ImportModule from './features/import';
 import RemoveModule from './features/remove';
@@ -35,8 +33,6 @@ export default class Viewer extends Diagram {
             ExportModule,
             ImportModule,
             FillColorModule,
-            LineWidthModule,
-            PenColorModule,
             ResizeModule,
             RemoveModule,
             PreviewModule,
