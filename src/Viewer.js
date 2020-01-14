@@ -39,7 +39,7 @@ export default class Viewer extends Diagram {
             PenColorModule,
             ResizeModule,
             RemoveModule,
-            PreviewModule
+            PreviewModule,
         ].concat(options.modules));
 
         super(options, injector);
