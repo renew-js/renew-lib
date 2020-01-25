@@ -13,7 +13,6 @@ export class FillColorCommand extends Command {
         this.elementRegistry = elementRegistry;
         this.commandStack = commandStack;
         this.state = { removed: [], unbind: [] };
-        this.newState = { added: [], unbind: [] };
         this.selectedShapes;
     }
 
@@ -43,7 +42,6 @@ export class FillColorCommand extends Command {
                 const newShape = element;
                 this.state.removed.push( [ shape, oldColor ] );
                 this.canvas.removeShape(shape);
-                this.newState.added.push( [ newShape, color ] );
                 this.canvas.addShape(newShape);
                 newShapes.push(newShape);
             }
@@ -53,20 +51,20 @@ export class FillColorCommand extends Command {
 
 
     revert (context) {
-        this.newState.added.forEach((element) => {
+        this.state.removed.forEach((element) => {
             this.canvas.removeShape(element[0]);
         });
         this.state.removed.forEach((obj) => {
+
             const element = obj[0];
             const strHelper1 = element.metaObject.
                 representation.attributes.style;
             const strHelper2 = strHelper1.split(';', 1);
-            const newStyle = strHelper1.replace(strHelper2, 'fill:'+obj[1]);
+            const newStyle = strHelper1.replace(strHelper2, 'fill:'+obj[1] );
             element.metaObject.representation.attributes.style = newStyle;
             const newShape = element;
             this.canvas.addShape(newShape);
             this.state.removed.push(obj);
-            this.newState.added.push( [ newShape, strHelper2 ] );
         });
     }
 
