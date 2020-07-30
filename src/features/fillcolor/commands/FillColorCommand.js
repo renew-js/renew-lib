@@ -13,7 +13,7 @@ export class FillColorCommand extends Command {
         this.elementRegistry = elementRegistry;
         this.commandStack = commandStack;
         this.state = { removed: [], unbind: [] };
-        this.color = {colorHistory:[], unbind: []};
+        this.color = { colorHistory: [], unbind: [] };
         this.selectedShapes;
     }
 
@@ -24,19 +24,19 @@ export class FillColorCommand extends Command {
             if (shape.type==='shape') {
                 const element = shape;
                 const oldColor = element.metaObject.
-                representation.attributes.fill;
-            this.state.removed.push([shape,oldColor]);
+                    representation.attributes.fill;
+                this.state.removed.push([ shape, oldColor ]);
             }
         });
     }
 
     execute (color) {
-        console.log("command.execute()", color);
+        console.log('command.execute()', color);
         this._fillColor(color);
     }
 
     _fillColor (color) {
-        console.log("here");
+        console.log('here');
         const newShapes = [];
         this.state.removed.forEach((shape) => {
             if (shape[0].type==='shape') {
@@ -49,8 +49,8 @@ export class FillColorCommand extends Command {
             }
         });
         this.selection.add(newShapes);
-      
-        
+
+
     }
 
 

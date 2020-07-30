@@ -3,7 +3,7 @@ import { Behavior } from '../../../core/eventBus/Behavior';
 
 export class VisibilityBehavior extends Behavior {
 
-    constructor (visibility, selection,commandStack) {
+    constructor (visibility, selection, commandStack) {
         super();
         this.visibility = visibility;
         this.selection = selection;

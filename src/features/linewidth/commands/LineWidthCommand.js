@@ -12,7 +12,7 @@ export class LineWidthCommand extends Command {
         this.elementRegistry = elementRegistry;
         this.commandStack = commandStack;
         this.state = { removed: [], unbind: [] };
-        this.width = {widthHistory:[], unbind: []};
+        this.width = { widthHistory: [], unbind: [] };
         this.selectedShapes;
     }
 
@@ -22,8 +22,9 @@ export class LineWidthCommand extends Command {
         this.selectedShapes.forEach((shape) => {
             if (shape.type==='shape') {
                 const element = shape;
-                const oldWidth = element.metaObject.representation.attributes['stroke-width'];
-            this.state.removed.push([shape,oldWidth]);
+                const oldWidth = element.metaObject.representation.
+                    attributes['stroke-width'];
+                this.state.removed.push([ shape, oldWidth ]);
             }
         });
     }
@@ -37,7 +38,8 @@ export class LineWidthCommand extends Command {
         this.state.removed.forEach((shape) => {
             if (shape[0].type==='shape') {
                 const element = shape[0];
-                element.metaObject.representation.attributes['stroke-width'] = width;
+                element.metaObject.representation.attributes['stroke-width']
+                    = width;
                 const newShape = element;
                 this.canvas.removeShape(shape[0]);
                 this.canvas.addShape(newShape);
@@ -54,7 +56,8 @@ export class LineWidthCommand extends Command {
         });
         this.state.removed.forEach((obj, index) => {
             const element = obj[0];
-            element.metaObject.representation.attributes['stroke-width'] = obj[1];
+            element.metaObject.representation.attributes['stroke-width']
+                = obj[1];
             const newShape = element;
             this.canvas.addShape(newShape);
             delete this.state.removed[index];

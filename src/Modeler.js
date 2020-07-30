@@ -10,7 +10,7 @@ import Viewer from './Viewer';
 import BaseToolsModule from './features/base-tools';
 import MetaShapeToolsModule from './features/meta-tools';
 
-import FillColorModule from './features/fillcolor'; //Below Anup
+import FillColorModule from './features/fillcolor';
 import FillOpaquenessModule from './features/fill-opaqueness';
 import PenOpaquenessModule from './features/pen-opaqueness';
 import VisibilityModule from './features/visibility';
@@ -45,7 +45,7 @@ export default class Modeler extends Viewer {
                 PenOpaquenessModule,
                 VisibilityModule,
                 TextStyleModule,
-                ],
+            ],
         }, options));
 
         const toolbox = this.get('toolbox');

@@ -13,7 +13,7 @@ export class PenColorCommand extends Command {
         this.elementRegistry = elementRegistry;
         this.commandStack = commandStack;
         this.state = { removed: [], unbind: [] };
-        this.pencolor = {pencolorHistory:[], unbind: []};
+        this.pencolor = { pencolorHistory: [], unbind: [] };
         this.selectedShapes;
     }
 
@@ -23,10 +23,12 @@ export class PenColorCommand extends Command {
         this.selectedShapes.forEach((shape) => {
             if (shape.type==='shape') {
                 const element = shape;
-                const oldPencolor = element.metaObject.representation.attributes['stroke'];
-            this.state.removed.push([shape,oldPencolor]);
+                const oldPencolor =
+                    element.metaObject.representation.attributes['stroke'];
+                this.state.removed.push([ shape, oldPencolor ]);
             }
-        });    }
+        });
+    }
 
     execute (color) {
         this._penColor(color);

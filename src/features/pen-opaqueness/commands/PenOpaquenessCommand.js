@@ -12,7 +12,7 @@ export class PenOpaquenessCommand extends Command {
         this.elementRegistry = elementRegistry;
         this.commandStack = commandStack;
         this.state = { removed: [], unbind: [] };
-        this.penOpaqueness = {penOpaquenessHistory:[], unbind: []};
+        this.penOpaqueness = { penOpaquenessHistory: [], unbind: [] };
         this.selectedShapes;
     }
 
@@ -22,8 +22,9 @@ export class PenOpaquenessCommand extends Command {
         this.selectedShapes.forEach((shape) => {
             if (shape.type==='shape') {
                 const element = shape;
-                const oldAttribute = element.metaObject.representation.attributes['stroke-opacity'];
-            this.state.removed.push([shape,oldAttribute]);
+                const oldAttribute = element.metaObject.representation.
+                    attributes['stroke-opacity'];
+                this.state.removed.push([ shape, oldAttribute ]);
             }
         });
     }
@@ -32,12 +33,13 @@ export class PenOpaquenessCommand extends Command {
         this._changePenOpaqueness(attribute);
     }
 
-    _changePenOpaqueness(attribute) {
+    _changePenOpaqueness (attribute) {
         const newShapes = [];
         this.state.removed.forEach((shape) => {
             if (shape[0].type==='shape') {
                 const element = shape[0];
-                element.metaObject.representation.attributes['stroke-opacity'] = attribute;
+                element.metaObject.representation.attributes['stroke-opacity']
+                    = attribute;
                 const newShape = element;
                 this.canvas.removeShape(shape[0]);
                 this.canvas.addShape(newShape);
@@ -54,7 +56,8 @@ export class PenOpaquenessCommand extends Command {
         });
         this.state.removed.forEach((obj, index) => {
             const element = obj[0];
-            element.metaObject.representation.attributes['stroke-opacity'] = obj[1];
+            element.metaObject.representation.attributes['stroke-opacity']
+                = obj[1];
             const newShape = element;
             this.canvas.addShape(newShape);
             delete this.state.removed[index];

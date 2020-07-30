@@ -13,7 +13,7 @@ export class VisibilityCommand extends Command {
         this.elementRegistry = elementRegistry;
         this.commandStack = commandStack;
         this.state = { removed: [], unbind: [] };
-        this.visibility = {visibilityHistory:[], unbind: []};
+        this.visibility = { visibilityHistory: [], unbind: [] };
         this.selectedShapes;
     }
 
@@ -24,8 +24,8 @@ export class VisibilityCommand extends Command {
             if (shape.type==='shape') {
                 const element = shape;
                 const oldAttribute = element.metaObject.
-                representation.attributes.visibility;
-            this.state.removed.push([shape,oldAttribute]);
+                    representation.attributes.visibility;
+                this.state.removed.push([ shape, oldAttribute ]);
             }
         });
     }
@@ -39,7 +39,8 @@ export class VisibilityCommand extends Command {
         this.state.removed.forEach((shape) => {
             if (shape[0].type==='shape') {
                 const element = shape[0];
-                element.metaObject.representation.attributes.visibility = attribute;
+                element.metaObject.representation.attributes.visibility
+                    = attribute;
                 const newShape = element;
                 this.canvas.removeShape(shape[0]);
                 this.canvas.addShape(newShape);
@@ -47,8 +48,6 @@ export class VisibilityCommand extends Command {
             }
         });
         this.selection.add(newShapes);
-      
-        
     }
 
 

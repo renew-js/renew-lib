@@ -15,29 +15,34 @@ export class Command extends CommandHandler {
      * @return {Boolean}
      */
     canExecute (context) {
+
         return true;
     }
 
     /**
      * @param {Object} context
      */
-    preExecute (context) { }
+    preExecute (context) {
+    }
 
     /**
      * @abstract
      * @param {Object} context
      */
-    execute (context) { }
+    execute (context) {
+    }
 
     /**
      * @abstract
      * @param {Object} context
      */
-    revert (context) { }
+    revert (context) {
+    }
 
     /**
      * @param {Object} context
      */
-    postExecute (context) { }
+    postExecute (context) {
+    }
 
 }
