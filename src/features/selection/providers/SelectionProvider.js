@@ -36,7 +36,11 @@ export class SelectionProvider extends Selection {
     add (elements) {
         elements = Array.isArray(elements) ? elements : [ elements ];
         elements.forEach((element) => {
-            if (this.isSelectable(element)) {
+            if (this.isSelectable(element) && this.get().includes(element)) {
+                this.remove(element);
+                this.updateBBox();
+            }
+            if (this.isSelectable(element) && !this.get().includes(element)) {
                 this.select(element, true);
                 this.updateBBox();
             }
@@ -61,6 +65,9 @@ export class SelectionProvider extends Selection {
 
         if (append) {
             elements.forEach((element) => {
+                if (newSelection.includes(element)) {
+                    this.remove(element);
+                }
                 if (!newSelection.includes(element)
                     && this.isSelectable(element)) {
                     newSelection.push(element);

@@ -29,8 +29,12 @@ export class PointerTool extends Tool {
         if (event.hover && event.hover.type === 'handle') {
             this.isResizing = event.hover.orientation.direction;
         } else {
-            if (event.hover) {
+            if (event.hover && !event.originalEvent.ctrlKey) {
                 this.eventBus.fire('pointer.select', event);
+            }
+
+            if (event.hover && event.originalEvent.ctrlKey) {
+                this.eventBus.fire('pointer.appendselect', event);
             }
             event.elements = this.selection.get();
             if (event.hover) {
