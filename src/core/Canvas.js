@@ -60,6 +60,10 @@ export class Canvas extends BaseCanvas {
         return shape;
     }
 
+    removeShape (shape) {
+        super.removeShape(shape);
+    }
+
     addUiElement (type, element) {
         this._ensureValid(type, element);
 

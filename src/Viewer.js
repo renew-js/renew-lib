@@ -7,7 +7,7 @@ import SelectionModule from './features/selection';
 import ZoomModule from './features/zoom';
 import ExportModule from './features/export';
 import ImportModule from './features/import';
-
+import EditModule from './features/edit';
 import { Injector } from './core/Injector';
 
 
@@ -29,6 +29,7 @@ export default class Viewer extends Diagram {
             SelectionModule,
             ExportModule,
             ImportModule,
+            EditModule,
         ].concat(options.modules));
 
         super(options, injector);

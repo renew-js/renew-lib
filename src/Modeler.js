@@ -10,6 +10,14 @@ import Viewer from './Viewer';
 import BaseToolsModule from './features/base-tools';
 import MetaShapeToolsModule from './features/meta-tools';
 
+import FillColorModule from './features/fillcolor'; //Below Anup
+import FillOpaquenessModule from './features/fill-opaqueness';
+import PenOpaquenessModule from './features/pen-opaqueness';
+import VisibilityModule from './features/visibility';
+import LineWidthModule from './features/linewidth';
+import PenColorModule from './features/pencolor';
+
+import TextStyleModule from './features/textstyle';
 
 export default class Modeler extends Viewer {
 
@@ -29,7 +37,15 @@ export default class Modeler extends Viewer {
                 SnappingModule,
                 PreviewModule,
                 KeyboardEventsModule,
-            ],
+
+                FillColorModule,
+                LineWidthModule,
+                PenColorModule,
+                FillOpaquenessModule,
+                PenOpaquenessModule,
+                VisibilityModule,
+                TextStyleModule,
+                ],
         }, options));
 
         const toolbox = this.get('toolbox');
