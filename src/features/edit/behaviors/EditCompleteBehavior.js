@@ -9,6 +9,7 @@ export class EditCompleteBehavior extends Behavior {
     }
 
     during (event) {
+        console.log('here');
         this.directEditing.complete();
     }
 

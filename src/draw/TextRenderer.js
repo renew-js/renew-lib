@@ -26,7 +26,6 @@ export class TextRenderer extends BaseRenderer {
     drawShape (graphics, element) {
         const options = element.options || { };
         const text = this.textUtils.createText(element.text, options);
-        attr(text, { 'font-family': '\'Noto Sans\', sans-serif' });
         classes(text).add('djs-label');
         append(graphics, text);
         return text;

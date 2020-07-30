@@ -6,7 +6,8 @@ import { EditCompleteBehavior } from './behaviors/EditCompleteBehavior';
 import { EditLabelCommand } from './commands/EditLabelCommand';
 import { EditProvider } from './providers/EditProvider';
 import { EditTool } from './tools/EditTool';
-
+import { DoubleClickTextstyleBehavior } from
+    './behaviors/DoubleClickTextstyleBehavior';
 
 export default {
     __depends__: [
@@ -19,6 +20,7 @@ export default {
         [ 'edit.activate', EditActivateBehavior ],
         [ 'edit.complete', EditCompleteBehavior ],
         [ 'directEditing.complete', ActivateDefaultBehavior ],
+        [ 'edit.dblClickTextstyle', DoubleClickTextstyleBehavior ],
     ],
     __commands__: [
         [ 'edit.label', EditLabelCommand ],

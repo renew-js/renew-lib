@@ -9,6 +9,7 @@ export class EditActivateBehavior extends Behavior {
     }
 
     during (context) {
+        console.log('here');
         this.directEditing.activate(context);
     }
 

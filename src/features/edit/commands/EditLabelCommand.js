@@ -11,6 +11,7 @@ export class EditLabelCommand extends Command {
     }
 
     execute (context) {
+        console.log('here');
         context.label.text = context.text;
         context.label.x = context.bounds.x;
         context.label.y = context.bounds.y;
@@ -19,6 +20,7 @@ export class EditLabelCommand extends Command {
     }
 
     postExecute (context) {
+        console.log('here');
         const element = context.label;
         const gfx = this.elementRegistry.getGraphics(element.id);
         const event = { elements: [ element ], element: element, gfx: gfx };
@@ -30,6 +32,7 @@ export class EditLabelCommand extends Command {
     }
 
     revert (context) {
+        console.log('here');
     }
 
 }

@@ -78,6 +78,7 @@ export class MetaContextPad {
     }
 
     getTextEntry (element, metaText) {
+        console.log('here');
         const plugin = this.pluginManager.getPlugin(element.metaObject.model);
         const toolConfiguration = plugin.getToolConfiguration();
         const mapping = toolConfiguration.contextToolMappings[metaText.type];
