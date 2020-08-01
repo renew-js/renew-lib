@@ -35,7 +35,7 @@ export class FillColorCommand extends Command {
     }
 
     _fillColor (color) {
-       const newShapes = [];
+        const newShapes = [];
         this.state.removed.forEach((shape) => {
             if (shape[0].type==='shape') {
                 const element = shape[0];
