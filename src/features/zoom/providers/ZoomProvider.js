@@ -12,4 +12,10 @@ export class ZoomProvider {
         this.canvas.zoom(this.canvas.getCurrentScale() - gap);
     }
 
+    reset () {
+        this.canvas.zoom(
+            this.canvas.getCurrentScale() / this.canvas.getCurrentScale()
+        );
+    }
+
 }

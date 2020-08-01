@@ -8,10 +8,14 @@
 .rnw-container {
 
   .djs-resizer-visual, .djs-outline, .djs-lasso-overlay {
-    shape-rendering: initial !important;
+    shape-rendering: auto !important;
   }
 
   .djs-label {
+    user-select: none;
+  }
+
+  .djs-origin-label {
     user-select: none;
   }
 

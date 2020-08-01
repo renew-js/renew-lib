@@ -31,13 +31,11 @@ export class FillColorCommand extends Command {
     }
 
     execute (color) {
-        console.log('command.execute()', color);
         this._fillColor(color);
     }
 
     _fillColor (color) {
-        console.log('here');
-        const newShapes = [];
+       const newShapes = [];
         this.state.removed.forEach((shape) => {
             if (shape[0].type==='shape') {
                 const element = shape[0];
@@ -49,8 +47,6 @@ export class FillColorCommand extends Command {
             }
         });
         this.selection.add(newShapes);
-
-
     }
 
 

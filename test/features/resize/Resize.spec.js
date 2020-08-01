@@ -36,14 +36,15 @@ describe('modules/resize - Resize', () => {
     describe('Provider', () => {
 
         it('should init the resize', function () {
-            resize.init(50, 100);
+            resize.init({ x: 50, y: 100 });
 
-            expect(resize.position.x).toBe(50);
-            expect(resize.position.y).toBe(100);
+            expect(resize.start.x).toBe(50);
+            expect(resize.start.y).toBe(100);
         });
 
         it('should resize a shape', () => {
-            resize.element(shape_1).dimension(50, 100, 600, 550);
+            resize.init(shape_1);
+            resize.dimension(50, 100, 600, 550);
 
             expect(shape_1.x).toBe(50);
             expect(shape_1.y).toBe(100);
@@ -63,8 +64,8 @@ describe('modules/resize - Resize', () => {
                 element: { x: 50, y: 100 },
             });
 
-            expect(resize.position.x).toBe(50);
-            expect(resize.position.y).toBe(100);
+            expect(resize.start.x).toBe(50);
+            expect(resize.start.y).toBe(100);
         });
 
         it('should resize a metaObject on create', () => {

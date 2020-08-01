@@ -26,8 +26,11 @@ export class PointerTool extends Tool {
     }
 
     onMouseDown (event) {
+        event.elements = this.selection.get();
+
         if (event.hover && event.hover.type === 'handle') {
             this.isResizing = event.hover.orientation.direction;
+            this.eventBus.fire('resize.element.init', event);
         } else {
             if (event.hover && !event.originalEvent.ctrlKey) {
                 this.eventBus.fire('pointer.select', event);
@@ -73,6 +76,19 @@ export class PointerTool extends Tool {
                         break;
                     case CardinalOrientation.SOUTH_WEST:
                         this.eventBus.fire('resize.element.sw', event, true);
+                        break;
+
+                    case CardinalOrientation.NORTH:
+                        this.eventBus.fire('resize.element.n', event, true);
+                        break;
+                    case CardinalOrientation.EAST:
+                        this.eventBus.fire('resize.element.e', event, true);
+                        break;
+                    case CardinalOrientation.SOUTH:
+                        this.eventBus.fire('resize.element.s', event, true);
+                        break;
+                    case CardinalOrientation.WEST:
+                        this.eventBus.fire('resize.element.w', event, true);
                         break;
                 }
             }
@@ -121,6 +137,19 @@ export class PointerTool extends Tool {
                     break;
                 case CardinalOrientation.SOUTH_WEST:
                     this.eventBus.fire('cursor.set.nesw');
+                    break;
+
+                case CardinalOrientation.NORTH:
+                    this.eventBus.fire('cursor.set.ns');
+                    break;
+                case CardinalOrientation.EAST:
+                    this.eventBus.fire('cursor.set.ew');
+                    break;
+                case CardinalOrientation.SOUTH:
+                    this.eventBus.fire('cursor.set.ns');
+                    break;
+                case CardinalOrientation.WEST:
+                    this.eventBus.fire('cursor.set.ew');
                     break;
             }
         } else {
