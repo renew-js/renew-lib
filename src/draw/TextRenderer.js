@@ -25,6 +25,7 @@ export class TextRenderer extends BaseRenderer {
 
     drawShape (graphics, element) {
         const options = element.options || { };
+        options.box = options.bounds;
         const text = this.textUtils.createText(element.text, options);
         classes(text).add('djs-label');
         append(graphics, text);

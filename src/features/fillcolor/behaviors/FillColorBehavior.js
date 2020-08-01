@@ -11,10 +11,7 @@ export class FillColorBehavior extends Behavior {
     }
 
     during (event, color) {
-        console.log('fillcolor Behavior');
-        // this.fillColor.fillColor(color);
         this.commandStack.execute('fillColor.color', color);
-
     }
 
     after (event) {}

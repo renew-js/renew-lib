@@ -5,6 +5,7 @@ import {
 } from 'tiny-svg';
 
 import BaseCanvas from 'diagram-js/lib/core/Canvas';
+import { Geometry } from '../util/Geometry';
 
 
 export class Canvas extends BaseCanvas {
@@ -14,6 +15,29 @@ export class Canvas extends BaseCanvas {
         this.eventBus = eventBus;
         this._uiGroup = this.createUiGroup();
         this._defs = this.createDefs();
+    }
+
+    updateGraphics (element) {
+        const gfx = this._elementRegistry.getGraphics(element);
+        const event = { elements: [ element ], element: element, gfx: gfx };
+
+        this._graphicsFactory.update('shape', element, gfx);
+
+        this.eventBus.fire('shape.changed', event);
+        this.eventBus.fire('elements.changed', event);
+        this.eventBus.fire('element.changed', event);
+    }
+
+    objectsAt (point) {
+        return this.getElements().filter((element) => {
+            return Geometry.intersectRect(point, element);
+        });
+    }
+
+    shapesAt (point) {
+        return this.objectsAt(point).filter((element) => {
+            return element.type === 'shape';
+        });
     }
 
     getElementRegistry () {
@@ -52,9 +76,14 @@ export class Canvas extends BaseCanvas {
         return +this._viewport.getCTM().a.toFixed(5);
     }
 
+    getBBox (element) {
+        return this.getGraphics(element).getBBox();
+    }
+
     addShape (element, parent, parentIndex) {
         const shape = super.addShape(element, parent, parentIndex);
         if (element.type === 'shape') {
+            this.eventBus.fire('resize.element.init', { element });
             this.eventBus.fire('resize.element', { element });
         }
         return shape;

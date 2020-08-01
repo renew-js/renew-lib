@@ -43,6 +43,16 @@ describe('modules/zoom - Zoom', () => {
             expect(canvas.getCurrentScale()).toBe(0.8);
         });
 
+        it('should reset the zoom factor', function () {
+            zoom.out(0.4);
+
+            expect(canvas.getCurrentScale()).toBe(0.6);
+
+            zoom.reset();
+
+            expect(canvas.getCurrentScale()).toBe(1);
+        });
+
     });
 
     describe('Behavior', () => {
@@ -74,6 +84,17 @@ describe('modules/zoom - Zoom', () => {
             eventBus.fire('zoom.out', { gap: 0.2 });
 
             expect(canvas.getCurrentScale()).toBe(0.8);
+        });
+
+        it('should reset the room factor', function () {
+            zoom.in(0.2);
+
+            expect(canvas.getCurrentScale()).toBe(1.2);
+
+
+            eventBus.fire('zoom.reset');
+
+            expect(canvas.getCurrentScale()).toBe(1);
         });
 
     });

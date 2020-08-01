@@ -21,12 +21,24 @@ export class MoveElementsCommand extends Command {
                 this._moveConnection(move.element, move.dx, move.dy);
             }
 
-            move.element.labels.forEach((label) => {
-                this._moveShape(label, move.dx, move.dy);
-            });
+            if (move.element.labels) {
+                move.element.labels.forEach((label) => {
+                    if (!this.moves.find((move) => {
+                        return move.element === label;
+                    })) {
+                        this._moveShape(label, move.dx, move.dy);
+                    }
+                });
+            }
 
-            move.element.incoming.forEach(this._layoutConnection.bind(this));
-            move.element.outgoing.forEach(this._layoutConnection.bind(this));
+            if (move.element.incoming) {
+                move.element.incoming
+                    .forEach(this._layoutConnection.bind(this));
+            }
+            if (move.element.outgoing) {
+                move.element.outgoing
+                    .forEach(this._layoutConnection.bind(this));
+            }
         });
     }
 
@@ -88,6 +100,14 @@ export class MoveElementsCommand extends Command {
             } else {
                 this._moveShape(move.element, -move.dx, -move.dy);
             }
+
+            move.element.labels.forEach((label) => {
+                if (!this.moves.find((move) => {
+                    return move.element === label;
+                })) {
+                    this._moveShape(label, -move.dx, -move.dy);
+                }
+            });
 
             move.element.incoming.forEach(this._layoutConnection.bind(this));
             move.element.outgoing.forEach(this._layoutConnection.bind(this));
