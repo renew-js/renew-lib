@@ -2,6 +2,7 @@ import MinimapModule from 'diagram-js-minimap';
 import OriginModule from 'diagram-js-origin';
 import ResizeModule from './features/resize';
 import EditModule from './features/edit';
+import FillColorModule from './features/fillcolor';
 import PreviewModule from './features/preview';
 import SnappingModule from './features/snapping';
 import KeyboardEventsModule from './features/keyboard-events';
@@ -23,6 +24,7 @@ export default class Modeler extends Viewer {
 
                 ResizeModule,
                 EditModule,
+                FillColorModule,
 
                 MinimapModule,
                 OriginModule,
