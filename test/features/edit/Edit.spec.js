@@ -74,7 +74,7 @@ describe('modules/edit - Edit', () => {
             const span = elementGfx.getElementsByTagName('tspan')[0];
 
             expect(span.getAttribute('x')).toBe('10');
-            expect(span.getAttribute('y')).toBe('14.75');
+            expect(span.getAttribute('y')).toBe('13.5');
         });
     });
 

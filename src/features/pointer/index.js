@@ -6,6 +6,7 @@ import CursorModule from '../cursor';
 import { SelectBehavior } from './behaviors/SelectBehavior';
 import { PointerProvider } from './providers/PointerProvider';
 import { PointerTool } from './tools/PointerTool';
+import { AppendSelectBehavior } from './behaviors/AppendSelectBehavior';
 
 
 export default {
@@ -20,6 +21,7 @@ export default {
     ],
     __behaviors__: [
         [ 'pointer.select', SelectBehavior ],
+        [ 'pointer.appendselect', AppendSelectBehavior ],
     ],
     __commands__: [
     ],

@@ -13,11 +13,21 @@ export class FillColorCommand extends Command {
         this.elementRegistry = elementRegistry;
         this.commandStack = commandStack;
         this.state = { removed: [], unbind: [] };
+        this.color = { colorHistory: [], unbind: [] };
         this.selectedShapes;
     }
 
     preExecute (context) {
+        this.color.colorHistory.push(context);
         this.selectedShapes = [ ...this.selection.get() ];
+        this.selectedShapes.forEach((shape) => {
+            if (shape.type==='shape') {
+                const element = shape;
+                const oldColor = element.metaObject.
+                    representation.attributes.fill;
+                this.state.removed.push([ shape, oldColor ]);
+            }
+        });
     }
 
     execute (color) {
@@ -26,22 +36,12 @@ export class FillColorCommand extends Command {
 
     _fillColor (color) {
         const newShapes = [];
-        this.selectedShapes.forEach((shape) => {
-            if (shape.type==='shape') {
-                const element = shape;
-                const strHelper1 = element.metaObject.
-                    representation.attributes.style;
-                const strHelper2 = strHelper1.split(';', 1);
-                const asd = strHelper2+';';
-                const oldColor = asd.substring(
-                    asd.lastIndexOf(':') + 1,
-                    asd.lastIndexOf(';')
-                );
-                const newStyle = strHelper1.replace(strHelper2, 'fill:'+color);
-                element.metaObject.representation.attributes.style = newStyle;
+        this.state.removed.forEach((shape) => {
+            if (shape[0].type==='shape') {
+                const element = shape[0];
+                element.metaObject.representation.attributes.fill = color;
                 const newShape = element;
-                this.state.removed.push( [ shape, oldColor ] );
-                this.canvas.removeShape(shape);
+                this.canvas.removeShape(shape[0]);
                 this.canvas.addShape(newShape);
                 newShapes.push(newShape);
             }
@@ -54,16 +54,12 @@ export class FillColorCommand extends Command {
         this.state.removed.forEach((element) => {
             this.canvas.removeShape(element[0]);
         });
-        this.state.removed.forEach((obj) => {
-
+        this.state.removed.forEach((obj, index) => {
             const element = obj[0];
-            const strHelper1 = element.metaObject.
-                representation.attributes.style;
-            const strHelper2 = strHelper1.split(';', 1);
-            const newStyle = strHelper1.replace(strHelper2, 'fill:'+obj[1] );
-            element.metaObject.representation.attributes.style = newStyle;
+            element.metaObject.representation.attributes.fill = obj[1];
             const newShape = element;
             this.canvas.addShape(newShape);
+            delete this.state.removed[index];
             this.state.removed.push(obj);
         });
     }

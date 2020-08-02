@@ -10,8 +10,6 @@ export class FillColorProvider {
         this.commandStack = commandStack;
     }
 
-    fillColor (color) {
-        this.commandStack.execute('fillColor.color', color);
-    }
+    fillColor (color) { }
 
 }
